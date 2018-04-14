@@ -55,7 +55,10 @@ namespace Data
                     {
                         return; ;
                     }
-                    string strConnectionString = string.Format("Server=localhost; database={0}; UID=root; password=1111", databaseName);
+                    string strConnectionString = string.Format("Server=den1.mysql2.gear.host; database={0}; UID=reshit; password=Aa5407582@", databaseName);
+                    /*strConnectionString = "DRIVER={MySQL ODBC 3.51 Driver}; SERVER=sql11.freesqldatabase.com;" +
+                                          "DATABASE=sql11232585; UID=sql11232585;PASSWORD=Please wait; OPTION=3";*/
+
                     connection = new MySqlConnection(strConnectionString);
                     connection.Open();
                 }
