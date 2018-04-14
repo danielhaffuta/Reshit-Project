@@ -14,6 +14,7 @@ namespace ReshitScheduler
 
         protected void Button1_Click(object sender, EventArgs e)
         {
+            //Testing commit
 
             DBConnection dbcConnection = DBConnection.Instance();
             string strQuery = "SELECT teachers.id,first_name,last_name,teacher_types.teacher_type_name " +
