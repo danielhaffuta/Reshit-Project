@@ -28,7 +28,7 @@ We're trying to use the best tools and practices in order to produce a quality e
 
 ## Helpful Links
 
-### [User Manual](../../wiki/User-manual)(empty for now)
+### [User Manual](../../wiki/User-manual)
 
 ### [Team Page](../../wiki/Team)
 
