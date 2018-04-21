@@ -14,14 +14,14 @@ namespace ReshitScheduler
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            //Testing commit
 
             DBConnection dbcConnection = DBConnection.Instance();
+
             string strQuery = "SELECT teachers.id,first_name,last_name,teacher_types.teacher_type_name " +
-                           "FROM teachers " +
-                           "inner join teacher_types on teacher_types.id = teachers.teacher_type_id " +
-                           "where user_name ='" + Username.Text + "' " +
-                           "and password = '" + Password.Text + "'";
+                               "FROM teachers " +
+                               "inner join teacher_types on teacher_types.id = teachers.teacher_type_id " +
+                               "where user_name ='" + Username.Text + "' " +
+                               "and password = '" + Password.Text + "'";
             DataTable dtLoginData = dbcConnection.GetDataTableByQuery(strQuery);
             if (dtLoginData != null && dtLoginData.Rows[0][0] != null)
             {

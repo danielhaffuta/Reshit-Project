@@ -30,7 +30,7 @@ namespace ReshitScheduler
             DataTable dtTables = DBConnection.Instance().GetDataTableByQuery("select table_name from INFORMATION_SCHEMA.tables where table_schema = 'reshit'");
             foreach (DataRow CurrentTable in dtTables.Rows)
             {
-                MenuItem categoryItem = new MenuItem("edit " + CurrentTable["table_name"] + " table", (string)CurrentTable["table_name"]);
+                MenuItem categoryItem = new MenuItem("edit " + CurrentTable["table_name"], (string)CurrentTable["table_name"]);
                 Menu1.Items.Add(categoryItem);
             }
         }
