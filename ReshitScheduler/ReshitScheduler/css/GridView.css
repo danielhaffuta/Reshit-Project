@@ -1,5 +1,5 @@
 .myGridClass {
-  width: 100%;
+  width: 80%;
   /*this will be the color of the odd row*/
   background-color: #fff;
   margin: 5px 0 10px 0;
@@ -11,7 +11,6 @@
 .myGridClass td {
   padding: 2px;
   border: solid 1px #c1c1c1;
-  color: #717171;
 }
 
 /*header elements*/

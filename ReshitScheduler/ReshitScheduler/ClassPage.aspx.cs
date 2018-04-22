@@ -42,22 +42,18 @@ namespace ReshitScheduler
         private void BuildEmptySchedule()
         {
             DataTable dtDays = DBConnection.Instance().GetAllDataFromTable("days");
-            string strGetDisplayHoursQuery = "SELECT display_column_query " +
-                                          "FROM tables_information " +
-                                           "where table_name = 'hours_in_day'";
-            string strDisplayQuery = DBConnection.Instance().GetStringByQuery(strGetDisplayHoursQuery);
-            DataTable dtHours = DBConnection.Instance().GetDataTableByQuery(strDisplayQuery);
+            DataTable dtHours = DBConnection.Instance().GetConstraintDataTable("hours_in_day");
             DataTable dtCourses = DBConnection.Instance().GetConstraintDataTable("courses");
 
-            DataTable dtSchedule = new DataTable("Schedule");
-            dtSchedule.Columns.Add("hour_id", typeof(string));
-            dtSchedule.Columns.Add("days_hours", typeof(string));
+            DataTable dtScheduleTable = new DataTable("Schedule");
+            dtScheduleTable.Columns.Add("hour_id", typeof(string));
+            dtScheduleTable.Columns.Add("days_hours", typeof(string));
             
             foreach (DataRow drCurrentDay in dtDays.Rows)
             {
-                dtSchedule.Columns.Add(drCurrentDay["id"].ToString(), typeof(string));
+                dtScheduleTable.Columns.Add(drCurrentDay["id"].ToString(), typeof(string));
             }
-            DataRow drNewRow = dtSchedule.NewRow();
+            DataRow drNewRow = dtScheduleTable.NewRow();
             drNewRow["days_hours"] = "ימים/שעות";
 
             foreach (DataRow drCurrentDay in dtDays.Rows)
@@ -66,22 +62,22 @@ namespace ReshitScheduler
             }
 
 
-            dtSchedule.Rows.Add(drNewRow);
+            dtScheduleTable.Rows.Add(drNewRow);
             foreach (DataRow drCurrentHour in dtHours.Rows)
             {
-                drNewRow = dtSchedule.NewRow();
+                drNewRow = dtScheduleTable.NewRow();
                 drNewRow["hour_id"] = drCurrentHour["id"].ToString();
                 drNewRow["days_hours"] = drCurrentHour["name"].ToString();
-                dtSchedule.Rows.Add(drNewRow);
+                dtScheduleTable.Rows.Add(drNewRow);
 
             }
             string strClassID = Session["ClassID"].ToString();
-            strClassID = "3";
-            DataTable dtSchedule1 = DBConnection.Instance().GetDataTableByQuery(
+            
+            DataTable dtSchedule = DBConnection.Instance().GetDataTableByQuery(
                 "select * from schedule where class_id = " + strClassID);
-            foreach (DataRow drCurrentHour in dtSchedule1.Rows)
+            foreach (DataRow drCurrentHour in dtSchedule.Rows)
             {
-                dtSchedule.Select("hour_id = " + drCurrentHour["hour_id"].ToString())[0][drCurrentHour["day_id"].ToString()] = 
+                dtScheduleTable.Select("hour_id = " + drCurrentHour["hour_id"].ToString())[0][drCurrentHour["day_id"].ToString()] = 
                     dtCourses.Select("id = "+ drCurrentHour["course_id"].ToString())[0]["name"].ToString();
             }
             GridView gvScheduleView = new GridView()
@@ -89,11 +85,15 @@ namespace ReshitScheduler
                 ShowHeader = false,
                 CssClass = "myGridClass"
             };
-            gvScheduleView.DataSource = dtSchedule;
+            gvScheduleView.DataSource = dtScheduleTable;
             gvScheduleView.DataBind();
+            int nCurrentRow = 0;
             foreach (GridViewRow gvrCurrentRow in gvScheduleView.Rows)
             {
+                if (nCurrentRow % 2 == 0)
+                    gvrCurrentRow.CssClass = "myAltRowClass";
                 gvrCurrentRow.Cells[0].Visible = false;
+                ++nCurrentRow;
             }
 
             this.form1.Controls.Add(gvScheduleView);
