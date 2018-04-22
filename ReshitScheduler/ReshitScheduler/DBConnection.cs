@@ -81,7 +81,7 @@ namespace Data
             this.Connect();
             if (this.IsConnected)
             {
-                string query = "SELECT * FROM " + strTableName;
+                string query = "SELECT * FROM " + strTableName + " order by "+ strTableName+".id";
 
                 MySqlDataAdapter daAdapter = new MySqlDataAdapter(query, connection);
                 daAdapter.MissingSchemaAction = MissingSchemaAction.AddWithKey;
@@ -161,7 +161,8 @@ namespace Data
                         }
                         else
                         { 
-                            strValues += (CurrentField.Controls[0] as TextBox).Text + ",";
+                            strValues += (CurrentField.Controls[0] as TextBox).Text == string.Empty ? "-1," :
+                                (CurrentField.Controls[0] as TextBox).Text + ",";
                         }
                     }
 
@@ -238,13 +239,12 @@ namespace Data
 
         public DataTable GetConstraintDataTable(string strTableName)
         {
-            string strQuery = "SELECT display_column_name " + 
-                              "FROM tables_display_columns " +
+            string strQuery = "SELECT display_column_query " +
+                              "FROM tables_information " +
                                "where table_name = '" + strTableName + "'";
-            string strColumnName = GetStringByQuery(strQuery);
+            string strDisplayQuery = GetStringByQuery(strQuery);
 
-            strQuery = "SELECT id," + strColumnName + " as name FROM " + strTableName;
-            return GetDataTableByQuery(strQuery);
+            return GetDataTableByQuery(strDisplayQuery);
         }
         public DataTable GetConstraintData(string strTableName,int nID)
         {

@@ -14,13 +14,18 @@ namespace ReshitScheduler
     public partial class TableEdit : System.Web.UI.Page
     {
         public static string strTableName;
-        
+        //public static Teacher LoggedInTeacher;
 
         protected void Page_PreInit(object sender, EventArgs e)
         {
+            if (Session["LoggedInTeacher"] == null)
+            {
+                Response.Redirect("LoginForm.aspx");
+                return;
+            }
             if (strTableName == null)
             {
-                strTableName = "teachers";
+                strTableName = "classes";
             }
             this.FillGridAndAddControls();
         }
@@ -30,6 +35,10 @@ namespace ReshitScheduler
         }
         protected void Page_Load(object sender, EventArgs e)
         {
+            if(!IsPostBack)
+            {
+                Session["TableGrid"] = TableGrid;
+            }
 
         }
         protected void Page_LoadComplete(object sender, EventArgs e)
@@ -75,10 +84,7 @@ namespace ReshitScheduler
             if (dtTable.Rows.Count == 0) // the table is empty 
             {
                 dtTable = DBConnection.Instance().GetEmptyDataTable(dtTable);
-                TableGrid.DataSource = dtTable;
-                TableGrid.DataBind();
             }
-
         }
 
 
@@ -136,10 +142,13 @@ namespace ReshitScheduler
             DropDownList ddlData;
 
             string strID = "DDL_" + strKeyTableName + "_" + gvrRow.RowIndex;
-            if (TableGrid.EditIndex == gvrRow.RowIndex)
+            if (TableGrid.EditIndex == gvrRow.RowIndex &&
+                !TableGrid.DataKeyNames.Contains((gvrRow.Cells[nColumnIndex] as DataControlFieldCell).ContainingField.HeaderText))
             {
-                ddlData = GetDropDownList(dtKeyData, strID,( gvrRow.Cells[nColumnIndex].Controls[0]as TextBox).Text);
+                
+                ddlData = GetDropDownList(dtKeyData, strID, (gvrRow.Cells[nColumnIndex].Controls[0] as TextBox).Text);
                 gvrRow.Cells[nColumnIndex].Controls[0].Visible = false;
+                
                 ddlData.Enabled = true ;
             }
             else
@@ -177,13 +186,13 @@ namespace ReshitScheduler
         private void ReplaceForeignKeys()
         {
             DBConnection dbcConnection = DBConnection.Instance();
-            GridView gvTableGrid = Session["TableGrid"] as GridView ?? TableGrid;
-            DataTable dtDataSource = gvTableGrid.DataSource as DataTable;
+            //GridView gvTableGrid = Session["TableGrid"] as GridView ?? TableGrid;
+            DataTable dtDataSource = TableGrid.DataSource as DataTable;
             DataTable dtForeignKeys = dbcConnection.GetForeignKeys(dtDataSource.TableName);
 
             foreach (DataRow drCurrentKey in dtForeignKeys.Rows)
             {
-                int nColumnIndex = FindKeyIndex(drCurrentKey[0].ToString(),gvTableGrid.HeaderRow);
+                int nColumnIndex = FindKeyIndex(drCurrentKey[0].ToString(), TableGrid.HeaderRow);
                 ReplaceForeignKey(drCurrentKey[1].ToString(), nColumnIndex);
             }
         }

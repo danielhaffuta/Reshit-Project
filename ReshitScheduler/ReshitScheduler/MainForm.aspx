@@ -11,6 +11,9 @@
     <div>
         שלום
         <asp:Label ID="TeacherName" runat="server" Text="Label"></asp:Label>
+        <br />
+        הכיתות שלך:
+        
     </div>
     </form>
 </body>

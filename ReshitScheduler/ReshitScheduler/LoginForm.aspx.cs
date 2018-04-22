@@ -34,15 +34,13 @@ namespace ReshitScheduler
                 };
                 ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Hello " + LoggedInTeacher.FirstName + " " + LoggedInTeacher.LastName + "');", true);
 
+                Session["LoggedInTeacher"] = LoggedInTeacher;
                 if (LoggedInTeacher.Type == "admin")
                 {
-                    AdminForm.LoggedInTeacher = LoggedInTeacher;
                     Response.Redirect("AdminForm.aspx");
                 }
                 else
                 {
-                    MainForm.LoggedInTeacher = LoggedInTeacher;
-
                     Response.Redirect("MainForm.aspx");
                 }
             }

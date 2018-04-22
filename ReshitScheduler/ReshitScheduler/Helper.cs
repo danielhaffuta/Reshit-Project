@@ -13,5 +13,6 @@ namespace ReshitScheduler
             ClientScript.RegisterStartupScript(type, "myalert", "alert('" + strMessage + "');", true);
 
         }
+
     }
 }

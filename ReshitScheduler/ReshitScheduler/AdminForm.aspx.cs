@@ -14,17 +14,30 @@ namespace ReshitScheduler
         public static Teacher LoggedInTeacher;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (LoggedInTeacher != null)
+            if (Session["LoggedInTeacher"] != null)
             {
+                LoggedInTeacher = Session["LoggedInTeacher"] as Teacher;
                 AdminName.Text = LoggedInTeacher.FirstName + " " + LoggedInTeacher.LastName;
                 PopulateMenu();
+                Button btnLogout = new Button() { Text = "Logout" };
+                btnLogout.Click += BtnLogout_Click;
+                form1.Controls.Add(btnLogout);
             }
             else
             {
                 Response.Redirect("LoginForm.aspx");
+                return;
             }
 
         }
+
+        private void BtnLogout_Click(object sender, EventArgs e)
+        {
+            Session["LoggedInTeacher"] = null;
+            Response.Redirect("LoginForm.aspx");
+            return;
+        }
+
         private void PopulateMenu()
         {
             DataTable dtTables = DBConnection.Instance().GetDataTableByQuery("select table_name from INFORMATION_SCHEMA.tables where table_schema = 'reshit'");

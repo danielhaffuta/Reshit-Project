@@ -97,6 +97,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AdminForm.aspx" />
+    <Content Include="ClassPage.aspx" />
+    <Content Include="css\GridView.css" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -128,6 +130,13 @@
     </Compile>
     <Compile Include="AdminForm.aspx.designer.cs">
       <DependentUpon>AdminForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ClassPage.aspx.cs">
+      <DependentUpon>ClassPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ClassPage.aspx.designer.cs">
+      <DependentUpon>ClassPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="DBConnection.cs" />
     <Compile Include="Enums\TeacherTypes.cs" />
