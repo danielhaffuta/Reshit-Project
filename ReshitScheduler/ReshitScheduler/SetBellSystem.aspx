@@ -26,7 +26,9 @@
         <asp:TableRow><asp:TableCell><asp:Label ID="ThirdBrake" runat="server" Text="Label">הפסקה</asp:Label></asp:TableCell><asp:TableCell>התחלה:<input id="StartTBR" type="time" /></asp:TableCell><asp:TableCell>סיום:<input id="EndTBR" type="time" /></asp:TableCell></asp:TableRow>
         <asp:TableRow><asp:TableCell><asp:Label ID="Ninth" runat="server" Text="Label">שעה תשיעית</asp:Label></asp:TableCell><asp:TableCell>התחלה:<input id="Start9" type="time" /></asp:TableCell><asp:TableCell>סיום:<input id="End9" type="time" /></asp:TableCell></asp:TableRow>
         <asp:TableRow><asp:TableCell><asp:Label ID="Tenth" runat="server" Text="Label">שעה עשירית</asp:Label></asp:TableCell><asp:TableCell>התחלה:<input id="Start10" type="time" /></asp:TableCell><asp:TableCell>סיום:<input id="End10" type="time" /></asp:TableCell></asp:TableRow>
-        </asp:Table>
+        </asp:Table><br />
+        <asp:Label ID="LabelYear" runat="server" Text="Label">שנה:</asp:Label><asp:DropDownList ID="JoinYear" runat="server"></asp:DropDownList><br />
+        <asp:Button ID="Save" runat="server" Text="שמור" />
     </div>
     </form>
 </body>

@@ -11,6 +11,8 @@
     <form id="form1" runat="server">
     <div>
         <asp:Label ID="EvalLabel" runat="server" Text="Label">הערכה:</asp:Label><textarea id="Evaluation" cols="50" rows="10"></textarea>
+        <asp:Label ID="LabelYear" runat="server" Text="Label">שנה:</asp:Label><asp:DropDownList ID="JoinYear" runat="server"></asp:DropDownList><br />
+        <asp:Button ID="Save" runat="server" Text="שמור" />  
     </div>
     </form>
 </body>
