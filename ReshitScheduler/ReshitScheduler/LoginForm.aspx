@@ -10,23 +10,22 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <div>
+      
             <!--User Name:<input id="Text1" type="text" /><br />
             Password:<input id="Password1" type="password" />-->
-            <div class="login-page">
+           
                 <div class="form">
-
-                    Welcome to Reshit Scheduler.<br />
-                    Please Login<br />
-                    <asp:TextBox ID="Username" runat="server" placeholder="username"></asp:TextBox>
-                    <asp:TextBox ID="Password" runat="server" placeholder="password" TextMode="Password"></asp:TextBox>
+                    <span>
+                    ברוך הבא למערכת שעות - בית הספר ראשית<br />
+                    אנא התחבר<br />
+                    </span>
+                    <asp:TextBox ID="Username" runat="server" placeholder="שם משתמש"></asp:TextBox>
+                    <asp:TextBox ID="Password" runat="server" placeholder="סיסמא" TextMode="Password"></asp:TextBox>
                     
-                    <asp:Button ID="Button1" CssClass="button" runat="server" OnClick="Button1_Click" Text="login" />
+                    <asp:Button ID="Button1" CssClass="button" runat="server" OnClick="Button1_Click" Text="התחבר" />
                     
 
                 </div>
-            </div>
-        </div>
     </form>
 </body>
 </html>
