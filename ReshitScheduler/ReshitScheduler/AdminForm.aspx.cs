@@ -41,16 +41,24 @@ namespace ReshitScheduler
         private void PopulateMenu()
         {
             DataTable dtTables = DBConnection.Instance().GetDataTableByQuery("select table_name from INFORMATION_SCHEMA.tables where table_schema = 'reshit'");
+            string tableName = "";
+            string tableDisplayName="";
+            List<ListItem> items = new List<ListItem>();
+            items.Add(new ListItem(tableDisplayName, tableName));
             foreach (DataRow CurrentTable in dtTables.Rows)
             {
-                MenuItem categoryItem = new MenuItem("edit " + CurrentTable["table_name"], (string)CurrentTable["table_name"]);
-                Menu1.Items.Add(categoryItem);
+                tableName = (string)CurrentTable["table_name"];
+                tableDisplayName = DBConnection.Instance().GetStringByQuery("select hebrew_name from tables_information where table_name ='"+tableName+"'");
+                items.Add(new ListItem(tableDisplayName, tableName));
+               
             }
+            courseEdit.Items.AddRange(items.ToArray());
         }
 
-        protected void Menu1_MenuItemClick(object sender, MenuEventArgs e)
+        protected void itemSelected(object sender, EventArgs e)
         {
-            TableEdit.strTableName = e.Item.Value;
+            DropDownList dropDown = (DropDownList)sender;
+            TableEdit.strTableName = dropDown.SelectedValue;
             Response.Redirect("TableEdit.aspx");
 
         }
