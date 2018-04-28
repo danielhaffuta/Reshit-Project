@@ -104,6 +104,7 @@
     <Content Include="AddTeacherForm.aspx" />
     <Content Include="AdminForm.aspx" />
     <Content Include="ClassPage.aspx" />
+    <Content Include="css\AdminForm.css" />
     <Content Include="css\BellSystem.css" />
     <Content Include="css\Evaluation.css" />
     <Content Include="css\GridView.css" />
