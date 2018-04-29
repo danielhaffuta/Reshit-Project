@@ -23,7 +23,7 @@ namespace ReshitScheduler
                                "where user_name ='" + Username.Text + "' " +
                                "and password = '" + Password.Text + "'";
             DataTable dtLoginData = dbcConnection.GetDataTableByQuery(strQuery);
-            if (dtLoginData != null && dtLoginData.Rows[0][0] != null)
+            if (dtLoginData != null && dtLoginData.Rows.Count>0)
             {
                 Teacher LoggedInTeacher = new Teacher()
                 {

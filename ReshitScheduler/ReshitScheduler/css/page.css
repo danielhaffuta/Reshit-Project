@@ -1,0 +1,12 @@
+﻿body{
+     direction:rtl;
+     height:100%;
+     background-color:white;
+     font-family: "Roboto", sans-serif;
+     -webkit-font-smoothing: antialiased;
+}
+#logo{
+    width:10%;
+    margin-right: 28%;
+    
+}
