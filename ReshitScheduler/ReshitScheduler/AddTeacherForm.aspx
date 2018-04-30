@@ -9,13 +9,13 @@
 <body dir="rtl">
     <form id="form1" runat="server">
     <div>
-        <asp:Label ID="LabelName" runat="server" Text="Label">שם:</asp:Label><input id="TeacherName" type="text" /><br />
-        <asp:Label ID="LabelLastName" runat="server" Text="Label">שם משפחה:</asp:Label><input id="TeacherLastName" type="text" /><br />
+        <asp:Label ID="LabelName" runat="server" Text="Label">שם:</asp:Label><asp:TextBox ID="TeacherName" runat="server"></asp:TextBox><br />
+        <asp:Label ID="LabelLastName" runat="server" Text="Label">שם משפחה:</asp:Label><asp:TextBox ID="TeacherLastName" runat="server"></asp:TextBox><br />
         <asp:Label ID="LabelPos" runat="server" Text="Label">תפקיד:</asp:Label><asp:DropDownList ID="JobDescription" runat="server"></asp:DropDownList><br />
-        <asp:Label ID="LabelUser" runat="server" Text="Label">שם משתמש:</asp:Label><input id="UserName" type="text" /><br />
-        <asp:Label ID="LabelPass" runat="server" Text="Label">סיסמה:</asp:Label><input id="Password" type="text" /><br />
+        <asp:Label ID="LabelUser" runat="server" Text="Label">שם משתמש:</asp:Label><asp:TextBox ID="UserName" runat="server"></asp:TextBox><br />
+        <asp:Label ID="LabelPass" runat="server" Text="Label">סיסמה:</asp:Label><asp:TextBox ID="Password" runat="server"></asp:TextBox><br />
         <asp:Label ID="LabelYear" runat="server" Text="Label">שנה:</asp:Label><asp:DropDownList ID="JoinYear" runat="server"></asp:DropDownList><br />
-        <asp:Button ID="Save" runat="server" Text="שמור" />
+        <asp:Button ID="Save" runat="server" OnClick ="SaveClick" Text="שמור" />
     </div>
     </form>
 </body>

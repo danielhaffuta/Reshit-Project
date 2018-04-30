@@ -48,9 +48,6 @@ namespace ReshitScheduler
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('wrong username or password');", true);
             }
-
-
-
         }
     }
 }

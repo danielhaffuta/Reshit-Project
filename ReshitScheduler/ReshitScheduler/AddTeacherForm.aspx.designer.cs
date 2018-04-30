@@ -31,6 +31,15 @@ namespace ReshitScheduler {
         protected global::System.Web.UI.WebControls.Label LabelName;
         
         /// <summary>
+        /// TeacherName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TeacherName;
+        
+        /// <summary>
         /// LabelLastName control.
         /// </summary>
         /// <remarks>
@@ -38,6 +47,15 @@ namespace ReshitScheduler {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LabelLastName;
+        
+        /// <summary>
+        /// TeacherLastName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TeacherLastName;
         
         /// <summary>
         /// LabelPos control.
@@ -67,6 +85,15 @@ namespace ReshitScheduler {
         protected global::System.Web.UI.WebControls.Label LabelUser;
         
         /// <summary>
+        /// UserName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox UserName;
+        
+        /// <summary>
         /// LabelPass control.
         /// </summary>
         /// <remarks>
@@ -74,6 +101,15 @@ namespace ReshitScheduler {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LabelPass;
+        
+        /// <summary>
+        /// Password control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox Password;
         
         /// <summary>
         /// LabelYear control.

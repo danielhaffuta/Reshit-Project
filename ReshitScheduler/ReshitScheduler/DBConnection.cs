@@ -185,6 +185,25 @@ namespace Data
             return true;
         }
 
+        public bool InsertTableRow(string tableName, string strFields,string strValues)
+        {
+            this.Connect();
+
+            if (this.IsConnected)
+            {
+                string strQuery = "insert into " + tableName + " (" + strFields + ") values (" + strValues + ")";
+                try
+                {
+                    MySqlCommand command = new MySqlCommand(strQuery, this.connection);
+                    command.ExecuteNonQuery();
+                }
+                catch (MySqlException e)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
         public DataTable GetDataTableByQuery(string strQuery)
         {
             this.Connect();
