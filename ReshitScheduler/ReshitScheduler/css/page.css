@@ -5,8 +5,32 @@
      font-family: "Roboto", sans-serif;
      -webkit-font-smoothing: antialiased;
 }
+header{
+    width:100%;
+}
 #logo{
-    width:10%;
-    margin-right: 28%;
+    width:5%;
+    margin-right: 33%;
     
+}
+footer p img{
+    width:0.7%;
+    height:0.7%;
+}
+footer p{
+    
+}
+footer{
+    position: fixed;
+   left: 0;
+   bottom: 0;
+   width:100%;
+
+   text-align:center;
+}
+#title{
+    float:right;
+    font-size:30px;
+    margin-right:40%;
+  
 }

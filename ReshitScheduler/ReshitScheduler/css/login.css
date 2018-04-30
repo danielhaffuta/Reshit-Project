@@ -1,8 +1,4 @@
 ﻿@import url(https://fonts.googleapis.com/css?family=Roboto:300);
-body{
-     direction:rtl;
-     height:100%;
-}
 .login-page {
   width: 360px;
   padding: 8% 0 0;
@@ -19,7 +15,6 @@ body{
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 .form {
-  
 
   position: relative;
   z-index: 1;
@@ -104,35 +99,21 @@ body{
 .container .info span .fa {
   color: #EF3B3A;
 }
-body {
- /*background: #76b852; /* fallback for old browsers */
-  background-color:white;
-  /*background: -webkit-linear-gradient(right, #76b852, #8DC26F);
-  background: -moz-linear-gradient(right, #76b852, #8DC26F);
-  background: -o-linear-gradient(right, #76b852, #8DC26F);
-  background: linear-gradient(to left, #76b852, #8DC26F);*/
-  font-family: "Roboto", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;      
-}
 #logo{
     width:10%;
     margin-right: 28%;
     
 }
 input{
+    height:50%;
     direction:rtl;
     width:20%;
-    margin-left:1%
+    margin-left:1%;
+    font-weight:600;
 }
-#cot{
-    float:right;
-    font-size:30px;
-    padding-right:40%;
-  
-}
+
 #form1{
-    margin-top:1%;
+    margin-top:4%;
     width:100%;
     height:100px;
     padding-top:2%;
@@ -152,7 +133,8 @@ hr{
 .slideshow-container {
   max-width: 1000px;
   position: relative;
-  margin: auto;
+  margin-right:25%;
+  margin-bottom:1%;
 }
 
 /* Hide the images by default */
@@ -236,6 +218,6 @@ hr{
 }
 
 @keyframes fade {
-  from {opacity: .4} 
+  from {opacity:4} 
   to {opacity: 1}
 }
