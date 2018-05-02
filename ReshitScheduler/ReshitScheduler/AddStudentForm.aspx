@@ -15,7 +15,8 @@
         <asp:Label ID="Class" runat="server" Text="Label">כיתה:</asp:Label><asp:DropDownList ID="ClassesList" runat="server"></asp:DropDownList><br /><br />
        <!-- <asp:Label ID="Picture" runat="server" Text="Label">תמונה:</asp:Label><asp:FileUpload ID="StudentPic" runat="server" accept ="image/*" /><br /><br />-->
         <asp:Label ID="LabelYear" runat="server" Text="Label">שנה:</asp:Label><asp:DropDownList ID="JoinYear" runat="server"></asp:DropDownList><br /><br />
-        <asp:Button ID="Save" runat="server" OnClick ="SaveClick" Text="שמור" /><br />
+        <asp:Button ID="Save" runat="server" OnClick ="SaveClick" Text="שמור" /><br /><br />
+        <asp:Button ID="Back" runat="server" OnClick ="BackClick" Text="חזרה" /><br />
     </div>
     </form>
 </body>

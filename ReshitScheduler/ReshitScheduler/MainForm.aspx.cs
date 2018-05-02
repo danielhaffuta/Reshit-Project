@@ -40,6 +40,16 @@ namespace ReshitScheduler
             }
             //LoggedInTeacher = new Teacher();
 
+            form1.Controls.Add(new LiteralControl("<br />אפשרויות עריכה:<br />"));
+            LinkButton lbStudentButton = new LinkButton()
+            {
+                ID = "AddStudent",
+                Text = "הוספת תלמיד חדש",
+            };
+            lbStudentButton.Click += LbStudentButton_Click;
+            form1.Controls.Add(lbStudentButton);
+            form1.Controls.Add(new LiteralControl("<br />"));
+
             Button btnLogout = new Button() { Text = "Logout" };
             btnLogout.Click += BtnLogout_Click;
             form1.Controls.Add(new LiteralControl("<br />"));
@@ -57,6 +67,10 @@ namespace ReshitScheduler
         {
             Session["ClassID"] = (sender as LinkButton).ID;
             Response.Redirect("ClassPage.aspx");
+        }
+        private void LbStudentButton_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AddStudentForm.aspx");
         }
     }
 }

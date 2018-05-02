@@ -57,7 +57,18 @@ namespace ReshitScheduler
             string fields = "first_name,last_name,class_id,year_id";
 
             bool res = DBConnection.Instance().InsertTableRow("students", fields, values);
-
+            if(!res)
+            {
+                Helper.ShowMessage(ClientScript, GetType(), "error saving student information");
+            }
+            StudentName.Text = "";
+            StudentLastName.Text = "";
+            ClassesList.SelectedIndex = 0;
+            JoinYear.SelectedIndex = 0;
+        }
+        protected void BackClick(object sender, EventArgs e)
+        {
+            Response.Redirect("MainForm.aspx");
         }
     }
 }

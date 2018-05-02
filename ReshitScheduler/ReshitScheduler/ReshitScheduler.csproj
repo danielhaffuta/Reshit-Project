@@ -106,9 +106,12 @@
     <Content Include="ClassPage.aspx" />
     <Content Include="css\AdminForm.css" />
     <Content Include="css\BellSystem.css" />
+    <Content Include="css\Class.css" />
+    <Content Include="css\Course.css" />
     <Content Include="css\Evaluation.css" />
     <Content Include="css\GridView.css" />
     <Content Include="css\Student.css" />
+    <Content Include="css\Teacher.css" />
     <Content Include="EvaluationForm.aspx" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
