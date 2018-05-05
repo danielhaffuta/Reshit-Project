@@ -35,8 +35,8 @@ namespace ReshitScheduler
                 JoinYear.DataTextField = "hebrew_year";
                 JoinYear.AutoPostBack = true;
                 JoinYear.DataBind();
-                string test = "SELECT * FROM teachers";
-                DataTable testTable = DBConnection.Instance().GetDataTableByQuery(test);
+//              string test = "SELECT * FROM teachers";
+//              DataTable testTable = DBConnection.Instance().GetDataTableByQuery(test);
             }
         }
 
@@ -51,7 +51,18 @@ namespace ReshitScheduler
             string fields = "first_name,last_name,teacher_type_id,user_name,password,year_id";
 
             bool res = DBConnection.Instance().InsertTableRow("teachers", fields, values);
-            
+
+            cleanFields(sender, e);
+
+        }
+
+        private void cleanFields(object sender, EventArgs e)
+        {
+            TeacherName.Text = "";
+            TeacherLastName.Text = "";
+            JobDescription.SelectedIndex = 0;
+            UserName.Text = "";
+            JoinYear.SelectedIndex = 0;
         }
     }
 }

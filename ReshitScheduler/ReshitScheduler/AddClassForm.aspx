@@ -14,7 +14,7 @@
         <asp:Label ID="NumberOfClass" runat="server" Text="Label">מספר כיתה:</asp:Label><asp:TextBox ID="ClassNum" runat="server" Type="number"></asp:TextBox><br /><br />
         <asp:Label ID="Educator" runat="server" Text="Label">שם המחנך:</asp:Label><asp:DropDownList ID="EducatorsList" runat="server"></asp:DropDownList><br /><br />
         <asp:Label ID="LabelYear" runat="server" Text="Label">שנה:</asp:Label><asp:DropDownList ID="JoinYear" runat="server"></asp:DropDownList><br /><br />
-        <asp:Button ID="Save" runat="server" Text="שמור" /><br />
+        <asp:Button ID="Save" runat="server" OnClick ="SaveClick" Text="שמור" /><br />
     </div>
     </form>
 </body>
