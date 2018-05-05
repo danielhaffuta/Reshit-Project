@@ -1,11 +1,9 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ClassPage.aspx.cs" Inherits="ReshitScheduler.ClassPage" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="GroupsForm.aspx.cs" Inherits="ReshitScheduler.GroupsForm" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <link rel = "stylesheet" href = "css/GridView.css" />
-    <script src="js/general.js"></script>
     <title></title>
 </head>
 <body dir ="rtl">

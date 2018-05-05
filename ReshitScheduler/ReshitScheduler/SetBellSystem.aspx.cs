@@ -18,7 +18,7 @@ namespace ReshitScheduler
             if (!IsPostBack)
             {
                 string YearsQuery = "SELECT id,hebrew_year FROM years";
-                DataTable YearTable = DBConnection.Instance().GetDataTableByQuery(YearsQuery);
+                DataTable YearTable = DBConnection.Instance.GetDataTableByQuery(YearsQuery);
 
                 JoinYear.DataSource = YearTable;
                 JoinYear.DataValueField = "id";
@@ -27,7 +27,7 @@ namespace ReshitScheduler
                 JoinYear.DataBind();
 
                 //string test = "SELECT * FROM hours_in_day";
-                //DataTable testTable = DBConnection.Instance().GetDataTableByQuery(test);
+                //DataTable testTable = DBConnection.Instance.GetDataTableByQuery(test);
             }
         }
         protected void SaveClick(object sender, EventArgs e)
@@ -67,7 +67,7 @@ namespace ReshitScheduler
                         values += 0 + ",";
                     hour_in_day++;
                     values += JoinYear.SelectedValue;
-                    bool res = DBConnection.Instance().InsertTableRow("hours_in_day", fields, values);
+                    bool res = DBConnection.Instance.InsertTableRow("hours_in_day", fields, values);
                     if (!res)
                     {
                         Helper.ShowMessage(ClientScript, GetType(), "error saving bell system information");

@@ -19,7 +19,7 @@ namespace ReshitScheduler
             {
                 string ClassQuery = "SELECT classes.id, CONCAT(grades.grade_name,classes.class_number) as class" +
                                 " FROM classes INNER JOIN grades on grades.id= classes.grade_id";
-                DataTable ClassTable = DBConnection.Instance().GetDataTableByQuery(ClassQuery);
+                DataTable ClassTable = DBConnection.Instance.GetDataTableByQuery(ClassQuery);
 
                 ClassesList.DataSource = ClassTable;
                 ClassesList.DataValueField = "id";
@@ -28,7 +28,7 @@ namespace ReshitScheduler
                 ClassesList.DataBind();
 
                 string test = "SELECT * FROM students";
-                DataTable testTable = DBConnection.Instance().GetDataTableByQuery(test);
+                DataTable testTable = DBConnection.Instance.GetDataTableByQuery(test);
             }
         }
 
@@ -46,7 +46,7 @@ namespace ReshitScheduler
                             + ClassesList.SelectedValue;
             string fields = "first_name,last_name,class_id";
 
-            bool res = DBConnection.Instance().InsertTableRow("students", fields, values);
+            bool res = DBConnection.Instance.InsertTableRow("students", fields, values);
             if(!res)
             {
                 Helper.ShowMessage(ClientScript, GetType(), "error saving student information");

@@ -14,14 +14,26 @@ namespace ReshitScheduler
     public partial class TableEdit : System.Web.UI.Page
     {
         public static string strTableName;
+        public static string strWhereClause;
+
         //public static Teacher LoggedInTeacher;
 
         protected void Page_PreInit(object sender, EventArgs e)
         {
+            strWhereClause = string.Empty;
+            if (Request.QueryString["IDs"] != null)
+            {
+
+                string[] strIDs = Request.QueryString["IDs"].Split('-');
+                strWhereClause = " where student_id in (select id from students where class_id in (select id from classes where id = " + strIDs[0] + "))" +
+                                 " and hour_id = " + strIDs[1] +
+                                 " and day_id = " + strIDs[2] +
+                                 " and group_id = " + strIDs[3];
+            }
             if (Session["LoggedInTeacher"] == null)
             {
-                Response.Redirect("LoginForm.aspx");
-                return;
+                //Response.Redirect("LoginForm.aspx");
+                //return;
             }
             if (strTableName == null)
             {
@@ -35,7 +47,7 @@ namespace ReshitScheduler
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(!IsPostBack)
+            if (!IsPostBack)
             {
                 Session["TableGrid"] = TableGrid;
             }
@@ -48,9 +60,9 @@ namespace ReshitScheduler
 
         private void FillGridAndAddControls()
         {
-            DataTable dtTable = DBConnection.Instance().GetAllDataFromTable(strTableName);
+            DataTable dtTable = DBConnection.Instance.GetAllDataFromTable(strTableName, strWhereClause);
             FillGridIfEmpty(ref dtTable);
-            TableGrid.EditIndex = Convert.ToInt32((Session["TableGrid"] as GridView)?.EditIndex+1)-1;
+            TableGrid.EditIndex = Convert.ToInt32((Session["TableGrid"] as GridView)?.EditIndex + 1) - 1;
             TableGrid.DataSource = dtTable;
             TableGrid.DataKeyNames = dtTable.PrimaryKey.Select(pk => pk.ColumnName).ToArray();
             this.DataBind();
@@ -83,12 +95,12 @@ namespace ReshitScheduler
         {
             if (dtTable.Rows.Count == 0) // the table is empty 
             {
-                dtTable = DBConnection.Instance().GetEmptyDataTable(dtTable);
+                dtTable = DBConnection.Instance.GetEmptyDataTable(dtTable);
             }
         }
 
 
-        private int FindKeyIndex(string strKeyName,GridViewRow gvrHeaderRow)
+        private int FindKeyIndex(string strKeyName, GridViewRow gvrHeaderRow)
         {
             for (int nCurrentColumn = 0; nCurrentColumn < gvrHeaderRow.Cells.Count; nCurrentColumn++)
             {
@@ -101,7 +113,7 @@ namespace ReshitScheduler
             return -1;
         }
 
-        private DropDownList GetDropDownList(DataTable dtDataSource,string strID,string strSelectedID)
+        private DropDownList GetDropDownList(DataTable dtDataSource, string strID, string strSelectedID)
         {
             DropDownList ddlData = new DropDownList()
             {
@@ -114,7 +126,12 @@ namespace ReshitScheduler
             };
 
             ddlData.DataBind();
-            ddlData.SelectedIndex = FindIndexById(ddlData,strSelectedID);
+            foreach (ListItem liCurrentItem in ddlData.Items)
+            {
+                liCurrentItem.Text = liCurrentItem.Text.Replace("<br>", "");
+            }
+
+            ddlData.SelectedIndex = FindIndexById(ddlData, strSelectedID);
             ddlData.SelectedIndexChanged += DdlData_SelectedIndexChanged;
             return ddlData;
         }
@@ -145,11 +162,11 @@ namespace ReshitScheduler
             if (TableGrid.EditIndex == gvrRow.RowIndex &&
                 !TableGrid.DataKeyNames.Contains((gvrRow.Cells[nColumnIndex] as DataControlFieldCell).ContainingField.HeaderText))
             {
-                
+
                 ddlData = GetDropDownList(dtKeyData, strID, (gvrRow.Cells[nColumnIndex].Controls[0] as TextBox).Text);
                 gvrRow.Cells[nColumnIndex].Controls[0].Visible = false;
-                
-                ddlData.Enabled = true ;
+
+                ddlData.Enabled = true;
             }
             else
             {
@@ -161,9 +178,9 @@ namespace ReshitScheduler
 
         }
 
-        private void ReplaceForeignKey(string strKeyTableName ,int nColumnIndex)
+        private void ReplaceForeignKey(string strKeyTableName, int nColumnIndex)
         {
-            DataTable dtKeyData = DBConnection.Instance().GetConstraintDataTable(strKeyTableName);
+            DataTable dtKeyData = DBConnection.Instance.GetConstraintDataTable(strKeyTableName);
             DropDownList ddlData;
             foreach (GridViewRow dvrCurrentRow in TableGrid.Rows)
             {
@@ -175,7 +192,10 @@ namespace ReshitScheduler
              */
             string strID = "DDL_" + strKeyTableName + "_insert_footer";
             ddlData = GetDropDownList(dtKeyData, strID);
-
+            foreach (ListItem liCurrentItem in ddlData.Items)
+            {
+                liCurrentItem.Text = liCurrentItem.Text.Replace("<br>", "");
+            }
             TableGrid.FooterRow.Cells[nColumnIndex].Controls.Add(ddlData);
             ddlData.SelectedIndex = 0;
             TableGrid.FooterRow.Cells[nColumnIndex].Controls[0].Visible = false;
@@ -185,7 +205,7 @@ namespace ReshitScheduler
 
         private void ReplaceForeignKeys()
         {
-            DBConnection dbcConnection = DBConnection.Instance();
+            DBConnection dbcConnection = DBConnection.Instance;
             //GridView gvTableGrid = Session["TableGrid"] as GridView ?? TableGrid;
             DataTable dtDataSource = TableGrid.DataSource as DataTable;
             DataTable dtForeignKeys = dbcConnection.GetForeignKeys(dtDataSource.TableName);
@@ -199,8 +219,8 @@ namespace ReshitScheduler
 
         private void ReplaceForeignKeysInEditRow()
         {
-            
-            DBConnection dbcConnection = DBConnection.Instance();
+
+            DBConnection dbcConnection = DBConnection.Instance;
             GridView gvTableGrid = Session["TableGrid"] as GridView ?? TableGrid;
             if (TableGrid.EditIndex == -1)
                 return;
@@ -211,14 +231,14 @@ namespace ReshitScheduler
             foreach (DataRow drCurrentKey in dtForeignKeys.Rows)
             {
                 int nColumnIndex = FindKeyIndex(drCurrentKey[0].ToString(), gvTableGrid.HeaderRow);
-                DataTable dtKeyData = DBConnection.Instance().GetConstraintDataTable(drCurrentKey[1].ToString());
+                DataTable dtKeyData = DBConnection.Instance.GetConstraintDataTable(drCurrentKey[1].ToString());
 
                 ReplaceForeignKeyInRow(TableGrid.Rows[TableGrid.EditIndex], dtKeyData, drCurrentKey[1].ToString(), nColumnIndex);
                 TableGrid.Rows[TableGrid.EditIndex].Cells[nColumnIndex].Controls[0].Visible = false;
             }
         }
 
-        private int FindIndexById(DropDownList ddlList,string strID)
+        private int FindIndexById(DropDownList ddlList, string strID)
         {
             for (int nCurrentItemIndex = 0; nCurrentItemIndex < ddlList.Items.Count; nCurrentItemIndex++)
             {
@@ -240,13 +260,13 @@ namespace ReshitScheduler
         private void BtnAdd_Click(object sender, EventArgs e)
         {
             GridViewRow row = TableGrid.FooterRow;
-            DBConnection dbcConnection = DBConnection.Instance();
+            DBConnection dbcConnection = DBConnection.Instance;
             if (!dbcConnection.InsertTableRow(TableGrid.DataSource as DataTable, row))
             {
                 Helper.ShowMessage(ClientScript, GetType(), "error saving");
             }
             TableGrid.EditIndex = -1;
-            TableGrid.DataSource = DBConnection.Instance().GetAllDataFromTable(strTableName);
+            TableGrid.DataSource = DBConnection.Instance.GetAllDataFromTable(strTableName, strWhereClause);
             DataBind();
         }
 
@@ -254,13 +274,13 @@ namespace ReshitScheduler
         {
             GridViewRow row = TableGrid.Rows[e.RowIndex];
             int nId = Convert.ToInt32(TableGrid.DataKeys[e.RowIndex].Values[0]);
-            DBConnection dbcConnection = DBConnection.Instance();
-            if(!dbcConnection.UpdateTableRow(strTableName, nId, row))
+            DBConnection dbcConnection = DBConnection.Instance;
+            if (!dbcConnection.UpdateTableRow(strTableName, nId, row))
             {
                 Helper.ShowMessage(ClientScript, GetType(), "error saving");
             }
             TableGrid.EditIndex = -1;
-            TableGrid.DataSource = DBConnection.Instance().GetAllDataFromTable(strTableName);
+            TableGrid.DataSource = DBConnection.Instance.GetAllDataFromTable(strTableName, strWhereClause);
             this.DataBind();
         }
 

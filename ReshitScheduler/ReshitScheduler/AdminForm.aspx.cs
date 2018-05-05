@@ -44,7 +44,7 @@ namespace ReshitScheduler
         }
         private void PopulateMenu()
         {
-            DataTable dtTables = DBConnection.Instance().GetDataTableByQuery("select table_name from INFORMATION_SCHEMA.tables where table_schema = 'reshit'");
+            DataTable dtTables = DBConnection.Instance.GetDataTableByQuery("select table_name from INFORMATION_SCHEMA.tables where table_schema = 'reshit'");
             string tableName = "";
             string tableDisplayName="";
             List<ListItem> items = new List<ListItem>();
@@ -52,7 +52,7 @@ namespace ReshitScheduler
             foreach (DataRow CurrentTable in dtTables.Rows)
             {
                 tableName = (string)CurrentTable["table_name"];
-                tableDisplayName = DBConnection.Instance().GetStringByQuery("select hebrew_name from tables_information where table_name ='"+tableName+"'");
+                tableDisplayName = DBConnection.Instance.GetStringByQuery("select hebrew_name from tables_information where table_name ='"+tableName+"'");
                 items.Add(new ListItem(tableDisplayName, tableName));
                
             }

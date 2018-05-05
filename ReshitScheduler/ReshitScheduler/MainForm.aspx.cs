@@ -20,7 +20,7 @@ namespace ReshitScheduler
             LoggedInTeacher = Session["LoggedInTeacher"] as Teacher;
 
             TeacherName.Text = LoggedInTeacher.FirstName + " " + LoggedInTeacher.LastName;
-            DataTable dtClasses = DBConnection.Instance().GetDataTableByQuery(
+            DataTable dtClasses = DBConnection.Instance.GetDataTableByQuery(
                 "select concat(grades.grade_name,classes.class_number) ,classes.id " +
                 "from teachers " +
                 "inner join classes on classes.teacher_id = teachers.id " +

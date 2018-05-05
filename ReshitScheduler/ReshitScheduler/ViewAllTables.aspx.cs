@@ -34,7 +34,7 @@ namespace ReshitScheduler
 
         private bool IsInEditMode()
         {
-            DataTable dtTables = DBConnection.Instance().GetDataTableByQuery("select table_name from INFORMATION_SCHEMA.tables where table_schema = 'reshit'");
+            DataTable dtTables = DBConnection.Instance.GetDataTableByQuery("select table_name from INFORMATION_SCHEMA.tables where table_schema = 'reshit'");
             foreach (DataRow CurrentTable in dtTables.Rows)
             {
                 if((Session[CurrentTable["table_name"].ToString()] as GridView).EditIndex != -1)
@@ -49,7 +49,7 @@ namespace ReshitScheduler
         {
             //if (Convert.ToString(ViewState["Generated"]) != "true")
             {
-                DataSet dsAllTable = DBConnection.Instance().GetAllTables();
+                DataSet dsAllTable = DBConnection.Instance.GetAllTables();
                 foreach (DataTable dtCurrentTable in dsAllTable.Tables)
                 {
                     GridView gvNewGridView = new GridView()
@@ -90,7 +90,7 @@ namespace ReshitScheduler
 
                 if (dtTable.Rows.Count == 0) // the table is empty 
                 {
-                    dtTable = DBConnection.Instance().GetEmptyDataTable(dtTable);
+                    dtTable = DBConnection.Instance.GetEmptyDataTable(dtTable);
                     gvTableGrid.DataSource = dtTable;
                     gvTableGrid.DataBind();
                     return;
@@ -117,7 +117,7 @@ namespace ReshitScheduler
         {
             GridView gvTableGrid = GetGridViewParentFromAddButton(sender as Button);
             GridViewRow row = gvTableGrid.FooterRow;
-            DBConnection dbcConnection = DBConnection.Instance();
+            DBConnection dbcConnection = DBConnection.Instance;
             if (!dbcConnection.InsertTableRow(gvTableGrid.DataSource as DataTable, row))
             {
                 Helper.ShowMessage(ClientScript, GetType(), "error saving");
@@ -135,7 +135,7 @@ namespace ReshitScheduler
 
         private void UpdateTableGrid(GridView gvTableGrid)
         {
-            DBConnection dbcConnection = DBConnection.Instance();
+            DBConnection dbcConnection = DBConnection.Instance;
             DataTable dtTable = dbcConnection.GetAllDataFromTable((gvTableGrid.DataSource as DataTable).TableName);
 
             gvTableGrid.DataSource = dtTable;
@@ -160,7 +160,7 @@ namespace ReshitScheduler
             GridView gvTableGrid = (sender as GridView);
             GridViewRow row = gvTableGrid.Rows[e.RowIndex];
             int nId = Convert.ToInt32(gvTableGrid.DataKeys[e.RowIndex].Values[0]);
-            DBConnection dbcConnection = DBConnection.Instance();
+            DBConnection dbcConnection = DBConnection.Instance;
             if (!dbcConnection.UpdateTableRow((gvTableGrid.DataSource as DataTable).TableName, nId, row))
             {
                 Helper.ShowMessage(ClientScript, GetType(), "error saving");

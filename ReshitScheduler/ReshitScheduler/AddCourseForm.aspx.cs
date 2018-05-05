@@ -22,7 +22,7 @@ namespace ReshitScheduler
             if (!IsPostBack)
             {
                 string TeacherQuery = "SELECT CONCAT(first_name, ' ',last_name) AS full_name, id FROM teachers";
-                DataTable TeacherTable = DBConnection.Instance().GetDataTableByQuery(TeacherQuery);
+                DataTable TeacherTable = DBConnection.Instance.GetDataTableByQuery(TeacherQuery);
 
                 TeachersList.DataSource = TeacherTable;
                 TeachersList.DataValueField = "id";
@@ -31,7 +31,7 @@ namespace ReshitScheduler
                 TeachersList.DataBind();
 
                 //string test = "SELECT * FROM groups";
-                //DataTable testTable = DBConnection.Instance().GetDataTableByQuery(test);
+                //DataTable testTable = DBConnection.Instance.GetDataTableByQuery(test);
             }
         }
         protected void SaveClick(object sender, EventArgs e)
@@ -50,7 +50,7 @@ namespace ReshitScheduler
                 fields = "course_name,teacher_id";
                 tableName = "courses";
             }
-            bool res = DBConnection.Instance().InsertTableRow(tableName, fields, values);
+            bool res = DBConnection.Instance.InsertTableRow(tableName, fields, values);
             if (!res)
             {
                 Helper.ShowMessage(ClientScript, GetType(), "error saving course information");

@@ -16,7 +16,7 @@ namespace ReshitScheduler
         {
             // grade dropdown list
             string gradeQuery = "SELECT * FROM grades";
-            DataTable table = DBConnection.Instance().GetDataTableByQuery(gradeQuery);
+            DataTable table = DBConnection.Instance.GetDataTableByQuery(gradeQuery);
 
             GradeList.DataSource = table;
             GradeList.DataValueField = "id";
@@ -26,7 +26,7 @@ namespace ReshitScheduler
 
             // Educators List
             string EducatorsQuery = "SELECT CONCAT(first_name, ' ', last_name) AS full_name, id FROM teachers";
-            DataTable EducatorsTable = DBConnection.Instance().GetDataTableByQuery(EducatorsQuery);
+            DataTable EducatorsTable = DBConnection.Instance.GetDataTableByQuery(EducatorsQuery);
 
             EducatorsList.DataSource = EducatorsTable;
             EducatorsList.DataValueField = "id";
@@ -36,7 +36,7 @@ namespace ReshitScheduler
 
             // Join Year List
             string JoinYearQuery = "SELECT * FROM years";
-            DataTable JoinYearTable = DBConnection.Instance().GetDataTableByQuery(JoinYearQuery);
+            DataTable JoinYearTable = DBConnection.Instance.GetDataTableByQuery(JoinYearQuery);
 
             JoinYear.DataSource = JoinYearTable;
             JoinYear.DataValueField = "id";
@@ -53,7 +53,7 @@ namespace ReshitScheduler
                             + JoinYear.SelectedValue;
             string fields = "grade_id, class_number, teacher_id, year_id";
 
-            bool res = DBConnection.Instance().InsertTableRow("classes", fields, values);
+            bool res = DBConnection.Instance.InsertTableRow("classes", fields, values);
 
             cleanFields(sender, e);            
         }

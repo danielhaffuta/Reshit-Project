@@ -106,13 +106,22 @@
     <Content Include="ClassPage.aspx" />
     <Content Include="css\AdminForm.css" />
     <Content Include="css\BellSystem.css" />
+    <Content Include="css\bootstrap.min.css" />
     <Content Include="css\Class.css" />
     <Content Include="css\Course.css" />
     <Content Include="css\Evaluation.css" />
     <Content Include="css\GridView.css" />
+    <Content Include="css\page.css" />
     <Content Include="css\Student.css" />
     <Content Include="css\Teacher.css" />
     <Content Include="EvaluationForm.aspx" />
+    <Content Include="GroupsForm.aspx" />
+    <Content Include="js\AdminForm.js" />
+    <Content Include="js\bootstrap.min.js" />
+    <Content Include="js\general.js" />
+    <Content Include="js\jquery.min.js" />
+    <Content Include="js\jquery.slim.min.js" />
+    <Content Include="js\popper.min.js" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -192,6 +201,13 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="GroupsForm.aspx.cs">
+      <DependentUpon>GroupsForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GroupsForm.aspx.designer.cs">
+      <DependentUpon>GroupsForm.aspx</DependentUpon>
     </Compile>
     <Compile Include="Helper.cs" />
     <Compile Include="LoginForm.aspx.cs">

@@ -19,7 +19,7 @@ namespace ReshitScheduler
             if (!IsPostBack)
             {
                 string TTQuery = "SELECT * FROM teacher_types where teacher_type_name <> 'admin'";
-                DataTable TTtable = DBConnection.Instance().GetDataTableByQuery(TTQuery);
+                DataTable TTtable = DBConnection.Instance.GetDataTableByQuery(TTQuery);
 
                 JobDescription.DataSource = TTtable;
                 JobDescription.DataValueField = "id";
@@ -28,7 +28,7 @@ namespace ReshitScheduler
                 JobDescription.DataBind();
 
                 string YearsQuery = "SELECT id,hebrew_year FROM years";
-                DataTable YearTable = DBConnection.Instance().GetDataTableByQuery(YearsQuery);
+                DataTable YearTable = DBConnection.Instance.GetDataTableByQuery(YearsQuery);
 
                 JoinYear.DataSource = YearTable;
                 JoinYear.DataValueField = "id";
@@ -36,7 +36,7 @@ namespace ReshitScheduler
                 JoinYear.AutoPostBack = true;
                 JoinYear.DataBind();
 //              string test = "SELECT * FROM teachers";
-//              DataTable testTable = DBConnection.Instance().GetDataTableByQuery(test);
+//              DataTable testTable = DBConnection.Instance.GetDataTableByQuery(test);
             }
         }
 
@@ -50,7 +50,7 @@ namespace ReshitScheduler
                             + JoinYear.SelectedValue;
             string fields = "first_name,last_name,teacher_type_id,user_name,password,year_id";
 
-            bool res = DBConnection.Instance().InsertTableRow("teachers", fields, values);
+            bool res = DBConnection.Instance.InsertTableRow("teachers", fields, values);
 
             cleanFields(sender, e);
 
