@@ -9,7 +9,7 @@ namespace ReshitScheduler
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            Session["LoggedInTeacher"] = null;
         }
 
         protected void Button1_Click(object sender, EventArgs e)
@@ -48,6 +48,9 @@ namespace ReshitScheduler
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('wrong username or password');", true);
             }
+
+
+
         }
     }
 }

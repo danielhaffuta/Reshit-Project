@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.Services;
 
 namespace ReshitScheduler
 {
@@ -16,12 +17,14 @@ namespace ReshitScheduler
         {
             if (Session["LoggedInTeacher"] != null)
             {
+
                 LoggedInTeacher = Session["LoggedInTeacher"] as Teacher;
                 AdminName.Text = LoggedInTeacher.FirstName + " " + LoggedInTeacher.LastName;
                 PopulateMenu();
-                Button btnLogout = new Button() { Text = "Logout" };
-                btnLogout.Click += BtnLogout_Click;
-                form1.Controls.Add(btnLogout);
+                //Button btnLogout = new Button() { Text = "Logout" };
+                //btnLogout.Click += BtnLogout_Click;
+                //form1.Controls.Add(btnLogout);
+                //Disconect.Click += BtnLogout_Click;
             }
             else
             {
@@ -31,13 +34,14 @@ namespace ReshitScheduler
 
         }
 
-        private void BtnLogout_Click(object sender, EventArgs e)
+        [System.Web.Services.WebMethod]
+        public void BtnLogout_Click()// not in use
         {
+            
             Session["LoggedInTeacher"] = null;
             Response.Redirect("LoginForm.aspx");
             return;
         }
-
         private void PopulateMenu()
         {
             DataTable dtTables = DBConnection.Instance().GetDataTableByQuery("select table_name from INFORMATION_SCHEMA.tables where table_schema = 'reshit'");
