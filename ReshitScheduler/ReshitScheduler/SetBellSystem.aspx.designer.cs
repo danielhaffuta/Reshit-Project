@@ -22,13 +22,13 @@ namespace ReshitScheduler {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// Table1 control.
+        /// BellTable control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Table Table1;
+        protected global::System.Web.UI.WebControls.Table BellTable;
         
         /// <summary>
         /// First control.
@@ -40,6 +40,24 @@ namespace ReshitScheduler {
         protected global::System.Web.UI.WebControls.Label First;
         
         /// <summary>
+        /// Start1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox Start1;
+        
+        /// <summary>
+        /// End1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox End1;
+        
+        /// <summary>
         /// Second control.
         /// </summary>
         /// <remarks>
@@ -47,6 +65,24 @@ namespace ReshitScheduler {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Second;
+        
+        /// <summary>
+        /// Start2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox Start2;
+        
+        /// <summary>
+        /// End2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox End2;
         
         /// <summary>
         /// BF control.
@@ -58,6 +94,24 @@ namespace ReshitScheduler {
         protected global::System.Web.UI.WebControls.Label BF;
         
         /// <summary>
+        /// StartBF control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox StartBF;
+        
+        /// <summary>
+        /// EndBF control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox EndBF;
+        
+        /// <summary>
         /// Third control.
         /// </summary>
         /// <remarks>
@@ -65,6 +119,24 @@ namespace ReshitScheduler {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Third;
+        
+        /// <summary>
+        /// Start3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox Start3;
+        
+        /// <summary>
+        /// End3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox End3;
         
         /// <summary>
         /// FirstBrake control.
@@ -76,6 +148,24 @@ namespace ReshitScheduler {
         protected global::System.Web.UI.WebControls.Label FirstBrake;
         
         /// <summary>
+        /// StartFBR control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox StartFBR;
+        
+        /// <summary>
+        /// EndFBR control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox EndFBR;
+        
+        /// <summary>
         /// Forth control.
         /// </summary>
         /// <remarks>
@@ -83,6 +173,24 @@ namespace ReshitScheduler {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Forth;
+        
+        /// <summary>
+        /// Start4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox Start4;
+        
+        /// <summary>
+        /// End4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox End4;
         
         /// <summary>
         /// Fifth control.
@@ -94,6 +202,24 @@ namespace ReshitScheduler {
         protected global::System.Web.UI.WebControls.Label Fifth;
         
         /// <summary>
+        /// Start5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox Start5;
+        
+        /// <summary>
+        /// End5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox End5;
+        
+        /// <summary>
         /// SecondBrake control.
         /// </summary>
         /// <remarks>
@@ -101,6 +227,24 @@ namespace ReshitScheduler {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label SecondBrake;
+        
+        /// <summary>
+        /// StartSBR control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox StartSBR;
+        
+        /// <summary>
+        /// EndSBR control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox EndSBR;
         
         /// <summary>
         /// Sixth control.
@@ -112,6 +256,24 @@ namespace ReshitScheduler {
         protected global::System.Web.UI.WebControls.Label Sixth;
         
         /// <summary>
+        /// Start6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox Start6;
+        
+        /// <summary>
+        /// End6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox End6;
+        
+        /// <summary>
         /// LanchBrake control.
         /// </summary>
         /// <remarks>
@@ -119,6 +281,24 @@ namespace ReshitScheduler {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LanchBrake;
+        
+        /// <summary>
+        /// StartLB control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox StartLB;
+        
+        /// <summary>
+        /// EndLB control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox EndLB;
         
         /// <summary>
         /// Seventh control.
@@ -130,6 +310,24 @@ namespace ReshitScheduler {
         protected global::System.Web.UI.WebControls.Label Seventh;
         
         /// <summary>
+        /// Start7 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox Start7;
+        
+        /// <summary>
+        /// End7 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox End7;
+        
+        /// <summary>
         /// Eighth control.
         /// </summary>
         /// <remarks>
@@ -137,6 +335,24 @@ namespace ReshitScheduler {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Eighth;
+        
+        /// <summary>
+        /// Start8 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox Start8;
+        
+        /// <summary>
+        /// End8 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox End8;
         
         /// <summary>
         /// ThirdBrake control.
@@ -148,6 +364,24 @@ namespace ReshitScheduler {
         protected global::System.Web.UI.WebControls.Label ThirdBrake;
         
         /// <summary>
+        /// StartTBR control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox StartTBR;
+        
+        /// <summary>
+        /// EndTBR control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox EndTBR;
+        
+        /// <summary>
         /// Ninth control.
         /// </summary>
         /// <remarks>
@@ -157,6 +391,24 @@ namespace ReshitScheduler {
         protected global::System.Web.UI.WebControls.Label Ninth;
         
         /// <summary>
+        /// Start9 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox Start9;
+        
+        /// <summary>
+        /// End9 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox End9;
+        
+        /// <summary>
         /// Tenth control.
         /// </summary>
         /// <remarks>
@@ -164,6 +416,24 @@ namespace ReshitScheduler {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Tenth;
+        
+        /// <summary>
+        /// Start10 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox Start10;
+        
+        /// <summary>
+        /// End10 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox End10;
         
         /// <summary>
         /// LabelYear control.
@@ -191,5 +461,14 @@ namespace ReshitScheduler {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Save;
+        
+        /// <summary>
+        /// Back control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Back;
     }
 }

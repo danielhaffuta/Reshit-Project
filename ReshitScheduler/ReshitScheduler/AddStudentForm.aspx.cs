@@ -27,17 +27,8 @@ namespace ReshitScheduler
                 ClassesList.AutoPostBack = true;
                 ClassesList.DataBind();
 
-                string YearsQuery = "SELECT id,hebrew_year FROM years";
-                DataTable YearTable = DBConnection.Instance().GetDataTableByQuery(YearsQuery);
-
-                JoinYear.DataSource = YearTable;
-                JoinYear.DataValueField = "id";
-                JoinYear.DataTextField = "hebrew_year";
-                JoinYear.AutoPostBack = true;
-                JoinYear.DataBind();
-
-                //string test = "SELECT * FROM students";
-                //DataTable testTable = DBConnection.Instance().GetDataTableByQuery(test);
+                string test = "SELECT * FROM students";
+                DataTable testTable = DBConnection.Instance().GetDataTableByQuery(test);
             }
         }
 
@@ -52,9 +43,8 @@ namespace ReshitScheduler
             //}
             string values = "'" + StudentName.Text + "','"
                             + StudentLastName.Text + "',"
-                            + ClassesList.SelectedValue + ","
-                            + JoinYear.SelectedValue;
-            string fields = "first_name,last_name,class_id,year_id";
+                            + ClassesList.SelectedValue;
+            string fields = "first_name,last_name,class_id";
 
             bool res = DBConnection.Instance().InsertTableRow("students", fields, values);
             if(!res)
@@ -64,7 +54,6 @@ namespace ReshitScheduler
             StudentName.Text = "";
             StudentLastName.Text = "";
             ClassesList.SelectedIndex = 0;
-            JoinYear.SelectedIndex = 0;
         }
         protected void BackClick(object sender, EventArgs e)
         {

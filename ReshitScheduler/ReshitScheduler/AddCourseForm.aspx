@@ -12,7 +12,6 @@
     <div>
         <asp:Label ID="Course" runat="server" Text="שם הקורס:"></asp:Label><asp:TextBox ID="CourseName" runat="server" Type="text"></asp:TextBox><br /><br />
         <asp:Label ID="Teacher" runat="server" Text="Label">שם המורה:</asp:Label><asp:DropDownList ID="TeachersList" runat="server"></asp:DropDownList><br /><br />
-        <asp:Label ID="LabelYear" runat="server" Text="Label">שנה:</asp:Label><asp:DropDownList ID="JoinYear" runat="server"></asp:DropDownList><br /><br />
         <asp:Button ID="Save" runat="server" OnClick ="SaveClick" Text="שמור" /><br /><br />
         <asp:Button ID="Back" runat="server" OnClick ="BackClick" Text="חזרה" />
     </div>

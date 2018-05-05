@@ -50,6 +50,33 @@ namespace ReshitScheduler
             form1.Controls.Add(lbStudentButton);
             form1.Controls.Add(new LiteralControl("<br />"));
 
+            LinkButton lbCourseButton = new LinkButton()
+            {
+                ID = "AddCourse",
+                Text = "הוספת קורס",
+            };
+            lbCourseButton.Click += LbCourseButton_Click;
+            form1.Controls.Add(lbCourseButton);
+            form1.Controls.Add(new LiteralControl("<br />"));
+
+            LinkButton lbGroupButton = new LinkButton()
+            {
+                ID = "AddGroup",
+                Text = "הוספת קבוצה",
+            };
+            lbGroupButton.Click += LbCourseButton_Click;
+            form1.Controls.Add(lbGroupButton);
+            form1.Controls.Add(new LiteralControl("<br />"));
+
+            LinkButton lbBellSystemButton = new LinkButton()
+            {
+                ID = "SetBellSystem",
+                Text = "אתחול מערכת צלצולים",
+            };
+            lbBellSystemButton.Click += LbBellSystemButton_Click;
+            form1.Controls.Add(lbBellSystemButton);
+            form1.Controls.Add(new LiteralControl("<br />"));
+
             Button btnLogout = new Button() { Text = "Logout" };
             btnLogout.Click += BtnLogout_Click;
             form1.Controls.Add(new LiteralControl("<br />"));
@@ -71,6 +98,15 @@ namespace ReshitScheduler
         private void LbStudentButton_Click(object sender, EventArgs e)
         {
             Response.Redirect("AddStudentForm.aspx");
+        }
+        private void LbBellSystemButton_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("SetBellSystem.aspx");
+        }
+        private void LbCourseButton_Click(object sender, EventArgs e)
+        {
+            Session["CourseID"] = (sender as LinkButton).ID;
+            Response.Redirect("AddCourseForm.aspx");
         }
     }
 }

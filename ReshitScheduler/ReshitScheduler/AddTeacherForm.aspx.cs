@@ -35,8 +35,8 @@ namespace ReshitScheduler
                 JoinYear.DataTextField = "hebrew_year";
                 JoinYear.AutoPostBack = true;
                 JoinYear.DataBind();
-//                string test = "SELECT * FROM teachers";
-//                 DataTable testTable = DBConnection.Instance().GetDataTableByQuery(test);
+                string test = "SELECT * FROM teachers";
+                DataTable testTable = DBConnection.Instance().GetDataTableByQuery(test);
             }
         }
 
