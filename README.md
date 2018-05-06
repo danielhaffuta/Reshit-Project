@@ -37,7 +37,7 @@ We're trying to use the best tools and practices in order to produce a quality e
 - [Project Inception](../../wiki/Inception)
 
 ### Project iterations
--[iteration 0](https://github.com/danielhaffuta/Reshit-Project/wiki/Iteration0-ZFR)
+-[iteration 0](https://github.com/danielhaffuta/Reshit-Project/wiki/Iteration0-ZFR)<br>
 -[iteration 1](https://github.com/danielhaffuta/Reshit-Project/wiki/Iteration1-DB_Forms-MVP)
 
 ## Disclaimer
