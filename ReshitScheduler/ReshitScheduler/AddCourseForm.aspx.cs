@@ -15,21 +15,29 @@ namespace ReshitScheduler
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if(Session["CourseID"] == null)
+            {
+                Session["CourseID"] = "AddGroup";
+            }
             if (Session["CourseID"].ToString().Equals("AddGroup"))
             {
                 Course.Text = "שם הקבוצה:";
             }
             if (!IsPostBack)
             {
-                string TeacherQuery = "SELECT CONCAT(first_name, ' ',last_name) AS full_name, id FROM teachers";
-                DataTable TeacherTable = DBConnection.Instance.GetDataTableByQuery(TeacherQuery);
+                string strYearID = DBConnection.Instance.GetCurrentYearID();
+                string strTeacherQuery = DBConnection.Instance.GetDisplayQuery("teachers");
+                strTeacherQuery += " where year_id = " + strYearID;
+                //string TeacherQuery = "SELECT CONCAT(first_name, ' ',last_name) AS full_name, id FROM teachers";
+                DataTable dtTeacherTable = DBConnection.Instance.GetDataTableByQuery(strTeacherQuery);
 
-                TeachersList.DataSource = TeacherTable;
+                TeachersList.DataSource = dtTeacherTable;
                 TeachersList.DataValueField = "id";
-                TeachersList.DataTextField = "full_name";
+                TeachersList.DataTextField = "name";
                 TeachersList.AutoPostBack = true;
                 TeachersList.DataBind();
 
+                
                 //string test = "SELECT * FROM groups";
                 //DataTable testTable = DBConnection.Instance.GetDataTableByQuery(test);
             }

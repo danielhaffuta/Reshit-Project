@@ -60,10 +60,11 @@ namespace Data
                     {
                         return;
                     }
-
-                    //string strConnectionString = string.Format("Server=localhost; database={0}; UID=root; password=1111", databaseName);
                     string strConnectionString = string.Format("Server=den1.mysql2.gear.host; database={0}; UID=reshit; password=Aa5407582@", databaseName);
-
+                    if (Environment.MachineName == "IDAN-PC")
+                    {
+                        strConnectionString = string.Format("Server=localhost; database={0}; UID=root; password=1111", databaseName);
+                    }
 
                     connection = new MySqlConnection(strConnectionString);
                     connection.Open();

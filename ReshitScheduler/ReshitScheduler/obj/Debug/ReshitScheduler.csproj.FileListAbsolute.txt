@@ -72,7 +72,6 @@ D:\Google Drive\programming\github\reshit\Reshit-Project\ReshitScheduler\ReshitS
 D:\Google Drive\programming\github\reshit\Reshit-Project\ReshitScheduler\ReshitScheduler\obj\Debug\ReshitScheduler.pdb
 D:\Google Drive\programming\github\reshit\Reshit-Project\ReshitScheduler\ReshitScheduler\bin\MySql.Data.dll
 D:\Google Drive\programming\github\reshit\Reshit-Project\ReshitScheduler\ReshitScheduler\bin\MySql.Web.dll
-D:\Google Drive\programming\github\reshit\Reshit-Project\ReshitScheduler\ReshitScheduler\obj\Debug\ReshitScheduler.csprojResolveAssemblyReference.cache
 C:\Users\user\Desktop\Reshit-Project\ReshitScheduler\ReshitScheduler\obj\Debug\ReshitScheduler.dll
 C:\Users\user\Desktop\Reshit-Project\ReshitScheduler\ReshitScheduler\obj\Debug\ReshitScheduler.pdb
 C:\Users\user\Desktop\Reshit-Project\ReshitScheduler\ReshitScheduler\obj\Debug\ReshitScheduler.csprojResolveAssemblyReference.cache
@@ -197,3 +196,4 @@ C:\Users\user\Desktop\project\Reshit-Project\ReshitScheduler\ReshitScheduler\bin
 C:\Users\user\Desktop\project\Reshit-Project\ReshitScheduler\ReshitScheduler\obj\Debug\ReshitScheduler.csprojResolveAssemblyReference.cache
 C:\Users\user\Desktop\project\Reshit-Project\ReshitScheduler\ReshitScheduler\obj\Debug\ReshitScheduler.dll
 C:\Users\user\Desktop\project\Reshit-Project\ReshitScheduler\ReshitScheduler\obj\Debug\ReshitScheduler.pdb
+D:\Google Drive\programming\github\reshit\Reshit-Project\ReshitScheduler\ReshitScheduler\obj\Debug\ReshitScheduler.csprojResolveAssemblyReference.cache

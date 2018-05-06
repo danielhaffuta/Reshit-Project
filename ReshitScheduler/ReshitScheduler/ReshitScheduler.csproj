@@ -100,6 +100,7 @@
   <ItemGroup>
     <Content Include="AddClassForm.aspx" />
     <Content Include="AddCourseForm.aspx" />
+    <Content Include="AddGroupToClass.aspx" />
     <Content Include="AddStudentForm.aspx" />
     <Content Include="AddTeacherForm.aspx" />
     <Content Include="AdminForm.aspx" />
@@ -161,6 +162,13 @@
     </Compile>
     <Compile Include="AddCourseForm.aspx.designer.cs">
       <DependentUpon>AddCourseForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AddGroupToClass.aspx.cs">
+      <DependentUpon>AddGroupToClass.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AddGroupToClass.aspx.designer.cs">
+      <DependentUpon>AddGroupToClass.aspx</DependentUpon>
     </Compile>
     <Compile Include="AddStudentForm.aspx.cs">
       <DependentUpon>AddStudentForm.aspx</DependentUpon>
