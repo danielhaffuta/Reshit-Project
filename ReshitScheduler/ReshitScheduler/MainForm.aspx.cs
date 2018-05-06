@@ -50,6 +50,15 @@ namespace ReshitScheduler
             form1.Controls.Add(lbStudentButton);
             form1.Controls.Add(new LiteralControl("<br />"));
 
+            LinkButton lbAddClasslButton = new LinkButton()
+            {
+                ID = "AddNewClass",
+                Text = "הוספת כיתה חדשה",
+            };
+            lbAddClasslButton.Click += lbAddClasslButton_Click;
+            form1.Controls.Add(lbAddClasslButton);
+            form1.Controls.Add(new LiteralControl("<br />"));
+
             LinkButton lbCourseButton = new LinkButton()
             {
                 ID = "AddCourse",
@@ -107,6 +116,10 @@ namespace ReshitScheduler
         {
             Session["CourseID"] = (sender as LinkButton).ID;
             Response.Redirect("AddCourseForm.aspx");
+        }
+        private void lbAddClasslButton_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AddClassForm.aspx");
         }
     }
 }
