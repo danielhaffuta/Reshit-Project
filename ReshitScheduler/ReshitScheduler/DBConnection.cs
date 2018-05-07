@@ -2,6 +2,7 @@
 using ReshitScheduler;
 using System;
 using System.Data;
+using System.Web;
 using System.Web.UI.WebControls;
 
 namespace Data
@@ -61,7 +62,8 @@ namespace Data
                         return;
                     }
                     string strConnectionString = string.Format("Server=den1.mysql2.gear.host; database={0}; UID=reshit; password=Aa5407582@", databaseName);
-                    if (Environment.MachineName == "IDAN-PC")
+                    
+                    if (HttpContext.Current.Request.IsLocal && Environment.MachineName == "IDAN-PC")
                     {
                         strConnectionString = string.Format("Server=localhost; database={0}; UID=root; password=1111", databaseName);
                     }
