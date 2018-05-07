@@ -142,7 +142,7 @@ namespace ReshitScheduler
                     if (tcCurrentCell.Text.Contains("*"))
                     {
                         Label lbl = new Label() { Text = tcCurrentCell.Text.Split('*')[0] };
-                        tcCurrentCell.Attributes.Add("onClick", "OnClick(\"GroupsForm.aspx?IDs=" + strClassID + "-" + tcCurrentCell.Text.Split('*')[1].Replace("$", "") + "\",1000,300,\"yes\");");
+                        tcCurrentCell.Attributes.Add("onClick", "OnClick(\"GroupsForm.aspx?IDs=" + strClassID + "-" + tcCurrentCell.Text.Split('*')[1].Replace("$", "") + "\",1200,900,\"yes\");");
                         tcCurrentCell.Controls.Add(lbl);
 
                         if (tcCurrentCell.Text.Contains("$"))
@@ -152,7 +152,7 @@ namespace ReshitScheduler
                             {
                                 Text = "<br>קבוצות",
                                 ID = tcCurrentCell.Text.Split('*')[1],
-                                OnClientClick = "genericPopup(\"GroupsForm.aspx?IDs=" + strClassID + "-" + tcCurrentCell.Text.Split('*')[1].Replace("$", "") + "\",1000,300,\"yes\")"
+                                OnClientClick = "genericPopup(\"GroupsForm.aspx?IDs=" + strClassID + "-" + tcCurrentCell.Text.Split('*')[1].Replace("$", "") + "\",1200,900,\"yes\")"
                             };
                             tcCurrentCell.Controls.Add(lbGroupLinkButton);
 

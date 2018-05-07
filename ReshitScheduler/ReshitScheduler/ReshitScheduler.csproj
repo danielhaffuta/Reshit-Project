@@ -105,6 +105,7 @@
     <Content Include="AddTeacherForm.aspx" />
     <Content Include="AdminForm.aspx" />
     <Content Include="ClassPage.aspx" />
+    <Content Include="css\AddGroupToClass.css" />
     <Content Include="css\AdminForm.css" />
     <Content Include="css\BellSystem.css" />
     <Content Include="css\bootstrap.min.css" />

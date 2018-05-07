@@ -11,10 +11,11 @@ namespace ReshitScheduler
 {
     public partial class AddGroupToClass : System.Web.UI.Page
     {
+        private int nClassID, nHourId, nDayId, nGroupId;
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            int nClassID, nHourId, nDayId,nGroupId;
 
             if (Request.QueryString["IDs"] == null)
             {
@@ -75,7 +76,55 @@ namespace ReshitScheduler
                 }
                 //string test = "SELECT * FROM groups";
                 //DataTable testTable = DBConnection.Instance.GetDataTableByQuery(test);
+                this.AddStudents();
             }
+        }
+
+        private void AddStudents()
+        {
+            string strStudentsDisplayQuery = DBConnection.Instance.GetDisplayQuery("Students");
+            DataTable dtClassStudent = DBConnection.Instance.GetDataTableByQuery(strStudentsDisplayQuery + " where class_id = " + nClassID);
+            DataTable dtSelectedStudents = DBConnection.Instance.GetDataTableByQuery(strStudentsDisplayQuery +
+                " inner join students_schedule on students_schedule.student_id = students.id"+
+                " where class_id = " + nClassID +
+                " and students_schedule.group_id = " + nGroupId+
+                " and students_schedule.hour_id = " + nHourId+
+                " and students_schedule.day_id = " + nDayId);
+
+            int nCurrentStudentNumber = 0;
+            Panel pNewRow = null;
+            
+            foreach (DataRow drCurrentStudent in dtClassStudent.Rows)
+            {
+                if(nCurrentStudentNumber%6 == 0)
+                {
+                    pNewRow = new Panel() { CssClass = "form-control row justify-content-around bg-success m-0" };
+                    StudentsCol.Controls.Add(pNewRow);
+
+                }
+                Panel p = new Panel() { CssClass = "form-control " };
+                CheckBox cbStudentCheckBox = new CheckBox()
+                {
+                    Text = drCurrentStudent["name"].ToString(),
+                    ID = drCurrentStudent["id"].ToString(),
+                    CssClass = "form-control col-2 d-inline-block text-right  bg-info  ",
+                    AutoPostBack = true
+                };
+                if(nGroupId!=0 && dtSelectedStudents.Select("id = " + drCurrentStudent["id"]).Count()>0)
+                {
+                    cbStudentCheckBox.Checked = true;
+                }
+
+                p.Controls.Add(cbStudentCheckBox);
+                pNewRow.Controls.Add(cbStudentCheckBox);
+                nCurrentStudentNumber++;
+            }
+        }
+
+
+        protected void btnSave_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
