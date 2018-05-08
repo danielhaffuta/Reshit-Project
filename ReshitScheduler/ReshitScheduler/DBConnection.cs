@@ -336,5 +336,16 @@ namespace Data
         {
             return this.GetStringByQuery("select value from preferences where name = 'current_year_id'");
         }
+
+        public void ExecuteNonQuery(string strCommand)
+        {
+            this.Connect();
+            if (this.IsConnected)
+            {
+                MySqlCommand msqlCommand = new MySqlCommand(strCommand, this.connection);
+                msqlCommand.ExecuteNonQuery();
+            }
+            this.Close();
+        }
     }
 }

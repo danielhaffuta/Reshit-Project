@@ -30,7 +30,7 @@ namespace ReshitScheduler
 
             foreach (DataRow drCurrentRow in dtGroupsCoursesIDs.Rows)
             {
-                string strGroupStudents = "-(";
+                string strGroupStudents = "<br>";
                 DataTable dtGroupStudents = DBConnection.Instance.GetDataTableByQuery("select concat(first_name,' ',last_name) as name from students " +
                                                                                       " inner join students_schedule on students_schedule.student_id = students.id " +
                                                                                       " where students_schedule.group_id = " + drCurrentRow["id"] +
@@ -39,9 +39,9 @@ namespace ReshitScheduler
                                                                                       " and students.class_id = " + nClassID);
                 foreach (DataRow drCurrentStudent in dtGroupStudents.Rows)
                 {
-                    strGroupStudents += drCurrentStudent["name"].ToString() + ",";
+                    strGroupStudents += drCurrentStudent["name"].ToString() + ", ";
                 }
-                strGroupStudents = strGroupStudents.Remove(strGroupStudents.Length - 1) + ")";
+                strGroupStudents = strGroupStudents.Remove(strGroupStudents.Length - 2);
                 lbGroup = new LinkButton()
                 {
                     Text = drCurrentRow["name"].ToString()  + strGroupStudents,
