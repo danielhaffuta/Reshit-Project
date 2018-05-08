@@ -125,7 +125,7 @@ namespace ReshitScheduler
             GridView gvScheduleView = new GridView()
             {
                 ShowHeader = false,
-                CssClass = "myGridClass"
+                CssClass = "table table-striped table-bordered table-sm-responsive"
             };
             gvScheduleView.DataSource = dtScheduleTable;
 
@@ -165,21 +165,14 @@ namespace ReshitScheduler
             int nCurrentRow = 0;
             foreach (GridViewRow gvrCurrentRow in gvScheduleView.Rows)
             {
-                if (nCurrentRow % 2 == 0)
-                    gvrCurrentRow.CssClass = "myAltRowClass";
                 gvrCurrentRow.Cells[0].Visible = false;
                 ++nCurrentRow;
             }
 
 
-            this.form1.Controls.Add(gvScheduleView);
-            gvScheduleView.CssClass = "myGridClass";
+            container.Controls.Add(gvScheduleView);
 
 
-            Button btnBack = new Button() { Text = "Back" };
-            btnBack.Click += BtnBack_Click;
-            form1.Controls.Add(new LiteralControl("<br />"));
-            form1.Controls.Add(btnBack);
 
         }
 
@@ -187,7 +180,7 @@ namespace ReshitScheduler
 
 
 
-        private void BtnBack_Click(object sender, EventArgs e)
+        protected void BtnBack_Click(object sender, EventArgs e)
         {
             Response.Redirect("MainForm.aspx");
         }

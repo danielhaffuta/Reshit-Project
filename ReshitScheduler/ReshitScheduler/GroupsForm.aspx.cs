@@ -46,19 +46,34 @@ namespace ReshitScheduler
                 {
                     Text = drCurrentRow["name"].ToString()  + strGroupStudents,
                     ID = strIDs + "-"+ drCurrentRow["id"].ToString(),
+                    CssClass="form-control mb-2"
                 };
                 lbGroup.Click += LbGroup_Click;
-                form1.Controls.Add(lbGroup);
-                form1.Controls.Add(new Literal() { Text = "<br><br>" });
+                container.Controls.Add(lbGroup);
+                container.Controls.Add(new Literal() { Text = "" });
             }
             lbGroup = new LinkButton()
             {
                 Text = "קבוצה חדשה",
-                ID = strIDs + "-0"
+                ID = strIDs + "-0",
+                CssClass="form-control mb-2"
             };
             lbGroup.Click += LbGroup_Click;
-            form1.Controls.Add(lbGroup);
+            container.Controls.Add(lbGroup);
 
+            LinkButton lbBack = new LinkButton()
+            {
+                Text = "חזור",
+                CssClass = "form-control mb-2"
+            };
+            lbBack.Click += LbBack_Click;
+            container.Controls.Add(lbBack);
+
+        }
+
+        private void LbBack_Click(object sender, EventArgs e)
+        {
+            ClientScript.RegisterStartupScript(typeof(Page), "closePage", "window.close();", true);
         }
 
         private void LbGroup_Click(object sender, EventArgs e)

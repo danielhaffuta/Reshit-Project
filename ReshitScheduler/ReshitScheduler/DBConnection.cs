@@ -63,7 +63,7 @@ namespace Data
                     }
                     string strConnectionString = string.Format("Server=den1.mysql2.gear.host; database={0}; UID=reshit; password=Aa5407582@", databaseName);
                     
-                    if (HttpContext.Current.Request.IsLocal && Environment.MachineName == "IDAN-PC")
+                   // if (HttpContext.Current.Request.IsLocal && Environment.MachineName == "IDAN-PC")
                     {
                         strConnectionString = string.Format("Server=localhost; database={0}; UID=root; password=1111", databaseName);
                     }
