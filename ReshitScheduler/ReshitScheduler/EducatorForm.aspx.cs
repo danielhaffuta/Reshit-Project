@@ -22,10 +22,10 @@ namespace ReshitScheduler.Forms
             }
             LoggedInTeacher = Session["LoggedInTeacher"] as Teacher;
             DataTable dtClasses = DBConnection.Instance.GetDataTableByQuery(
-                "select classes.id " +
-                "from classes " +
-                "inner join teachers on teachers.id = classes.teacher_id" +
-                "where teachers.id = " + LoggedInTeacher.Id);
+                " select classes.id " +
+                " from classes " +
+                " inner join teachers on teachers.id = classes.teacher_id " +
+                " where teachers.id = " + LoggedInTeacher.Id);
             Response.Redirect("ClassPage.aspx?ClassId=" + dtClasses.Rows[0]["id"]);
         }
     }
