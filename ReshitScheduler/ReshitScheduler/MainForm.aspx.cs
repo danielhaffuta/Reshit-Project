@@ -98,7 +98,7 @@ namespace ReshitScheduler
         private void LbClassButton_Click(object sender, EventArgs e)
         {
             Session["ClassID"] = (sender as LinkButton).ID;
-            Response.Redirect("ClassPage.aspx");
+            Response.Redirect("ClassPage.aspx?ClassID="+(sender as LinkButton).ID);
         }
         private void LbStudentButton_Click(object sender, EventArgs e)
         {

@@ -39,6 +39,15 @@ namespace ReshitScheduler
                 {
                     Response.Redirect("AdminForm.aspx");
                 }
+                else if(LoggedInTeacher.Type == "רכז")
+                {
+                    Response.Redirect("CoordinatorForm.aspx");
+
+                }
+                else if (LoggedInTeacher.Type == "מחנך")
+                {
+                    Response.Redirect("EducatorForm.aspx");
+                }
                 else
                 {
                     Response.Redirect("MainForm.aspx");

@@ -4,33 +4,30 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <link rel = "stylesheet" href = "css/page.css" />
-     <link rel = "stylesheet" href = "css/AdminForm.css" />
-     <script src="js/jquery.min.js"></script>
+    <link rel = "stylesheet" href = "/css/page.css" />
+     <link rel = "stylesheet" href = "/css/AdminForm.css" />
+     <script src="/js/jquery.min.js"></script>
     <title>admin page</title>
    
 </head>
 <body dir ="rtl">
-          
-         
        <header>
           
-              <img src="./media/reshitLogo.gif" alt="Alternate Text" id="logo"/>
+              <img src="/media/reshitLogo.gif" alt="Alternate Text" id="logo"/>
               <span id="title"> 
                     שלום - 
                     <asp:Label ID="AdminName" runat="server" Text="Label"></asp:Label>
                     <button class="hamburger">&#9776;</button>
                    <button class="cross">&#735;</button>
                </span>
-              
              
-     </header> 
+        </header> 
 
       <div class="menu">
       <ul>
-          <a href="#"><li onclick="form1()"> ערוך טבלאות</li></a>
-          <a href="#"><li onclick="classShow()">מערכת שעות</li></a>
-          <a href="#"><li onclick="disconnect()">התנתק</li></a>
+          <li><a href="#" onclick="form1()"> ערוך טבלאות</a></li>
+          <li><a href="#" onclick="classShow()">מערכת שעות</a></li>
+          <li><a href="#" onclick="disconnect()">התנתק</a></li>
           
       </ul>
     </div> 
@@ -54,9 +51,9 @@
      </form>
         <footer>
         <p>
-           <img src="./media/arr_logo.png" alt="Alternate Text" />  <b>אתר זה פותח ועוצב ע"י חפוטה ושותפיו</b>
+           <img src="/media/arr_logo.png" alt="Alternate Text" />  <b>אתר זה אחלה</b>
         </p>
     </footer>
 </body>
 </html>
-     <script type="text/javascript" src="js/AdminForm.js"></script>
+     <script type="text/javascript" src="/js/AdminForm.js"></script>

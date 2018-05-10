@@ -196,3 +196,18 @@ C:\Users\user\Desktop\project\Reshit-Project\ReshitScheduler\ReshitScheduler\bin
 C:\Users\user\Desktop\project\Reshit-Project\ReshitScheduler\ReshitScheduler\obj\Debug\ReshitScheduler.csprojResolveAssemblyReference.cache
 C:\Users\user\Desktop\project\Reshit-Project\ReshitScheduler\ReshitScheduler\obj\Debug\ReshitScheduler.dll
 C:\Users\user\Desktop\project\Reshit-Project\ReshitScheduler\ReshitScheduler\obj\Debug\ReshitScheduler.pdb
+D:\Google Drive\programming\github\reshit\Reshit-Project\ReshitScheduler\ReshitScheduler\obj\Debug\ReshitScheduler.csprojResolveAssemblyReference.cache
+D:\Google Drive\programming\github\reshit\Reshit-Project\ReshitScheduler\ReshitScheduler\bin\roslyn\csc.exe
+D:\Google Drive\programming\github\reshit\Reshit-Project\ReshitScheduler\ReshitScheduler\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\Google Drive\programming\github\reshit\Reshit-Project\ReshitScheduler\ReshitScheduler\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\Google Drive\programming\github\reshit\Reshit-Project\ReshitScheduler\ReshitScheduler\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\Google Drive\programming\github\reshit\Reshit-Project\ReshitScheduler\ReshitScheduler\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\Google Drive\programming\github\reshit\Reshit-Project\ReshitScheduler\ReshitScheduler\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\Google Drive\programming\github\reshit\Reshit-Project\ReshitScheduler\ReshitScheduler\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\Google Drive\programming\github\reshit\Reshit-Project\ReshitScheduler\ReshitScheduler\bin\roslyn\System.Collections.Immutable.dll
+D:\Google Drive\programming\github\reshit\Reshit-Project\ReshitScheduler\ReshitScheduler\bin\roslyn\System.Reflection.Metadata.dll
+D:\Google Drive\programming\github\reshit\Reshit-Project\ReshitScheduler\ReshitScheduler\bin\roslyn\vbc.exe
+D:\Google Drive\programming\github\reshit\Reshit-Project\ReshitScheduler\ReshitScheduler\bin\roslyn\VBCSCompiler.exe
+D:\Google Drive\programming\github\reshit\Reshit-Project\ReshitScheduler\ReshitScheduler\bin\roslyn\VBCSCompiler.exe.config
+D:\Google Drive\programming\github\reshit\Reshit-Project\ReshitScheduler\ReshitScheduler\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\Google Drive\programming\github\reshit\Reshit-Project\ReshitScheduler\ReshitScheduler\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml

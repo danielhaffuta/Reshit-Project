@@ -9,25 +9,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta http-equiv="x-ua-compatible" content="ie=edge"/>
     
-    <link rel="stylesheet" href="css/AddGroupToClass.css"/>
-    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/AddGroupToClass.css"/>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
     <title></title>
 </head>
 <body dir ="rtl">
-
-    <form id="form1" runat="server">
-        <asp:Panel runat="server" ID="container" class="container">
+    <div class="container text-right mt-5">
+        <form id="form1" runat="server">
+            <asp:Panel runat="server" ID="container" class="container">
     
-        </asp:Panel>
-        <div class="form-row justify-content-center">
-            <button  runat="server"  onserverclick="BtnBack_Click" class="btn btn-outline-dark">חזור</button>
-        </div>
-    </form>
+            </asp:Panel>
+            <div class="form-row justify-content-center">
+                <button  runat="server"  onserverclick="BtnBack_Click" class="btn btn-outline-dark">חזור</button>
+            </div>
+        </form>
+    </div>
 
-
-    <script src="js/general.js"></script>
-    <script src="js/jquery.slim.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="/js/general.js"></script>
+    <script src="/js/jquery.slim.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
 </body>
 </html>

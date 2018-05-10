@@ -9,8 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta http-equiv="x-ua-compatible" content="ie=edge"/>
     
-    <link rel="stylesheet" href="css/AddGroupToClass.css"/>
-    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/AddGroupToClass.css"/>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
     <title></title>
 </head>
 <body dir = "rtl">
@@ -32,8 +32,8 @@
         </asp:Panel>
     </form>
 
-    <script src="js/jquery.slim.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="/js/jquery.slim.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
 </body>
 </html>

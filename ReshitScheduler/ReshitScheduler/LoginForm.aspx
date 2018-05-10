@@ -5,9 +5,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 
-    <link rel = "stylesheet" href = "css/login.css" />
-    <script src="js/jquery.min.js"></script>
-    <link href="css/page.css" rel="stylesheet" />
+    <link rel = "stylesheet" href = "/css/login.css" />
+    <script src="/js/jquery.min.js""></script>
+    <link href="/css/page.css" rel="stylesheet" />
     <title>Reshit Scheduler</title>
 
 </head>
@@ -15,7 +15,7 @@
        
          <header>
           
-              <img src="./media/reshitLogo.gif" alt="Alternate Text" id="logo"/>
+              <img src="/media/reshitLogo.gif" alt="Alternate Text" id="logo"/>
               <span id="title"> 
                   <b>מערכת שעות - בית הספר ראשית</b>
                     <hr />
@@ -29,13 +29,13 @@
           <!-- Full-width images with number and caption text -->
           <div class="mySlides fade">
             <div class="numbertext">1 /2</div>
-            <img src="./media/1.jpg" style="width:95%; height:570px;" />
+            <img src="/media/1.jpg" style="width:95%; height:570px;" />
             <div class="text">ילדות בדשא</div>
           </div>
 
           <div class="mySlides fade">
             <div class="numbertext">2 / 2</div>
-            <img src="./media/2.jpg" style="width:95%; height:570px;"/>
+            <img src="/media/2.jpg" style="width:95%; height:570px;"/>
             <div class="text">השביל הזה מתחיל כאן</div>
           </div>
           <!-- Next and previous buttons -->
@@ -63,11 +63,10 @@
     </form>
     <footer>
         <p>
-           <img src="./media/arr_logo.png" alt="Alternate Text" />  <b>אתר זה פותח ועוצב ע"י חפוטה ושותפיו</b>
+           <img src="/media/arr_logo.png" alt="Alternate Text" />  <b>אתר זה אחלה</b>
         </p>
     </footer>
-     
+  <script type="text/javascript" src="/js/login.js"></script>     
 </body>
 </html>
 
-  <script type="text/javascript" src="js/login.js"></script>
