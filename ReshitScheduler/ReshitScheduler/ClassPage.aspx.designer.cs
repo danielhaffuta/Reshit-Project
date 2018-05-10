@@ -22,12 +22,21 @@ namespace ReshitScheduler {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// container control.
+        /// pnlSchedule control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel container;
+        protected global::System.Web.UI.WebControls.Panel pnlSchedule;
+        
+        /// <summary>
+        /// pnlStudents control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlStudents;
     }
 }

@@ -152,6 +152,7 @@
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="SetBellSystem.aspx" />
+    <Content Include="StudentDetailsForm.aspx" />
     <Content Include="TableEdit.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -260,6 +261,13 @@
     </Compile>
     <Compile Include="SetBellSystem.aspx.designer.cs">
       <DependentUpon>SetBellSystem.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StudentDetailsForm.aspx.cs">
+      <DependentUpon>StudentDetailsForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StudentDetailsForm.aspx.designer.cs">
+      <DependentUpon>StudentDetailsForm.aspx</DependentUpon>
     </Compile>
     <Compile Include="TableEdit.aspx.cs">
       <DependentUpon>TableEdit.aspx</DependentUpon>

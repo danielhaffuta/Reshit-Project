@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ClassPage.aspx.cs" Inherits="ReshitScheduler.ClassPage" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="StudentDetailsForm.aspx.cs" Inherits="ReshitScheduler.StudentDetailsForm" %>
 
 <!DOCTYPE html>
 
@@ -12,25 +12,16 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css"/>
     <title></title>
 </head>
-<body dir ="rtl">
-    <div class="container text-right mt-5">
-        <form id="form1" runat="server">
-            <div class="row">
-                <asp:Panel runat="server" ID="pnlSchedule" class="table-responsive col-12">
-    
-                </asp:Panel>
-            </div>
-            <asp:Panel runat="server" ID="pnlStudents" CssClass="row">
-
-            </asp:Panel>
-            <div class="form-row justify-content-center">
+<body dir="rtl">
+    <form id="form1" runat="server" class="container text-center">
+        <img src="<%=strPicturePath %>" width="400"/><br />
+        <h1><%=strStudentName %></h1>
+        <h2><%=strClass %><br /></h2>
+        
+        <div class="form-row justify-content-center">
                 <button  runat="server"  onserverclick="BtnBack_Click" class="btn btn-outline-dark">חזור</button>
             </div>
-            
-        </form>
-    </div>
-
-    <script src="/js/general.js"></script>
+    </form>
     <script src="/js/jquery.slim.min.js"></script>
     <script src="/js/popper.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>

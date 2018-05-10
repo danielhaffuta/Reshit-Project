@@ -196,7 +196,6 @@ C:\Users\user\Desktop\project\Reshit-Project\ReshitScheduler\ReshitScheduler\bin
 C:\Users\user\Desktop\project\Reshit-Project\ReshitScheduler\ReshitScheduler\obj\Debug\ReshitScheduler.csprojResolveAssemblyReference.cache
 C:\Users\user\Desktop\project\Reshit-Project\ReshitScheduler\ReshitScheduler\obj\Debug\ReshitScheduler.dll
 C:\Users\user\Desktop\project\Reshit-Project\ReshitScheduler\ReshitScheduler\obj\Debug\ReshitScheduler.pdb
-D:\Google Drive\programming\github\reshit\Reshit-Project\ReshitScheduler\ReshitScheduler\obj\Debug\ReshitScheduler.csprojResolveAssemblyReference.cache
 D:\Google Drive\programming\github\reshit\Reshit-Project\ReshitScheduler\ReshitScheduler\bin\roslyn\csc.exe
 D:\Google Drive\programming\github\reshit\Reshit-Project\ReshitScheduler\ReshitScheduler\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
 D:\Google Drive\programming\github\reshit\Reshit-Project\ReshitScheduler\ReshitScheduler\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
