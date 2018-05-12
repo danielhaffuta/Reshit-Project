@@ -1,30 +1,21 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CoordinatorForm.aspx.cs" Inherits="ReshitScheduler.CoordinatorForm" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="CoordinatorForm.aspx.cs" Inherits="ReshitScheduler.CoordinatorForm" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="MainForm" runat="server">
+    <h2 > <asp:Literal ID="hTeacherName" runat="server" /></h2>
 
-<!DOCTYPE html>
+    <asp:Panel ID="pnlClasses" runat="server" CssClass="list-group">
+        <h3>הכיתות שלך</h3>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
-    
-    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
-    <title></title>
-</head>
-<body dir="rtl">
-    <div class="container text-right">
-        <form id="form1" runat="server">
-            <h2 > <asp:Literal ID="hTeacherName" runat="server" /></h2>
+    </asp:Panel>
+    <asp:Panel ID="pnlGroups" runat="server" CssClass="list-group">
+        <h3>הקבוצות שלך</h3>
 
-            <h3>הכיתות שלך</h3>
-            <ol id="olClasses" runat="server">
-
-            </ol>
-        </form>
+    </asp:Panel>
+     <div class="form-row justify-content-center mt-3">
+        <button  runat="server"  onserverclick="BtnBack_Click" class="btn btn-outline-dark">חזור</button>
+        <button  runat="server"  onserverclick="BtnLogout_Click" class="btn btn-outline-dark">התנתק</button>
     </div>
+</asp:Content>
 
-    <script src="/js/jquery.slim.min.js"></script>
-    <script src="/js/popper.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-</body>
-</html>
+

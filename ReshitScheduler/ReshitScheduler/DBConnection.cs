@@ -107,7 +107,7 @@ namespace Data
             this.Connect();
             if (this.IsConnected)
             {
-                string query = "SELECT * FROM " + strTableName + strWhereClause + " order by " + strTableName + ".id";
+                string query = "SELECT * FROM " + strTableName + " " + strWhereClause + " order by " + strTableName + ".id";
 
                 MySqlDataAdapter daAdapter = new MySqlDataAdapter(query, connection);
                 daAdapter.MissingSchemaAction = MissingSchemaAction.AddWithKey;
@@ -148,6 +148,43 @@ namespace Data
                 }
                 strQuery = strQuery.Remove(strQuery.Length - 1);
                 strQuery += " where id = " + nId;
+                try
+                {
+                    MySqlCommand command = new MySqlCommand(strQuery, this.connection);
+                    command.ExecuteNonQuery();
+                }
+                catch (MySqlException e)
+                {
+                    return false;
+                }
+
+            }
+
+            this.Close();
+            return true;
+
+        }
+
+        public bool UpdateTableRow(string strTableName,int nID, string strFields, string strValues)
+        {
+            this.Connect();
+
+            if (this.IsConnected)
+            {
+                string strQuery = "update " + strTableName + " set ";
+                string[] straFields = strFields.Split(',');
+                string[] straValues = strValues.Split(',');
+                if(straFields.Length != straValues.Length)
+                {
+                    return false; 
+                }
+                for (int nCurrentFieldIndex = 0; nCurrentFieldIndex < straFields.Length; nCurrentFieldIndex++)
+                {
+                    strQuery += straFields[nCurrentFieldIndex] + " = " +straValues[nCurrentFieldIndex] + ",";
+
+                }
+                strQuery = strQuery.Remove(strQuery.Length - 1);
+                strQuery += " where id = " + nID;
                 try
                 {
                     MySqlCommand command = new MySqlCommand(strQuery, this.connection);
@@ -240,7 +277,7 @@ namespace Data
             {
                 try
                 {
-                    MySqlDataAdapter daAdapter = new MySqlDataAdapter(strQuery, connection);
+                    MySqlDataAdapter daAdapter = new MySqlDataAdapter(strQuery , connection);
                     daAdapter.MissingSchemaAction = MissingSchemaAction.AddWithKey;
                     dtTable = new DataTable();
                     daAdapter.Fill(dtTable);
@@ -283,11 +320,11 @@ namespace Data
 
         }
 
-        public DataTable GetConstraintDataTable(string strTableName)
+        public DataTable GetConstraintDataTable(string strTableName, string strWhereClause ="")
         {
             string strDisplayQuery = GetDisplayQuery(strTableName);
 
-            return GetDataTableByQuery(strDisplayQuery);
+            return GetDataTableByQuery(strDisplayQuery+" "+ strWhereClause);
         }
         public DataTable GetConstraintData(string strTableName, int nID)
         {

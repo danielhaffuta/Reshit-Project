@@ -15,7 +15,7 @@ namespace ReshitScheduler
 
         private DataTable dtDays;
         private DataTable dtHours;
-        protected DataTable dtCourses;
+        private DataTable dtCourses;
         private DataTable dtScheduleTable;
 
 
@@ -25,7 +25,7 @@ namespace ReshitScheduler
         private int nYearId;
 
 
-        protected void Page_PreInit(object sender, EventArgs e)
+        protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["CurrentYearID"] == null)
             {
@@ -36,6 +36,10 @@ namespace ReshitScheduler
             {
                 //Response.Redirect("LoginForm.aspx");
                 //return;
+            }
+            else
+            {
+                LoggedInTeacher = Session["LoggedInTeacher"] as Teacher;
             }
             /*if (Request.QueryString["ClassID"] == null /* Session["ClassID"] == null)
             {
@@ -78,12 +82,13 @@ namespace ReshitScheduler
             }
             ///////////////////////////////
 
-            //Setting days Rows
+            //Setting days Row
             DataRow drNewRow = dtScheduleTable.NewRow();
             drNewRow["days_hours"] = "ימים/שעות";
             foreach (DataRow drCurrentDay in dtDays.Rows)
             {
                 drNewRow[drCurrentDay["id"].ToString()] = drCurrentDay["day_name"].ToString();
+                
             }
             dtScheduleTable.Rows.Add(drNewRow);
             ////////////////////////////////////////////////////////
@@ -94,6 +99,10 @@ namespace ReshitScheduler
                 drNewRow = dtScheduleTable.NewRow();
                 drNewRow["hour_id"] = drCurrentHour["id"].ToString();
                 drNewRow["days_hours"] = drCurrentHour["name"].ToString();
+                if (drCurrentHour["is_break"].ToString().Equals("1"))
+                {
+                    drNewRow["hour_id"] += "*";
+                }
                 dtScheduleTable.Rows.Add(drNewRow);
 
             }
@@ -118,7 +127,7 @@ namespace ReshitScheduler
 
                     strCourseName += "$";
                 }
-                dtScheduleTable.Select("hour_id = " + drCurrentHour["hour_id"].ToString())[0][drCurrentHour["day_id"].ToString()] = strCourseName;
+                dtScheduleTable.Select("hour_id = '" + drCurrentHour["hour_id"].ToString().Replace("*","")+"'")[0][drCurrentHour["day_id"].ToString()] = strCourseName;
             }
 
             
@@ -137,26 +146,44 @@ namespace ReshitScheduler
 
             foreach (GridViewRow gvrCurrentRow in gvScheduleView.Rows)
             {
-                foreach (TableCell tcCurrentCell in gvrCurrentRow.Cells)
+                if (gvrCurrentRow.Cells[0].Text.Contains("*"))
                 {
-                    tcCurrentCell.Text = tcCurrentCell.Text.Replace("&lt;br&gt;", "<br>");
-                    tcCurrentCell.HorizontalAlign = HorizontalAlign.Center;
-                    if (tcCurrentCell.Text.Contains("*"))
+                    gvrCurrentRow.Cells[0].Text.Replace("*", "");
+                    gvrCurrentRow.Cells[1].HorizontalAlign = HorizontalAlign.Center;
+                    gvrCurrentRow.CssClass = "bg-light";
+                    gvrCurrentRow.Cells[2].ColumnSpan = 6;
+                    gvrCurrentRow.Cells[2].Text = "הפסקה";
+                    gvrCurrentRow.Cells[2].CssClass = "h5 text-center";
+                    
+                    gvrCurrentRow.Cells.RemoveAt(7);
+                    gvrCurrentRow.Cells.RemoveAt(6);
+                    gvrCurrentRow.Cells.RemoveAt(5);
+                    gvrCurrentRow.Cells.RemoveAt(4);
+                    gvrCurrentRow.Cells.RemoveAt(3);
+                }
+                else
+                {
+                    foreach (TableCell tcCurrentCell in gvrCurrentRow.Cells)
                     {
-                        Label lbl = new Label() { Text = tcCurrentCell.Text.Split('*')[0] };
-                        tcCurrentCell.Attributes.Add("onClick", "OnClick(\"GroupsForm.aspx?IDs=" + strClassID + "-" + tcCurrentCell.Text.Split('*')[1].Replace("$", "") + "\",1200,900,\"yes\");");
-                        tcCurrentCell.Controls.Add(lbl);
-
-                        if (tcCurrentCell.Text.Contains("$"))
+                        tcCurrentCell.Text = tcCurrentCell.Text.Replace("&lt;br&gt;", "<br>");
+                        tcCurrentCell.HorizontalAlign = HorizontalAlign.Center;
+                        if (tcCurrentCell.Text.Contains("*"))
                         {
-                            //tcCurrentCell.Text = tcCurrentCell.Text.Replace("$", "");
-                            LinkButton lbGroupLinkButton = new LinkButton()
+                            Label lbl = new Label() { Text = tcCurrentCell.Text.Split('*')[0] };
+                            tcCurrentCell.Attributes.Add("onClick", "OnClick(\"GroupsForm.aspx?IDs=" + strClassID + "-" + tcCurrentCell.Text.Split('*')[1].Replace("$", "") + "\",1200,900,\"yes\");");
+                            tcCurrentCell.Controls.Add(lbl);
+
+                            if (tcCurrentCell.Text.Contains("$"))
                             {
-                                Text = "<br>קבוצות",
-                                ID = tcCurrentCell.Text.Split('*')[1],
-                                OnClientClick = "genericPopup(\"GroupsForm.aspx?IDs=" + strClassID + "-" + tcCurrentCell.Text.Split('*')[1].Replace("$", "") + "\",1200,900,\"yes\")"
-                            };
-                            tcCurrentCell.Controls.Add(lbGroupLinkButton);
+                                //tcCurrentCell.Text = tcCurrentCell.Text.Replace("$", "");
+                                LinkButton lbGroupLinkButton = new LinkButton()
+                                {
+                                    Text = "<br>קבוצות",
+                                    ID = tcCurrentCell.Text.Split('*')[1],
+                                    OnClientClick = "genericPopup(\"GroupsForm.aspx?IDs=" + strClassID + "-" + tcCurrentCell.Text.Split('*')[1].Replace("$", "") + "\",1200,900,\"yes\")"
+                                };
+                                tcCurrentCell.Controls.Add(lbGroupLinkButton);
+                            }
                         }
                     }
                 }
@@ -180,7 +207,19 @@ namespace ReshitScheduler
 
         protected void BtnBack_Click(object sender, EventArgs e)
         {
-            GoBack();
+            Response.Redirect("MainForm.aspx");
+            //GoBack();
+        }
+        protected void BtnLogout_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("LoginForm.aspx");
+            //GoBack();
+        }
+
+        protected void GotoCoursesAndGroupsForm(object sender, EventArgs e)
+        {
+            Response.Redirect("TeacherCoursesAndGroupsForm.aspx?TeacherID=" + LoggedInTeacher.Id + "&ClassID=" + strClassID);
+
         }
 
         private void GoBack()

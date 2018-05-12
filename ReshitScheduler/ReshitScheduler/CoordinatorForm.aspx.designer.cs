@@ -13,15 +13,6 @@ namespace ReshitScheduler {
     public partial class CoordinatorForm {
         
         /// <summary>
-        /// form1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
-        
-        /// <summary>
         /// hTeacherName control.
         /// </summary>
         /// <remarks>
@@ -31,12 +22,21 @@ namespace ReshitScheduler {
         protected global::System.Web.UI.WebControls.Literal hTeacherName;
         
         /// <summary>
-        /// olClasses control.
+        /// pnlClasses control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl olClasses;
+        protected global::System.Web.UI.WebControls.Panel pnlClasses;
+        
+        /// <summary>
+        /// pnlGroups control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlGroups;
     }
 }

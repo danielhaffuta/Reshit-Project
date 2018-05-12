@@ -18,6 +18,20 @@ namespace ReshitScheduler
                 return;
             }
             LoggedInTeacher = Session["LoggedInTeacher"] as Teacher;
+            if (LoggedInTeacher.Type == "admin")
+            {
+                Response.Redirect("AdminForm.aspx");
+            }
+            else if (LoggedInTeacher.Type == "רכז")
+            {
+                Response.Redirect("CoordinatorForm.aspx");
+
+            }
+            else if (LoggedInTeacher.Type == "מחנך")
+            {
+                Response.Redirect("EducatorForm.aspx");
+            }
+            
 
             TeacherName.Text = LoggedInTeacher.FirstName + " " + LoggedInTeacher.LastName;
             DataTable dtClasses = DBConnection.Instance.GetDataTableByQuery(

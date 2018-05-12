@@ -9,10 +9,9 @@ using System.Web.UI.WebControls;
 
 namespace ReshitScheduler
 {
-    public partial class AddGroupToClass : System.Web.UI.Page
+    public partial class AddGroupToClass : BasePage
     {
         private int nClassID, nHourId, nDayId, nGroupId;
-        private static string strPreviousPage;
 
         protected void Unnamed_ServerClick(object sender, EventArgs e)
         {
@@ -39,7 +38,6 @@ namespace ReshitScheduler
             }
             if (!IsPostBack)
             {
-                strPreviousPage = Request.UrlReferrer.ToString();
 
                 string strYearID = DBConnection.Instance.GetCurrentYearID();
                 string strGroupsQuery = DBConnection.Instance.GetDisplayQuery("Groups");
@@ -68,7 +66,7 @@ namespace ReshitScheduler
                 DataTable dtGroupsTable = DBConnection.Instance.GetDataTableByQuery(strGroupsQuery);
                 if(dtGroupsTable.Rows.Count == 0)
                 {
-                    Response.Write("<script language='javascript'>window.alert('אין קבוצות לבחירה');window.location='"+ strPreviousPage+"';</script>");
+                    Response.Write("<script language='javascript'>window.alert('אין קבוצות לבחירה');window.location='"+ strPreviousPage + "';</script>");
 
                     return;
                 }
@@ -182,9 +180,10 @@ namespace ReshitScheduler
         {
             GoBack();
         }
-        private void GoBack()
+
+        protected void GoBack()
         {
-            Response.Redirect(strPreviousPage);
+            Response.Redirect("GroupsForm.aspx?IDs=" + nClassID + "-" + nHourId + "-" + nDayId);
         }
 
     }

@@ -110,6 +110,7 @@
     <Content Include="AddStudentForm.aspx" />
     <Content Include="AddTeacherForm.aspx" />
     <Content Include="AdminForm.aspx" />
+    <Content Include="BasePage.aspx" />
     <Content Include="ClassPage.aspx" />
     <Content Include="css\AddGroupToClass.css" />
     <Content Include="css\AdminForm.css" />
@@ -132,10 +133,19 @@
     <Content Include="js\jquery.min.js" />
     <Content Include="js\jquery.slim.min.js" />
     <Content Include="js\popper.min.js" />
+    <Content Include="LessonForm.aspx" />
+    <Content Include="LoginForm.aspx" />
+    <Content Include="media\1.jpg" />
+    <Content Include="media\2.jpg" />
+    <Content Include="media\3.jpg" />
+    <Content Include="media\Arr_logo.png" />
+    <Content Include="media\reshitLogo.gif" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="MasterPage.Master" />
+    <Content Include="pictures\compressjpeg.zip" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -147,13 +157,61 @@
     <Content Include="css\login.css" />
     <Content Include="Global.asax" />
     <Content Include="js\login.js" />
-    <Content Include="LoginForm.aspx" />
     <Content Include="MainForm.aspx" />
+    <Content Include="pictures\1.jpg" />
+    <Content Include="pictures\10.jpg" />
+    <Content Include="pictures\11.jpg" />
+    <Content Include="pictures\12.jpg" />
+    <Content Include="pictures\13.jpg" />
+    <Content Include="pictures\14.jpg" />
+    <Content Include="pictures\15.jpg" />
+    <Content Include="pictures\16.jpg" />
+    <Content Include="pictures\17.jpg" />
+    <Content Include="pictures\18.jpg" />
+    <Content Include="pictures\19.jpg" />
+    <Content Include="pictures\2.jpg" />
+    <Content Include="pictures\20.jpg" />
+    <Content Include="pictures\21.jpg" />
+    <Content Include="pictures\22.jpg" />
+    <Content Include="pictures\23.jpg" />
+    <Content Include="pictures\24.jpg" />
+    <Content Include="pictures\3.jpg" />
+    <Content Include="pictures\4.jpg" />
+    <Content Include="pictures\5.jpg" />
+    <Content Include="pictures\6.jpg" />
+    <Content Include="pictures\7.jpg" />
+    <Content Include="pictures\8.jpg" />
+    <Content Include="pictures\9.jpg" />
+    <Content Include="pictures\big\1.jpg" />
+    <Content Include="pictures\big\10.jpg" />
+    <Content Include="pictures\big\11.jpg" />
+    <Content Include="pictures\big\12.jpg" />
+    <Content Include="pictures\big\13.jpg" />
+    <Content Include="pictures\big\14.jpg" />
+    <Content Include="pictures\big\15.jpg" />
+    <Content Include="pictures\big\16.jpg" />
+    <Content Include="pictures\big\17.jpg" />
+    <Content Include="pictures\big\18.jpg" />
+    <Content Include="pictures\big\19.jpg" />
+    <Content Include="pictures\big\2.jpg" />
+    <Content Include="pictures\big\20.jpg" />
+    <Content Include="pictures\big\21.jpg" />
+    <Content Include="pictures\big\22.jpg" />
+    <Content Include="pictures\big\23.jpg" />
+    <Content Include="pictures\big\24.jpg" />
+    <Content Include="pictures\big\3.jpg" />
+    <Content Include="pictures\big\4.jpg" />
+    <Content Include="pictures\big\5.jpg" />
+    <Content Include="pictures\big\6.jpg" />
+    <Content Include="pictures\big\7.jpg" />
+    <Content Include="pictures\big\8.jpg" />
+    <Content Include="pictures\big\9.jpg" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="SetBellSystem.aspx" />
     <Content Include="StudentDetailsForm.aspx" />
     <Content Include="TableEdit.aspx" />
+    <Content Include="TeacherCoursesAndGroupsForm.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -199,6 +257,13 @@
     <Compile Include="AdminForm.aspx.designer.cs">
       <DependentUpon>AdminForm.aspx</DependentUpon>
     </Compile>
+    <Compile Include="BasePage.aspx.cs">
+      <DependentUpon>BasePage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BasePage.aspx.designer.cs">
+      <DependentUpon>BasePage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ClassPage.aspx.cs">
       <DependentUpon>ClassPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -240,6 +305,13 @@
       <DependentUpon>GroupsForm.aspx</DependentUpon>
     </Compile>
     <Compile Include="Helper.cs" />
+    <Compile Include="LessonForm.aspx.cs">
+      <DependentUpon>LessonForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LessonForm.aspx.designer.cs">
+      <DependentUpon>LessonForm.aspx</DependentUpon>
+    </Compile>
     <Compile Include="LoginForm.aspx.cs">
       <DependentUpon>LoginForm.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -253,6 +325,13 @@
     </Compile>
     <Compile Include="MainForm.aspx.designer.cs">
       <DependentUpon>MainForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MasterPage.Master.cs">
+      <DependentUpon>MasterPage.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MasterPage.Master.designer.cs">
+      <DependentUpon>MasterPage.Master</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SetBellSystem.aspx.cs">
@@ -277,6 +356,13 @@
       <DependentUpon>TableEdit.aspx</DependentUpon>
     </Compile>
     <Compile Include="Teacher.cs" />
+    <Compile Include="TeacherCoursesAndGroupsForm.aspx.cs">
+      <DependentUpon>TeacherCoursesAndGroupsForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TeacherCoursesAndGroupsForm.aspx.designer.cs">
+      <DependentUpon>TeacherCoursesAndGroupsForm.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
