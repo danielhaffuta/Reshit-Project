@@ -23,7 +23,7 @@ namespace ReshitScheduler
                                "where user_name ='" + Username.Text + "' " +
                                "and password = '" + Password.Text + "'";
             DataTable dtLoginData = dbcConnection.GetDataTableByQuery(strQuery);
-            if (dtLoginData != null && dtLoginData.Rows.Count>0)
+            if (dtLoginData != null && dtLoginData.Rows.Count > 0)
             {
                 Teacher LoggedInTeacher = new Teacher()
                 {
@@ -39,7 +39,7 @@ namespace ReshitScheduler
                 {
                     Response.Redirect("AdminForm.aspx");
                 }
-                else if(LoggedInTeacher.Type == "רכז")
+                else if (LoggedInTeacher.Type == "רכז")
                 {
                     Response.Redirect("CoordinatorForm.aspx");
 
@@ -47,6 +47,10 @@ namespace ReshitScheduler
                 else if (LoggedInTeacher.Type == "מחנך")
                 {
                     Response.Redirect("EducatorForm.aspx");
+                }
+                else if (LoggedInTeacher.Type == "מנהל")
+                {
+                    Response.Redirect("PrincipallPage.aspx");
                 }
                 else
                 {

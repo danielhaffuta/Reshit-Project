@@ -210,3 +210,5 @@ D:\Google Drive\programming\github\reshit\Reshit-Project\ReshitScheduler\ReshitS
 D:\Google Drive\programming\github\reshit\Reshit-Project\ReshitScheduler\ReshitScheduler\bin\roslyn\VBCSCompiler.exe.config
 D:\Google Drive\programming\github\reshit\Reshit-Project\ReshitScheduler\ReshitScheduler\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 D:\Google Drive\programming\github\reshit\Reshit-Project\ReshitScheduler\ReshitScheduler\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\danacoh1\Desktop\College\Software_Engineer_Project\Reshit-Project\ReshitScheduler\ReshitScheduler\obj\Debug\ReshitScheduler.dll
+C:\Users\danacoh1\Desktop\College\Software_Engineer_Project\Reshit-Project\ReshitScheduler\ReshitScheduler\obj\Debug\ReshitScheduler.pdb
