@@ -1,16 +1,19 @@
-﻿using System;
+﻿using Data;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 namespace ReshitScheduler
 {
-    public partial class PrincipallPage : System.Web.UI.Page
+    public partial class PrincipalPage : System.Web.UI.Page
     {
         private readonly int SCHEDULE = 1, STUDENTS_CONTACT = 2, TEACHERS_CONTACT = 3;
-        public static Teacher teacherLoggedIn;
+        public static Teacher LoggedInTeacher;
         protected void Page_PreInit(object sender, EventArgs e)
         {
             if (Session["teacherLoggedIn"] == null)
@@ -30,7 +33,7 @@ namespace ReshitScheduler
                 ID = "ClassContactList",
                 Text = "דף קשר לפי כיתה",
             };
-            lbClassContactListButton.Click += lbClassContactListButton_Click;
+            lbClassContactListButton.Click += lbEvaluationsButton_Click;
             editOptionsPanel.Controls.Add(lbClassContactListButton);
             editOptionsPanel.Controls.Add(new LiteralControl("<br />"));
             //=============================//
@@ -63,7 +66,7 @@ namespace ReshitScheduler
                 ID = "AddStudent",
                 Text = "דף קשר לפי כיתה",
             };
-            lbClassClassContactListButton.Click += lbClassClassContactListButton_Click;
+            lbClassClassContactListButton.Click += lbEvaluationsButton_Click;
             editOptionsPanel.Controls.Add(lbClassClassContactListButton);
             editOptionsPanel.Controls.Add(new LiteralControl("<br />"));
             //=========================//
@@ -119,7 +122,7 @@ namespace ReshitScheduler
             Response.Redirect("AddStudentForm.aspx");
         }
 
-        private void LbStudentButton_Click(object sender, EventArgs e)
+        private void lbTeacherButton_Click(object sender, EventArgs e)
         {
             Response.Redirect("AddTeacherForm.aspx");
         }
@@ -147,7 +150,7 @@ namespace ReshitScheduler
 
         private void ShowAllClasses(int type)
         {
-            DataTable dtType;
+            DataTable dtType = null;
             if (type == SCHEDULE)
                 dtType = DBConnection.Instance.GetDataTableByQuery(
                 "select concat(grades.grade_name,classes.class_number) as name,classes.id " +
@@ -158,7 +161,7 @@ namespace ReshitScheduler
 
             HtmlGenericControl olClassesSchedule = FindControl("olClassesSchedule") as HtmlGenericControl;
 
-            foreach (DataRow drCurrentClass in dtClasses.Rows)
+            foreach (DataRow drCurrentClass in dtType.Rows)
             {
                 olClassesSchedule.InnerHtml += "<li><a href=ClassPage.aspx?ClassID=" + drCurrentClass["id"] + ">" + drCurrentClass["name"] + "</a></li>";
 
@@ -181,7 +184,7 @@ namespace ReshitScheduler
                 DataSource = dtCourses
             };
             gvCourses.DataBind();
-            pnlSchedule.Controls.Add(gvScheduleView);
+            editOptionsPanel.Controls.Add(gvCourses);
         }
 
 

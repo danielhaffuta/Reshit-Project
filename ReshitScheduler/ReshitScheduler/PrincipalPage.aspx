@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PrincipallPage.aspx.cs" Inherits="ReshitScheduler.PrincipallPage" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PrincipalPage.aspx.cs" Inherits="ReshitScheduler.PrincipalPage" %>
 
 <!DOCTYPE html>
 

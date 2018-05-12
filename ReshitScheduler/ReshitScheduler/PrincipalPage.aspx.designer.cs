@@ -10,7 +10,7 @@
 namespace ReshitScheduler {
     
     
-    public partial class PrincipallPage {
+    public partial class PrincipalPage {
         
         /// <summary>
         /// PrincipalName control.

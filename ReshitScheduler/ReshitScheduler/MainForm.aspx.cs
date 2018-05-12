@@ -18,6 +18,24 @@ namespace ReshitScheduler
                 return;
             }
             LoggedInTeacher = Session["LoggedInTeacher"] as Teacher;
+            switch (LoggedInTeacher.Type)
+            {
+                case "admin":
+                    Response.Redirect("AdminForm.aspx");
+                    break;
+                case "רכז":
+                    Response.Redirect("CoordinatorForm.aspx");
+                    break;
+                case "מחנך":
+                    Response.Redirect("EducatorForm.aspx");
+                    break;
+                case "מנהל":
+                    Response.Redirect("PrincipalPage.aspx");
+                    break;
+                default:
+                    break;
+            }
+
             if (LoggedInTeacher.Type == "admin")
             {
                 Response.Redirect("AdminForm.aspx");

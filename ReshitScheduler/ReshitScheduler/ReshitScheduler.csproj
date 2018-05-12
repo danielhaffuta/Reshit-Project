@@ -206,6 +206,7 @@
     <Content Include="pictures\big\7.jpg" />
     <Content Include="pictures\big\8.jpg" />
     <Content Include="pictures\big\9.jpg" />
+    <Content Include="PrincipalPage.aspx" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="SetBellSystem.aspx" />
@@ -332,6 +333,13 @@
     </Compile>
     <Compile Include="MasterPage.Master.designer.cs">
       <DependentUpon>MasterPage.Master</DependentUpon>
+    </Compile>
+    <Compile Include="PrincipalPage.aspx.cs">
+      <DependentUpon>PrincipalPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PrincipalPage.aspx.designer.cs">
+      <DependentUpon>PrincipalPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SetBellSystem.aspx.cs">
