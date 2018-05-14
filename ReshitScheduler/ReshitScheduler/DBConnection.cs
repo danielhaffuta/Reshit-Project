@@ -62,8 +62,8 @@ namespace Data
                         return;
                     }
                     string strConnectionString = string.Format("Server=den1.mysql2.gear.host; database={0}; UID=reshit; password=Aa5407582@", databaseName);
-                    
-                   // if (HttpContext.Current.Request.IsLocal && Environment.MachineName == "IDAN-PC")
+
+                    // if (HttpContext.Current.Request.IsLocal && Environment.MachineName == "IDAN-PC")
                     {
                         strConnectionString = string.Format("Server=localhost; database={0}; UID=root; password=1111", databaseName);
                     }
@@ -165,7 +165,7 @@ namespace Data
 
         }
 
-        public bool UpdateTableRow(string strTableName,int nID, string strFields, string strValues)
+        public bool UpdateTableRow(string strTableName, int nID, string strFields, string strValues)
         {
             this.Connect();
 
@@ -174,13 +174,13 @@ namespace Data
                 string strQuery = "update " + strTableName + " set ";
                 string[] straFields = strFields.Split(',');
                 string[] straValues = strValues.Split(',');
-                if(straFields.Length != straValues.Length)
+                if (straFields.Length != straValues.Length)
                 {
-                    return false; 
+                    return false;
                 }
                 for (int nCurrentFieldIndex = 0; nCurrentFieldIndex < straFields.Length; nCurrentFieldIndex++)
                 {
-                    strQuery += straFields[nCurrentFieldIndex] + " = " +straValues[nCurrentFieldIndex] + ",";
+                    strQuery += straFields[nCurrentFieldIndex] + " = " + straValues[nCurrentFieldIndex] + ",";
 
                 }
                 strQuery = strQuery.Remove(strQuery.Length - 1);
@@ -277,13 +277,13 @@ namespace Data
             {
                 try
                 {
-                    MySqlDataAdapter daAdapter = new MySqlDataAdapter(strQuery , connection);
+                    MySqlDataAdapter daAdapter = new MySqlDataAdapter(strQuery, connection);
                     daAdapter.MissingSchemaAction = MissingSchemaAction.AddWithKey;
                     dtTable = new DataTable();
                     daAdapter.Fill(dtTable);
 
-                    MySqlCommand command = new MySqlCommand(strQuery, this.connection);
-                    command.ExecuteNonQuery();
+                    //MySqlCommand command = new MySqlCommand(strQuery, this.connection);
+                    //command.ExecuteNonQuery();
                 }
                 catch (MySqlException e)
                 {
@@ -320,18 +320,18 @@ namespace Data
 
         }
 
-        public DataTable GetConstraintDataTable(string strTableName, string strWhereClause ="")
+        public DataTable GetConstraintDataTable(string strTableName, string strWhereClause = "", string strOrderByClause = "")
         {
             string strDisplayQuery = GetDisplayQuery(strTableName);
 
-            return GetDataTableByQuery(strDisplayQuery+" "+ strWhereClause);
+            return GetDataTableByQuery(strDisplayQuery + " " + strWhereClause + " " + strOrderByClause);
         }
-        public DataTable GetConstraintData(string strTableName, int nID)
+        public string GetConstraintData(string strTableName, int nID)
         {
             string strColumnName = GetDisplayQuery(strTableName);
 
-            string strQuery = "SELECT id," + strColumnName + " as name FROM " + strTableName + " where id = " + nID;
-            return GetDataTableByQuery(strQuery);
+            string strQuery = "select name from (" + strColumnName + " where " + strTableName + ".id = " + nID + ") table_name";
+            return GetStringByQuery(strQuery);
         }
 
         public string GetDisplayQuery(string strTableName)
@@ -373,6 +373,91 @@ namespace Data
         {
             return this.GetStringByQuery("select value from preferences where name = 'current_year_id'");
         }
+
+        public void IncreaseCurrentYearID()
+        {
+                int nCurrentYearID = Convert.ToInt32(GetCurrentYearID());
+            this.Connect();
+
+            if (this.IsConnected)
+            {
+
+                MySqlCommand command = new MySqlCommand("update preferences set value = (value + 1) where name = 'current_year_id'", this.connection);
+
+                command.ExecuteNonQuery();
+
+                command = new MySqlCommand("insert into teachers(first_name,last_name,teacher_type_id,user_name,password,year_id)" +
+                                           " select first_name, last_name, teacher_type_id, user_name, password, " + (nCurrentYearID + 1) + 
+                                           " from teachers where year_id = " + nCurrentYearID, this.connection);
+                command.ExecuteNonQuery();
+
+                command = new MySqlCommand("insert into classes(grade_id,class_number,teacher_id)" +
+                                           " select (grade_id+1), class_number,new_teacher.id from classes " +
+                                           " inner join teachers old_teacher on old_teacher.id = classes.teacher_id" +
+                                           " inner join teachers new_teacher on new_teacher.user_name = old_teacher.user_name "+
+                                           " and new_teacher.year_id = " + (nCurrentYearID + 1) +
+                                           " where grade_id < 6", this.connection);
+                command.ExecuteNonQuery();
+
+                command = new MySqlCommand("insert into teacher_class_access(teacher_id,class_id)" +
+                                           " select new_teacher.id,new_class.id from teacher_class_access " +
+                                           " inner join teachers old_teacher on old_teacher.id = teacher_class_access.teacher_id " +
+                                           " inner join teachers new_teacher on new_teacher.user_name = old_teacher.user_name " +
+                                                                           " and new_teacher.year_id = " + (nCurrentYearID + 1) +
+                                           " inner join classes old_class on old_class.id = teacher_class_access.class_id " +
+                                           " inner join teachers old_class_teacher on old_class_teacher.id = old_class.teacher_id " +
+                                           " inner join teachers new_class_teacher on new_class_teacher.user_name = old_class_teacher.user_name " +
+                                                                                 " and new_class_teacher.year_id = "+ (nCurrentYearID + 1)+
+                                           " inner join classes new_class on new_class.teacher_id = new_class_teacher.id  " +
+                                                                        " and new_class.class_number = old_class.class_number " +
+                                                                        " and new_class.grade_id = (old_class.grade_id +1) ", this.connection);
+                command.ExecuteNonQuery();
+
+
+
+                command = new MySqlCommand("insert into groups(group_name,teacher_id)" +
+                                           " select group_name, new_teacher.id from groups " +
+                                           " inner join teachers old_teacher on old_teacher.id = groups.teacher_id" +
+                                           " inner join teachers new_teacher on new_teacher.user_name = old_teacher.user_name " +
+                                                                           " and new_teacher.year_id = " + (nCurrentYearID + 1)  , this.connection);
+
+                command.ExecuteNonQuery();
+
+                command = new MySqlCommand("insert into courses(course_name,teacher_id)" +
+                                          " select course_name, new_teacher.id from courses " +
+                                          " inner join teachers old_teacher on old_teacher.id = courses.teacher_id" +
+                                          " inner join teachers new_teacher on new_teacher.user_name = old_teacher.user_name " +
+                                                                          " and new_teacher.year_id = " + (nCurrentYearID + 1), this.connection);
+
+                command.ExecuteNonQuery();
+
+
+                command = new MySqlCommand("insert into students_classes(student_id,class_id)" +
+                                          " select students_classes.student_id, new_class.id from students_classes " +
+                                           " inner join classes old_class on old_class.id = students_classes.class_id " +
+                                           " inner join teachers old_class_teacher on old_class_teacher.id = old_class.teacher_id " +
+                                           " inner join teachers new_class_teacher on new_class_teacher.user_name = old_class_teacher.user_name " +
+                                                                                 " and new_class_teacher.year_id = " + (nCurrentYearID + 1) +
+                                           " inner join classes new_class on new_class.teacher_id = new_class_teacher.id  " +
+                                                                        " and new_class.class_number = old_class.class_number " +
+                                                                        " and new_class.grade_id = (old_class.grade_id +1) ", this.connection);
+                                    
+
+                command.ExecuteNonQuery();
+
+
+
+
+
+                command = new MySqlCommand("insert into hours_in_day(hour_of_school_day,start_time,finish_time,is_break,year_id)" +
+                                          " select hour_of_school_day,start_time,finish_time,is_break," + (nCurrentYearID + 1) +
+                                          " from hours_in_day where year_id = " + nCurrentYearID, this.connection);
+
+                command.ExecuteNonQuery();
+            }
+
+            this.Close();
+        } 
 
         public void ExecuteNonQuery(string strCommand)
         {

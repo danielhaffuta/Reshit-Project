@@ -14,7 +14,7 @@ namespace ReshitScheduler
     {
 
         public static Teacher LoggedInTeacher;
-        private static string strPreviousPage;
+        //private static string strPreviousPage;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -94,6 +94,22 @@ namespace ReshitScheduler
         {
             Response.Redirect("MainForm.aspx");
         }
+
+        protected void BtnIncreaseYear(object sender, EventArgs e)
+        {
+            string confirmValue = Request.Form["confirm_value"];
+            if (confirmValue == "Yes")
+            {
+                IncreaseYear();
+            }
+        }
+
+        private void IncreaseYear()
+        {
+            DBConnection.Instance.IncreaseCurrentYearID();
+            Response.Redirect("LoginForm.aspx");
+
+        }
     }
-    
+
 }

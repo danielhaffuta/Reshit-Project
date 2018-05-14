@@ -63,7 +63,7 @@
     </form>
     <footer>
         <p>
-           <img src="./media/arr_logo.png" alt="Alternate Text" />  <b>אתר זה פותח ועוצב ע"י חפוטה ושותפיו</b>
+           <img src="./media/arr_logo.png" alt="Alternate Text" />  <b>אתר זה פותח ועוצב ע"י סטונדטים מעזריאלי</b>
         </p>
     </footer>
      

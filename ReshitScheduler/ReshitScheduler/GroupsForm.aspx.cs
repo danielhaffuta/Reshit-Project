@@ -21,8 +21,9 @@ namespace ReshitScheduler
             string strSelectQuery = DBConnection.Instance.GetDisplayQuery("groups");
 
             DataTable dtGroupsCoursesIDs = DBConnection.Instance.GetDataTableByQuery(strSelectQuery + " where groups.id in(select distinct(group_id) from students_schedule "+
-                                                                                        " inner join students on students.id = students_schedule.student_id " +
-                                                                                        " where students.class_id = " + nClassID +
+                                                                                        //" inner join students on students.id = students_schedule.student_id " +
+                                                                                        " inner join students_classes on students_classes.student_id = students_schedule.student_id" +
+                                                                                        " where students_classes.class_id = " + nClassID +
                                                                                         " and hour_id = " + nHourId +
                                                                                         " and day_id = " + nDayId+")");
 
@@ -33,10 +34,11 @@ namespace ReshitScheduler
                 string strGroupStudents = "<br>";
                 DataTable dtGroupStudents = DBConnection.Instance.GetDataTableByQuery("select concat(first_name,' ',last_name) as name from students " +
                                                                                       " inner join students_schedule on students_schedule.student_id = students.id " +
+                                                                                      " inner join students_classes on students_classes.student_id = students.id" +
                                                                                       " where students_schedule.group_id = " + drCurrentRow["id"] +
                                                                                       " and students_schedule.hour_id = " + nHourId +
                                                                                       " and students_schedule.day_id = " + nDayId +
-                                                                                      " and students.class_id = " + nClassID);
+                                                                                      " and students_classes.class_id = " + nClassID);
                 foreach (DataRow drCurrentStudent in dtGroupStudents.Rows)
                 {
                     strGroupStudents += drCurrentStudent["name"].ToString() + ", ";

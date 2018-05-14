@@ -45,15 +45,16 @@ namespace ReshitScheduler
             {
                 strQuery =
                     " select  distinct (students.id) as student_id," +
-                        " students.class_id as class_id," +
+                        " students_classes.class_id as class_id," +
                         " concat(grades.grade_name, classes.class_number) as class," +
                         " groups.group_name as lesson_name," +
                         " concat(students.first_name, ' ', students.last_name) as student_name," +
                         " students.picture_path" +
                     " from students_schedule" +
                     " inner join groups on groups.id = students_schedule.group_id" +
-                    " inner join students on students.id = students_schedule.student_id" +
-                    " inner join classes on classes.id = students.class_id" +
+                    " inner join students_classes on students_classes.student_id = students_schedule.student_id" +
+                    " inner join students on students.id = students_classes.student_id" +
+                    " inner join classes on classes.id = students_classes.class_id" +
                     " inner join grades on grades.id = classes.grade_id" +
                     " where group_id = " + strLessonID;
             }
@@ -61,7 +62,7 @@ namespace ReshitScheduler
             {
                 strQuery =
                     " select  distinct (students.id) as student_id," +
-                        " students.class_id as class_id," +
+                        " students_classes.class_id as class_id," +
                         " concat(grades.grade_name, classes.class_number) as class," +
                         " courses.course_name as lesson_name," +
                         " concat(students.first_name, ' ', students.last_name) as student_name," +
@@ -70,7 +71,8 @@ namespace ReshitScheduler
                     " inner join courses on courses.id = classes_schedule.course_id" +
                     " inner join classes on classes.id = classes_schedule.class_id" +
                     " inner join grades on grades.id = classes.grade_id" +
-                    " inner join students on students.class_id = classes_schedule.class_id" +
+                    " inner join students_classes on students_classes.class_id = classes_schedule.class_id " +
+                    " inner join students on students.id = students_classes.student_id" +
                     " where classes_schedule.course_id = " + strLessonID +
                     " and students.id not in (select student_id from students_schedule where students_schedule.day_id = classes_schedule.day_id" +
                                                                                        " and students_schedule.hour_id = classes_schedule.hour_id)";

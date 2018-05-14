@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 
 namespace ReshitScheduler
 {
-    public partial class StudentDetailsForm : System.Web.UI.Page
+    public partial class StudentDetailsForm : BasePage
     {
         private DataTable dtDays;
         private DataTable dtHours;
@@ -33,20 +33,22 @@ namespace ReshitScheduler
             }
             strStudentID = Request.QueryString["StudentID"]?.ToString() ?? "5";
 
-            drStudentDetails = DBConnection.Instance.GetDataTableByQuery(" select concat(first_name,' ' ,last_name) as name,"+
+            drStudentDetails = DBConnection.Instance.GetDataTableByQuery(" select concat(students.first_name,' ' ,students.last_name) as name," +
                                                                             " picture_path,concat(grades.grade_name,classes.class_number) as class," +
-                                                                            " students.class_id, students.id as student_id," +
+                                                                            " classes.id as class_id, students.id as student_id," +
                                                                             " students.mother_cellphone, students.mother_full_name," +
                                                                             " students.father_cellphone, students.father_full_name," +
                                                                             " students.home_phone, students.parents_email," +
                                                                             " students.settlement" +
                                                                             " from students " +
-                                                                            " inner join classes on classes.id = students.class_id"+
+                                                                            " inner join students_classes on students_classes.student_id = students.id" +
+                                                                            " inner join classes on classes.id = students_classes.class_id" +
+                                                                            " inner join teachers on teachers.id = classes.teacher_id and teachers.year_id = " + nYearId +
                                                                             " inner join grades on grades.id = classes.grade_id" +
                                                                             " where students.id = " + strStudentID).Rows[0];
 
             dtDays = DBConnection.Instance.GetAllDataFromTable("days", string.Empty);
-            dtHours = DBConnection.Instance.GetConstraintDataTable("hours_in_day");
+            dtHours = DBConnection.Instance.GetConstraintDataTable("hours_in_day", "where hours_in_day.year_id = " + nYearId, "order by hour_of_school_day");
             dtCourses = DBConnection.Instance.GetConstraintDataTable("courses");
             dtGroups = DBConnection.Instance.GetConstraintDataTable("groups");
 
@@ -182,7 +184,7 @@ namespace ReshitScheduler
         }
         private void GoBack()
         {
-            Response.Redirect("ClassPage.aspx?StudentID=" + strStudentID);
+            Response.Redirect("ClassPage.aspx?StudentID=" + strStudentID+ "&ClassID=" + drStudentDetails["class_id"]);
         }
     }
 }

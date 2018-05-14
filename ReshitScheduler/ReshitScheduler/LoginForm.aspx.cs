@@ -16,12 +16,14 @@ namespace ReshitScheduler
         {
 
             DBConnection dbcConnection = DBConnection.Instance;
-
+            
             string strQuery = "SELECT teachers.id,first_name,last_name,teacher_types.teacher_type_name " +
                                "FROM teachers " +
                                "inner join teacher_types on teacher_types.id = teachers.teacher_type_id " +
                                "where user_name ='" + Username.Text + "' " +
-                               "and password = '" + Password.Text + "'";
+                               "and password = '" + Password.Text + "'"+
+                               "and teachers.year_id = (select value from preferences where name = 'current_year_id' )";
+
             DataTable dtLoginData = dbcConnection.GetDataTableByQuery(strQuery);
             if (dtLoginData != null && dtLoginData.Rows.Count > 0)
             {

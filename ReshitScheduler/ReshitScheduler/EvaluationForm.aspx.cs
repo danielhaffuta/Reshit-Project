@@ -44,9 +44,10 @@ namespace ReshitScheduler
 
             drStudentDetails = DBConnection.Instance.GetDataTableByQuery(" select concat(first_name,' ' ,last_name) as name," +
                                                                             " picture_path,concat(grades.grade_name,classes.class_number) as class," +
-                                                                            " students.class_id, students.id as student_id" +
+                                                                            " classes.id as class_id, students.id as student_id" +
                                                                             " from students " +
-                                                                            " inner join classes on classes.id = students.class_id" +
+                                                                            " inner join students_classes on students_classes.student_id = students.id" +
+                                                                            " inner join classes on classes.id = students_classes.class_id" +
                                                                             " inner join grades on grades.id = classes.grade_id" +
                                                                             " where students.id = " + strStudentID).Rows[0];
 

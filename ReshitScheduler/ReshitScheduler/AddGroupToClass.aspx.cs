@@ -49,8 +49,9 @@ namespace ReshitScheduler
                                       " (select distinct(groups.id) from groups" +
                                       " inner join teachers on teachers.id = groups.teacher_id " +
                                       " inner join students_schedule on students_schedule.group_id = groups.id" +
-                                      " inner join students on students.id = students_schedule.student_id " +
-                                      " where students.class_id = " + nClassID +
+                                      //" inner join students on students.id = students_schedule.student_id " +
+                                      " inner join students_classes on students_classes.student_id = students_schedule.student_id" +
+                                      " where students_classes.class_id = " + nClassID +
                                       " and students_schedule.day_id = " + nDayId +
                                       " and students_schedule.hour_id = " + nHourId + ")";
                 if (nGroupId != 0)
@@ -93,18 +94,20 @@ namespace ReshitScheduler
 
         private void AddStudents()
         {
-            string strStudentsDisplayQuery = DBConnection.Instance.GetDisplayQuery("Students");
-            DataTable dtClassStudent = DBConnection.Instance.GetDataTableByQuery(strStudentsDisplayQuery + " where class_id = " + nClassID);
+            string strStudentsDisplayQuery = DBConnection.Instance.GetDisplayQuery("students");
+            strStudentsDisplayQuery += " inner join students_classes on students_classes.student_id = students.id";
+
+            DataTable dtClassStudent = DBConnection.Instance.GetDataTableByQuery(strStudentsDisplayQuery + " where students_classes.class_id = " + nClassID);
             DataTable dtSelectedStudents = DBConnection.Instance.GetDataTableByQuery(strStudentsDisplayQuery +
-                " inner join students_schedule on students_schedule.student_id = students.id"+
-                " where class_id = " + nClassID +
+                " inner join students_schedule on students_schedule.student_id = students.id" +
+                " where students_classes.class_id = " + nClassID +
                 " and students_schedule.group_id = " + nGroupId+
                 " and students_schedule.hour_id = " + nHourId+
                 " and students_schedule.day_id = " + nDayId);
 
             DataTable dtDisabledStudents = DBConnection.Instance.GetDataTableByQuery(strStudentsDisplayQuery +
                 " inner join students_schedule on students_schedule.student_id = students.id" +
-                " where class_id = " + nClassID +
+                " where students_classes.class_id = " + nClassID +
                 " and students_schedule.group_id <> " + nGroupId +
                 " and students_schedule.hour_id = " + nHourId +
                 " and students_schedule.day_id = " + nDayId);
@@ -150,11 +153,12 @@ namespace ReshitScheduler
         protected void btnSave_Click(object sender, EventArgs e)
         {
             string strDeleteCommand = " delete students_schedule from students_schedule" +
-                                    " inner join students on students.id = students_schedule.student_id " + 
+                                    " inner join students_classes on students_classes.student_id = students_schedule.student_id" + 
+                                    //" inner join students on students.id = students_schedule.student_id " + 
                                     " where day_id = " + nDayId +
                                     " and hour_id = " + nHourId +
                                     " and group_id = " + nGroupId+
-                                    " and students.class_id = " + nClassID;
+                                    " and students_classes.class_id = " + nClassID;
             DBConnection.Instance.ExecuteNonQuery(strDeleteCommand);
 
             string strInsertCommand = "insert into students_schedule(day_id,hour_id,group_id,student_id) values ";

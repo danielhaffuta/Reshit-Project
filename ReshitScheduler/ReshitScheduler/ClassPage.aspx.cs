@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 
 namespace ReshitScheduler
 {
-    public partial class ClassPage : System.Web.UI.Page
+    public partial class ClassPage :BasePage
     {
 
         private DataTable dtDays;
@@ -20,16 +20,15 @@ namespace ReshitScheduler
 
 
         private string strClassID;
+        protected string strClassName;
         private static string strPreviousPage;
         public static Teacher LoggedInTeacher;
-        private int nYearId;
 
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["CurrentYearID"] == null)
             {
-                nYearId = Convert.ToInt32(DBConnection.Instance.GetCurrentYearID());
                 Session["CurrentYearID"] = nYearId;
             }
             if (Session["LoggedInTeacher"] == null)
@@ -59,8 +58,9 @@ namespace ReshitScheduler
         private void LoadClassSchedule()
         {
             strClassID = Request.QueryString["ClassID"]?.ToString() ?? "5";
+            strClassName = DBConnection.Instance.GetConstraintData("classes", Convert.ToInt32(strClassID));
             dtDays = DBConnection.Instance.GetAllDataFromTable("days", string.Empty);
-            dtHours = DBConnection.Instance.GetConstraintDataTable("hours_in_day");
+            dtHours = DBConnection.Instance.GetConstraintDataTable("hours_in_day", "where hours_in_day.year_id = " + nYearId, "order by hour_of_school_day");
             dtCourses = DBConnection.Instance.GetConstraintDataTable("courses");
 
             BuildEmptySchedule();
@@ -115,8 +115,11 @@ namespace ReshitScheduler
                 "select * from classes_schedule where class_id = " + strClassID);
             DataTable dtStudentsSchedule = DBConnection.Instance.GetDataTableByQuery(
             "SELECT * FROM students_schedule " +
-            " inner join students on students.id = students_schedule.student_id" +
-            " where students.class_id = " + strClassID);
+            //            " inner join students on students.id = students_schedule.student_id" +
+            " inner join students_classes on students_classes.student_id = students_schedule.student_id" +
+            " inner join classes on classes.id = students_schedule.class_id" +
+            " inner join teachers on teachers.id = classes.teacher_id and teachers.year_id = " + nYearId +
+            " where students_classes.class_id = " + strClassID);
             foreach (DataRow drCurrentHour in dtClassSchedule.Rows)
             {
                 string strCourseName = dtCourses.Select("id = " + drCurrentHour["course_id"].ToString())[0]["name"].ToString() +
@@ -194,7 +197,9 @@ namespace ReshitScheduler
 
         private void FillStudents()
         {
-            DataTable dtStudents = DBConnection.Instance.GetDataTableByQuery("select id,concat(first_name,' ' ,last_name) as name,picture_path from students where class_id = " + strClassID);
+            DataTable dtStudents = DBConnection.Instance.GetDataTableByQuery("select students.id,concat(first_name,' ' ,last_name) as name,picture_path from students" +
+                                                                            " inner join students_classes on students_classes.student_id = students.id" +
+                                                                            " where students_classes.class_id = " + strClassID);
 
             foreach (DataRow drCurrentStudent in dtStudents.Rows)
             {
