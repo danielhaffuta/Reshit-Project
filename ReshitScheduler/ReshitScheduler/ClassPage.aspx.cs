@@ -117,7 +117,7 @@ namespace ReshitScheduler
             "SELECT * FROM students_schedule " +
             //            " inner join students on students.id = students_schedule.student_id" +
             " inner join students_classes on students_classes.student_id = students_schedule.student_id" +
-            " inner join classes on classes.id = students_schedule.class_id" +
+            " inner join classes on classes.id = students_classes.class_id" +
             " inner join teachers on teachers.id = classes.teacher_id and teachers.year_id = " + nYearId +
             " where students_classes.class_id = " + strClassID);
             foreach (DataRow drCurrentHour in dtClassSchedule.Rows)
