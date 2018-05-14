@@ -5,9 +5,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 
-    <link rel = "stylesheet" href = "/css/login.css" />
-    <script src="/js/jquery.min.js""></script>
-    <link href="/css/page.css" rel="stylesheet" />
+    <link rel = "stylesheet" href = "css/login.css" />
+    <script src="js/jquery.min.js"></script>
+    <link href="css/page.css" rel="stylesheet" />
     <title>Reshit Scheduler</title>
 
 </head>
@@ -15,7 +15,7 @@
        
          <header>
           
-              <img src="/media/reshitLogo.gif" alt="Alternate Text" id="logo"/>
+              <img src="./media/reshitLogo.gif" alt="Alternate Text" id="logo"/>
               <span id="title"> 
                   <b>מערכת שעות - בית הספר ראשית</b>
                     <hr />
@@ -29,13 +29,13 @@
           <!-- Full-width images with number and caption text -->
           <div class="mySlides fade">
             <div class="numbertext">1 /2</div>
-            <img src="/media/1.jpg" style="width:95%; height:570px;" />
+            <img src="./media/1.jpg" style="width:100%; height:100%;" />
             <div class="text">ילדות בדשא</div>
           </div>
 
           <div class="mySlides fade">
             <div class="numbertext">2 / 2</div>
-            <img src="/media/2.jpg" style="width:95%; height:570px;"/>
+            <img src="./media/2.jpg" style="width:100%; height:100%;"/>
             <div class="text">השביל הזה מתחיל כאן</div>
           </div>
           <!-- Next and previous buttons -->
@@ -45,10 +45,10 @@
         <br/>
 
         <!-- The dots/circles -->
-        <div style="text-align:center">
+   <%--     <div style="text-align:center">
           <span class="dot" onclick="currentSlide(1)"></span> 
           <span class="dot" onclick="currentSlide(2)"></span> 
-        </div>
+        </div>--%>
      
         <form id="form1" runat="server">
       
@@ -63,10 +63,11 @@
     </form>
     <footer>
         <p>
-           <img src="/media/arr_logo.png" alt="Alternate Text" />  <b>אתר זה אחלה</b>
+           <img src="./media/arr_logo.png" alt="Alternate Text" />  <b>אתר זה פותח ועוצב ע"י חפוטה ושותפיו</b>
         </p>
     </footer>
-  <script type="text/javascript" src="/js/login.js"></script>     
+     
 </body>
 </html>
 
+  <script type="text/javascript" src="js/login.js"></script>
