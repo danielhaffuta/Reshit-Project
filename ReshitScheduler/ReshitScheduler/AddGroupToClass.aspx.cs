@@ -39,7 +39,6 @@ namespace ReshitScheduler
             if (!IsPostBack)
             {
 
-                string strYearID = DBConnection.Instance.GetCurrentYearID();
                 string strGroupsQuery = DBConnection.Instance.GetDisplayQuery("Groups");
                 //strGroupsQuery += " inner join students_schedule on students_schedule.group_id = groups.id" +
                 //        " inner join students on students.id = students_schedule.student_id" +
@@ -61,7 +60,7 @@ namespace ReshitScheduler
 
                 }
 
-                strGroupsQuery += " and teachers.year_id = " + strYearID + ";";
+                strGroupsQuery += " and teachers.year_id = " + nYearID + ";";
 
                 //string TeacherQuery = "SELECT CONCAT(first_name, ' ',last_name) AS full_name, id FROM teachers";
                 DataTable dtGroupsTable = DBConnection.Instance.GetDataTableByQuery(strGroupsQuery);

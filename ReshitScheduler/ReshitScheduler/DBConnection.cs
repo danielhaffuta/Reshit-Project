@@ -172,8 +172,8 @@ namespace Data
             if (this.IsConnected)
             {
                 string strQuery = "update " + strTableName + " set ";
-                string[] straFields = strFields.Split(',');
-                string[] straValues = strValues.Split(',');
+                string[] straFields = strFields.Split(':');
+                string[] straValues = strValues.Split(':');
                 if (straFields.Length != straValues.Length)
                 {
                     return false;
@@ -369,9 +369,9 @@ namespace Data
             return dtEmpty;
         }
 
-        public string GetCurrentYearID()
+        public int GetCurrentYearID()
         {
-            return this.GetStringByQuery("select value from preferences where name = 'current_year_id'");
+            return Convert.ToInt32(GetStringByQuery("select value from preferences where name = 'current_year_id'"));
         }
 
         public void IncreaseCurrentYearID()
@@ -468,6 +468,56 @@ namespace Data
                 msqlCommand.ExecuteNonQuery();
             }
             this.Close();
+        }
+
+        public DataRow GetStudentDetails(int nStudentID)
+        {
+
+            return DBConnection.Instance.GetDataTableByQuery(" select concat(students.first_name,' ' ,students.last_name) as name," +
+                                                                            " picture_path,concat(grades.grade_name,classes.class_number) as class," +
+                                                                            " classes.id as class_id, students.id as student_id," +
+                                                                            " students.mother_cellphone, students.mother_full_name," +
+                                                                            " students.father_cellphone, students.father_full_name," +
+                                                                            " students.home_phone, students.parents_email," +
+                                                                            " students.settlement" +
+                                                                            " from students " +
+                                                                            " inner join students_classes on students_classes.student_id = students.id" +
+                                                                            " inner join classes on classes.id = students_classes.class_id" +
+                                                                            " inner join teachers on teachers.id = classes.teacher_id " +
+                                                                            " and teachers.year_id = (select value from preferences where name = 'current_year_id')" +
+                                                                            " inner join grades on grades.id = classes.grade_id" +
+                                                                            " where students.id = " + nStudentID).Rows[0];
+        }
+
+        public DataTable GetHours()
+        {
+            return DBConnection.Instance.GetConstraintDataTable("hours_in_day", "where hours_in_day.year_id = (select value from preferences where name = 'current_year_id')", "order by hour_of_school_day");
+        }
+
+        public DataTable GetStudentEvaluations(int nStudentID)
+        {
+
+
+
+
+
+
+
+            return GetDataTableByQuery(
+                " select group_name as lesson_name,ifnull(evaluation,\"\" ) as evaluation from students_schedule" +
+                " left join groups_evaluations on groups_evaluations.student_id = students_schedule.student_id" +
+                " and groups_evaluations.group_id = students_schedule.group_id" +
+                " inner join groups on groups.id = students_schedule.group_id" +
+                " where students_schedule.student_id = " + nStudentID +
+                " union" +
+                " select distinct course_name as lesson_name, ifnull(evaluation,\"\" ) as evaluation from classes_schedule" +
+                " inner join students_classes on students_classes.class_id = classes_schedule.class_id" +
+                                            " and students_classes.student_id = " + nStudentID +
+                " inner join courses on courses.id = classes_schedule.course_id" +
+                " left join courses_evaluations on courses_evaluations.course_id = classes_schedule.course_id" +
+                                              " and courses_evaluations.student_id = " + nStudentID +
+                " where " + nStudentID + " not in (select student_id from students_schedule where students_schedule.day_id = classes_schedule.day_id" +
+                                                                                            " and students_schedule.hour_id = classes_schedule.hour_id)");
         }
     }
 }

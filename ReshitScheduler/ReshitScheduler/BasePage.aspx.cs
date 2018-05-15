@@ -10,7 +10,7 @@ namespace ReshitScheduler
 {
     public partial class BasePage : System.Web.UI.Page
     {
-        protected int nYearId;
+        protected int nYearID;
         protected static string strPreviousPage;
         protected override void OnLoad(EventArgs e)
         {
@@ -19,7 +19,7 @@ namespace ReshitScheduler
                 strPreviousPage = Request.UrlReferrer?.ToString() ?? "LoginForm.aspx";
 
             }
-            nYearId = Convert.ToInt32(DBConnection.Instance.GetCurrentYearID());
+            nYearID = DBConnection.Instance.GetCurrentYearID();
 
             base.OnLoad(e);
         }

@@ -41,6 +41,8 @@
 
     <div class="form-row justify-content-center">
         <button  runat="server"  onserverclick="BtnBack_Click" class="btn btn-outline-dark">חזור</button>
+        <button  runat="server"  onserverclick="BtnPrintSchedule_Click" class="btn btn-outline-dark">הדפס מערכת</button>
+        <button  runat="server"  onserverclick="BtnPrintEvaluations_Click" class="btn btn-outline-dark">הדפס הערכה</button>
     </div>
     <script src="/js/general.js"></script>
 </asp:Content>

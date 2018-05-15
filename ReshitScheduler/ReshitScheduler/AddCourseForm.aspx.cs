@@ -11,7 +11,7 @@ using System.Web.UI.WebControls;
 
 namespace ReshitScheduler
 {
-    public partial class AddCourseForm : System.Web.UI.Page
+    public partial class AddCourseForm : BasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -25,9 +25,8 @@ namespace ReshitScheduler
             }
             if (!IsPostBack)
             {
-                string strYearID = DBConnection.Instance.GetCurrentYearID();
                 string strTeacherQuery = DBConnection.Instance.GetDisplayQuery("teachers");
-                strTeacherQuery += " where year_id = " + strYearID;
+                strTeacherQuery += " where year_id = " + nYearID;
                 //string TeacherQuery = "SELECT CONCAT(first_name, ' ',last_name) AS full_name, id FROM teachers";
                 DataTable dtTeacherTable = DBConnection.Instance.GetDataTableByQuery(strTeacherQuery);
 

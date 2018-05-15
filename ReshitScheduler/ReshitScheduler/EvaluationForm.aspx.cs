@@ -70,8 +70,8 @@ namespace ReshitScheduler
             {
                 DBConnection.Instance.UpdateTableRow(IsGroup ? "groups_evaluations" : "courses_evaluations",
                                                      Convert.ToInt32(dtEvaluationDetails.Rows[0]["id"]),
-                                                    "evaluation,student_id," + (IsGroup ? "group_id" : "course_id"),
-                                                    "'" + txtEvaluation.Text.Replace("'", "''") + "'," + strStudentID + "," + strLessonID);
+                                                    "evaluation:student_id:" + (IsGroup ? "group_id" : "course_id"),
+                                                    "'" + txtEvaluation.Text.Replace("'", "''") + "':" + strStudentID + ":" + strLessonID);
             }
             GoBack();
         }
