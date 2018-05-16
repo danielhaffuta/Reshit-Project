@@ -37,14 +37,7 @@ namespace ReshitScheduler
         {
 
             LoadClassStudents();
-            if (gvStudents.Rows.Count > 0)
-            {
-                pnlNoStudentsMsg.Visible = false;
-            }
-            else
-            {
-                pnlNoStudentsMsg.Visible = true;
-            }
+            
         }
 
         private void LoadClassStudents()
@@ -56,6 +49,7 @@ namespace ReshitScheduler
             gvStudents.DataSource = dtStudentsInformation;
             gvStudents.DataBind();
 
+            pnlNoStudentsMsg.Visible = gvStudents.Rows.Count == 0;
 
 
         }

@@ -553,5 +553,44 @@ namespace Data
                                         " where classes.id = " + nClassID);
         }
 
+        public DataTable GetClassEvaluations(int nClassID)
+        {
+            return GetDataTableByQuery(" select  distinct (students.id) as student_id," +
+                        " students_classes.class_id as class_id," +
+                        " concat(grades.grade_name, classes.class_number) as class," +
+                        " courses.course_name as lesson_name," +
+                        " concat(students.first_name, ' ', students.last_name) as student_name," +
+                        " students.picture_path,ifnull(evaluation,\"\" ) as evaluation ,courses_evaluations.id as evaluation_id " +
+                    " from classes_schedule" +
+                    " inner join courses on courses.id = classes_schedule.course_id" +
+                    " inner join classes on classes.id = classes_schedule.class_id" +
+                    " inner join grades on grades.id = classes.grade_id" +
+                    " inner join students_classes on students_classes.class_id = classes_schedule.class_id " +
+                    " inner join students on students.id = students_classes.student_id" +
+                    " left join courses_evaluations on courses_evaluations.courses_evaluations = courses.id" +
+                                                   " and courses_evaluations.student_id = students.id" +
+                    " where classes_schedule.course_id = " + nClassID +
+                    " and students.id not in (select student_id from students_schedule where students_schedule.day_id = classes_schedule.day_id" +
+                                                                                       " and students_schedule.hour_id = classes_schedule.hour_id)");
+        }
+        public DataTable GetGroupEvaluations(int nGroupID)
+        {
+            return GetDataTableByQuery(" select  distinct (students.id) as student_id," +
+                        " students_classes.class_id as class_id," +
+                        " concat(grades.grade_name, classes.class_number) as class," +
+                        " groups.group_name as lesson_name," +
+                        " concat(students.first_name, ' ', students.last_name) as student_name," +
+                        " students.picture_path,ifnull(evaluation,\"\" ) as evaluation ,groups_evaluations.id as evaluation_id " +
+                    " from students_schedule" +
+                    " inner join groups on groups.id = students_schedule.group_id" +
+                    " inner join students_classes on students_classes.student_id = students_schedule.student_id" +
+                    " inner join students on students.id = students_classes.student_id" +
+                    " inner join classes on classes.id = students_classes.class_id" +
+                    " inner join grades on grades.id = classes.grade_id" +
+                    " left join groups_evaluations on groups_evaluations.group_id = groups.id " +
+                                                  " and groups_evaluations.student_id = students.id" +
+                    " where groups.id = " + nGroupID);
+        }
+
     }
 }
