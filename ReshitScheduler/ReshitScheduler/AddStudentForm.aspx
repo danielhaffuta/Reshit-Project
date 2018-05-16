@@ -4,7 +4,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainForm" runat="server">
     <div class="row justify-content-center mt-5">
-        <div class="col col-sm-6  bg-info" >
+        <div class="col col-sm-6  " >
             <div class="form-group form-inline row">
                 <label id="lblClasses" for="drpClassesList" class="col-form-label col-sm-3  col-md-4">כיתה:</label>
                 <asp:DropDownList ID="drpClassesList" runat="server" OnSelectedIndexChanged="drpClassesList_SelectedIndexChanged"
@@ -18,6 +18,7 @@
 
     <asp:Panel runat="server" ID="pnlStudents" CssClass="row justify-content-center mt-3">
         <div class="col text-center" >
+            <asp:Panel runat="server" CssClass="border" ID="pnlNoStudentsMsg"><h2>אין תלמידים בכיתה</h2></asp:Panel>
             <asp:GridView ID="gvStudents" runat="server" AutoGenerateColumns ="false" CssClass="table table-striped table-bordered">
                 <Columns>
                     <asp:BoundField DataField="name" HeaderText="שם תלמיד">
@@ -53,8 +54,9 @@
         </div>
 
     </asp:Panel>
-    <div class="row justify-content-center mt-3">
-        <div class="col col-sm-6  bg-info" >
+    <div class="row justify-content-center mt-3 ">
+        <div class="col col-sm-6  border mb-2 pl-4" >
+            <h2>הוספת תלמיד חדש</h2>
             <div class="form-group form-inline row">
                 <label class="col-form-label col-sm-3 col-md-4">שם התלמיד:</label>
                 <asp:TextBox id="txtStudentFirstName" runat="server" CssClass="form-control col col-sm-9 col-md-8"></asp:TextBox>

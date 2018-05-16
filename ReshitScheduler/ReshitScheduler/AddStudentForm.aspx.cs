@@ -28,13 +28,23 @@ namespace ReshitScheduler
 
                 drpClassesList.DataBind();
                 LoadClassStudents();
+                
 
             }
+            
         }
         protected void drpClassesList_SelectedIndexChanged(object sender, EventArgs e)
         {
 
             LoadClassStudents();
+            if (gvStudents.Rows.Count > 0)
+            {
+                pnlNoStudentsMsg.Visible = false;
+            }
+            else
+            {
+                pnlNoStudentsMsg.Visible = true;
+            }
         }
 
         private void LoadClassStudents()
