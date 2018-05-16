@@ -11,12 +11,12 @@
     <asp:Panel runat="server" ID="pnlStudents" CssClass="row">
 
     </asp:Panel>
-    <div class="form-row justify-content-center">
-        <button  runat="server" onserverclick="BtnBack_Click" class="btn btn-outline-dark">חזור</button>
-        <button  runat="server" onserverclick="BtnLogout_Click" class="btn btn-outline-dark">התנתק</button>
+    <div class="form-row justify-content-center btn-group-vertical">
         <button  runat="server" onserverclick="GotoCoursesAndGroupsForm" class="btn btn-outline-dark">ניהול קבוצות וקורסים</button>
         <button  runat="server"  onserverclick="BtnPrintSchedule_Click" class="btn btn-outline-dark">הדפס מערכת</button>
         <button  runat="server"  onserverclick="BtnPrintScheduleForAllStudents_Click" class="btn btn-outline-dark">הדפס מערכות של כל התלמידים</button>
+        <button  runat="server" onserverclick="BtnLogout_Click" class="btn btn-outline-dark">התנתק</button>
+        <button  runat="server" onserverclick="BtnBack_Click" class="btn btn-outline-dark">חזור</button>
     </div>
     <script src="/js/general.js"></script>
     <script>

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -11,29 +12,97 @@ using System.Web.UI.WebControls;
 
 namespace ReshitScheduler
 {
-    public partial class AddStudentForm : System.Web.UI.Page
+    public partial class AddStudentForm : BasePage
     {
+        protected DataTable dtClassesTable;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                string ClassQuery = "SELECT classes.id, CONCAT(grades.grade_name,classes.class_number) as class" +
-                                " FROM classes INNER JOIN grades on grades.id= classes.grade_id";
-                DataTable ClassTable = DBConnection.Instance.GetDataTableByQuery(ClassQuery);
+                string strDisplayQuert = DBConnection.Instance.GetDisplayQuery("classes");
+                string strSelectClassesQuery = strDisplayQuert + " where year_id = " + nYearID;
+                dtClassesTable = DBConnection.Instance.GetDataTableByQuery(strSelectClassesQuery);
 
-                ClassesList.DataSource = ClassTable;
-                ClassesList.DataValueField = "id";
-                ClassesList.DataTextField = "class";
-                ClassesList.AutoPostBack = true;
-                ClassesList.DataBind();
+                drpClassesList.DataSource = dtClassesTable;
 
-                string test = "SELECT * FROM students";
-                DataTable testTable = DBConnection.Instance.GetDataTableByQuery(test);
+                drpClassesList.DataBind();
+                LoadClassStudents();
+
             }
         }
-
-        protected void SaveClick(object sender, EventArgs e)
+        protected void drpClassesList_SelectedIndexChanged(object sender, EventArgs e)
         {
+
+            LoadClassStudents();
+        }
+
+        private void LoadClassStudents()
+        {
+            int nSelectedClassID = Convert.ToInt32(drpClassesList.SelectedValue);
+            DataTable dtStudentsInformation = DBConnection.Instance.GetClassStudents(nSelectedClassID);
+
+
+            gvStudents.DataSource = dtStudentsInformation;
+            gvStudents.DataBind();
+
+
+
+        }
+
+        private void ValidateFields()
+        {
+            
+        }
+
+        protected void BtnAddStudent_Click(object sender, EventArgs e)
+        {
+            ValidateFields();
+            string fileName = string.Empty;
+            if (FileUpload1.HasFile)
+            {
+                fileName = Path.GetFileName(FileUpload1.PostedFile.FileName);
+                FileUpload1.PostedFile.SaveAs(Server.MapPath("~/pictures/") + fileName);
+                //Response.Redirect(Request.Url.AbsoluteUri);
+            }
+
+            string fields = "first_name,last_name,father_full_name,mother_full_name,father_cellphone,mother_cellphone,home_phone,parents_email,settlement,picture_path";
+
+            string values = "'" + txtStudentFirstName.Text + "','" + txtStudentLastName.Text + "','" + txtFather_full_name.Text + "'," +
+                            "'" + txtMother_full_name.Text + "','" + txtFather_cellphone.Text + "','" + txtMother_cellphone.Text + "'," +
+                            "'" + txtHome_phone.Text + "','" + txtParents_email.Text + "','" + txtSettlement.Text + "','" + "pictures/" + fileName + "'";
+
+            int nNewStudentIS;
+
+            bool bSuccess = DBConnection.Instance.InsertTableRow("students", fields, values,out nNewStudentIS);
+            if (!bSuccess)
+            {
+                Helper.ShowMessage(ClientScript, GetType(), "error saving student information");
+            }
+            else
+            {
+                bSuccess = DBConnection.Instance.InsertTableRow("students_classes", "student_id,class_id", nNewStudentIS+","+ drpClassesList.SelectedValue);
+                if (!bSuccess)
+                {
+                    Helper.ShowMessage(ClientScript, GetType(), "error connecting student to class");
+                }
+            }
+
+
+
+            //txtStudentFirstName.Text = "";
+            //txtStudentLastName.Text = "";
+            //txtFather_full_name.Text = "";
+            //txtMother_full_name.Text = "";
+            //txtFather_cellphone.Text = "";
+            //txtMother_cellphone.Text = "";
+            //txtHome_phone.Text = "";
+            //txtParents_email.Text = "";
+            //txtSettlement.Text = "";
+            LoadClassStudents();
+
+
+
             //string filename = StudentPic.PostedFile.FileName;
             //string filepath = "";
             //if (filename != null && filename != "")
@@ -41,21 +110,14 @@ namespace ReshitScheduler
             //    string upnames = filename;
             //    filepath = Server.MapPath(StudentPic.PostedFile.FileName);
             //}
-            string values = "'" + StudentName.Text + "','"
-                            + StudentLastName.Text + "',"
-                            + ClassesList.SelectedValue;
-            string fields = "first_name,last_name,class_id";
 
-            bool res = DBConnection.Instance.InsertTableRow("students", fields, values);
-            if(!res)
-            {
-                Helper.ShowMessage(ClientScript, GetType(), "error saving student information");
-            }
-            StudentName.Text = "";
-            StudentLastName.Text = "";
-            ClassesList.SelectedIndex = 0;
         }
-        protected void BackClick(object sender, EventArgs e)
+
+        protected void BtnChoosePicture_Click(object sender, EventArgs e)
+        {
+            
+        }
+        protected void BtnBack_Click(object sender, EventArgs e)
         {
             Response.Redirect("MainForm.aspx");
         }

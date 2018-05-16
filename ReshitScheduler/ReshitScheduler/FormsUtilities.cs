@@ -232,5 +232,32 @@ namespace ReshitScheduler
             return gvScheduleView;
         }
 
+        public static GridView FillClassStudents(GridView gvStudents,DataTable dtStudents)
+        {
+
+            gvStudents.DataSource = dtStudents;
+            gvStudents.DataBind();
+
+
+
+            foreach (GridViewRow gvrCurrentRow in gvStudents.Rows)
+            {
+                foreach (TableCell tcCurrentCell in gvrCurrentRow.Cells)
+                {
+
+                }
+                /*gvrCurrentRow.Cells[0].Visible = false;
+                gvrCurrentRow.Cells[0].Visible = false;
+                gvrCurrentRow.Cells[0].Visible = false;
+                gvrCurrentRow.Cells[0].Visible = false;
+                gvrCurrentRow.Cells[0].Visible = false;
+                gvrCurrentRow.Cells[0].Visible = false;
+                gvrCurrentRow.Cells[0].Visible = false;*/
+            }
+
+
+            return gvStudents;
+        }
+
     }
 }

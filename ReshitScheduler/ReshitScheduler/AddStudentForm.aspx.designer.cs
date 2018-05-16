@@ -13,93 +13,120 @@ namespace ReshitScheduler {
     public partial class AddStudentForm {
         
         /// <summary>
-        /// NameStudent control.
+        /// drpClassesList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label NameStudent;
+        protected global::System.Web.UI.WebControls.DropDownList drpClassesList;
         
         /// <summary>
-        /// StudentName control.
+        /// pnlStudents control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox StudentName;
+        protected global::System.Web.UI.WebControls.Panel pnlStudents;
         
         /// <summary>
-        /// LastNameStudent control.
+        /// gvStudents control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LastNameStudent;
+        protected global::System.Web.UI.WebControls.GridView gvStudents;
         
         /// <summary>
-        /// StudentLastName control.
+        /// txtStudentFirstName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox StudentLastName;
+        protected global::System.Web.UI.WebControls.TextBox txtStudentFirstName;
         
         /// <summary>
-        /// Class control.
+        /// txtStudentLastName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Class;
+        protected global::System.Web.UI.WebControls.TextBox txtStudentLastName;
         
         /// <summary>
-        /// ClassesList control.
+        /// FileUpload1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ClassesList;
+        protected global::System.Web.UI.WebControls.FileUpload FileUpload1;
         
         /// <summary>
-        /// Picture control.
+        /// txtFather_full_name control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Picture;
+        protected global::System.Web.UI.WebControls.TextBox txtFather_full_name;
         
         /// <summary>
-        /// StudentPic control.
+        /// txtMother_full_name control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload StudentPic;
+        protected global::System.Web.UI.WebControls.TextBox txtMother_full_name;
         
         /// <summary>
-        /// Save control.
+        /// txtFather_cellphone control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Save;
+        protected global::System.Web.UI.WebControls.TextBox txtFather_cellphone;
         
         /// <summary>
-        /// Back control.
+        /// txtMother_cellphone control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Back;
+        protected global::System.Web.UI.WebControls.TextBox txtMother_cellphone;
+        
+        /// <summary>
+        /// txtHome_phone control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtHome_phone;
+        
+        /// <summary>
+        /// txtParents_email control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtParents_email;
+        
+        /// <summary>
+        /// txtSettlement control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtSettlement;
     }
 }

@@ -268,6 +268,28 @@ namespace Data
             return true;
         }
 
+        public bool InsertTableRow(string tableName, string strFields, string strValues,out int nInsertID)
+        {
+            this.Connect();
+
+            nInsertID = -1;
+            if (this.IsConnected)
+            {
+                string strQuery = "insert into " + tableName + " (" + strFields + ") values (" + strValues + ")";
+                try
+                {
+                    MySqlCommand command = new MySqlCommand(strQuery, this.connection);
+                    command.ExecuteNonQuery();
+                    nInsertID = Convert.ToInt32(command.LastInsertedId);
+                }
+                catch (MySqlException e)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         public DataTable GetDataTableByQuery(string strQuery)
         {
             this.Connect();
@@ -496,13 +518,6 @@ namespace Data
 
         public DataTable GetStudentEvaluations(int nStudentID)
         {
-
-
-
-
-
-
-
             return GetDataTableByQuery(
                 " select group_name as lesson_name,ifnull(evaluation,\"\" ) as evaluation from students_schedule" +
                 " left join groups_evaluations on groups_evaluations.student_id = students_schedule.student_id" +
@@ -519,5 +534,24 @@ namespace Data
                 " where " + nStudentID + " not in (select student_id from students_schedule where students_schedule.day_id = classes_schedule.day_id" +
                                                                                             " and students_schedule.hour_id = classes_schedule.hour_id)");
         }
+
+        public DataTable GetClassStudents(int nClassID)
+        {
+            return GetDataTableByQuery(" select concat(students.first_name,' ' ,students.last_name) as name," +
+                                        " picture_path,concat(grades.grade_name,classes.class_number) as class," +
+                                        " classes.id as class_id, students.id as student_id," +
+                                        " students.mother_cellphone, students.mother_full_name," +
+                                        " students.father_cellphone, students.father_full_name," +
+                                        " students.home_phone, students.parents_email," +
+                                        " students.settlement" +
+                                        " from students " +
+                                        " inner join students_classes on students_classes.student_id = students.id" +
+                                        " inner join classes on classes.id = students_classes.class_id" +
+                                        " inner join teachers on teachers.id = classes.teacher_id " +
+                                        " and teachers.year_id = (select value from preferences where name = 'current_year_id')" +
+                                        " inner join grades on grades.id = classes.grade_id" +
+                                        " where classes.id = " + nClassID);
+        }
+
     }
 }
