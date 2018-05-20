@@ -19,11 +19,14 @@
     <asp:Panel runat="server" ID="pnlStudents" CssClass="row justify-content-center mt-3">
         <div class="col text-center" >
             <asp:Panel runat="server" CssClass="border" ID="pnlNoStudentsMsg"><h2>אין תלמידים בכיתה</h2></asp:Panel>
-            <asp:GridView ID="gvStudents" runat="server" AutoGenerateColumns ="false" CssClass="table table-striped table-bordered">
+            <asp:GridView ID="gvStudents" runat="server" AutoGenerateColumns ="False" CssClass="table table-striped table-bordered">
                 <Columns>
-                    <asp:BoundField DataField="name" HeaderText="שם תלמיד">
+                    
+                    <asp:HyperLinkField DataNavigateUrlFields="student_id" 
+                        DataNavigateUrlFormatString="StudentDetailsForm.aspx?StudentID={0}"
+                         DataTextField="name" HeaderText="שם תלמיד">
                     <HeaderStyle Font-Bold="True" />
-                    </asp:BoundField>
+                    </asp:HyperLinkField>
                     <asp:ImageField DataImageUrlField="picture_path" HeaderText="תמונה">
                         <ControlStyle Width="100px" />
                     </asp:ImageField>
@@ -48,6 +51,7 @@
                     <asp:BoundField DataField="settlement" HeaderText="יישוב">
                     <HeaderStyle Font-Bold="True" />
                     </asp:BoundField>
+                        
                         
                 </Columns>
             </asp:GridView>

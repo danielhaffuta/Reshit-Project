@@ -9,25 +9,25 @@
     <div class="row justify-content-center">
         <div class="col-12 col-lg-8">
             <div class="row h4">
-                <div class="col-6 border rounded">
+                <div class="col-12 col-sm-6 border rounded">
                     שם האם : <%= drStudentDetails["mother_full_name"]%>
                 </div>
-                <div class="col-6 border rounded">
+                <div class="col-12 col-sm-6 border rounded">
                     שם האב : <%= drStudentDetails["father_full_name"]%>
                 </div>
-                <div class="col-6 border rounded">
+                <div class="col-12 col-sm-6 border rounded">
                     נייד אם : <%= drStudentDetails["mother_cellphone"]%>
                 </div>
-                <div class="col-6 border rounded">
+                <div class="col-12 col-sm-6 border rounded">
                     נייד אב : <%= drStudentDetails["father_cellphone"]%>
                 </div>
-                <div class="col-6 border rounded">
+                <div class="col-12 col-sm-6 border rounded">
                     טלפון : <%= drStudentDetails["home_phone"]%>
                 </div>
-                <div class="col-6 border rounded">
+                <div class="col-12 col-sm-6 border rounded">
                    אי-מייל : <%= drStudentDetails["parents_email"]%>
                 </div>
-                <div class="col-6 border rounded">
+                <div class="col-12 col-sm-6 border rounded">
                     יישוב : <%= drStudentDetails["settlement"]%>
                 </div>
                 
@@ -39,8 +39,9 @@
 
     </asp:Panel>
 
-    <div class="form-row justify-content-center">
+    <div class="form-row justify-content-center btn-group-vertical">
         <button  runat="server"  onserverclick="BtnBack_Click" class="btn btn-outline-dark">חזור</button>
+        <button  runat="server"  onserverclick="BtnEditStudentDetails" class="btn btn-outline-dark">ערוך פרטי תלמיד</button>
         <button  runat="server"  onserverclick="BtnPrintSchedule_Click" class="btn btn-outline-dark">הדפס מערכת</button>
         <button  runat="server"  onserverclick="BtnPrintEvaluations_Click" class="btn btn-outline-dark">הדפס הערכה</button>
     </div>

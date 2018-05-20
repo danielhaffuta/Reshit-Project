@@ -10,7 +10,7 @@ namespace ReshitScheduler
     public partial class MainForm : System.Web.UI.Page
     {
         public static Teacher LoggedInTeacher;
-        protected void Page_PreInit(object sender, EventArgs e)
+        protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["LoggedInTeacher"] == null)
             {
@@ -36,22 +36,8 @@ namespace ReshitScheduler
                     break;
             }
 
-            if (LoggedInTeacher.Type == "admin")
-            {
-                Response.Redirect("AdminForm.aspx");
-            }
-            else if (LoggedInTeacher.Type == "רכז")
-            {
-                Response.Redirect("CoordinatorForm.aspx");
-
-            }
-            else if (LoggedInTeacher.Type == "מחנך")
-            {
-                Response.Redirect("EducatorForm.aspx");
-            }
             
 
-            TeacherName.Text = LoggedInTeacher.FirstName + " " + LoggedInTeacher.LastName;
             DataTable dtClasses = DBConnection.Instance.GetDataTableByQuery(
                 "select concat(grades.grade_name,classes.class_number) ,classes.id " +
                 "from teachers " +
@@ -59,64 +45,22 @@ namespace ReshitScheduler
                 "inner join grades on grades.id = classes.grade_id " +
                 "where teachers.id = " + LoggedInTeacher.Id);
 
+            if(dtClasses.Rows.Count == 0 )
+            {
+                pnlClassesPanel.Visible = false;
+            }
             foreach (DataRow drCurrentRow in dtClasses.Rows)
             {
-                LinkButton lbClassButton = new LinkButton()
+                Button btnClassButton = new Button()
                 {
                     ID = drCurrentRow[1].ToString(),
                     Text = drCurrentRow[0].ToString(),
-                    
+                    CssClass= "btn btn-outline-dark",
                 };
-                lbClassButton.Click += LbClassButton_Click;
-                ClassesPanel.Controls.Add(lbClassButton);
-                ClassesPanel.Controls.Add(new LiteralControl("<br />"));
+                btnClassButton.Click += btnClass_Click;
+                pnlClassesPanel.Controls.Add(btnClassButton);
             }
-            //LoggedInTeacher = new Teacher();
 
-            LinkButton lbStudentButton = new LinkButton()
-            {
-                ID = "AddStudent",
-                Text = "הוספת תלמיד חדש",
-            };
-            lbStudentButton.Click += LbStudentButton_Click;
-            editOptionsPanel.Controls.Add(lbStudentButton);
-            editOptionsPanel.Controls.Add(new LiteralControl("<br />"));
-
-            LinkButton lbAddClasslButton = new LinkButton()
-            {
-                ID = "AddNewClass",
-                Text = "הוספת כיתה חדשה",
-            };
-            lbAddClasslButton.Click += lbAddClasslButton_Click;
-            editOptionsPanel.Controls.Add(lbAddClasslButton);
-            editOptionsPanel.Controls.Add(new LiteralControl("<br />"));
-
-            LinkButton lbCourseButton = new LinkButton()
-            {
-                ID = "AddCourse",
-                Text = "הוספת קורס",
-            };
-            lbCourseButton.Click += LbCourseButton_Click;
-            editOptionsPanel.Controls.Add(lbCourseButton);
-            editOptionsPanel.Controls.Add(new LiteralControl("<br />"));
-
-            LinkButton lbGroupButton = new LinkButton()
-            {
-                ID = "AddGroup",
-                Text = "הוספת קבוצה",
-            };
-            lbGroupButton.Click += LbCourseButton_Click;
-            editOptionsPanel.Controls.Add(lbGroupButton);
-            editOptionsPanel.Controls.Add(new LiteralControl("<br />"));
-
-            LinkButton lbBellSystemButton = new LinkButton()
-            {
-                ID = "SetBellSystem",
-                Text = "אתחול מערכת צלצולים",
-            };
-            lbBellSystemButton.Click += LbBellSystemButton_Click;
-            editOptionsPanel.Controls.Add(lbBellSystemButton);
-            editOptionsPanel.Controls.Add(new LiteralControl("<br />"));
 
 
         }
@@ -127,27 +71,34 @@ namespace ReshitScheduler
             Response.Redirect("LoginForm.aspx");
         }
 
-        private void LbClassButton_Click(object sender, EventArgs e)
+        protected void btnClass_Click(object sender, EventArgs e)
         {
             Session["ClassID"] = (sender as LinkButton).ID;
             Response.Redirect("ClassPage.aspx?ClassID="+(sender as LinkButton).ID);
         }
-        private void LbStudentButton_Click(object sender, EventArgs e)
+        protected void BtnAddStudent_Click(object sender, EventArgs e)
         {
             Response.Redirect("AddStudentForm.aspx");
         }
-        private void LbBellSystemButton_Click(object sender, EventArgs e)
+        protected void BtnBellSystem_Click(object sender, EventArgs e)
         {
-            Response.Redirect("SetBellSystem.aspx");
+            Response.Redirect("AddTeacherForm.aspx");
+
         }
-        private void LbCourseButton_Click(object sender, EventArgs e)
+        protected void BtnAddCourse_Click(object sender, EventArgs e)
         {
-            Session["CourseID"] = (sender as LinkButton).ID;
-            Response.Redirect("AddCourseForm.aspx");
+            Session["IsGroup"] = false;
+            Response.Redirect("AddLessonForm.aspx");
         }
-        private void lbAddClasslButton_Click(object sender, EventArgs e)
+        protected void BtnAddClass_Click(object sender, EventArgs e)
         {
             Response.Redirect("AddClassForm.aspx");
+        }
+
+        protected void BtnAddGroup_Click(object sender, EventArgs e)
+        {
+            Session["IsGroup"] = true;
+            Response.Redirect("AddLessonForm.aspx");
         }
     }
 }

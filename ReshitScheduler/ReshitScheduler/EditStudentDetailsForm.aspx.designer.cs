@@ -10,51 +10,69 @@
 namespace ReshitScheduler {
     
     
-    public partial class AddTeacherForm {
+    public partial class EditStudentDetailsForm {
         
         /// <summary>
-        /// txtTeacherFirstName control.
+        /// mother_full_name control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtTeacherFirstName;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText mother_full_name;
         
         /// <summary>
-        /// txtTeacherLastName control.
+        /// father_full_name control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtTeacherLastName;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText father_full_name;
         
         /// <summary>
-        /// ddlTeacherType control.
+        /// mother_cellphone control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlTeacherType;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText mother_cellphone;
         
         /// <summary>
-        /// txtUserName control.
+        /// father_cellphone control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtUserName;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText father_cellphone;
         
         /// <summary>
-        /// txtPassword control.
+        /// home_phone control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPassword;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText home_phone;
+        
+        /// <summary>
+        /// parents_email control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText parents_email;
+        
+        /// <summary>
+        /// settlement control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText settlement;
     }
 }

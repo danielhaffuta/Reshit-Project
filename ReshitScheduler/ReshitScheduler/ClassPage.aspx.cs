@@ -18,7 +18,6 @@ namespace ReshitScheduler
 
         private int nClassID;
         protected string strClassName;
-        private static string strPreviousPage;
         public static Teacher LoggedInTeacher;
 
 

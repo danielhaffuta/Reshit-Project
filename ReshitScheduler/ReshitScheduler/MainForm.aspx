@@ -1,39 +1,27 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="MainForm.aspx.cs" Inherits="ReshitScheduler.MainForm" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="MainForm.aspx.cs" Inherits="ReshitScheduler.MainForm" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+</asp:Content>
 
-<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <meta charset="UTF-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
-    
-    <link rel="stylesheet" href="/css/AddGroupToClass.css"/>
-    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
-    <title></title>
-</head>
-<body dir = "rtl">
-    <form id="form1" runat="server" class="form text-center">
-        <asp:Panel runat="server" ID="container" class="container">
-                שלום
-                <asp:Label CssClass="form-text" ID="TeacherName" runat="server" Text="Label"></asp:Label>
-                <br />
-                הכיתות שלך:
-                <asp:Panel runat="server" CssClass="form-group" ID="ClassesPanel" >
+<asp:Content ID="Content2" ContentPlaceHolderID="MainForm" runat="server">
+    <h2 >
+שלום <%=LoggedInTeacher.FirstName + " " +LoggedInTeacher.LastName %>
+    </h2>        
 
-                </asp:Panel>
-                <asp:Panel runat="server" CssClass="form-group" ID="editOptionsPanel" >
-                    <br />אפשרויות עריכה:<br />
-                </asp:Panel>
-                <div class="form-row justify-content-center">
-                    <button  runat="server"  onserverclick="BtnLogout_Click" class="btn btn-outline-dark">התנתק</button>
-                </div>
-        </asp:Panel>
-    </form>
+    <asp:Panel runat="server" CssClass="row justify-content-center btn-group-vertical" ID="pnlClassesPanel" >
+        הכיתות שלך:
 
-    <script src="/js/jquery.slim.min.js"></script>
-    <script src="/js/popper.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-</body>
-</html>
+    </asp:Panel>
+                
+    <h2>אפשרויות עריכה:</h2>
+
+    <div class="row justify-content-center btn-group-vertical">
+        <button  runat="server" onserverclick="BtnLogout_Click" class="btn btn-outline-dark">התנתק</button>
+        <button  runat="server" onserverclick="BtnAddStudent_Click" class="btn btn-outline-dark">הוספת תלמיד חדש</button>
+        <button  runat="server" onserverclick="BtnAddClass_Click" class="btn btn-outline-dark">הוספת כיתה חדשה</button>
+        <button  runat="server" onserverclick="BtnAddCourse_Click" class="btn btn-outline-dark">הוספת קורס</button>
+        <button  runat="server" onserverclick="BtnAddGroup_Click" class="btn btn-outline-dark">הוספת קבוצה</button>
+        <button  runat="server" onserverclick="BtnBellSystem_Click" class="btn btn-outline-dark">אתחול מערכת צלצולים</button>
+        <button  runat="server" onserverclick="BtnLogout_Click" class="btn btn-outline-dark">הוספת מורה</button>
+    </div>
+</asp:Content>

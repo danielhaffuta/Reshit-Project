@@ -13,15 +13,22 @@ namespace ReshitScheduler
 {
     public partial class AddCourseForm : BasePage
     {
+        private bool IsGroup;
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(Session["CourseID"] == null)
+            if(Session["IsGroup"] == null)
             {
-                Session["CourseID"] = "AddGroup";
+                Session["IsGroup"] = IsGroup = true;
             }
-            if (Session["CourseID"].ToString().Equals("AddGroup"))
+            if (Session["IsGroup"].ToString().Equals("true"))
             {
+                IsGroup = true;
                 Course.Text = "שם הקבוצה:";
+            }
+            else
+            {
+                IsGroup = false;
             }
             if (!IsPostBack)
             {
@@ -41,13 +48,13 @@ namespace ReshitScheduler
                 //DataTable testTable = DBConnection.Instance.GetDataTableByQuery(test);
             }
         }
-        protected void SaveClick(object sender, EventArgs e)
+        protected void BtnSave_Click(object sender, EventArgs e)
         {
             string values = "'" + CourseName.Text + "' ,"
                             + TeachersList.SelectedValue ;
             string fields = "";
             string tableName = "";
-            if (Session["CourseID"].ToString().Equals("AddGroup"))
+            if (IsGroup)
             {
                 tableName = "groups";
                 fields = "group_name,teacher_id";
@@ -57,15 +64,15 @@ namespace ReshitScheduler
                 fields = "course_name,teacher_id";
                 tableName = "courses";
             }
-            bool res = DBConnection.Instance.InsertTableRow(tableName, fields, values);
-            if (!res)
+            bool bInsertSucceeded = DBConnection.Instance.InsertTableRow(tableName, fields, values);
+            if (!bInsertSucceeded)
             {
-                Helper.ShowMessage(ClientScript, GetType(), "error saving course information");
+                Helper.ShowMessage(ClientScript, GetType(), "error saving lesson information");
             }
             CourseName.Text = "";
             TeachersList.SelectedIndex = 0;
         }
-        protected void BackClick(object sender, EventArgs e)
+        protected void BtnBack_Click(object sender, EventArgs e)
         {
             Response.Redirect("MainForm.aspx");
         }

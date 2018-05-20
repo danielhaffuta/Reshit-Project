@@ -11,58 +11,68 @@ using System.Web.UI.WebControls;
 
 namespace ReshitScheduler
 {
-    public partial class AddTeacherForm : System.Web.UI.Page
+    public partial class AddTeacherForm : BasePage
     {
+        private const string SCRIPT_DOFOCUS =
+              @"window.setTimeout('DoFocus()', 1);
+            function DoFocus()
+            {
+                try {
+                    document.getElementById('REQUEST_LASTFOCUS').focus();
+                } catch (ex) {}
+            }";
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                string TTQuery = "SELECT * FROM teacher_types where teacher_type_name <> 'admin'";
-                DataTable TTtable = DBConnection.Instance.GetDataTableByQuery(TTQuery);
+                string strTeacherTypeQuery = "SELECT * FROM teacher_types where teacher_type_name <> 'admin'";
+                DataTable TTtable = DBConnection.Instance.GetDataTableByQuery(strTeacherTypeQuery);
 
-                JobDescription.DataSource = TTtable;
-                JobDescription.DataValueField = "id";
-                JobDescription.DataTextField = "teacher_type_name";
-                JobDescription.AutoPostBack = true;
-                JobDescription.DataBind();
+                ddlTeacherType.DataSource = TTtable;
+                ddlTeacherType.DataValueField = "id";
+                ddlTeacherType.DataTextField = "teacher_type_name";
+                ddlTeacherType.AutoPostBack = true;
+                ddlTeacherType.Attributes.Add("onfocus", "try{document.getElementById('__LASTFOCUS').value=this.id} catch(e) {}");
 
-                string YearsQuery = "SELECT id,hebrew_year FROM years";
-                DataTable YearTable = DBConnection.Instance.GetDataTableByQuery(YearsQuery);
+                ddlTeacherType.DataBind();
 
-                JoinYear.DataSource = YearTable;
-                JoinYear.DataValueField = "id";
-                JoinYear.DataTextField = "hebrew_year";
-                JoinYear.AutoPostBack = true;
-                JoinYear.DataBind();
-//              string test = "SELECT * FROM teachers";
-//              DataTable testTable = DBConnection.Instance.GetDataTableByQuery(test);
+
             }
+            Page.ClientScript.RegisterStartupScript(typeof(LessonForm), "ScriptDoFocus",
+                                                    SCRIPT_DOFOCUS.Replace("REQUEST_LASTFOCUS", Request["__LASTFOCUS"]), true);
+        }
+        protected void BtnBack_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("MainForm.aspx");
         }
 
-        protected void SaveClick(object sender, EventArgs e)
+        protected void BtnAddTeacher_Click(object sender, EventArgs e)
         {
-            string values = "'"+TeacherName.Text+"','"
-                            + TeacherLastName.Text + "',"
-                            + JobDescription.SelectedValue + ",'"
-                            + UserName.Text + "','"
-                            + Password.Text + "',"
-                            + JoinYear.SelectedValue;
+            string values = "'"+txtTeacherFirstName.Text+"','"
+                            + txtTeacherLastName.Text + "',"
+                            + ddlTeacherType.SelectedValue + ",'"
+                            + txtUserName.Text + "','"
+                            + txtPassword.Text + "',"
+                            + "(select value from preferences where name = 'current_year_id')";
             string fields = "first_name,last_name,teacher_type_id,user_name,password,year_id";
 
-            bool res = DBConnection.Instance.InsertTableRow("teachers", fields, values);
-
-            cleanFields(sender, e);
+            bool bInsertSucceeded = DBConnection.Instance.InsertTableRow("teachers", fields, values);
+            if (!bInsertSucceeded)
+            {
+                Helper.ShowMessage(ClientScript, GetType(), "error saving");
+            }
+            CleanFields(sender, e);
 
         }
 
-        private void cleanFields(object sender, EventArgs e)
+        private void CleanFields(object sender, EventArgs e)
         {
-            TeacherName.Text = "";
-            TeacherLastName.Text = "";
-            JobDescription.SelectedIndex = 0;
-            UserName.Text = "";
-            JoinYear.SelectedIndex = 0;
+            txtTeacherFirstName.Text = "";
+            txtTeacherLastName.Text = "";
+            ddlTeacherType.SelectedIndex = 0;
+            txtUserName.Text = "";
+            txtPassword.Text = "";
         }
     }
 }
