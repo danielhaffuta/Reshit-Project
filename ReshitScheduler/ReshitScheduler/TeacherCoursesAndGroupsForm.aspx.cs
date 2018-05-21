@@ -24,7 +24,7 @@ namespace ReshitScheduler
             nTeacherID = Convert.ToInt32(Request.QueryString["TeacherID"]?.ToString() ?? "6");
             nClassID = Convert.ToInt32(Request.QueryString["ClassID"]?.ToString() ?? "5");
 
-            drTeacherDetails = DBConnection.Instance.GetConstraintDataTable("teachers", " where teachers.id = " + nTeacherID).Rows[0];
+            drTeacherDetails = DBConnection.Instance.GetDataTableForDisplay("teachers", " where teachers.id = " + nTeacherID).Rows[0];
             /*drTeacherDetails = DBConnection.Instance.GetDataTableByQuery(" select concat(first_name,' ' ,last_name) as name from"+
                                                                          " teachers where teachers.id = " + strTeacherID).Rows[0];*/
             LoadCourses();

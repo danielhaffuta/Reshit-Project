@@ -103,7 +103,10 @@ namespace ReshitScheduler
             Response.Redirect("TeacherCoursesAndGroupsForm.aspx?TeacherID=" + LoggedInTeacher.Id + "&ClassID=" + nClassID);
 
         }
-
+        protected void BtnAddStudent_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AddStudentForm.aspx?ClassID=" + nClassID);
+        }
         private void GoBack()
         {
             Response.Redirect(strPreviousPage);

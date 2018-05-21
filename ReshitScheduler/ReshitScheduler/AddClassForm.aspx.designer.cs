@@ -13,84 +13,48 @@ namespace ReshitScheduler {
     public partial class AddClassForm {
         
         /// <summary>
-        /// Grade control.
+        /// pnlStudents control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Grade;
+        protected global::System.Web.UI.WebControls.Panel pnlStudents;
         
         /// <summary>
-        /// GradeList control.
+        /// gvClasses control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList GradeList;
+        protected global::System.Web.UI.WebControls.GridView gvClasses;
         
         /// <summary>
-        /// NumberOfClass control.
+        /// ddlGrades control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label NumberOfClass;
+        protected global::System.Web.UI.WebControls.DropDownList ddlGrades;
         
         /// <summary>
-        /// ClassNum control.
+        /// txtStudentFirstName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ClassNum;
+        protected global::System.Web.UI.WebControls.TextBox txtStudentFirstName;
         
         /// <summary>
-        /// Educator control.
+        /// ddlTeachers control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Educator;
-        
-        /// <summary>
-        /// EducatorsList control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList EducatorsList;
-        
-        /// <summary>
-        /// LabelYear control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelYear;
-        
-        /// <summary>
-        /// JoinYear control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList JoinYear;
-        
-        /// <summary>
-        /// Save control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Save;
+        protected global::System.Web.UI.WebControls.DropDownList ddlTeachers;
     }
 }

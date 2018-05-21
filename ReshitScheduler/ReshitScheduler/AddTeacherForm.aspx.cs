@@ -27,9 +27,9 @@ namespace ReshitScheduler
             if (!IsPostBack)
             {
                 string strTeacherTypeQuery = "SELECT * FROM teacher_types where teacher_type_name <> 'admin'";
-                DataTable TTtable = DBConnection.Instance.GetDataTableByQuery(strTeacherTypeQuery);
+                DataTable dtTeacherTypes = DBConnection.Instance.GetDataTableByQuery(strTeacherTypeQuery);
 
-                ddlTeacherType.DataSource = TTtable;
+                ddlTeacherType.DataSource = dtTeacherTypes;
                 ddlTeacherType.DataValueField = "id";
                 ddlTeacherType.DataTextField = "teacher_type_name";
                 ddlTeacherType.AutoPostBack = true;
@@ -60,13 +60,13 @@ namespace ReshitScheduler
             bool bInsertSucceeded = DBConnection.Instance.InsertTableRow("teachers", fields, values);
             if (!bInsertSucceeded)
             {
-                Helper.ShowMessage(ClientScript, GetType(), "error saving");
+                Helper.ShowMessage(ClientScript, "error saving");
             }
-            CleanFields(sender, e);
+            CleanFields();
 
         }
 
-        private void CleanFields(object sender, EventArgs e)
+        private void CleanFields()
         {
             txtTeacherFirstName.Text = "";
             txtTeacherLastName.Text = "";

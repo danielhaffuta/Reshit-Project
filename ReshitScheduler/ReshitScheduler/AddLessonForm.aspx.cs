@@ -32,26 +32,21 @@ namespace ReshitScheduler
             }
             if (!IsPostBack)
             {
-                string strTeacherQuery = DBConnection.Instance.GetDisplayQuery("teachers");
-                strTeacherQuery += " where year_id = " + nYearID;
-                //string TeacherQuery = "SELECT CONCAT(first_name, ' ',last_name) AS full_name, id FROM teachers";
-                DataTable dtTeacherTable = DBConnection.Instance.GetDataTableByQuery(strTeacherQuery);
+                DataTable dtTeacherTable = DBConnection.Instance.GetThisYearTeachers();
 
-                TeachersList.DataSource = dtTeacherTable;
-                TeachersList.DataValueField = "id";
-                TeachersList.DataTextField = "name";
-                TeachersList.AutoPostBack = true;
-                TeachersList.DataBind();
+                ddlTeachers.DataSource = dtTeacherTable;
+                ddlTeachers.DataValueField = "id";
+                ddlTeachers.DataTextField = "name";
+                ddlTeachers.AutoPostBack = true;
+                ddlTeachers.DataBind();
 
-                
-                //string test = "SELECT * FROM groups";
-                //DataTable testTable = DBConnection.Instance.GetDataTableByQuery(test);
+               
             }
         }
         protected void BtnSave_Click(object sender, EventArgs e)
         {
             string values = "'" + CourseName.Text + "' ,"
-                            + TeachersList.SelectedValue ;
+                            + ddlTeachers.SelectedValue ;
             string fields = "";
             string tableName = "";
             if (IsGroup)
@@ -67,10 +62,10 @@ namespace ReshitScheduler
             bool bInsertSucceeded = DBConnection.Instance.InsertTableRow(tableName, fields, values);
             if (!bInsertSucceeded)
             {
-                Helper.ShowMessage(ClientScript, GetType(), "error saving lesson information");
+                Helper.ShowMessage(ClientScript,  "error saving lesson information");
             }
             CourseName.Text = "";
-            TeachersList.SelectedIndex = 0;
+            ddlTeachers.SelectedIndex = 0;
         }
         protected void BtnBack_Click(object sender, EventArgs e)
         {

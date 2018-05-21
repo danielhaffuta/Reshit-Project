@@ -11,59 +11,65 @@ namespace ReshitScheduler
 {
     public partial class AddClassForm : System.Web.UI.Page
     {
+        private DataTable dtTeachers;
+        private DataTable dtClasses;
+        private DataTable dtGrades;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // grade dropdown list
-            string gradeQuery = "SELECT * FROM grades";
-            DataTable table = DBConnection.Instance.GetDataTableByQuery(gradeQuery);
+            dtTeachers = DBConnection.Instance.GetThisYearTeachers();
+            dtClasses = DBConnection.Instance.GetThisYearClasses();
+            dtGrades = DBConnection.Instance.GetGrades();
+            if (!IsPostBack)
+            {
 
-            GradeList.DataSource = table;
-            GradeList.DataValueField = "id";
-            GradeList.DataTextField = "grade_name";
-            GradeList.AutoPostBack = true;
-            GradeList.DataBind();
+                ddlTeachers.DataSource = dtTeachers;
+                ddlTeachers.DataValueField = "id";
+                ddlTeachers.DataTextField = "name";
+                ddlTeachers.DataBind();
 
-            // Educators List
-            string EducatorsQuery = "SELECT CONCAT(first_name, ' ', last_name) AS full_name, id FROM teachers";
-            DataTable EducatorsTable = DBConnection.Instance.GetDataTableByQuery(EducatorsQuery);
+                ddlGrades.DataSource = dtGrades;
+                ddlGrades.DataValueField = "id";
+                ddlGrades.DataTextField = "name";
+                ddlGrades.DataBind();
 
-            EducatorsList.DataSource = EducatorsTable;
-            EducatorsList.DataValueField = "id";
-            EducatorsList.DataTextField = "full_name";
-            EducatorsList.AutoPostBack = true;
-            EducatorsList.DataBind();
+                gvClasses.DataSource = dtClasses;
+                gvClasses.DataBind();
 
-            // Join Year List
-            string JoinYearQuery = "SELECT * FROM years";
-            DataTable JoinYearTable = DBConnection.Instance.GetDataTableByQuery(JoinYearQuery);
+            }
 
-            JoinYear.DataSource = JoinYearTable;
-            JoinYear.DataValueField = "id";
-            JoinYear.DataTextField = "hebrew_year";
-            JoinYear.AutoPostBack = true;
-            JoinYear.DataBind();
         }
 
-        protected void SaveClick(object sender, EventArgs e)
+
+
+        protected void BtnBack_Click(object sender, EventArgs e)
         {
-            string values = GradeList.SelectedValue + ",'"
-                            + ClassNum.Text + "',"
-                            + EducatorsList.SelectedValue + ","
-                            + JoinYear.SelectedValue;
-            string fields = "grade_id, class_number, teacher_id, year_id";
-
-            bool res = DBConnection.Instance.InsertTableRow("classes", fields, values);
-
-            cleanFields(sender, e);            
+            GoBack();
         }
-
-        private void cleanFields(object sender, EventArgs e)
+        private void GoBack()
         {
-            GradeList.SelectedIndex = 0;
-            ClassNum.Text = "";
-            EducatorsList.SelectedIndex = 0;
-            JoinYear.SelectedIndex = 0;
+            Response.Redirect("MainForm.aspx");
+        }
+        protected void BtnAddClass_Click(object sender, EventArgs e)
+        {
+            int nGradeID = Convert.ToInt32(ddlGrades.SelectedValue);
+            int nClassNumber = Convert.ToInt32(txtStudentFirstName.Text);
+            int nTeacherID = Convert.ToInt32(ddlTeachers.SelectedValue);
+            if (dtClasses.Select("grade_id = " + nGradeID + " AND class_number = " + nClassNumber).Count()>0)
+            {
+                Helper.ShowMessage(ClientScript, "כיתה כבר קיימת - לא ניתן להוסיף");
+                return;
+            }
+            bool bInsertSucceeded = 
+                DBConnection.Instance.InsertTableRow("classes", "grade_id,class_number,teacher_id",
+                                                           nGradeID + "," + nClassNumber + "," + nTeacherID);
+            if(!bInsertSucceeded)
+            {
+                Helper.ShowMessage(ClientScript, "error saving");
+            }
+            dtClasses = DBConnection.Instance.GetThisYearClasses();
+            gvClasses.DataSource = dtClasses;
+            gvClasses.DataBind();
         }
     }
 }

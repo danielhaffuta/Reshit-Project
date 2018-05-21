@@ -342,7 +342,7 @@ namespace Data
 
         }
 
-        public DataTable GetConstraintDataTable(string strTableName, string strWhereClause = "", string strOrderByClause = "")
+        public DataTable GetDataTableForDisplay(string strTableName, string strWhereClause = "", string strOrderByClause = "")
         {
             string strDisplayQuery = GetDisplayQuery(strTableName);
 
@@ -513,7 +513,7 @@ namespace Data
 
         public DataTable GetHours()
         {
-            return DBConnection.Instance.GetConstraintDataTable("hours_in_day", "where hours_in_day.year_id = (select value from preferences where name = 'current_year_id')", "order by hour_of_school_day");
+            return DBConnection.Instance.GetDataTableForDisplay("hours_in_day", "where hours_in_day.year_id = (select value from preferences where name = 'current_year_id')", "order by hour_of_school_day");
         }
 
         public DataTable GetStudentEvaluations(int nStudentID)
@@ -573,6 +573,7 @@ namespace Data
                     " and students.id not in (select student_id from students_schedule where students_schedule.day_id = classes_schedule.day_id" +
                                                                                        " and students_schedule.hour_id = classes_schedule.hour_id)");
         }
+
         public DataTable GetGroupEvaluations(int nGroupID)
         {
             return GetDataTableByQuery(" select  distinct (students.id) as student_id," +
@@ -592,5 +593,34 @@ namespace Data
                     " where groups.id = " + nGroupID);
         }
 
+        public DataTable GetTeacherClasses(int nTeacherID)
+        {
+            return GetDataTableByQuery(GetDisplayQuery("classes") +
+                " inner join teacher_class_access on teacher_class_access.class_id = classes.id " +
+                " where teacher_class_access.teacher_id = " + nTeacherID);
+        }
+
+        public DataTable GetThisYearTeachers()
+        {
+            return this.GetDataTableByQuery(GetDisplayQuery("teachers") +
+                                            " where year_id=(select value from preferences where name='current_year_id')");
+        }
+
+        public DataTable GetThisYearClasses()
+        {
+            return this.GetDataTableByQuery(GetDisplayQuery("classes") +
+                                            " where teachers.year_id=(select value from preferences where name='current_year_id')");
+        }
+
+        public DataTable GetThisYearTeachersAccesses()
+        {
+            return this.GetDataTableByQuery(GetDisplayQuery("teacher_class_access") +
+                                            " where teachers.year_id=(select value from preferences where name='current_year_id')");
+        }
+
+        public DataTable GetGrades()
+        {
+            return this.GetDataTableByQuery(GetDisplayQuery("grades"));
+        }
     }
 }

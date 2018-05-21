@@ -8,8 +8,11 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainForm" runat="server"  >
-    <div class="mt-5">
-        <h2 ><%=strTitle %></h2>
+    <div >
+        <div class="form-row justify-content-center">
+            <button  runat="server" onserverclick="BtnBack_Click" class="btn btn-outline-dark d-print-none">חזור</button>
+        </div>
+        <h2 class="mt-5"><%=strTitle %></h2>
         <asp:Panel runat="server" ID="pnlSchedule" >
         </asp:Panel>
         <div class="form-row justify-content-center">

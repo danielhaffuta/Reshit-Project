@@ -48,7 +48,7 @@ namespace ReshitScheduler
 
                         dtScheduleTable = FormsUtilities.BuildEmptySchedule();
                         FormsUtilities.FillStudentSchedule(nCurrentStudentID, nClassID, dtScheduleTable);
-                        pnlSchedule.Controls.Add(new LiteralControl("<h2> " + drCurrentStudent["name"] + "</h2>"));
+                        pnlSchedule.Controls.Add(new LiteralControl("<h2 class=\"mt-5\">" + drCurrentStudent["name"] + "</h2>"));
                         GridView gvStudentSchedule = FormsUtilities.FillStudentGrid(dtScheduleTable, null);
                         gvStudentSchedule.Style.Add("page-break-after", "always");
                         pnlSchedule.Controls.Add(gvStudentSchedule);

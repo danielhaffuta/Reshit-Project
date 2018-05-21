@@ -56,6 +56,7 @@ namespace ReshitScheduler
             {
                 Response.Redirect("AddStudentForm.aspx");
             }
+            Response.Redirect("MainForm.aspx");
         }
         protected void BtnPrintSchedule_Click(object sender, EventArgs e)
         {

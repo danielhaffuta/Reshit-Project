@@ -70,7 +70,7 @@ namespace ReshitScheduler
                     bool res = DBConnection.Instance.InsertTableRow("hours_in_day", fields, values);
                     if (!res)
                     {
-                        Helper.ShowMessage(ClientScript, GetType(), "error saving bell system information");
+                        Helper.ShowMessage(ClientScript, "error saving bell system information");
                     }
                 }
             }

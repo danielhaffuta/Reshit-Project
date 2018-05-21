@@ -44,12 +44,7 @@ namespace ReshitScheduler
 
         private void FillClasses()
         {
-            DataTable dtClasses = DBConnection.Instance.GetDataTableByQuery(
-                " select concat(grades.grade_name,classes.class_number) as name,classes.id " +
-                " from teacher_class_access " +
-                " inner join classes on classes.id = teacher_class_access.class_id " +
-                " inner join grades on grades.id = classes.grade_id " +
-                " where teacher_class_access.teacher_id = " + LoggedInTeacher.Id);
+            DataTable dtClasses = DBConnection.Instance.GetTeacherClasses(LoggedInTeacher.Id);
 
             if (dtClasses.Rows.Count == 0)
             {

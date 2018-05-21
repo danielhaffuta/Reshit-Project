@@ -3,12 +3,12 @@
     <link rel = "stylesheet" href = "/css/Student.css" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainForm" runat="server">
-    <div class="row justify-content-center mt-5">
-        <div class="col col-sm-6  " >
+    <div class="row justify-content-center mt-5" runat="server" id="divClasses">
+        <div class="col col-sm-6" >
             <div class="form-group form-inline row">
-                <label id="lblClasses" for="drpClassesList" class="col-form-label col-sm-3  col-md-4">כיתה:</label>
-                <asp:DropDownList ID="drpClassesList" runat="server" OnSelectedIndexChanged="drpClassesList_SelectedIndexChanged"
-                     CssClass="form-control col col-sm-9 col-md-8" DataValueField="id"
+                <label id="lblClasses" for="ddlClassesList" class="col-form-label col-sm-3  col-md-4">כיתה:</label>
+                <asp:DropDownList ID="ddlClassesList" runat="server" OnSelectedIndexChanged="ddlClassesList_SelectedIndexChanged"
+                     CssClass="form-control col col-sm-9 col-md-8" DataValueField="class_id"
                      DataTextField="name" AutoPostBack="true"></asp:DropDownList>
             </div>
 
@@ -42,7 +42,7 @@
                     <asp:BoundField DataField="mother_cellphone" HeaderText="טלפון האם">
                     <HeaderStyle Font-Bold="True" />
                     </asp:BoundField>
-                    <asp:BoundField DataField="father_full_name" HeaderText="טלפון בבית">
+                    <asp:BoundField DataField="home_phone" HeaderText="טלפון בבית">
                     <HeaderStyle Font-Bold="True" />
                     </asp:BoundField>
                     <asp:BoundField DataField="parents_email" HeaderText="אי-מייל">
@@ -69,20 +69,10 @@
                 <label class="col-form-label col-sm-3 col-md-4">שם משפחה:</label>
                 <asp:TextBox id="txtStudentLastName" runat="server" CssClass="form-control col col-sm-9 col-md-8"></asp:TextBox>
             </div>
-
-
-
             <div class="form-group form-inline row">
                 <label class="col-form-label col-sm-3 col-md-4">תמונה:</label>
-
                 <asp:FileUpload ID="FileUpload1" runat="server" CssClass="btn " />
-
-
             </div>
-
-
-
-
             <div class="form-group form-inline row">
                 <label class="col-form-label col-sm-3 col-md-4">שם האב:</label>
                 <asp:TextBox id="txtFather_full_name" runat="server" CssClass="form-control col col-sm-9 col-md-8"></asp:TextBox>
@@ -99,7 +89,6 @@
                 <label class="col-form-label col-sm-3 col-md-4">טלפון האם:</label>
                 <asp:TextBox id="txtMother_cellphone" runat="server" CssClass="form-control col col-sm-9 col-md-8"></asp:TextBox>
             </div>
-
             <div class="form-group form-inline row">
                 <label class="col-form-label col-sm-3 col-md-4">טלפון בבית:</label>
                 <asp:TextBox id="txtHome_phone" runat="server" CssClass="form-control col col-sm-9 col-md-8"></asp:TextBox>

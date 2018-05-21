@@ -8,11 +8,12 @@ namespace ReshitScheduler
 {
     public class Helper
     {
-        public static void ShowMessage(ClientScriptManager ClientScript, Type type,string strMessage)
+        public static void ShowMessage(ClientScriptManager ClientScript,string strMessage)
         {
-            ClientScript.RegisterStartupScript(type, "myalert", "alert('" + strMessage + "');", true);
+            ClientScript.RegisterStartupScript(typeof(BasePage), "myalert", "alert('" + strMessage + "');", true);
 
         }
+
 
     }
 }

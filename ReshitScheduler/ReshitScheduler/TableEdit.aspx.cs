@@ -180,7 +180,7 @@ namespace ReshitScheduler
 
         private void ReplaceForeignKey(string strKeyTableName, int nColumnIndex)
         {
-            DataTable dtKeyData = DBConnection.Instance.GetConstraintDataTable(strKeyTableName);
+            DataTable dtKeyData = DBConnection.Instance.GetDataTableForDisplay(strKeyTableName);
             DropDownList ddlData;
             foreach (GridViewRow dvrCurrentRow in TableGrid.Rows)
             {
@@ -231,7 +231,7 @@ namespace ReshitScheduler
             foreach (DataRow drCurrentKey in dtForeignKeys.Rows)
             {
                 int nColumnIndex = FindKeyIndex(drCurrentKey[0].ToString(), gvTableGrid.HeaderRow);
-                DataTable dtKeyData = DBConnection.Instance.GetConstraintDataTable(drCurrentKey[1].ToString());
+                DataTable dtKeyData = DBConnection.Instance.GetDataTableForDisplay(drCurrentKey[1].ToString());
 
                 ReplaceForeignKeyInRow(TableGrid.Rows[TableGrid.EditIndex], dtKeyData, drCurrentKey[1].ToString(), nColumnIndex);
                 TableGrid.Rows[TableGrid.EditIndex].Cells[nColumnIndex].Controls[0].Visible = false;
@@ -263,7 +263,7 @@ namespace ReshitScheduler
             DBConnection dbcConnection = DBConnection.Instance;
             if (!dbcConnection.InsertTableRow(TableGrid.DataSource as DataTable, row))
             {
-                Helper.ShowMessage(ClientScript, GetType(), "error saving");
+                Helper.ShowMessage(ClientScript,  "error saving");
             }
             TableGrid.EditIndex = -1;
             TableGrid.DataSource = DBConnection.Instance.GetAllDataFromTable(strTableName, strWhereClause);
@@ -277,7 +277,7 @@ namespace ReshitScheduler
             DBConnection dbcConnection = DBConnection.Instance;
             if (!dbcConnection.UpdateTableRow(strTableName, nId, row))
             {
-                Helper.ShowMessage(ClientScript, GetType(), "error saving");
+                Helper.ShowMessage(ClientScript, "error saving");
             }
             TableGrid.EditIndex = -1;
             TableGrid.DataSource = DBConnection.Instance.GetAllDataFromTable(strTableName, strWhereClause);

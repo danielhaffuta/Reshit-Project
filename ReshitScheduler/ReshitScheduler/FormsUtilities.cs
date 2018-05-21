@@ -19,8 +19,8 @@ namespace ReshitScheduler
         {
             dtDays = DBConnection.Instance.GetAllDataFromTable("days");
             dtHours = DBConnection.Instance.GetHours();
-            dtCourses = DBConnection.Instance.GetConstraintDataTable("courses");
-            dtGroups = DBConnection.Instance.GetConstraintDataTable("groups");
+            dtCourses = DBConnection.Instance.GetDataTableForDisplay("courses");
+            dtGroups = DBConnection.Instance.GetDataTableForDisplay("groups");
         }
 
         public static DataTable BuildEmptySchedule()

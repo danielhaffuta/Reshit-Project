@@ -48,6 +48,7 @@ namespace ReshitScheduler
                                                  home_phone.Value + "':'" + parents_email.Value + "':'" +
                                                  settlement.Value + "'");
 
+            GoBack();
 
         }
         protected void BtnBack_Click(object sender, EventArgs e)
