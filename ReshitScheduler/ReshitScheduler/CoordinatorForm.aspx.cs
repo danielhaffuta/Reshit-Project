@@ -53,7 +53,7 @@ namespace ReshitScheduler
             foreach (DataRow drCurrentClass in dtClasses.Rows)
             {
                 pnlClasses.Controls.Add(new LiteralControl("<a class=\"list-group-item list-group-item-action d-block\" " +
-                                       "href=ClassPage.aspx?ClassID=" + drCurrentClass["id"] + ">" + drCurrentClass["name"] + "</a></li>"));
+                                       "href=ClassPage.aspx?ClassID=" + drCurrentClass["class_id"] + ">" + drCurrentClass["name"] + "</a></li>"));
             }
         }
 

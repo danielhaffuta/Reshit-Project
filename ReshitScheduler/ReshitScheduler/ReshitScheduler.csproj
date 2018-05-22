@@ -213,6 +213,7 @@
     <Content Include="PrintStudentEvaluations.aspx" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
+    <Content Include="SelectParentsForSmsForm.aspx" />
     <Content Include="SetBellSystem.aspx" />
     <Content Include="StudentDetailsForm.aspx" />
     <Content Include="TableEdit.aspx" />
@@ -375,6 +376,13 @@
       <DependentUpon>PrintStudentEvaluations.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SelectParentsForSmsForm.aspx.cs">
+      <DependentUpon>SelectParentsForSmsForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SelectParentsForSmsForm.aspx.designer.cs">
+      <DependentUpon>SelectParentsForSmsForm.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SetBellSystem.aspx.cs">
       <DependentUpon>SetBellSystem.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -35,7 +35,7 @@ namespace ReshitScheduler
                 DataTable dtGroupStudents = DBConnection.Instance.GetDataTableByQuery("select concat(first_name,' ',last_name) as name from students " +
                                                                                       " inner join students_schedule on students_schedule.student_id = students.id " +
                                                                                       " inner join students_classes on students_classes.student_id = students.id" +
-                                                                                      " where students_schedule.group_id = " + drCurrentRow["id"] +
+                                                                                      " where students_schedule.group_id = " + drCurrentRow["group_id"] +
                                                                                       " and students_schedule.hour_id = " + nHourId +
                                                                                       " and students_schedule.day_id = " + nDayId +
                                                                                       " and students_classes.class_id = " + nClassID);
@@ -47,7 +47,7 @@ namespace ReshitScheduler
                 lbGroup = new LinkButton()
                 {
                     Text = drCurrentRow["name"].ToString()  + strGroupStudents,
-                    ID = strIDs + "-"+ drCurrentRow["id"].ToString(),
+                    ID = strIDs + "-"+ drCurrentRow["group_id"].ToString(),
                     CssClass="form-control mb-2"
                 };
                 lbGroup.Click += LbGroup_Click;

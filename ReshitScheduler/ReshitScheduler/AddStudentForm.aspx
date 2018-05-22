@@ -11,8 +11,6 @@
                      CssClass="form-control col col-sm-9 col-md-8" DataValueField="class_id"
                      DataTextField="name" AutoPostBack="true"></asp:DropDownList>
             </div>
-
-
         </div>
     </div>
 

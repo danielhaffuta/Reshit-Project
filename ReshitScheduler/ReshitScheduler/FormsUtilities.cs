@@ -78,11 +78,18 @@ namespace ReshitScheduler
                 DataRow[] drStudentScheduleRows = dtStudentsSchedule.Select("hour_id = " + drCurrentHour["hour_id"].ToString() + " and day_id = " + drCurrentHour["day_id"].ToString());
                 if (drStudentScheduleRows.Count() > 0)
                 {
-                    strCourseName = dtGroups.Select("id = " + drStudentScheduleRows[0]["group_id"])[0]["name"] + "?GroupID=" + drStudentScheduleRows[0]["group_id"];
+                    strCourseName = dtGroups.Select("group_id = " + drStudentScheduleRows[0]["group_id"])[0]["name"] + "<br>(" + 
+                                    dtGroups.Select("group_id = " + drStudentScheduleRows[0]["group_id"])[0]["teacher_name"] + ")" +
+                                                    "?GroupID=" + drStudentScheduleRows[0]["group_id"];
+                        
                 }
                 else
                 {
-                    strCourseName = dtCourses.Select("id = " + drCurrentHour["course_id"])[0]["name"] + "?CourseID=" + drCurrentHour["course_id"];
+                    strCourseName = dtCourses.Select("course_id = " + drCurrentHour["course_id"])[0]["name"] + "<br>(" +
+                                    dtCourses.Select("course_id = " + drCurrentHour["course_id"])[0]["teacher_name"] + ")" +
+                                    "?CourseID=" + drCurrentHour["course_id"];
+                                    
+                                       //dtCourses.Select("course_id = " + drCurrentHour["course_id"].ToString())[0]["teacher_name"].ToString() +")";
                 }
                 dtScheduleTable.Select(("hour_id = '" + drCurrentHour["hour_id"]).Replace("*", "") + "'")[0][drCurrentHour["day_id"].ToString()] = strCourseName + "-" + drCurrentHour["day_id"] + drCurrentHour["hour_id"];
             }
@@ -163,8 +170,9 @@ namespace ReshitScheduler
             " where students_classes.class_id = " + nClassID);
             foreach (DataRow drCurrentHour in dtClassSchedule.Rows)
             {
-                string strCourseName = dtCourses.Select("id = " + drCurrentHour["course_id"].ToString())[0]["name"].ToString() +
-                                       "*" + drCurrentHour["hour_id"] + "-" + drCurrentHour["day_id"];
+                string strCourseName = dtCourses.Select("course_id = " + drCurrentHour["course_id"].ToString())[0]["name"].ToString() +"<br>("+
+                                       dtCourses.Select("course_id = " + drCurrentHour["course_id"].ToString())[0]["teacher_name"].ToString()+
+                                       ") *" + drCurrentHour["hour_id"] + "-" + drCurrentHour["day_id"];
                 DataRow[] drStudentScheduleRows = dtStudentsSchedule.Select("hour_id = " + drCurrentHour["hour_id"].ToString() + " and day_id = " + drCurrentHour["day_id"].ToString());
                 if (drStudentScheduleRows.Count() > 0)
                 {
@@ -232,32 +240,6 @@ namespace ReshitScheduler
             return gvScheduleView;
         }
 
-        public static GridView FillClassStudents(GridView gvStudents,DataTable dtStudents)
-        {
-
-            gvStudents.DataSource = dtStudents;
-            gvStudents.DataBind();
-
-
-
-            foreach (GridViewRow gvrCurrentRow in gvStudents.Rows)
-            {
-                foreach (TableCell tcCurrentCell in gvrCurrentRow.Cells)
-                {
-
-                }
-                /*gvrCurrentRow.Cells[0].Visible = false;
-                gvrCurrentRow.Cells[0].Visible = false;
-                gvrCurrentRow.Cells[0].Visible = false;
-                gvrCurrentRow.Cells[0].Visible = false;
-                gvrCurrentRow.Cells[0].Visible = false;
-                gvrCurrentRow.Cells[0].Visible = false;
-                gvrCurrentRow.Cells[0].Visible = false;*/
-            }
-
-
-            return gvStudents;
-        }
 
     }
 }

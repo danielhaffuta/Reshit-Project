@@ -1,6 +1,8 @@
 ﻿using MySql.Data.MySqlClient;
 using ReshitScheduler;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Data;
 using System.Web;
 using System.Web.UI.WebControls;
@@ -418,7 +420,7 @@ namespace Data
                                            " inner join teachers old_teacher on old_teacher.id = classes.teacher_id" +
                                            " inner join teachers new_teacher on new_teacher.user_name = old_teacher.user_name "+
                                            " and new_teacher.year_id = " + (nCurrentYearID + 1) +
-                                           " where grade_id < 6", this.connection);
+                                           " where grade_id < 8", this.connection);
                 command.ExecuteNonQuery();
 
                 command = new MySqlCommand("insert into teacher_class_access(teacher_id,class_id)" +
@@ -509,6 +511,25 @@ namespace Data
                                                                             " and teachers.year_id = (select value from preferences where name = 'current_year_id')" +
                                                                             " inner join grades on grades.id = classes.grade_id" +
                                                                             " where students.id = " + nStudentID).Rows[0];
+        }
+
+        public DataTable GetStudentsDetails(List<int> lstStudentIDs)
+        {
+
+            return DBConnection.Instance.GetDataTableByQuery(" select concat(students.first_name,' ' ,students.last_name) as name," +
+                                                                            " picture_path,concat(grades.grade_name,classes.class_number) as class," +
+                                                                            " classes.id as class_id, students.id as student_id," +
+                                                                            " students.mother_cellphone, students.mother_full_name," +
+                                                                            " students.father_cellphone, students.father_full_name," +
+                                                                            " students.home_phone, students.parents_email," +
+                                                                            " students.settlement" +
+                                                                            " from students " +
+                                                                            " inner join students_classes on students_classes.student_id = students.id" +
+                                                                            " inner join classes on classes.id = students_classes.class_id" +
+                                                                            " inner join teachers on teachers.id = classes.teacher_id " +
+                                                                            " and teachers.year_id = (select value from preferences where name = 'current_year_id')" +
+                                                                            " inner join grades on grades.id = classes.grade_id" +
+                                                                            " where students.id in (" + string.Join(",", lstStudentIDs.Select(number => number.ToString()).ToArray()) + ")");
         }
 
         public DataTable GetHours()
