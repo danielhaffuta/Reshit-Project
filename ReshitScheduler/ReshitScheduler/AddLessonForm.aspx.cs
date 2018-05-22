@@ -14,6 +14,8 @@ namespace ReshitScheduler
     public partial class AddCourseForm : BasePage
     {
         private bool IsGroup;
+        private DataTable dtCourses;
+        private DataTable dtGroups;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -21,10 +23,17 @@ namespace ReshitScheduler
             {
                 Session["IsGroup"] = IsGroup = true;
             }
+            //string test2 = "select groups.id as group_id, groups.group_name as name,"+
+            //    " concat(teachers.first_name, ' ', teachers.last_name) as teacher_name"+
+            //    " from groups"+
+            //    " inner join teachers on teachers.id = groups.teacher_id "+
+            //    " inner join years on years.id = teachers.year_id";
+            //DataTable Qtest = DBConnection.Instance.GetDataTableByQuery(test2);
             if (Session["IsGroup"].ToString().Equals("true"))
             {
                 IsGroup = true;
                 Course.Text = "שם הקבוצה:";
+                
             }
             else
             {
@@ -40,7 +49,18 @@ namespace ReshitScheduler
                 ddlTeachers.AutoPostBack = true;
                 ddlTeachers.DataBind();
 
-               
+                if (IsGroup)
+                {
+                    dtGroups = DBConnection.Instance.GetThisYearGroups();
+                    gvCourses.DataSource = dtGroups;
+                    gvCourses.DataBind();
+                }
+                else
+                {
+                    dtCourses = DBConnection.Instance.GetThisYearCourses();
+                    gvCourses.DataSource = dtCourses;
+                    gvCourses.DataBind();
+                }
             }
         }
         protected void BtnSave_Click(object sender, EventArgs e)
@@ -66,6 +86,18 @@ namespace ReshitScheduler
             }
             CourseName.Text = "";
             ddlTeachers.SelectedIndex = 0;
+            if (IsGroup)
+            {
+                dtGroups = DBConnection.Instance.GetThisYearGroups();
+                gvCourses.DataSource = dtGroups;
+                gvCourses.DataBind();
+            }
+            else
+            {
+                dtCourses = DBConnection.Instance.GetThisYearCourses();
+                gvCourses.DataSource = dtCourses;
+                gvCourses.DataBind();
+            }
         }
         protected void BtnBack_Click(object sender, EventArgs e)
         {

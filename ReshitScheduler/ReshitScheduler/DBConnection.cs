@@ -63,7 +63,7 @@ namespace Data
                     }
                     string strConnectionString = string.Format("Server=den1.mysql2.gear.host; database={0}; UID=reshit; password=Aa5407582@", databaseName);
 
-                    // if (HttpContext.Current.Request.IsLocal && Environment.MachineName == "IDAN-PC")
+                    if (HttpContext.Current.Request.IsLocal && Environment.MachineName == "IDAN-PC")
                     {
                         strConnectionString = string.Format("Server=localhost; database={0}; UID=root; password=1111", databaseName);
                     }
@@ -609,6 +609,18 @@ namespace Data
         public DataTable GetThisYearClasses()
         {
             return this.GetDataTableByQuery(GetDisplayQuery("classes") +
+                                            " where teachers.year_id=(select value from preferences where name='current_year_id')");
+        }
+
+        public DataTable GetThisYearCourses()
+        {
+            return this.GetDataTableByQuery(GetDisplayQuery("courses") +
+                                            " where teachers.year_id=(select value from preferences where name='current_year_id')");
+        }
+
+        public DataTable GetThisYearGroups()
+        {
+            return this.GetDataTableByQuery(GetDisplayQuery("groups") +
                                             " where teachers.year_id=(select value from preferences where name='current_year_id')");
         }
 
