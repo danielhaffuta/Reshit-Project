@@ -1,4 +1,4 @@
-﻿using Data;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -25,7 +25,7 @@ namespace ReshitScheduler
             foreach (DataRow drCurrentStudent in dtStudents.Rows)
             {
                 string strFigure = "<a href=\"StudentDetailsForm.aspx?StudentID="+ drCurrentStudent["id"] + "\" class=\"col-6 col-md-2 col-sm-4\">"+
-                                   "<figure > <img src=\"" + drCurrentStudent["picture_path"] + "\" width=\"100\">"+
+                                   "<figure > <img src=\"" + drCurrentStudent["picture_path"] + "\" style=\"max-height:75px;\"  >" +
                                    "<figcaption>" + drCurrentStudent["name"] + "</figcaption></figure></a>";
                 pnlStudents.Controls.Add(new LiteralControl(strFigure));
             }

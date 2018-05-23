@@ -1,4 +1,4 @@
-﻿using Data;
+﻿
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ using System.Web.UI.WebControls;
 
 namespace ReshitScheduler
 {
-    public partial class TableEdit : System.Web.UI.Page
+    public partial class TableEdit : BasePage
     {
         public static string strTableName;
         public static string strWhereClause;

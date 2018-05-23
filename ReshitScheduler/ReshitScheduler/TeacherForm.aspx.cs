@@ -13,20 +13,14 @@ namespace ReshitScheduler
         private DataTable dtTeacherScheduleTable;
         protected void Page_Load(object sender, EventArgs e)
         {
-
-            
             LoadTeacherSchedule();
         }
 
         private void LoadTeacherSchedule()
         {
-
             dtTeacherScheduleTable = FormsUtilities.BuildEmptySchedule();
             FormsUtilities.FillTeacherSchedule(LoggedInTeacher.ID, dtTeacherScheduleTable);
             pnlTeacherSchedule.Controls.Add(FormsUtilities.FillTeacherGrid(LoggedInTeacher.ID, dtTeacherScheduleTable));
-
         }
-
-
     }
 }

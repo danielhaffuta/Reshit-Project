@@ -1,4 +1,4 @@
-﻿using Data;
+﻿
 using System;
 using System.Data;
 using System.Web.UI;
@@ -41,51 +41,12 @@ namespace ReshitScheduler
                     break;
             }
 
-            FillClasses();
+            //FillClasses();
             FillCourses();
             FillGroups();
         }
 
-        private void FillClasses()
-        {
-            DataTable dtClasses = bIsPrincipal? DBConnection.Instance.GetThisYearClasses():
-                                                DBConnection.Instance.GetTeacherClasses(LoggedInTeacher.ID);
-            
-            
-
-            if (dtClasses.Rows.Count == 0)
-            {
-                pnlClassesPanel.Visible = false;
-                return;
-            }
-
-            List<int> lstGradesIDs = dtClasses.Select("")
-                                    .Select(cls => Convert.ToInt32(cls["grade_id"]))
-                                    .Distinct()
-                                    .OrderBy(grade_id=>grade_id)
-                                    .ToList();
-
-            foreach (int nCurrentGradeID in lstGradesIDs)
-            {
-                Panel pnlGrade = new Panel()
-                {
-                    CssClass = "col-1 align-self-start btn-group-vertical"
-                };
-                foreach (DataRow drCurrentRow in dtClasses.Select("grade_id = "+ nCurrentGradeID))
-                {
-                    Button btnClassButton = new Button()
-                    {
-                        ID = drCurrentRow["class_id"].ToString(),
-                        Text = drCurrentRow["name"].ToString(),
-                        CssClass = "btn btn-outline-dark",
-                    };
-                    btnClassButton.Click += btnClass_Click;
-                    pnlGrade.Controls.Add(btnClassButton);
-                }
-                    pnlClassesPanel.Controls.Add(pnlGrade);
-                
-            }
-        }
+        
 
         private void FillCourses()
         {
@@ -157,10 +118,6 @@ namespace ReshitScheduler
             Response.Redirect("LoginForm.aspx");
         }
 
-        protected void btnClass_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("ClassPage.aspx?ClassID="+(sender as Button).ID);
-        }
         protected void BtnAddStudent_Click(object sender, EventArgs e)
         {
             Response.Redirect("AddStudentForm.aspx");

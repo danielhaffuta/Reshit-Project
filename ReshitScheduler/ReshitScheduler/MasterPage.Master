@@ -18,10 +18,15 @@
 <body dir="rtl">
     <form id="form1" runat="server" class="container text-center">
         <nav id="navbar-site" class="navbar navbar-dark bg-dark navbar-expand-sm sticky-top mb-3">
-            <div class="container" >
+            <div class="container">
                 <div class="navbar-nav ml-sm-auto">
+                    <div class="nav-item  nav-link text-info">
+                        שלום <%=bpCurrentPage.LoggedInTeacher.FirstName + " " +bpCurrentPage.LoggedInTeacher.LastName %>
+                    </div>
+                    <a class="nav-item nav-link" href="TeacherForm.aspx">מערכת אישית</a>
 
-
+                    <%if (bpCurrentPage.LoggedInTeacher.ClassID != 0)
+                        { %>
                     <div class="dropdown">
 
                         <a class="nav-item nav-link dropdown-toggle "
@@ -29,13 +34,38 @@
                             aria-haspopup="true" aria-expanded="false"
                             href="#">ניהול כיתה</a>
 
-                        <div class="dropdown-menu dropdown-menu-right text-right" aria-labelledby="classManageDropDown" >
+                        <div class="dropdown-menu dropdown-menu-right text-right" aria-labelledby="classManageDropDown">
+
                             <a class="dropdown-item" href="ClassPage.aspx?ClassId=<%=bpCurrentPage.LoggedInTeacher.ClassID%>">כיתה</a>
-                            <a class="dropdown-item" href="TeacherCoursesAndGroupsForm.aspx">קבוצות וקורסים</a>
                             <a class="dropdown-item" href="ClassStudents.aspx">תלמידים</a>
+                            <a class="dropdown-item" href="AddStudentForm.aspx">הוספת תלמיד חדש</a>
                         </div>
 
                     </div>
+                    <%} %>
+                    <a class="nav-item nav-link" href="TeacherCoursesAndGroupsForm.aspx">שיעורים וקבוצות</a>
+
+                    <%if (bpCurrentPage.LoggedInTeacher.Type == "מנהל")
+                        {
+                    %>
+                    <div class="dropdown">
+
+                        <a class="nav-item nav-link dropdown-toggle "
+                            data-toggle="dropdown" id="ManagerDropDown"
+                            aria-haspopup="true" aria-expanded="false"
+                            href="#">ניהול בית ספר</a>
+
+                        <div class="dropdown-menu dropdown-menu-right text-right" aria-labelledby="ManagerDropDown">
+                            <a class="dropdown-item" href="AddClassForm.aspx">הוספת כיתה חדשה</a>
+                            <a class="dropdown-item" href="AddLessonForm.aspx?IsGroup=false">הוספת קורס</a>
+                            <a class="dropdown-item" href="AddLessonForm.aspx?IsGroup=true">הוספת קבוצה</a>
+                            <a class="dropdown-item" href="SetBellSystem.aspx">אתחול מערכת צלצולים</a>
+                            <a class="dropdown-item" href="AddTeacherForm.aspx">הוספת מורה</a>
+                            <a class="dropdown-item" href="AddStudentForm.aspx">ערוך פרטי מורה</a>
+                        </div>
+
+                    </div>
+                    <%} %>
 
                     <asp:ContentPlaceHolder ID="navbar" runat="server">
                     </asp:ContentPlaceHolder>
@@ -49,7 +79,7 @@
         <asp:ContentPlaceHolder ID="MainForm" runat="server">
         </asp:ContentPlaceHolder>
     </form>
-    
+
     <script src="/js/jquery.slim.min.js"></script>
     <script src="/js/popper.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>

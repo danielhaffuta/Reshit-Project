@@ -1,4 +1,4 @@
-﻿using Data;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -10,18 +10,12 @@ using System.Web.UI.WebControls;
 
 namespace ReshitScheduler
 {
-    public partial class PrincipalPage : System.Web.UI.Page
+    public partial class PrincipalPage : BasePage
     {
-        private readonly int SCHEDULE = 1, STUDENTS_CONTACT = 2, TEACHERS_CONTACT = 3;
-        public static Teacher LoggedInTeacher;
+        private readonly int SCHEDULE = 1;
         protected void Page_PreInit(object sender, EventArgs e)
         {
-            if (Session["teacherLoggedIn"] == null)
-            {
-                Response.Redirect("LoginForm.aspx");
-                return;
-            }
-            LoggedInTeacher = Session["teacherLoggedIn"] as Teacher;
+
 
             //===show class schedule===//
             ShowAllClasses(SCHEDULE);

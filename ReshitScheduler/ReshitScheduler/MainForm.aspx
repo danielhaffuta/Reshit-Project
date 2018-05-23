@@ -8,10 +8,7 @@
 שלום <%=LoggedInTeacher.FirstName + " " +LoggedInTeacher.LastName %>
     </h2>        
 
-       <h3> הכיתות שלך:</h3>
-    <asp:Panel ID="pnlClassesPanel"  runat="server" CssClass="row justify-content-center" >
-    
-    </asp:Panel>
+
 
     <h3 runat="server" id="h3Courses">השיעורים שלך</h3>
     <asp:Panel ID="pnlCourses" runat="server" CssClass="row justify-content-center btn-group-vertical">

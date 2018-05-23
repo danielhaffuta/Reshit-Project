@@ -7,7 +7,7 @@ using System.Data;
 using System.Web;
 using System.Web.UI.WebControls;
 
-namespace Data
+namespace ReshitScheduler
 {
     public class DBConnection
     {
@@ -616,6 +616,7 @@ namespace Data
 
         public DataTable GetTeacherClasses(int nTeacherID)
         {
+
             return GetDataTableByQuery(GetDisplayQuery("classes") +
                 " inner join teacher_class_access on teacher_class_access.class_id = classes.id " +
                 " where teacher_class_access.teacher_id = " + nTeacherID);

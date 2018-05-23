@@ -1,4 +1,4 @@
-﻿using Data;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -9,18 +9,12 @@ using System.Web.UI.WebControls;
 
 namespace ReshitScheduler
 {
-    public partial class EducatorForm : System.Web.UI.Page
+    public partial class EducatorForm : BasePage
     {
-        public static Teacher LoggedInTeacher;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["LoggedInTeacher"] == null)
-            {
-                Response.Redirect("LoginForm.aspx");
-                return;
-            }
-            LoggedInTeacher = Session["LoggedInTeacher"] as Teacher;
+            
             DataTable dtClasses = DBConnection.Instance.GetDataTableByQuery(
                 " select classes.id " +
                 " from classes " +

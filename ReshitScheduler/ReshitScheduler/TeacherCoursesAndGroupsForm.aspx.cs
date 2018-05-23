@@ -1,4 +1,4 @@
-﻿using Data;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -14,26 +14,18 @@ namespace ReshitScheduler
         protected DataRow drTeacherDetails;
 
 
-        //private int nTeacherID;
-        private int nClassID;
-
-
         protected void Page_Load(object sender, EventArgs e)
         {
-
-            //nTeacherID = Convert.ToInt32(Request.QueryString["TeacherID"]?.ToString() ?? "6");
-            nClassID = Convert.ToInt32(Request.QueryString["ClassID"]?.ToString() ?? "5");
-
             drTeacherDetails = DBConnection.Instance.GetDataTableForDisplay("teachers", " where teachers.id = " + LoggedInTeacher.ID).Rows[0];
-            /*drTeacherDetails = DBConnection.Instance.GetDataTableByQuery(" select concat(first_name,' ' ,last_name) as name from"+
-                                                                         " teachers where teachers.id = " + strTeacherID).Rows[0];*/
-            LoadCourses();
-            LoadGroups();
+            FillCourses();
+            FillGroups();
+            pnlNoLessonsMsg.Visible = !(divCourses.Visible || divGroups.Visible);
         }
 
-        private void LoadCourses()
+        private void FillCourses()
         {
             DataTable dtCourses = DBConnection.Instance.GetDataTableByQuery("select id,course_name from courses where teacher_id = " + LoggedInTeacher.ID);
+            divCourses.Visible = (dtCourses.Rows.Count != 0);
             foreach (DataRow drCurrentCourse in dtCourses.Rows)
             {
                 Button btnCourseButton = new Button()
@@ -48,9 +40,10 @@ namespace ReshitScheduler
             }
         }
 
-        private void LoadGroups()
+        private void FillGroups()
         {
             DataTable dtGroups = DBConnection.Instance.GetDataTableByQuery("select id,group_name from groups where teacher_id = " + LoggedInTeacher.ID);
+            divGroups.Visible = (dtGroups.Rows.Count != 0);
             foreach (DataRow drCurrentGroup in dtGroups.Rows)
             {
                 Button btnGroupButton = new Button()
@@ -69,15 +62,5 @@ namespace ReshitScheduler
         {
             Response.Redirect("LessonForm.aspx");
         }
-
-        protected void BtnBack_Click(object sender, EventArgs e)
-        {
-            GoBack();
-        }
-        private void GoBack()
-        {
-            Response.Redirect("ClassPage.aspx?ClassID=" + nClassID);
-        }
-
     }
 }

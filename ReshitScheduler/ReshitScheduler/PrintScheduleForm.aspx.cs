@@ -1,4 +1,4 @@
-﻿using Data;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 
 namespace ReshitScheduler
 {
-    public partial class PrintScheduleForm : System.Web.UI.Page
+    public partial class PrintScheduleForm : BasePage
     {
         protected string strTitle;
 

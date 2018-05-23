@@ -1,4 +1,4 @@
-﻿using Data;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 
 namespace ReshitScheduler
 {
-    public partial class EditTeacherDetails : System.Web.UI.Page
+    public partial class EditTeacherDetails : BasePage
     {
         private DataTable dtTeachers;
         private DataTable dtClasses;

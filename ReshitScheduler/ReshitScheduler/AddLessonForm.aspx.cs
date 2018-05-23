@@ -1,4 +1,4 @@
-﻿using Data;
+﻿
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -19,26 +19,15 @@ namespace ReshitScheduler
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(Session["IsGroup"] == null)
-            {
-                Session["IsGroup"] = IsGroup = true;
-            }
-            //string test2 = "select groups.id as group_id, groups.group_name as name,"+
-            //    " concat(teachers.first_name, ' ', teachers.last_name) as teacher_name"+
-            //    " from groups"+
-            //    " inner join teachers on teachers.id = groups.teacher_id "+
-            //    " inner join years on years.id = teachers.year_id";
-            //DataTable Qtest = DBConnection.Instance.GetDataTableByQuery(test2);
-            if (Session["IsGroup"].ToString().Equals("true"))
+            if (Request.QueryString["IsGroup"] == null || Request.QueryString["IsGroup"].Equals("true"))
             {
                 IsGroup = true;
-                Course.Text = "שם הקבוצה:";
-                
             }
             else
             {
                 IsGroup = false;
             }
+
             if (!IsPostBack)
             {
                 DataTable dtTeacherTable = DBConnection.Instance.GetThisYearTeachers();
@@ -49,20 +38,25 @@ namespace ReshitScheduler
                 ddlTeachers.AutoPostBack = true;
                 ddlTeachers.DataBind();
 
-                if (IsGroup)
-                {
-                    dtGroups = DBConnection.Instance.GetThisYearGroups();
-                    gvCourses.DataSource = dtGroups;
-                    gvCourses.DataBind();
-                }
-                else
-                {
-                    dtCourses = DBConnection.Instance.GetThisYearCourses();
-                    gvCourses.DataSource = dtCourses;
-                    gvCourses.DataBind();
-                }
+                FillLessons();
             }
         }
+
+        private void FillLessons()
+        {
+            if (IsGroup)
+            {
+                dtGroups = DBConnection.Instance.GetThisYearGroups();
+                gvLessons.DataSource = dtGroups;
+            }
+            else
+            {
+                dtCourses = DBConnection.Instance.GetThisYearCourses();
+                gvLessons.DataSource = dtCourses;
+            }
+            gvLessons.DataBind();
+        }
+
         protected void BtnSave_Click(object sender, EventArgs e)
         {
             string values = "'" + CourseName.Text + "' ,"
@@ -86,18 +80,7 @@ namespace ReshitScheduler
             }
             CourseName.Text = "";
             ddlTeachers.SelectedIndex = 0;
-            if (IsGroup)
-            {
-                dtGroups = DBConnection.Instance.GetThisYearGroups();
-                gvCourses.DataSource = dtGroups;
-                gvCourses.DataBind();
-            }
-            else
-            {
-                dtCourses = DBConnection.Instance.GetThisYearCourses();
-                gvCourses.DataSource = dtCourses;
-                gvCourses.DataBind();
-            }
+            FillLessons();
         }
         protected void BtnBack_Click(object sender, EventArgs e)
         {

@@ -1,4 +1,4 @@
-﻿using Data;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -22,22 +22,6 @@ namespace ReshitScheduler
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["CurrentYearID"] == null)
-            {
-                Session["CurrentYearID"] = nYearID;
-            }
-
-            /*if (Request.QueryString["ClassID"] == null /* Session["ClassID"] == null)
-            {
-                Session["ClassID"] = 1;
-                //Response.Redirect("MainForm.aspx");
-                //return;
-            }*/
-            if (!IsPostBack)
-            {
-                strPreviousPage = Request.UrlReferrer?.ToString() ?? "LoginForm.aspx";
-
-            }
             LoadClassSchedule();
         }
 
@@ -51,10 +35,6 @@ namespace ReshitScheduler
             pnlSchedule.Controls.Add(FormsUtilities.FillClassGrid(nClassID,dtScheduleTable));
 
         }
-
-
-
-
 
         protected void BtnBack_Click(object sender, EventArgs e)
         {

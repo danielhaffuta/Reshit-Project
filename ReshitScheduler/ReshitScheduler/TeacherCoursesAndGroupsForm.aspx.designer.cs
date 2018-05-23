@@ -13,6 +13,24 @@ namespace ReshitScheduler {
     public partial class TeacherCoursesAndGroupsForm {
         
         /// <summary>
+        /// pnlNoLessonsMsg control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlNoLessonsMsg;
+        
+        /// <summary>
+        /// divCourses control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divCourses;
+        
+        /// <summary>
         /// pnlCourses control.
         /// </summary>
         /// <remarks>
@@ -20,6 +38,15 @@ namespace ReshitScheduler {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlCourses;
+        
+        /// <summary>
+        /// divGroups control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divGroups;
         
         /// <summary>
         /// pnlGroups control.
