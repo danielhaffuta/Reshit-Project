@@ -7,7 +7,7 @@
         <div class="col-12 col-sm-6 text-center" >
             <asp:GridView ID="gvCourses" runat="server" AutoGenerateColumns ="False" CssClass="table table-striped table-bordered table-sm">
                 <Columns>
-                    <asp:BoundField DataField="name" HeaderText="שם הקורס">
+                    <asp:BoundField DataField="name" HeaderText="שם השיעור">
                     <HeaderStyle Font-Bold="True" />
                     </asp:BoundField>
                     <asp:BoundField DataField="teacher_name" HeaderText="מורה">
@@ -23,7 +23,7 @@
         <div class="col col-sm-6  border mb-2 pl-4" >
             <h2>הוספת שיעור חדש:</h2>
             <div class="form-group form-inline row">
-                <asp:Label ID="Course" runat="server" Text="שם הקורס:" class="col-form-label col-sm-3 col-md-4"></asp:Label>
+                <asp:Label ID="Course" runat="server" Text="שם השיעור:" class="col-form-label col-sm-3 col-md-4"></asp:Label>
                 <asp:TextBox ID="CourseName" runat="server" Type="text"
                     CssClass="form-control col col-sm-9 col-md-8"></asp:TextBox><br /><br />
             </div>

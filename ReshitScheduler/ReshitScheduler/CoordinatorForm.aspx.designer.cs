@@ -31,6 +31,24 @@ namespace ReshitScheduler {
         protected global::System.Web.UI.WebControls.Panel pnlClasses;
         
         /// <summary>
+        /// h3Courses control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl h3Courses;
+        
+        /// <summary>
+        /// pnlCourses control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlCourses;
+        
+        /// <summary>
         /// pnlGroups control.
         /// </summary>
         /// <remarks>

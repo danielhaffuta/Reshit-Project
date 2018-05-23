@@ -42,6 +42,7 @@ namespace ReshitScheduler
             }
 
             FillClasses();
+            FillCourses();
             FillGroups();
         }
 
@@ -86,6 +87,33 @@ namespace ReshitScheduler
             }
         }
 
+        private void FillCourses()
+        {
+            DataTable dtCourses = DBConnection.Instance.GetDataTableByQuery(
+                " select id as course_id,course_name as name" +
+                " from courses " +
+                " where courses.teacher_id = " + LoggedInTeacher.ID);
+
+            if (dtCourses.Rows.Count == 0)
+            {
+                h3Courses.Visible = false;
+            }
+            foreach (DataRow drCurrentCourse in dtCourses.Rows)
+            {
+                Button btnCourse = new Button()
+                {
+                    CssClass = "btn btn-outline-dark",
+                    Text = drCurrentCourse["name"].ToString(),
+                    ID = drCurrentCourse["course_id"].ToString()
+                };
+
+                btnCourse.Click += BtnCourse_Click;
+                pnlCourses.Controls.Add(btnCourse);
+
+            }
+
+        }
+
         private void FillGroups()
         {
             DataTable dtGroups = DBConnection.Instance.GetDataTableByQuery(
@@ -111,6 +139,11 @@ namespace ReshitScheduler
 
             }
 
+        }
+
+        private void BtnCourse_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("LessonForm.aspx?CourseID=" + (sender as Button).ID);
         }
 
         private void BtnGroup_Click(object sender, EventArgs e)

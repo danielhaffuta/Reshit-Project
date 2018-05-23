@@ -18,6 +18,7 @@ namespace ReshitScheduler
         {
             
             FillClasses();
+            FillCourses();
             FillGroups();
 
             hTeacherName.Text = "שלום " + LoggedInTeacher.FirstName + " " + LoggedInTeacher.LastName;
@@ -36,6 +37,26 @@ namespace ReshitScheduler
                 pnlClasses.Controls.Add(new LiteralControl("<a class=\"list-group-item list-group-item-action d-block\" " +
                                        "href=ClassPage.aspx?ClassID=" + drCurrentClass["class_id"] + ">" + drCurrentClass["name"] + "</a></li>"));
             }
+        }
+
+        private void FillCourses()
+        {
+            DataTable dtCourses = DBConnection.Instance.GetDataTableByQuery(
+                " select id as course_id,course_name as name" +
+                " from courses " +
+                " where courses.teacher_id = " + LoggedInTeacher.ID);
+
+            if (dtCourses.Rows.Count == 0)
+            {
+                h3Courses.Visible = false;
+            }
+            foreach (DataRow drCurrentCourse in dtCourses.Rows)
+            {
+                pnlCourses.Controls.Add(new LiteralControl("<a class=\"list-group-item list-group-item-action d-block\" " +
+                                      "href=LessonForm.aspx?CourseID=" + drCurrentCourse["course_id"] + ">" + drCurrentCourse["name"] + "</a></li>"));
+
+            }
+
         }
 
         private void FillGroups()

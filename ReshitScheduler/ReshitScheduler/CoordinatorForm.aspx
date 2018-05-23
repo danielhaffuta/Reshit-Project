@@ -21,6 +21,10 @@
         <h3>הכיתות שלך</h3>
 
     </asp:Panel>
+    <h3 runat="server" id="h3Courses">השיעורים שלך</h3>
+    <asp:Panel ID="pnlCourses" runat="server" CssClass="row justify-content-center btn-group-vertical">
+
+    </asp:Panel> 
     <asp:Panel ID="pnlGroups" runat="server" CssClass="list-group">
         <h3>הקבוצות שלך</h3>
 
