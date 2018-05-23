@@ -30,6 +30,8 @@ namespace ReshitScheduler
 
 
         protected DataRow drLessonDetails;
+        protected DataTable dtClasses;
+        protected DataTable dtStudents;
 
         private int nLessonID;
         private int nClassID;
@@ -57,35 +59,64 @@ namespace ReshitScheduler
             {
                 drLessonDetails = DBConnection.Instance.GetDataTableByQuery("select id,course_name,teacher_id from courses where id = " + nLessonID).Rows[0];
             }
-            if (IsPostBack)
+            if (!IsPostBack)
             {
-               
+                FillClasses();
             }
-            else
+            if(!Request.Params.Get("__EVENTTARGET").Contains("txtEvaluation"))
             {
-                LoadLesson();
+                FillStudentsEvaluations();
+
             }
+
 
             Page.ClientScript.RegisterStartupScript(typeof(LessonForm), "ScriptDoFocus",
                                                     SCRIPT_DOFOCUS.Replace("REQUEST_LASTFOCUS", Request["__LASTFOCUS"]), true);
 
         }
 
-
-
-        private void LoadLesson()
+        private Control GetControlThatCausedPostBack(Page page)
         {
-            DataTable dtStudents;
+            //initialize a control and set it to null
+            Control ctrl = null;
+
+            //get the event target name and find the control
+            string ctrlName = page.Request.Params.Get("__EVENTTARGET");
+            if (!String.IsNullOrEmpty(ctrlName))
+                ctrl = page.FindControl(ctrlName);
+
+            //return the control to the calling method
+            return ctrl;
+        }
+
+
+        private void FillClasses()
+        {
+            LoadStudents();
+
+            dtClasses = new DataView(dtStudents).ToTable(true, "class_id","class");
+            ddlClassesList.DataSource = dtClasses;
+            ddlClassesList.DataBind();
+        }
+
+        private void LoadStudents()
+        {
             if (IsGroup)
             {
                 dtStudents = DBConnection.Instance.GetGroupEvaluations(nLessonID);
             }
             else
             {
-                dtStudents = DBConnection.Instance.GetClassEvaluations(nLessonID);
+                dtStudents = DBConnection.Instance.GetCourseEvaluations(nLessonID);
             }
+        }
 
-            gvStudents.DataSource = dtStudents;
+
+        private void FillStudentsEvaluations()
+        {
+            LoadStudents();
+
+            gvStudents.DataSource = dtStudents.Select("class_id = " + ddlClassesList.SelectedValue).CopyToDataTable();
             gvStudents.DataBind();
             if(gvStudents.Rows.Count==0)
             {
@@ -108,7 +139,7 @@ namespace ReshitScheduler
 
 
 
-        private void LoadLesson1()
+        /*private void LoadLesson1()
         {
             if (IsGroup)
             {
@@ -183,7 +214,7 @@ namespace ReshitScheduler
                 pnlClassesPanel.Controls.Add(pnlClassPanel);
             }
 
-        }
+        }*/
         protected void BtnBack_Click(object sender, EventArgs e)
         {
             if (strPreviousPage.Contains("Coordinator"))
@@ -216,6 +247,12 @@ namespace ReshitScheduler
                                       gvrChangedRow.Cells[0].Text + "," + nLessonID);
             }
             return;
+        }
+
+        protected void ddlClassesList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FillStudentsEvaluations();
+
         }
     }
 }

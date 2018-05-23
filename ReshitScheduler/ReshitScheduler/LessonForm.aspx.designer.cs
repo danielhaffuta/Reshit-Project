@@ -13,13 +13,22 @@ namespace ReshitScheduler {
     public partial class LessonForm {
         
         /// <summary>
-        /// pnlClassesPanel control.
+        /// divClasses control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlClassesPanel;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divClasses;
+        
+        /// <summary>
+        /// ddlClassesList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlClassesList;
         
         /// <summary>
         /// pnlStudents control.

@@ -19,7 +19,7 @@ namespace ReshitScheduler
             
             string strQuery = "SELECT teachers.id,first_name,last_name,teacher_types.teacher_type_name,classes.id as class_id " +
                                "FROM teachers " +
-                               "inner join classes on classes.teacher_id = teachers.id " +
+                               "left join classes on classes.teacher_id = teachers.id " +
                                "inner join teacher_types on teacher_types.id = teachers.teacher_type_id " +
                                "where user_name ='" + Username.Text + "' " +
                                "and password = '" + Password.Text + "'"+
@@ -30,8 +30,8 @@ namespace ReshitScheduler
             {
                 Teacher LoggedInTeacher = new Teacher()
                 {
-                    ID = int.Parse(dtLoginData.Rows[0]["id"].ToString()),
-                    ClassID = int.Parse(dtLoginData.Rows[0]["class_id"].ToString()),
+                    ID = Convert.ToInt32(dtLoginData.Rows[0]["id"]),
+                    ClassID = Convert.ToInt32(dtLoginData.Rows[0]["class_id"].GetType()==typeof(DBNull)? 0:dtLoginData.Rows[0]["class_id"]),
                     FirstName = dtLoginData.Rows[0]["first_name"].ToString(),
                     LastName = dtLoginData.Rows[0]["last_name"].ToString(),
                     Type = dtLoginData.Rows[0]["teacher_type_name"].ToString()

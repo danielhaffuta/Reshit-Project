@@ -574,7 +574,7 @@ namespace Data
                                         " where classes.id = " + nClassID);
         }
 
-        public DataTable GetClassEvaluations(int nClassID)
+        public DataTable GetCourseEvaluations(int nCourse)
         {
             return GetDataTableByQuery(" select  distinct (students.id) as student_id," +
                         " students_classes.class_id as class_id," +
@@ -590,7 +590,7 @@ namespace Data
                     " inner join students on students.id = students_classes.student_id" +
                     " left join courses_evaluations on courses_evaluations.course_id = courses.id" +
                                                    " and courses_evaluations.student_id = students.id" +
-                    " where classes_schedule.course_id = " + nClassID +
+                    " where classes_schedule.course_id = " + nCourse +
                     " and students.id not in (select student_id from students_schedule where students_schedule.day_id = classes_schedule.day_id" +
                                                                                        " and students_schedule.hour_id = classes_schedule.hour_id)");
         }

@@ -9,9 +9,8 @@ using System.Collections.Generic;
 namespace ReshitScheduler
 {
     
-    public partial class MainForm : System.Web.UI.Page
+    public partial class MainForm : BasePage
     {
-        public static Teacher LoggedInTeacher;
         protected bool bIsPrincipal = false;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -34,6 +33,8 @@ namespace ReshitScheduler
                     break;
                 case "מורה":
                     Response.Redirect("TeacherForm.aspx");
+                    break;
+                case "מנהל":
                     bIsPrincipal = true;
                     break;
                 default:
