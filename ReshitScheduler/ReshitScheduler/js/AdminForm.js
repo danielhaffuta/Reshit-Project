@@ -6,7 +6,10 @@ $(document).ready(function ()
 
     $(".hamburger").click(function ()
     {
-        $(".menu").slideToggle("slow", function () {
+        $(".menu").css("visibility", "visible");
+
+        $(".menu").slideToggle("slow", function ()
+        {
             $(".hamburger").hide();
             $(".cross").show();
         });
@@ -24,6 +27,7 @@ $(document).ready(function ()
 
 function form1()
 {
+    $("#allOptions").css("visibility", "visible");
     $(".options").hide();
     $("#editTables").show();
 
