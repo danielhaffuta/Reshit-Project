@@ -18,7 +18,6 @@ namespace ReshitScheduler
 
         private int nClassID;
         protected string strClassName;
-        public static Teacher LoggedInTeacher;
 
 
         protected void Page_Load(object sender, EventArgs e)
@@ -27,15 +26,7 @@ namespace ReshitScheduler
             {
                 Session["CurrentYearID"] = nYearID;
             }
-            if (Session["LoggedInTeacher"] == null)
-            {
-                //Response.Redirect("LoginForm.aspx");
-                //return;
-            }
-            else
-            {
-                LoggedInTeacher = Session["LoggedInTeacher"] as Teacher;
-            }
+
             /*if (Request.QueryString["ClassID"] == null /* Session["ClassID"] == null)
             {
                 Session["ClassID"] = 1;
@@ -48,7 +39,6 @@ namespace ReshitScheduler
 
             }
             LoadClassSchedule();
-            FillStudents();
         }
 
         private void LoadClassSchedule()
@@ -65,20 +55,6 @@ namespace ReshitScheduler
 
 
 
-        private void FillStudents()
-        {
-            DataTable dtStudents = DBConnection.Instance.GetDataTableByQuery("select students.id,concat(first_name,' ' ,last_name) as name,picture_path from students" +
-                                                                            " inner join students_classes on students_classes.student_id = students.id" +
-                                                                            " where students_classes.class_id = " + nClassID);
-
-            foreach (DataRow drCurrentStudent in dtStudents.Rows)
-            {
-                string strFigure = "<a href=\"StudentDetailsForm.aspx?StudentID="+ drCurrentStudent["id"] + "\" class=\"col-6 col-md-2 col-sm-4\">"+
-                                   "<figure > <img src=\"" + drCurrentStudent["picture_path"] + "\" width=\"100\">"+
-                                   "<figcaption>" + drCurrentStudent["name"] + "</figcaption></figure></a>";
-                pnlStudents.Controls.Add(new LiteralControl(strFigure));
-            }
-        }
 
         protected void BtnBack_Click(object sender, EventArgs e)
         {
@@ -100,7 +76,7 @@ namespace ReshitScheduler
         }
         protected void GotoCoursesAndGroupsForm(object sender, EventArgs e)
         {
-            Response.Redirect("TeacherCoursesAndGroupsForm.aspx?TeacherID=" + LoggedInTeacher.Id + "&ClassID=" + nClassID);
+            Response.Redirect("TeacherCoursesAndGroupsForm.aspx?TeacherID=" + LoggedInTeacher.ID + "&ClassID=" + nClassID);
 
         }
         protected void BtnAddStudent_Click(object sender, EventArgs e)

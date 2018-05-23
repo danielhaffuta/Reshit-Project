@@ -13,38 +13,19 @@ namespace ReshitScheduler
     public partial class CoordinatorForm : BasePage
     {
 
-        public static Teacher LoggedInTeacher;
-        //private static string strPreviousPage;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["LoggedInTeacher"] == null)
-            {
-                LoggedInTeacher = new Teacher()
-                {
-                    FirstName = "אדוני",
-                    LastName = "הרכז",
-                    Id = 10,
-                    Type = "רכז",
-                };
-            }
-            else
-            {
-                LoggedInTeacher = Session["LoggedInTeacher"] as Teacher;
-            }
+            
             FillClasses();
             FillGroups();
 
-            if (!IsPostBack)
-            {
-                strPreviousPage = Request.UrlReferrer?.ToString() ?? "LoginForm.aspx";
-            }
             hTeacherName.Text = "שלום " + LoggedInTeacher.FirstName + " " + LoggedInTeacher.LastName;
         }
 
         private void FillClasses()
         {
-            DataTable dtClasses = DBConnection.Instance.GetTeacherClasses(LoggedInTeacher.Id);
+            DataTable dtClasses = DBConnection.Instance.GetTeacherClasses(LoggedInTeacher.ID);
 
             if (dtClasses.Rows.Count == 0)
             {
@@ -62,7 +43,7 @@ namespace ReshitScheduler
             DataTable dtGroups = DBConnection.Instance.GetDataTableByQuery(
                 " select id as group_id,group_name as name" +
                 " from groups " +
-                " where groups.teacher_id = " + LoggedInTeacher.Id);
+                " where groups.teacher_id = " + LoggedInTeacher.ID);
 
             if (dtGroups.Rows.Count == 0)
             {

@@ -170,13 +170,13 @@ namespace ReshitScheduler
             " where students_classes.class_id = " + nClassID);
             foreach (DataRow drCurrentHour in dtClassSchedule.Rows)
             {
-                string strCourseName = dtCourses.Select("course_id = " + drCurrentHour["course_id"].ToString())[0]["name"].ToString() +"<br>("+
-                                       dtCourses.Select("course_id = " + drCurrentHour["course_id"].ToString())[0]["teacher_name"].ToString()+
+                string strCourseName = dtCourses.Select("course_id = " + drCurrentHour["course_id"].ToString())[0]["name"].ToString()/*Course Name*/ +"<br>("+
+                                       dtCourses.Select("course_id = " + drCurrentHour["course_id"].ToString())[0]["teacher_name"].ToString() /*Teacher Name*/+
                                        ") *" + drCurrentHour["hour_id"] + "-" + drCurrentHour["day_id"];
                 DataRow[] drStudentScheduleRows = dtStudentsSchedule.Select("hour_id = " + drCurrentHour["hour_id"].ToString() + " and day_id = " + drCurrentHour["day_id"].ToString());
-                if (drStudentScheduleRows.Count() > 0)
+                if (drStudentScheduleRows.Count() > 0)// there are groups in this time
                 {
-                    strCourseName += "$";
+                    strCourseName += "$"; // Mark the cell as having groups
                 }
                 dtScheduleTable.Select("hour_id = '" + drCurrentHour["hour_id"].ToString().Replace("*", "") + "'")[0][drCurrentHour["day_id"].ToString()] = strCourseName;
             }
@@ -233,6 +233,68 @@ namespace ReshitScheduler
                                 tcCurrentCell.Controls.Add(lbGroupLinkButton);
                             }
                         }
+                    }
+                }
+                gvrCurrentRow.Cells[0].Visible = false;
+            }
+            return gvScheduleView;
+        }
+
+        public static void FillTeacherSchedule(int nTeacherID, DataTable dtScheduleTable)
+        {
+            DataTable dtTeacherSchedule = DBConnection.Instance.GetDataTableByQuery(
+                " select * from classes_schedule "+
+                " inner join courses on courses.id = classes_schedule.course_id "+
+                " where courses.teacher_id = " + nTeacherID);
+            DataTable dtStudentsSchedule = DBConnection.Instance.GetDataTableByQuery(
+                " select distinct groups.id as group_id,day_id,hour_id,group_id from students_schedule " +
+                " inner join groups on groups.id = students_schedule.group_id " +
+                " where groups.teacher_id = " + nTeacherID);
+            foreach (DataRow drCurrentHour in dtTeacherSchedule.Rows)
+            {
+                dtScheduleTable.Select("hour_id = '" + drCurrentHour["hour_id"].ToString().Replace("*", "") + "'")[0][drCurrentHour["day_id"].ToString()] =
+                    dtCourses.Select("course_id = " + drCurrentHour["course_id"].ToString())[0]["name"].ToString();
+            }
+            foreach (DataRow drCurrentHour in dtStudentsSchedule.Rows)
+            {
+                dtScheduleTable.Select("hour_id = '" + drCurrentHour["hour_id"].ToString().Replace("*", "") + "'")[0][drCurrentHour["day_id"].ToString()] +=
+                    dtGroups.Select("group_id = " + drCurrentHour["group_id"].ToString())[0]["name"].ToString();
+            }
+        }
+
+        public static GridView FillTeacherGrid(int nTeacherID, DataTable dtScheduleTable, bool bForPrint = false)
+        {
+            GridView gvScheduleView = new GridView()
+            {
+                ShowHeader = false,
+                CssClass = "table table-bordered table-sm",
+                DataSource = dtScheduleTable
+            };
+            gvScheduleView.DataBind();
+
+            foreach (GridViewRow gvrCurrentRow in gvScheduleView.Rows)
+            {
+                if (gvrCurrentRow.Cells[0].Text.Contains("*"))
+                {
+                    gvrCurrentRow.Cells[0].Text.Replace("*", "");
+                    gvrCurrentRow.Cells[1].HorizontalAlign = HorizontalAlign.Center;
+                    gvrCurrentRow.CssClass = "bg-light";
+                    gvrCurrentRow.Cells[2].ColumnSpan = 6;
+                    gvrCurrentRow.Cells[2].Text = "הפסקה";
+                    gvrCurrentRow.Cells[2].CssClass = "h5 text-center";
+
+                    gvrCurrentRow.Cells.RemoveAt(7);
+                    gvrCurrentRow.Cells.RemoveAt(6);
+                    gvrCurrentRow.Cells.RemoveAt(5);
+                    gvrCurrentRow.Cells.RemoveAt(4);
+                    gvrCurrentRow.Cells.RemoveAt(3);
+                }
+                else
+                {
+                    foreach (TableCell tcCurrentCell in gvrCurrentRow.Cells)
+                    {
+                        tcCurrentCell.Text = tcCurrentCell.Text.Replace("&lt;br&gt;", "<br>");
+                        tcCurrentCell.HorizontalAlign = HorizontalAlign.Center;
                     }
                 }
                 gvrCurrentRow.Cells[0].Visible = false;

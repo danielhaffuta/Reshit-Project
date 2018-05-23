@@ -16,9 +16,37 @@
     </asp:ContentPlaceHolder>
 </head>
 <body dir="rtl">
-    <form id="form1" runat="server" class="container text-center" >
+    <form id="form1" runat="server" class="container text-center">
+        <nav id="navbar-site" class="navbar navbar-dark bg-dark navbar-expand-sm sticky-top mb-3">
+            <div class="container" >
+                <div class="navbar-nav ml-sm-auto">
+
+
+                    <div class="dropdown">
+
+                        <a class="nav-item nav-link dropdown-toggle "
+                            data-toggle="dropdown" id="classManageDropDown"
+                            aria-haspopup="true" aria-expanded="false"
+                            href="#">ניהול כיתה</a>
+
+                        <div class="dropdown-menu dropdown-menu-right text-right" aria-labelledby="classManageDropDown" >
+                            <a class="dropdown-item" href="ClassPage.aspx?ClassId=<%=bpCurrentPage.LoggedInTeacher.ClassID%>">כיתה</a>
+                            <a class="dropdown-item" href="TeacherCoursesAndGroupsForm.aspx">קבוצות וקורסים</a>
+                            <a class="dropdown-item" href="ClassStudents.aspx">תלמידים</a>
+                        </div>
+
+                    </div>
+
+                    <asp:ContentPlaceHolder ID="navbar" runat="server">
+                    </asp:ContentPlaceHolder>
+                    <a class="nav-item nav-link" href="LoginForm.aspx">התנתק</a>
+                </div>
+                <!-- navbar-nav -->
+            </div>
+            <!-- container -->
+        </nav>
+
         <asp:ContentPlaceHolder ID="MainForm" runat="server">
-        
         </asp:ContentPlaceHolder>
     </form>
     

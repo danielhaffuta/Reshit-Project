@@ -157,7 +157,7 @@ namespace ReshitScheduler
                 "from teacher_class_access " +
                 "inner join classes on classes.id = teacher_class_access.class_id " +
                 "inner join grades on grades.id = classes.grade_id " +
-                "where teacher_class_access.teacher_id = " + LoggedInTeacher.Id);
+                "where teacher_class_access.teacher_id = " + LoggedInTeacher.ID);
 
             HtmlGenericControl olClassesSchedule = FindControl("olClassesSchedule") as HtmlGenericControl;
 

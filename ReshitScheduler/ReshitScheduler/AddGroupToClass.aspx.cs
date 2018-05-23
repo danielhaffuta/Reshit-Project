@@ -38,14 +38,24 @@ namespace ReshitScheduler
 
                 string strGroupsQuery = DBConnection.Instance.GetDisplayQuery("Groups");
 
-                strGroupsQuery += " where groups.id not in" +
-                                      " (select distinct(groups.id) from groups" +
-                                      " inner join teachers on teachers.id = groups.teacher_id " +
-                                      " inner join students_schedule on students_schedule.group_id = groups.id" +
-                                      " inner join students_classes on students_classes.student_id = students_schedule.student_id" +
-                                      " where students_classes.class_id = " + nClassID +
-                                      " and students_schedule.day_id = " + nDayId +
-                                      " and students_schedule.hour_id = " + nHourId + ")";
+                strGroupsQuery += " where groups.teacher_id not in " +
+                                        " (select distinct(teacher_id) from classes_schedule " +
+                                        " inner join courses on courses.id = classes_schedule.course_id "+
+                                        " where classes_schedule.day_id = " + nDayId +
+                                        " and classes_schedule.hour_id = " + nHourId + ")"+
+                                    " and groups.teacher_id not in" +
+                                        " (select distinct(teacher_id) from students_schedule " +
+                                        " inner join groups on groups.id = students_schedule.group_id " +
+                                        " where students_schedule.day_id = " + nDayId +
+                                        " and students_schedule.hour_id = " + nHourId + ")" +
+                                    " and groups.id not in" +
+                                        " (select distinct(groups.id) from groups" +
+                                        " inner join teachers on teachers.id = groups.teacher_id " +
+                                        " inner join students_schedule on students_schedule.group_id = groups.id" +
+                                        " inner join students_classes on students_classes.student_id = students_schedule.student_id" +
+                                        " where students_classes.class_id = " + nClassID +
+                                        " and students_schedule.day_id = " + nDayId +
+                                        " and students_schedule.hour_id = " + nHourId + ")";
                 if (nGroupId != 0)
                 {
                     strGroupsQuery += " or  groups.id =" + nGroupId;

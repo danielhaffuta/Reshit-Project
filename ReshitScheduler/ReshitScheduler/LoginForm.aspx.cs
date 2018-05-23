@@ -17,8 +17,9 @@ namespace ReshitScheduler
 
             DBConnection dbcConnection = DBConnection.Instance;
             
-            string strQuery = "SELECT teachers.id,first_name,last_name,teacher_types.teacher_type_name " +
+            string strQuery = "SELECT teachers.id,first_name,last_name,teacher_types.teacher_type_name,classes.id as class_id " +
                                "FROM teachers " +
+                               "inner join classes on classes.teacher_id = teachers.id " +
                                "inner join teacher_types on teacher_types.id = teachers.teacher_type_id " +
                                "where user_name ='" + Username.Text + "' " +
                                "and password = '" + Password.Text + "'"+
@@ -29,10 +30,11 @@ namespace ReshitScheduler
             {
                 Teacher LoggedInTeacher = new Teacher()
                 {
-                    Id = int.Parse(dtLoginData.Rows[0][0].ToString()),
-                    FirstName = dtLoginData.Rows[0][1].ToString(),
-                    LastName = dtLoginData.Rows[0][2].ToString(),
-                    Type = dtLoginData.Rows[0][3].ToString()
+                    ID = int.Parse(dtLoginData.Rows[0]["id"].ToString()),
+                    ClassID = int.Parse(dtLoginData.Rows[0]["class_id"].ToString()),
+                    FirstName = dtLoginData.Rows[0]["first_name"].ToString(),
+                    LastName = dtLoginData.Rows[0]["last_name"].ToString(),
+                    Type = dtLoginData.Rows[0]["teacher_type_name"].ToString()
                 };
                 ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Hello " + LoggedInTeacher.FirstName + " " + LoggedInTeacher.LastName + "');", true);
 

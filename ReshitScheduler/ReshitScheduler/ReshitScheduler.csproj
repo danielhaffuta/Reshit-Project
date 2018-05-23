@@ -113,6 +113,7 @@
     <Content Include="AdminForm.aspx" />
     <Content Include="BasePage.aspx" />
     <Content Include="ClassPage.aspx" />
+    <Content Include="ClassStudents.aspx" />
     <Content Include="css\AddGroupToClass.css" />
     <Content Include="css\AdminForm.css" />
     <Content Include="css\BellSystem.css" />
@@ -219,6 +220,7 @@
     <Content Include="StudentDetailsForm.aspx" />
     <Content Include="TableEdit.aspx" />
     <Content Include="TeacherCoursesAndGroupsForm.aspx" />
+    <Content Include="TeacherForm.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -277,6 +279,13 @@
     </Compile>
     <Compile Include="ClassPage.aspx.designer.cs">
       <DependentUpon>ClassPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ClassStudents.aspx.cs">
+      <DependentUpon>ClassStudents.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ClassStudents.aspx.designer.cs">
+      <DependentUpon>ClassStudents.aspx</DependentUpon>
     </Compile>
     <Compile Include="DBConnection.cs" />
     <Compile Include="EditStudentDetailsForm.aspx.cs">
@@ -412,6 +421,13 @@
     </Compile>
     <Compile Include="TeacherCoursesAndGroupsForm.aspx.designer.cs">
       <DependentUpon>TeacherCoursesAndGroupsForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TeacherForm.aspx.cs">
+      <DependentUpon>TeacherForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TeacherForm.aspx.designer.cs">
+      <DependentUpon>TeacherForm.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

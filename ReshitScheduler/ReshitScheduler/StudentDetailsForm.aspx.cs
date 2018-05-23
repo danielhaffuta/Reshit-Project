@@ -17,7 +17,7 @@ namespace ReshitScheduler
         protected DataRow drStudentDetails;
 
 
-        private int nStudentID;
+        protected int nStudentID;
 
 
         protected void Page_Load(object sender, EventArgs e)

@@ -7,21 +7,35 @@ namespace ReshitScheduler
 {
     public class Teacher
     {
-        private int nId;
+        private int nID;
+        private int nClassID;
         private string strFirstName;
         private string strLastName;
         private string strType;
 
-        public int Id
+        public int ID
         {
             get
             {
-                return nId;
+                return nID;
             }
 
             set
             {
-                nId = value;
+                nID = value;
+            }
+        }
+
+        public int ClassID
+        {
+            get
+            {
+                return nClassID;
+            }
+
+            set
+            {
+                nClassID = value;
             }
         }
 

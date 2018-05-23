@@ -32,8 +32,8 @@ namespace ReshitScheduler
                 case "מחנך":
                     Response.Redirect("EducatorForm.aspx");
                     break;
-                case "מנהל":
-                    //Response.Redirect("PrincipalPage.aspx");
+                case "מורה":
+                    Response.Redirect("TeacherForm.aspx");
                     bIsPrincipal = true;
                     break;
                 default:
@@ -47,7 +47,7 @@ namespace ReshitScheduler
         private void FillClasses()
         {
             DataTable dtClasses = bIsPrincipal? DBConnection.Instance.GetThisYearClasses():
-                                                DBConnection.Instance.GetTeacherClasses(LoggedInTeacher.Id);
+                                                DBConnection.Instance.GetTeacherClasses(LoggedInTeacher.ID);
             
             
 
@@ -90,7 +90,7 @@ namespace ReshitScheduler
             DataTable dtGroups = DBConnection.Instance.GetDataTableByQuery(
                 " select id as group_id,group_name as name" +
                 " from groups " +
-                " where groups.teacher_id = " + LoggedInTeacher.Id);
+                " where groups.teacher_id = " + LoggedInTeacher.ID);
 
             if (dtGroups.Rows.Count == 0)
             {

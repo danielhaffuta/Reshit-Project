@@ -25,7 +25,7 @@ namespace ReshitScheduler
                 " select classes.id " +
                 " from classes " +
                 " inner join teachers on teachers.id = classes.teacher_id " +
-                " where teachers.id = " + LoggedInTeacher.Id);
+                " where teachers.id = " + LoggedInTeacher.ID);
             Response.Redirect("ClassPage.aspx?ClassId=" + dtClasses.Rows[0]["id"]);
         }
     }

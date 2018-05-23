@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 
 namespace ReshitScheduler
 {
-    public partial class GroupsForm : System.Web.UI.Page
+    public partial class GroupsForm : BasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {

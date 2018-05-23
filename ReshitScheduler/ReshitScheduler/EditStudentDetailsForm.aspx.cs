@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 
 namespace ReshitScheduler
 {
-    public partial class EditStudentDetailsForm : System.Web.UI.Page
+    public partial class EditStudentDetailsForm : BasePage
     {
         protected DataRow drStudentDetails;
         private int nStudentID;

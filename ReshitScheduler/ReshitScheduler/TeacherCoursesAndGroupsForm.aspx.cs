@@ -14,17 +14,17 @@ namespace ReshitScheduler
         protected DataRow drTeacherDetails;
 
 
-        private int nTeacherID;
+        //private int nTeacherID;
         private int nClassID;
 
 
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            nTeacherID = Convert.ToInt32(Request.QueryString["TeacherID"]?.ToString() ?? "6");
+            //nTeacherID = Convert.ToInt32(Request.QueryString["TeacherID"]?.ToString() ?? "6");
             nClassID = Convert.ToInt32(Request.QueryString["ClassID"]?.ToString() ?? "5");
 
-            drTeacherDetails = DBConnection.Instance.GetDataTableForDisplay("teachers", " where teachers.id = " + nTeacherID).Rows[0];
+            drTeacherDetails = DBConnection.Instance.GetDataTableForDisplay("teachers", " where teachers.id = " + LoggedInTeacher.ID).Rows[0];
             /*drTeacherDetails = DBConnection.Instance.GetDataTableByQuery(" select concat(first_name,' ' ,last_name) as name from"+
                                                                          " teachers where teachers.id = " + strTeacherID).Rows[0];*/
             LoadCourses();
@@ -33,7 +33,7 @@ namespace ReshitScheduler
 
         private void LoadCourses()
         {
-            DataTable dtCourses = DBConnection.Instance.GetDataTableByQuery("select id,course_name from courses where teacher_id = " + nTeacherID);
+            DataTable dtCourses = DBConnection.Instance.GetDataTableByQuery("select id,course_name from courses where teacher_id = " + LoggedInTeacher.ID);
             foreach (DataRow drCurrentCourse in dtCourses.Rows)
             {
                 Button btnCourseButton = new Button()
@@ -50,7 +50,7 @@ namespace ReshitScheduler
 
         private void LoadGroups()
         {
-            DataTable dtGroups = DBConnection.Instance.GetDataTableByQuery("select id,group_name from groups where teacher_id = " + nTeacherID);
+            DataTable dtGroups = DBConnection.Instance.GetDataTableByQuery("select id,group_name from groups where teacher_id = " + LoggedInTeacher.ID);
             foreach (DataRow drCurrentGroup in dtGroups.Rows)
             {
                 Button btnGroupButton = new Button()
@@ -67,7 +67,7 @@ namespace ReshitScheduler
 
         private void LessonClick(object sender, EventArgs e)
         {
-            Response.Redirect("LessonForm.aspx?" + (sender as Button).ID + "&ClassID=" + nClassID);
+            Response.Redirect("LessonForm.aspx");
         }
 
         protected void BtnBack_Click(object sender, EventArgs e)

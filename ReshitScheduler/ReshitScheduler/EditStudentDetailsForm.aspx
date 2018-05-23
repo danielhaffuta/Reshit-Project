@@ -1,8 +1,13 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="EditStudentDetailsForm.aspx.cs" Inherits="ReshitScheduler.EditStudentDetailsForm" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="navbar" runat="server">
+
+    <a class="nav-item nav-link" runat="server" onserverclick="BtnSave_Click">שמור</a>
+
+</asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainForm" runat="server">
-    <img src="<%=drStudentDetails["picture_path"] %>" width="350"/><br />
+    <img class="figure-img img-fluid" src="<%=drStudentDetails["picture_path"] %>" width="350"/><br />
     <h1><%=drStudentDetails["name"]%></h1>
     <h2><%=drStudentDetails["class"] %><br /></h2>
         
