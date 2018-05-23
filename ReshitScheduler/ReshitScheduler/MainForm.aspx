@@ -36,6 +36,7 @@
         <button  runat="server" onserverclick="BtnBellSystem_Click" class="btn btn-outline-dark">אתחול מערכת צלצולים</button>
         <button  runat="server" onserverclick="BtnAddTeacher_Click" class="btn btn-outline-dark">הוספת מורה</button>
         <button  runat="server" onserverclick="BtnEditTeacher_Click" class="btn btn-outline-dark">ערוך פרטי מורה</button>
+        <button  runat="server" onserverclick="BtnEditClass_Click" class="btn btn-outline-dark">ערוך פרטי כיתה</button>
         <%} %>
     </div>
 </asp:Content>

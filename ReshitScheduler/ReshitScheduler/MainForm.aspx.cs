@@ -20,6 +20,7 @@ namespace ReshitScheduler
                 return;
             }
             LoggedInTeacher = Session["LoggedInTeacher"] as Teacher;
+            
             switch (LoggedInTeacher.Type)
             {
                 case "admin":
@@ -193,6 +194,10 @@ namespace ReshitScheduler
         {
             Response.Redirect("EditTeacherDetails.aspx");
 
+        }
+        protected void BtnEditClass_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditClassDetails.aspx");
         }
 
     }
