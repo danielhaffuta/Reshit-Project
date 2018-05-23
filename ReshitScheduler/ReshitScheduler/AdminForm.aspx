@@ -15,7 +15,7 @@
           
               <img src="/media/reshitLogo.gif" alt="Alternate Text" id="logo"/>
               <span id="title"> 
-                    שלום - 
+                    שלום  <br /> 
                     <asp:Label ID="AdminName" runat="server" Text="Label"></asp:Label>
                     <button class="hamburger">&#9776;</button>
                    <button class="cross">&#735;</button>
@@ -38,7 +38,7 @@
          <div class="options" id="editTables" dir ="rtl">
     
  
-              <asp:Label runat="server" >בחר טבלה לעריכה:</asp:Label>
+                   <label>בחר טבלה לעריכה:</label>
                  <br />
                   <asp:dropdownlist ID="courseEdit" runat="server" AutoPostBack="True" 
                  onselectedindexchanged="itemSelected">

@@ -19,7 +19,8 @@ namespace ReshitScheduler
             {
 
                 LoggedInTeacher = Session["LoggedInTeacher"] as Teacher;
-                AdminName.Text = LoggedInTeacher.FirstName + " " + LoggedInTeacher.LastName;
+                AdminName.Text = System.Globalization.CultureInfo.CurrentUICulture.TextInfo.ToTitleCase(LoggedInTeacher.FirstName) + " " + System.Globalization.CultureInfo.CurrentUICulture.TextInfo.ToTitleCase(LoggedInTeacher.LastName);
+
                 PopulateMenu();
                 //Button btnLogout = new Button() { Text = "Logout" };
                 //btnLogout.Click += BtnLogout_Click;
@@ -44,7 +45,9 @@ namespace ReshitScheduler
         }
         private void PopulateMenu()
         {
-            DataTable dtTables = DBConnection.Instance.GetDataTableByQuery("select table_name from INFORMATION_SCHEMA.tables where table_schema = 'reshit'");
+            //DataTable dtTables = DBConnection.Instance.GetDataTableByQuery("select table_name from INFORMATION_SCHEMA.tables where table_schema = 'reshit'");
+
+            DataTable dtTables = DBConnection.Instance.GetDataTableByQuery("select table_name,hebrew_name from tables_information");
             string tableName = "";
             string tableDisplayName="";
             List<ListItem> items = new List<ListItem>();
@@ -52,7 +55,7 @@ namespace ReshitScheduler
             foreach (DataRow CurrentTable in dtTables.Rows)
             {
                 tableName = (string)CurrentTable["table_name"];
-                tableDisplayName = DBConnection.Instance.GetStringByQuery("select hebrew_name from tables_information where table_name ='"+tableName+"'");
+                tableDisplayName = (string)CurrentTable["hebrew_name"];
                 items.Add(new ListItem(tableDisplayName, tableName));
                
             }
