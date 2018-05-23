@@ -63,7 +63,7 @@ namespace ReshitScheduler
             {
                 FillClasses();
             }
-            if(!Request.Params.Get("__EVENTTARGET").Contains("txtEvaluation"))
+            if(Request.Params.Get("__EVENTTARGET") == null || !Request.Params.Get("__EVENTTARGET").Contains("txtEvaluation"))
             {
                 FillStudentsEvaluations();
 
@@ -73,20 +73,6 @@ namespace ReshitScheduler
             Page.ClientScript.RegisterStartupScript(typeof(LessonForm), "ScriptDoFocus",
                                                     SCRIPT_DOFOCUS.Replace("REQUEST_LASTFOCUS", Request["__LASTFOCUS"]), true);
 
-        }
-
-        private Control GetControlThatCausedPostBack(Page page)
-        {
-            //initialize a control and set it to null
-            Control ctrl = null;
-
-            //get the event target name and find the control
-            string ctrlName = page.Request.Params.Get("__EVENTTARGET");
-            if (!String.IsNullOrEmpty(ctrlName))
-                ctrl = page.FindControl(ctrlName);
-
-            //return the control to the calling method
-            return ctrl;
         }
 
 
