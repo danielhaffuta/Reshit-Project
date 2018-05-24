@@ -666,5 +666,29 @@ namespace ReshitScheduler
         {
             return this.GetDataTableByQuery(GetDisplayQuery("grades"));
         }
+
+        public DataTable GetThisYearLessons(string tableName)
+        {
+            string name = "";
+            if(tableName.Equals("courses"))
+            {
+                name = "course";
+                return this.GetDataTableByQuery("select " + tableName + ".id as " + name + "_id, " + tableName + "." + name + "_name as name," +
+                " teachers.id as teacher_id from " + tableName +
+                " inner join teachers on teachers.id = " + tableName + ".teacher_id " +
+                " inner join years on years.id = teachers.year_id" +
+                " where teachers.year_id=(select value from preferences where name='current_year_id')");
+            }
+            else
+            {
+                name = "group";
+                return this.GetDataTableByQuery("select " + tableName + ".id as " + name + "_id, " + tableName + "." + name + "_name as name," +
+                tableName + "." +name +"_goal, teachers.id as teacher_id from " + tableName +
+                " inner join teachers on teachers.id = " + tableName + ".teacher_id " +
+                " inner join years on years.id = teachers.year_id" +
+                " where teachers.year_id=(select value from preferences where name='current_year_id')");
+            }
+            
+        }
     }
 }

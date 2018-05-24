@@ -13,7 +13,7 @@ namespace ReshitScheduler
 {
     public partial class AddCourseForm : BasePage
     {
-        private bool IsGroup;
+        protected bool IsGroup = false;
         private DataTable dtCourses;
         private DataTable dtGroups;
 
@@ -22,6 +22,8 @@ namespace ReshitScheduler
             if (Request.QueryString["IsGroup"] == null || Request.QueryString["IsGroup"].Equals("true"))
             {
                 IsGroup = true;
+                AddLesson.InnerText = "הוספת קבוצה חדשה:";
+                Course.Text = "שם הקבוצה:";
             }
             else
             {
@@ -66,7 +68,8 @@ namespace ReshitScheduler
             if (IsGroup)
             {
                 tableName = "groups";
-                fields = "group_name,teacher_id";
+                fields = "group_name,teacher_id,group_goal";
+                values += ",'" + GroupGoal.Text + "'";
             }
             else
             {
@@ -80,6 +83,7 @@ namespace ReshitScheduler
             }
             CourseName.Text = "";
             ddlTeachers.SelectedIndex = 0;
+            GroupGoal.Text = "";
             FillLessons();
         }
         protected void BtnBack_Click(object sender, EventArgs e)

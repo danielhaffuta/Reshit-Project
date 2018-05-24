@@ -134,8 +134,7 @@ namespace ReshitScheduler
 
         protected void BtnAddCourse_Click(object sender, EventArgs e)
         {
-            Session["IsGroup"] = false;
-            Response.Redirect("AddLessonForm.aspx");
+            Response.Redirect("AddLessonForm.aspx?IsGroup=false");
         }
         protected void BtnAddClass_Click(object sender, EventArgs e)
         {
@@ -144,8 +143,7 @@ namespace ReshitScheduler
 
         protected void BtnAddGroup_Click(object sender, EventArgs e)
         {
-            Session["IsGroup"] = true;
-            Response.Redirect("AddLessonForm.aspx");
+            Response.Redirect("AddLessonForm.aspx?IsGroup=true");
         }
         protected void BtnEditTeacher_Click(object sender, EventArgs e)
         {
@@ -155,6 +153,16 @@ namespace ReshitScheduler
         protected void BtnEditClass_Click(object sender, EventArgs e)
         {
             Response.Redirect("EditClassDetails.aspx");
+        }
+
+        protected void BtnEditCourse_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditLessonDetails.aspx?IsGroup=false");
+        }
+
+        protected void BtnEditGroup_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditLessonDetails.aspx?IsGroup=true");
         }
 
     }

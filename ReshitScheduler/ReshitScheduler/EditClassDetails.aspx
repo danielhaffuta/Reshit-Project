@@ -8,23 +8,23 @@
 
 
             <div class="form-group form-inline row">
-                <label class="col-form-label col-sm-3 col-md-4">בחר כיתה</label>
+                <asp:Label ID="ClassSelection" runat="server" Text="בחר כיתה" class="col-form-label col-sm-3 col-md-4"></asp:Label>
                 <asp:DropDownList runat="server" ID="ddlClasses" CssClass="form-control col col-sm-9 col-md-8" 
                     AutoPostBack="true" OnSelectedIndexChanged="ddlClasses_SelectedIndexChanged">
                 </asp:DropDownList>
             </div>
 
             <div class="form-group form-inline row">
-                <label class="col-form-label col-sm-3 col-md-4">שכבה:</label>
+                <asp:Label ID="Grade" runat="server" Text="שכבה:" class="col-form-label col-sm-3 col-md-4"></asp:Label>
                 <asp:DropDownList runat="server" ID="ddlGrades" CssClass="form-control col col-sm-9 col-md-8"></asp:DropDownList>
             </div>
             <div class="form-group form-inline row">
-                <label class="col-form-label col-sm-3 col-md-4">מספר כיתה:</label>
+                <asp:Label ID="Number" runat="server" Text="מספר כיתה:" class="col-form-label col-sm-3 col-md-4"></asp:Label>
                 <asp:TextBox id="ClassNum" TextMode="Number"  min="1" max="10" step="1"  runat="server" 
                              CssClass="form-control col col-sm-9 col-md-8"></asp:TextBox>
             </div>
             <div class="form-group form-inline row">
-                <label class="col-form-label col-sm-3 col-md-4">מחנך:</label>
+                <asp:Label ID="Educator" runat="server" Text="מחנך:" class="col-form-label col-sm-3 col-md-4"></asp:Label>
                 <asp:DropDownList ID="ddlTeachers" runat="server" CssClass="form-control col col-sm-9 col-md-8" ></asp:DropDownList>
             
             </div>

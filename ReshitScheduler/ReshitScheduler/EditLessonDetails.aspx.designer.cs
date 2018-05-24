@@ -10,34 +10,34 @@
 namespace ReshitScheduler {
     
     
-    public partial class AddCourseForm {
+    public partial class EditLessonDetails {
         
         /// <summary>
-        /// pnlCourses control.
+        /// LessonEdit control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlCourses;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LessonEdit;
         
         /// <summary>
-        /// gvLessons control.
+        /// LessonSelection control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvLessons;
+        protected global::System.Web.UI.WebControls.Label LessonSelection;
         
         /// <summary>
-        /// AddLesson control.
+        /// ddlLessons control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl AddLesson;
+        protected global::System.Web.UI.WebControls.DropDownList ddlLessons;
         
         /// <summary>
         /// Course control.
@@ -58,13 +58,13 @@ namespace ReshitScheduler {
         protected global::System.Web.UI.WebControls.TextBox CourseName;
         
         /// <summary>
-        /// Teacher control.
+        /// TeacherName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Teacher;
+        protected global::System.Web.UI.WebControls.Label TeacherName;
         
         /// <summary>
         /// ddlTeachers control.
@@ -92,5 +92,14 @@ namespace ReshitScheduler {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox GroupGoal;
+        
+        /// <summary>
+        /// BtnUpdateLesson control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton BtnUpdateLesson;
     }
 }

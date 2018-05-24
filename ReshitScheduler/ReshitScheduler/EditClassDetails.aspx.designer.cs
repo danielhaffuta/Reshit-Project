@@ -13,6 +13,15 @@ namespace ReshitScheduler {
     public partial class EditClassDetails {
         
         /// <summary>
+        /// ClassSelection control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label ClassSelection;
+        
+        /// <summary>
         /// ddlClasses control.
         /// </summary>
         /// <remarks>
@@ -20,6 +29,15 @@ namespace ReshitScheduler {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlClasses;
+        
+        /// <summary>
+        /// Grade control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Grade;
         
         /// <summary>
         /// ddlGrades control.
@@ -31,6 +49,15 @@ namespace ReshitScheduler {
         protected global::System.Web.UI.WebControls.DropDownList ddlGrades;
         
         /// <summary>
+        /// Number control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Number;
+        
+        /// <summary>
         /// ClassNum control.
         /// </summary>
         /// <remarks>
@@ -38,6 +65,15 @@ namespace ReshitScheduler {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox ClassNum;
+        
+        /// <summary>
+        /// Educator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Educator;
         
         /// <summary>
         /// ddlTeachers control.

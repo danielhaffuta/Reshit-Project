@@ -28,12 +28,14 @@
         <%if (bIsPrincipal)
             {%>
         <button  runat="server" onserverclick="BtnAddClass_Click" class="btn btn-outline-dark" >הוספת כיתה חדשה</button>
-        <button  runat="server" onserverclick="BtnAddCourse_Click" class="btn btn-outline-dark">הוספת קורס</button>
+        <button  runat="server" onserverclick="BtnAddCourse_Click" class="btn btn-outline-dark">הוספת שיעור</button>
         <button  runat="server" onserverclick="BtnAddGroup_Click" class="btn btn-outline-dark">הוספת קבוצה</button>
         <button  runat="server" onserverclick="BtnBellSystem_Click" class="btn btn-outline-dark">אתחול מערכת צלצולים</button>
         <button  runat="server" onserverclick="BtnAddTeacher_Click" class="btn btn-outline-dark">הוספת מורה</button>
         <button  runat="server" onserverclick="BtnEditTeacher_Click" class="btn btn-outline-dark">ערוך פרטי מורה</button>
         <button  runat="server" onserverclick="BtnEditClass_Click" class="btn btn-outline-dark">ערוך פרטי כיתה</button>
+        <button  runat="server" onserverclick="BtnEditCourse_Click" class="btn btn-outline-dark">ערוך פרטי שיעור</button>
+        <button  runat="server" onserverclick="BtnEditGroup_Click" class="btn btn-outline-dark">ערוך פרטי קבוצה</button>
         <%} %>
     </div>
 </asp:Content>

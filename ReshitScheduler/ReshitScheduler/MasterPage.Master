@@ -57,7 +57,7 @@
 
                         <div class="dropdown-menu dropdown-menu-right text-right" aria-labelledby="ManagerDropDown">
                             <a class="dropdown-item" href="AddClassForm.aspx">הוספת כיתה חדשה</a>
-                            <a class="dropdown-item" href="AddLessonForm.aspx?IsGroup=false">הוספת קורס</a>
+                            <a class="dropdown-item" href="AddLessonForm.aspx?IsGroup=false">הוספת שיעור</a>
                             <a class="dropdown-item" href="AddLessonForm.aspx?IsGroup=true">הוספת קבוצה</a>
                             <a class="dropdown-item" href="SetBellSystem.aspx">אתחול מערכת צלצולים</a>
                             <a class="dropdown-item" href="AddTeacherForm.aspx">הוספת מורה</a>
