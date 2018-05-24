@@ -55,7 +55,8 @@ namespace ReshitScheduler
             int nGradeID = Convert.ToInt32(ddlGrades.SelectedValue);
             int nClassNumber = Convert.ToInt32(txtStudentFirstName.Text);
             int nTeacherID = Convert.ToInt32(ddlTeachers.SelectedValue);
-            if (dtClasses.Select("grade_id = " + nGradeID + " AND class_number = " + nClassNumber).Count()>0)
+            DataTable dtClassCheck = DBConnection.Instance.GetThisYearClassesDetails();
+            if (dtClassCheck.Select("grade_id = " + nGradeID + " AND class_number = " + nClassNumber).Count() > 0)
             {
                 Helper.ShowMessage(ClientScript, "כיתה כבר קיימת - לא ניתן להוסיף");
                 return;

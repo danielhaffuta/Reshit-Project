@@ -634,6 +634,16 @@ namespace ReshitScheduler
                                             " where teachers.year_id=(select value from preferences where name='current_year_id')");
         }
 
+        public DataTable GetThisYearClassesDetails()
+        {
+            return this.GetDataTableByQuery("select classes.id as class_id, grades.id as grade_id,grades.grade_name,classes.class_number,"+                                            " teachers.id as teacher_id, concat(teachers.first_name, ' ', teachers.last_name) as teacher_name"+
+                                            " from classes"+
+                                            " inner join grades on grades.id = classes.grade_id"+
+                                            " inner join teachers on teachers.id = classes.teacher_id"+
+                                            " inner join years on years.id = teachers.year_id"+
+                                            " where teachers.year_id=(select value from preferences where name='current_year_id')");
+        }
+
         public DataTable GetThisYearCourses()
         {
             return this.GetDataTableByQuery(GetDisplayQuery("courses") +

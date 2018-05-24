@@ -1,4 +1,4 @@
-﻿using Data;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -9,23 +9,25 @@ using System.Web.UI.WebControls;
 
 namespace ReshitScheduler
 {
-    public partial class EditClassDetails : System.Web.UI.Page
+    public partial class EditClassDetails : BasePage
     {
         private DataTable dtTeachers;
         private DataTable dtClasses;
         private DataTable dtGrades;
+        private int nClassID;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             dtTeachers = DBConnection.Instance.GetThisYearTeachers();
             dtClasses = DBConnection.Instance.GetThisYearClasses();
             dtGrades = DBConnection.Instance.GetGrades();
+            
+
             if (!IsPostBack)
             {
-                string strDisplayQuert = DBConnection.Instance.GetDisplayQuery("classes");
-                DataTable dtClassesTable = DBConnection.Instance.GetDataTableByQuery(strDisplayQuert);
-                ddlClasses.DataSource = dtClassesTable;
-                ddlClasses.DataBind();
+                ddlClasses.DataSource = dtClasses;
+                ddlClasses.DataValueField = "class_id";
+                ddlClasses.DataTextField = "name";                ddlClasses.DataBind();
 
                 ddlTeachers.DataSource = dtTeachers;
                 ddlTeachers.DataValueField = "id";
@@ -38,11 +40,26 @@ namespace ReshitScheduler
                 ddlGrades.DataBind();
 
             }
+            nClassID = Convert.ToInt32(ddlClasses.SelectedValue);
+            if (!IsPostBack)
+            {
+                FillClassDetails();
+
+            }
+        }
+
+        private void FillClassDetails()
+        {
+            DataTable dtClassesDetails = DBConnection.Instance.GetThisYearClassesDetails();
+            DataRow drClassDetails = dtClassesDetails.Select("class_id = " + nClassID)[0];
+            ddlGrades.SelectedValue = drClassDetails["grade_id"].ToString();
+            ClassNum.Text = drClassDetails["class_number"].ToString();
+            ddlTeachers.SelectedValue = drClassDetails["teacher_id"].ToString();
         }
 
         protected void ddlClasses_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            FillClassDetails();
         }
 
         protected void BtnBack_Click(object sender, EventArgs e)
@@ -55,7 +72,26 @@ namespace ReshitScheduler
         }
         protected void BtnUpdateClass_Click(object sender, EventArgs e)
         {
+            int nGradeID = Convert.ToInt32(ddlGrades.SelectedValue);
+            int nClassNumber = Convert.ToInt32(ClassNum.Text);
+            DataTable dtClassCheck = DBConnection.Instance.GetThisYearClassesDetails();
+            if (dtClassCheck.Select("grade_id = " + nGradeID + " AND class_number = " + nClassNumber).Count() > 0)
+            {
+                Helper.ShowMessage(ClientScript, "כיתה כבר קיימת - לא ניתן לערוך כיתה");
+                return;
+            }
+            string strFields = "grade_id:class_number:teacher_id";
+            string strValues = ddlGrades.SelectedValue + ":'" +
+                               ClassNum.Text + "':" +
+                               ddlTeachers.SelectedValue;
 
+            bool bUpdateSucceeded = DBConnection.Instance.UpdateTableRow("classes", nClassID, strFields, strValues);
+            if (!bUpdateSucceeded)
+            {
+                Helper.ShowMessage(ClientScript, "error saving");
+            }
+
+            GoBack();
         }
     }
 }

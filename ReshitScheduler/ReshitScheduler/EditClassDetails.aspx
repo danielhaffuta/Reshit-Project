@@ -9,13 +9,14 @@
 
             <div class="form-group form-inline row">
                 <label class="col-form-label col-sm-3 col-md-4">בחר כיתה</label>
-                <asp:DropDownList runat="server" ID="ddlClasses" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlClasses_SelectedIndexChanged">
+                <asp:DropDownList runat="server" ID="ddlClasses" CssClass="form-control col col-sm-9 col-md-8" 
+                    AutoPostBack="true" OnSelectedIndexChanged="ddlClasses_SelectedIndexChanged">
                 </asp:DropDownList>
             </div>
 
             <div class="form-group form-inline row">
                 <label class="col-form-label col-sm-3 col-md-4">שכבה:</label>
-                <asp:DropDownList runat="server" ID="ddlGrades" CssClass="form-control"></asp:DropDownList>
+                <asp:DropDownList runat="server" ID="ddlGrades" CssClass="form-control col col-sm-9 col-md-8"></asp:DropDownList>
             </div>
             <div class="form-group form-inline row">
                 <label class="col-form-label col-sm-3 col-md-4">מספר כיתה:</label>
@@ -24,7 +25,7 @@
             </div>
             <div class="form-group form-inline row">
                 <label class="col-form-label col-sm-3 col-md-4">מחנך:</label>
-                <asp:DropDownList ID="ddlTeachers" runat="server" CssClass="form-control" ></asp:DropDownList>
+                <asp:DropDownList ID="ddlTeachers" runat="server" CssClass="form-control col col-sm-9 col-md-8" ></asp:DropDownList>
             
             </div>
             <div class="form-row justify-content-center btn-group-vertical">

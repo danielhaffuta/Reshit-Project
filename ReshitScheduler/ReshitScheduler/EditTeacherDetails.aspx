@@ -9,7 +9,8 @@
 
             <div class="form-group form-inline row">
                 <label class="col-form-label col-sm-3 col-md-4">בחר מורה</label>
-                <asp:DropDownList runat="server" ID="ddlTeachers" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlTeachers_SelectedIndexChanged">
+                <asp:DropDownList runat="server" ID="ddlTeachers" CssClass="form-control col col-sm-9 col-md-8" 
+                    AutoPostBack="true" OnSelectedIndexChanged="ddlTeachers_SelectedIndexChanged">
                 </asp:DropDownList>
             </div>
 
@@ -23,7 +24,7 @@
             </div>
             <div class="form-group form-inline row">
                 <label class="col-form-label col-sm-3 col-md-4">תפקיד:</label>
-                <asp:DropDownList ID="ddlTeacherTypes" runat="server" CssClass="form-control" ></asp:DropDownList>
+                <asp:DropDownList ID="ddlTeacherTypes" runat="server" CssClass="form-control col col-sm-9 col-md-8" ></asp:DropDownList>
             </div>
             <div class="form-group form-inline row">
                 <label class="col-form-label col-sm-3 col-md-4">שם משתמש:</label>
