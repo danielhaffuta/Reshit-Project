@@ -673,7 +673,8 @@ namespace ReshitScheduler
             if(tableName.Equals("courses"))
             {
                 name = "course";
-                return this.GetDataTableByQuery("select " + tableName + ".id as " + name + "_id, " + tableName + "." + name + "_name as name," +
+                return this.GetDataTableByQuery("select " + tableName + ".id as " + name + "_id, " +
+                    tableName + "." + name + "_name as name," + tableName + ".also_group as also_group," +
                 " teachers.id as teacher_id from " + tableName +
                 " inner join teachers on teachers.id = " + tableName + ".teacher_id " +
                 " inner join years on years.id = teachers.year_id" +

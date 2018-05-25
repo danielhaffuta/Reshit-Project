@@ -76,6 +76,16 @@ namespace ReshitScheduler
             {
                 dtCourseDetails = DBConnection.Instance.GetThisYearLessons("courses");
                 drLessonDetails = dtCourseDetails.Select("course_id = " + nLessonID)[0];
+                if (drLessonDetails["also_group"].ToString().Equals("1"))
+                {
+                    Yes.Checked = true;
+                    No.Checked = false;
+                }
+                else
+                {
+                    Yes.Checked = false;
+                    No.Checked = true;
+                }
             }
             
             CourseName.Text = drLessonDetails["name"].ToString();
@@ -102,7 +112,15 @@ namespace ReshitScheduler
             else
             {
                 tableName = "courses";
-                strFields = "course_name:teacher_id";
+                strFields = "course_name:teacher_id:also_group";
+                if (Yes.Checked)
+                {
+                    strValues += ":'1'";
+                }
+                if (No.Checked)
+                {
+                    strValues += ":'0'";
+                }
             }
             
 

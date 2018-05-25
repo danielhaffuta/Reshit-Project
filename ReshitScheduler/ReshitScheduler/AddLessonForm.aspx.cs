@@ -61,7 +61,7 @@ namespace ReshitScheduler
 
         protected void BtnSave_Click(object sender, EventArgs e)
         {
-            string values = "'" + CourseName.Text + "' ,"
+            string values = "'" + CourseName.Text + "',"
                             + ddlTeachers.SelectedValue ;
             string fields = "";
             string tableName = "";
@@ -73,8 +73,16 @@ namespace ReshitScheduler
             }
             else
             {
-                fields = "course_name,teacher_id";
+                fields = "course_name,teacher_id,also_group";
                 tableName = "courses";
+                if(Yes.Checked)
+                {
+                    values += ",'1'";
+                }
+                if(No.Checked)
+                {
+                    values += ",'0'";
+                }
             }
             bool bInsertSucceeded = DBConnection.Instance.InsertTableRow(tableName, fields, values);
             if (!bInsertSucceeded)
