@@ -14,6 +14,7 @@ namespace ReshitScheduler
     public partial class AddCourseForm : BasePage
     {
         protected bool IsGroup = false;
+        private int Checked = 0;
         private DataTable dtCourses;
         private DataTable dtGroups;
 
@@ -59,30 +60,46 @@ namespace ReshitScheduler
             gvLessons.DataBind();
         }
 
+        protected void Yes_changed(object sender, EventArgs e)
+        {
+            Checked = 1;
+        }
+
+        protected void No_changed(object sender, EventArgs e)
+        {
+            Checked = 0;
+        }
+
         protected void BtnSave_Click(object sender, EventArgs e)
         {
             string values = "'" + CourseName.Text + "',"
                             + ddlTeachers.SelectedValue ;
             string fields = "";
             string tableName = "";
-            if (IsGroup)
+            string strPriorityGroup = DBConnection.Instance.GetPriority("groups");
+            string strPriorityCourse = DBConnection.Instance.GetPriority("courses");
+            int groupP = Convert.ToInt32(strPriorityGroup);
+            int courseP = Convert.ToInt32(strPriorityCourse);
+            int priority;
+            if(groupP > courseP)
             {
-                tableName = "groups";
-                fields = "group_name,teacher_id,group_goal";
-                values += ",'" + GroupGoal.Text + "'";
+                priority = groupP+1;
             }
             else
             {
-                fields = "course_name,teacher_id,also_group";
+                priority = courseP+1;
+            }
+            if (IsGroup)
+            {
+                tableName = "groups";
+                fields = "group_name,teacher_id,priority,group_goal";
+                values += "," + priority + ",'" + GroupGoal.Text + "'";
+            }
+            else
+            {
+                fields = "course_name,teacher_id,also_group,priority";
                 tableName = "courses";
-                if(Yes.Checked)
-                {
-                    values += ",'1'";
-                }
-                if(No.Checked)
-                {
-                    values += ",'0'";
-                }
+                values += ","+ Checked +"," + priority;
             }
             bool bInsertSucceeded = DBConnection.Instance.InsertTableRow(tableName, fields, values);
             if (!bInsertSucceeded)

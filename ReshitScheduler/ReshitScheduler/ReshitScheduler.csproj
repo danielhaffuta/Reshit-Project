@@ -86,6 +86,7 @@
     <Content Include="EditClassDetails.aspx" />
     <Content Include="EditLessonDetails.aspx" />
     <Content Include="EditStudentDetailsForm.aspx" />
+    <Content Include="EditStudentEvaluations.aspx" />
     <Content Include="EditTeacherDetails.aspx" />
     <Content Include="EducatorForm.aspx" />
     <Content Include="EvaluationForm.aspx" />
@@ -266,6 +267,13 @@
     </Compile>
     <Compile Include="EditStudentDetailsForm.aspx.designer.cs">
       <DependentUpon>EditStudentDetailsForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EditStudentEvaluations.aspx.cs">
+      <DependentUpon>EditStudentEvaluations.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EditStudentEvaluations.aspx.designer.cs">
+      <DependentUpon>EditStudentEvaluations.aspx</DependentUpon>
     </Compile>
     <Compile Include="EditTeacherDetails.aspx.cs">
       <DependentUpon>EditTeacherDetails.aspx</DependentUpon>

@@ -7,7 +7,7 @@
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainForm" runat="server">
-    <img class="figure-img img-fluid" ssrc="<%=drStudentDetails["picture_path"] %>" width="350"/><br />
+    <img class="figure-img img-fluid" src="<%=drStudentDetails["picture_path"] %>" width="350"/><br />
     <h1><%=drStudentDetails["name"]%></h1>
     <h2><%=drStudentDetails["class"] %><br /></h2>
         
@@ -49,6 +49,7 @@
         <button  runat="server"  onserverclick="BtnEditStudentDetails" class="btn btn-outline-dark">ערוך פרטי תלמיד</button>
         <button  runat="server"  onserverclick="BtnPrintSchedule_Click" class="btn btn-outline-dark">הדפס מערכת</button>
         <button  runat="server"  onserverclick="BtnPrintEvaluations_Click" class="btn btn-outline-dark">הדפס הערכה</button>
+        <button  runat="server"  onserverclick="BtnviewEvaluations_Click" class="btn btn-outline-dark">צפה בהערכות</button>
     </div>
     <script src="/js/general.js"></script>
 </asp:Content>

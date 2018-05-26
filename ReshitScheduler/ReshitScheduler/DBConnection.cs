@@ -691,5 +691,10 @@ namespace ReshitScheduler
             }
             
         }
+        
+        public string GetPriority(string TableName)
+        {
+            return this.GetStringByQuery("select MAX(priority) from " + TableName);
+        }
     }
 }

@@ -66,5 +66,10 @@ namespace ReshitScheduler
         {
             Response.Redirect("PrintStudentEvaluations.aspx?StudentID=" + nStudentID);
         }
+
+        protected void BtnviewEvaluations_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditStudentEvaluations.aspx?StudentID=" + nStudentID);
+        }
     }
 }

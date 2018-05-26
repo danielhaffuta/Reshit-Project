@@ -44,8 +44,8 @@
             <div class="form-group form-inline row">
                 <asp:Label ID="CheckGroup" runat="server" Text="האם השיעור הוא גם קבוצה?" 
                     class="col-form-label col-sm-3 col-md-4"></asp:Label>
-                <asp:RadioButton ID="Yes" runat="server" Text="כן" GroupName ="IfGroup" />
-                <asp:RadioButton ID="No" runat="server" Text="לא" GroupName ="IfGroup" />
+                <asp:RadioButton ID="Yes" runat="server" Text="כן" GroupName ="IfGroup" OnCheckedChanged ="Yes_changed"/>
+                <asp:RadioButton ID="NoGroup" runat="server" Text="לא" GroupName ="IfGroup" OnCheckedChanged ="No_changed" />
             </div>
             <%} %>
             <div class="row justify-content-center btn-group-vertical">

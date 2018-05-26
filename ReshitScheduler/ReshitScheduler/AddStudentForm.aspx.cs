@@ -24,13 +24,21 @@ namespace ReshitScheduler
                 nClassID = Convert.ToInt32(Request.QueryString["ClassID"]?.ToString());
                 divClasses.Visible = false;
             }
+            LoggedInTeacher = Session["LoggedInTeacher"] as Teacher;
             if (!IsPostBack)
             {
                 if (nClassID == 0)
                 {
-                    string strDisplayQuert = DBConnection.Instance.GetDisplayQuery("classes");
-                    string strSelectClassesQuery = strDisplayQuert + " where year_id = " + nYearID;
-                    dtClassesTable = DBConnection.Instance.GetDataTableByQuery(strSelectClassesQuery);
+                    if (LoggedInTeacher.Type == "רכז")
+                    {
+                        dtClassesTable = DBConnection.Instance.GetTeacherClasses(LoggedInTeacher.ID);
+                    }
+                    else
+                    {
+                        string strDisplayQuert = DBConnection.Instance.GetDisplayQuery("classes");
+                        string strSelectClassesQuery = strDisplayQuert + " where year_id = " + nYearID;
+                        dtClassesTable = DBConnection.Instance.GetDataTableByQuery(strSelectClassesQuery);
+                    }
                     ddlClassesList.DataSource = dtClassesTable;
                     ddlClassesList.DataBind();
                 }
