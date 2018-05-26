@@ -21,6 +21,12 @@
                             ></asp:TextBox>
                        </ItemTemplate>
                     </asp:TemplateField>
+                    <asp:BoundField DataField="is_group" HeaderText="קבוצה" Visible="true">
+                    </asp:BoundField>
+                    <asp:BoundField DataField="evaluation_id" HeaderText="מספר הערכה" Visible="true">
+                    </asp:BoundField>
+                    <asp:BoundField DataField="lesson_id" HeaderText="מספר שיעור" Visible="true">
+                    </asp:BoundField>
                         
                 </Columns>
             </asp:GridView>

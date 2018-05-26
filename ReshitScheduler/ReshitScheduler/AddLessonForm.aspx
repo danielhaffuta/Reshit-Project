@@ -29,10 +29,10 @@
                     CssClass="col-form-label col-sm-3 col-md-4"></asp:Label>
                 <div class="form-check form-check-inline">
                     <label class="form-check-label">
-                        <asp:RadioButton ID="Yes" runat="server" Text="כן" CssClass="form-check-input" GroupName="IfGroup"  OnCheckedChanged="Yes_changed"/>
+                        <asp:RadioButton ID="IsAlsoGroup" runat="server" Text="כן" CssClass="form-check-input" GroupName="IfAlsoGroup"  OnCheckedChanged="Yes_changed"/>
                     </label>
                     <label class="form-check-label">
-                        <asp:RadioButton ID="NoGroup" runat="server" Text="לא" CssClass="form-check-input" GroupName="IfGroup" OnCheckedChanged="No_changed" />
+                        <asp:RadioButton ID="NotAlsoGroup" runat="server" Text="לא" CssClass="form-check-input" GroupName="IfAlsoGroup" OnCheckedChanged="No_changed" />
                     </label>
                 </div>
             </div>

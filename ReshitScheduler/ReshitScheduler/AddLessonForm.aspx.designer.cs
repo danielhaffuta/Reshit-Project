@@ -85,22 +85,22 @@ namespace ReshitScheduler {
         protected global::System.Web.UI.WebControls.Label CheckGroup;
         
         /// <summary>
-        /// Yes control.
+        /// IsAlsoGroup control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton Yes;
+        protected global::System.Web.UI.WebControls.RadioButton IsAlsoGroup;
         
         /// <summary>
-        /// NoGroup control.
+        /// NotAlsoGroup control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton NoGroup;
+        protected global::System.Web.UI.WebControls.RadioButton NotAlsoGroup;
         
         /// <summary>
         /// pnlCourses control.

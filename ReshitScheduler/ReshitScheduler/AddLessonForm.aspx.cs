@@ -14,7 +14,7 @@ namespace ReshitScheduler
     public partial class AddCourseForm : BasePage
     {
         protected bool IsGroup = false;
-        private int Checked = 0;
+        private bool YesChecked = false;
         private DataTable dtCourses;
         private DataTable dtGroups;
 
@@ -68,12 +68,12 @@ namespace ReshitScheduler
 
         protected void Yes_changed(object sender, EventArgs e)
         {
-            Checked = 1;
+            YesChecked = true;
         }
 
         protected void No_changed(object sender, EventArgs e)
         {
-            Checked = 0;
+            YesChecked = false;
         }
 
         protected void BtnSave_Click(object sender, EventArgs e)
@@ -105,7 +105,7 @@ namespace ReshitScheduler
             {
                 fields = "course_name,teacher_id,also_group,priority";
                 tableName = "courses";
-                values += ","+ Checked +"," + priority;
+                values += ","+ Convert.ToInt32(YesChecked) + "," + priority;
             }
             bool bInsertSucceeded = DBConnection.Instance.InsertTableRow(tableName, fields, values);
             if (!bInsertSucceeded)

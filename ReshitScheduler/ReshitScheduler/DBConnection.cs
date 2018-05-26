@@ -540,20 +540,22 @@ namespace ReshitScheduler
         public DataTable GetStudentEvaluations(int nStudentID)
         {
             return GetDataTableByQuery(
-                " select group_name as lesson_name,ifnull(evaluation,\"\" ) as evaluation,"+
-                " groups.id as lesson_id,1 as is_group from students_schedule" +
+                " select group_name as lesson_name,ifnull(evaluation,\"\" ) as evaluation," +
+                " groups.id as lesson_id,1 as is_group,groups_evaluations.id as evaluation_id from students_schedule" +
                 " left join groups_evaluations on groups_evaluations.student_id = students_schedule.student_id" +
                 " and groups_evaluations.group_id = students_schedule.group_id" +
+                " and groups_evaluations.semester_number =(select value from preferences where name='current_semester_number')" +
                 " inner join groups on groups.id = students_schedule.group_id" +
                 " where students_schedule.student_id = " + nStudentID +
                 " union" +
-                " select distinct course_name as lesson_name, ifnull(evaluation,\"\" ) as evaluation,"+
-                " courses.id as lesson_id,0 as is_group from classes_schedule" +
+                " select distinct course_name as lesson_name, ifnull(evaluation,\"\" ) as evaluation," +
+                " courses.id as lesson_id,0 as is_group,courses_evaluations.id as evaluation_id from classes_schedule" +
                 " inner join students_classes on students_classes.class_id = classes_schedule.class_id" +
                                             " and students_classes.student_id = " + nStudentID +
                 " inner join courses on courses.id = classes_schedule.course_id" +
                 " left join courses_evaluations on courses_evaluations.course_id = classes_schedule.course_id" +
                                               " and courses_evaluations.student_id = " + nStudentID +
+                                              " and courses_evaluations.semester_number =(select value from preferences where name='current_semester_number')"+
                 " where " + nStudentID + " not in (select student_id from students_schedule where students_schedule.day_id = classes_schedule.day_id" +
                                                                                             " and students_schedule.hour_id = classes_schedule.hour_id)");
         }
@@ -622,6 +624,17 @@ namespace ReshitScheduler
             return GetDataTableByQuery(GetDisplayQuery("classes") +
                 " inner join teacher_class_access on teacher_class_access.class_id = classes.id " +
                 " where teacher_class_access.teacher_id = " + nTeacherID);
+        }
+
+        public DataTable GetAllTeacherClasses(int nTeacherID)
+        {
+            string strClassQuery = GetDisplayQuery("classes") +
+                " inner join teacher_class_access on teacher_class_access.class_id = classes.id " +
+                " where teacher_class_access.teacher_id = " + nTeacherID +
+                " union " +
+                GetDisplayQuery("classes") +
+                " where classes.teacher_id = " + nTeacherID;
+            return GetDataTableByQuery(strClassQuery);
         }
 
         public DataTable GetThisYearTeachers()
@@ -697,6 +710,11 @@ namespace ReshitScheduler
         public string GetPriority(string TableName)
         {
             return this.GetStringByQuery("select MAX(priority) from " + TableName);
+        }
+
+        public string GetSemester()
+        {
+            return this.GetStringByQuery("select value from preferences where name = 'current_semester_number'");
         }
     }
 }

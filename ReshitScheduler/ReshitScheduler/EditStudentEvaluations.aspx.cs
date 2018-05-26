@@ -41,7 +41,30 @@ namespace ReshitScheduler
 
         protected void txtEvaluation_TextChanged(object sender, EventArgs e)
         {
-            
+            TextBox txtChangedEvaluation = sender as TextBox;
+            GridViewRow gvrChangedRow = txtChangedEvaluation.Parent.Parent as GridViewRow;
+            int nLessonID;
+            int.TryParse(gvrChangedRow.Cells[4].Text, out nLessonID);
+            int buffer;
+            int.TryParse(gvrChangedRow.Cells[2].Text, out buffer);
+            bool IsGroup = Convert.ToBoolean(buffer);
+            int nEvaluationID;
+            if (int.TryParse(gvrChangedRow.Cells[3].Text, out nEvaluationID))
+            {
+                DBConnection.Instance.UpdateTableRow(IsGroup ? "groups_evaluations" : "courses_evaluations",
+                                           nEvaluationID,
+                                          "evaluation",
+                                          "'" + (gvrChangedRow.Cells[1].Controls[1] as TextBox).Text.Replace("'", "''") + "'");
+            }
+            else
+            {
+                int semester = Convert.ToInt32(DBConnection.Instance.GetSemester());
+                DBConnection.Instance.InsertTableRow(IsGroup ? "groups_evaluations" : "courses_evaluations",
+                                      "evaluation,student_id," + (IsGroup ? "group_id" : "course_id")+",semester_number",
+                                      "'" + (gvrChangedRow.Cells[1].Controls[1] as TextBox).Text.Replace("'", "''") + "'," +
+                                      nStudentID + "," + nLessonID + "," + semester);
+            }
+            return;
         }
     }
 }

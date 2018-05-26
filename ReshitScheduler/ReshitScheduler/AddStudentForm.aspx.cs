@@ -29,15 +29,16 @@ namespace ReshitScheduler
             {
                 if (nClassID == 0)
                 {
-                    if (LoggedInTeacher.Type == "רכז")
-                    {
-                        dtClassesTable = DBConnection.Instance.GetTeacherClasses(LoggedInTeacher.ID);
-                    }
-                    else
+                    if (LoggedInTeacher.Type == "מנהל")
                     {
                         string strDisplayQuert = DBConnection.Instance.GetDisplayQuery("classes");
                         string strSelectClassesQuery = strDisplayQuert + " where year_id = " + nYearID;
                         dtClassesTable = DBConnection.Instance.GetDataTableByQuery(strSelectClassesQuery);
+                    }
+                    else
+                    {
+                        dtClassesTable = DBConnection.Instance.GetAllTeacherClasses(LoggedInTeacher.ID);
+                        
                     }
                     ddlClassesList.DataSource = dtClassesTable;
                     ddlClassesList.DataBind();
