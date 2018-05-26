@@ -50,6 +50,12 @@ namespace ReshitScheduler
             if (IsGroup)
             {
                 dtGroups = DBConnection.Instance.GetThisYearGroups();
+                BoundField bfGoal = new BoundField();
+                bfGoal.HeaderText = "מטרת הקבוצה";
+                bfGoal.DataField = "group_goal";
+                bfGoal.HeaderStyle.Font.Bold = true;
+
+                gvLessons.Columns.Add(bfGoal);
                 gvLessons.DataSource = dtGroups;
             }
             else

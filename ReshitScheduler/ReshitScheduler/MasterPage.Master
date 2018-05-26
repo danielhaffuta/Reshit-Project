@@ -16,16 +16,15 @@
     </asp:ContentPlaceHolder>
 </head>
 <body dir="rtl">
-    <form id="form1" runat="server" class="container text-center">
-        <nav id="navbar-site" class="navbar navbar-dark bg-dark navbar-expand-sm sticky-top mb-3">
+        <nav id="navbar-site" class="nav nav-pills navbar-dark bg-dark navbar-expand-sm sticky-top mb-3">
             <div class="container">
                 <div class="navbar-nav ml-sm-auto">
-                    <div class="nav-item  nav-link text-info">
+                    <div class="nav-item  nav-link text-light">
                         שלום <%=bpCurrentPage.LoggedInTeacher.FirstName + " " +bpCurrentPage.LoggedInTeacher.LastName %>
                     </div>
-                    <a class="nav-item nav-link" href="TeacherForm.aspx">מערכת אישית</a>
+                    <a class="nav-item nav-link  active" id="navTeacherForm" href="TeacherForm.aspx">מערכת אישית</a>
 
-                    <%if (bpCurrentPage.LoggedInTeacher.ClassID != 0 )
+                    <%if (bpCurrentPage.LoggedInTeacher.ClassID != 0)
                         { %>
                     <div class="dropdown">
 
@@ -43,11 +42,6 @@
 
                     </div>
                     <%} %>
-                    <%if (bpCurrentPage.LoggedInTeacher.Type == "רכז" && bpCurrentPage.LoggedInTeacher.ClassID == 0)
-                        {
-                    %>
-                        <a class="nav-item nav-link" href="AddStudentForm.aspx">הוספת תלמיד חדש</a>
-                    <%} %>
                     <a class="nav-item nav-link" href="TeacherCoursesAndGroupsForm.aspx">שיעורים וקבוצות</a>
 
                     <%if (bpCurrentPage.LoggedInTeacher.Type == "מנהל")
@@ -61,14 +55,17 @@
                             href="#">ניהול בית ספר</a>
 
                         <div class="dropdown-menu dropdown-menu-right text-right" aria-labelledby="ManagerDropDown">
+                            <a class="dropdown-item" href="AddStudentForm.aspx">הוספת תלמיד חדש</a>
                             <a class="dropdown-item" href="AddClassForm.aspx">הוספת כיתה חדשה</a>
+                            <a class="dropdown-item" href="EditClassDetails.aspx">ערוך פרטי כיתה</a>
                             <a class="dropdown-item" href="AddLessonForm.aspx?IsGroup=false">הוספת שיעור</a>
+                            <a class="dropdown-item" href="EditLessonDetails.aspx?IsGroup=false">ערוך פרטי שיעור</a>
                             <a class="dropdown-item" href="AddLessonForm.aspx?IsGroup=true">הוספת קבוצה</a>
+                            <a class="dropdown-item" href="EditLessonDetails.aspx?IsGroup=true">ערוך פרטי קבוצה</a>
                             <a class="dropdown-item" href="SetBellSystem.aspx">אתחול מערכת צלצולים</a>
                             <a class="dropdown-item" href="AddTeacherForm.aspx">הוספת מורה</a>
                             <a class="dropdown-item" href="AddStudentForm.aspx">ערוך פרטי מורה</a>
                         </div>
-
                     </div>
                     <%} %>
 
@@ -80,6 +77,7 @@
             </div>
             <!-- container -->
         </nav>
+    <form id="form1" runat="server" class="container text-center">
 
         <asp:ContentPlaceHolder ID="MainForm" runat="server">
         </asp:ContentPlaceHolder>

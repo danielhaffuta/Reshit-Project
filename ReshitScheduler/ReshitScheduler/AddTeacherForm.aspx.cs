@@ -13,14 +13,7 @@ namespace ReshitScheduler
 {
     public partial class AddTeacherForm : BasePage
     {
-        private const string SCRIPT_DOFOCUS =
-              @"window.setTimeout('DoFocus()', 1);
-            function DoFocus()
-            {
-                try {
-                    document.getElementById('REQUEST_LASTFOCUS').focus();
-                } catch (ex) {}
-            }";
+        
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -39,8 +32,7 @@ namespace ReshitScheduler
 
 
             }
-            Page.ClientScript.RegisterStartupScript(typeof(LessonForm), "ScriptDoFocus",
-                                                    SCRIPT_DOFOCUS.Replace("REQUEST_LASTFOCUS", Request["__LASTFOCUS"]), true);
+            
         }
         protected void BtnBack_Click(object sender, EventArgs e)
         {

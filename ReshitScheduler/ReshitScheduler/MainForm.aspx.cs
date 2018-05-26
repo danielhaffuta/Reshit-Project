@@ -36,6 +36,7 @@ namespace ReshitScheduler
                     Response.Redirect("TeacherForm.aspx");
                     break;
                 case "מנהל":
+                    Response.Redirect("TeacherForm.aspx");
                     bIsPrincipal = true;
                     break;
                 default:

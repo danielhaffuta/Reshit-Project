@@ -27,7 +27,8 @@ namespace ReshitScheduler
             {
                 ddlClasses.DataSource = dtClasses;
                 ddlClasses.DataValueField = "class_id";
-                ddlClasses.DataTextField = "name";                ddlClasses.DataBind();
+                ddlClasses.DataTextField = "name";
+                ddlClasses.DataBind();
 
                 ddlTeachers.DataSource = dtTeachers;
                 ddlTeachers.DataValueField = "id";
@@ -75,7 +76,9 @@ namespace ReshitScheduler
             int nGradeID = Convert.ToInt32(ddlGrades.SelectedValue);
             int nClassNumber = Convert.ToInt32(ClassNum.Text);
             DataTable dtClassCheck = DBConnection.Instance.GetThisYearClassesDetails();
-            if (dtClassCheck.Select("grade_id = " + nGradeID + " AND class_number = " + nClassNumber).Count() > 0)
+            if (dtClassCheck.Select("grade_id = " + nGradeID +
+                                    " AND class_number = " + nClassNumber +
+                                    " AND class_id <> " + nClassID).Count() > 0)
             {
                 Helper.ShowMessage(ClientScript, "כיתה כבר קיימת - לא ניתן לערוך כיתה");
                 return;
