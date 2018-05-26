@@ -540,13 +540,15 @@ namespace ReshitScheduler
         public DataTable GetStudentEvaluations(int nStudentID)
         {
             return GetDataTableByQuery(
-                " select group_name as lesson_name,ifnull(evaluation,\"\" ) as evaluation from students_schedule" +
+                " select group_name as lesson_name,ifnull(evaluation,\"\" ) as evaluation,"+
+                " groups.id as lesson_id,1 as is_group from students_schedule" +
                 " left join groups_evaluations on groups_evaluations.student_id = students_schedule.student_id" +
                 " and groups_evaluations.group_id = students_schedule.group_id" +
                 " inner join groups on groups.id = students_schedule.group_id" +
                 " where students_schedule.student_id = " + nStudentID +
                 " union" +
-                " select distinct course_name as lesson_name, ifnull(evaluation,\"\" ) as evaluation from classes_schedule" +
+                " select distinct course_name as lesson_name, ifnull(evaluation,\"\" ) as evaluation,"+
+                " courses.id as lesson_id,0 as is_group from classes_schedule" +
                 " inner join students_classes on students_classes.class_id = classes_schedule.class_id" +
                                             " and students_classes.student_id = " + nStudentID +
                 " inner join courses on courses.id = classes_schedule.course_id" +
