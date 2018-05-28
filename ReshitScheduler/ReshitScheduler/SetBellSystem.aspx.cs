@@ -13,6 +13,7 @@ namespace ReshitScheduler
 {
     public partial class SetBellSystem : BasePage
     {
+        private bool CheckIfBreakNewHour = false;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -33,10 +34,42 @@ namespace ReshitScheduler
         }
         private void showHours()
         {
-            DataTable dtHours = DBConnection.Instance.GetDataTableByQuery("select * from hours_in_day");
+            DataTable dtHours = DBConnection.Instance.GetDataTableByQuery("select * from hours_in_day " +
+                "where year_id = (select value from preferences where name='current_year_id')" +
+                "order by start_time");
+            gvHours.DataSource = dtHours;
+            gvHours.DataBind();
+            int nCurrentHour = 1;
+            int isBreak;
+            foreach (GridViewRow grCurrentRow in gvHours.Rows)
+            {
+                int.TryParse(grCurrentRow.Cells[3].Text, out isBreak);
+                if (isBreak == 1)
+                {
+                    grCurrentRow.Cells[0].Text = "הפסקה";
+                    ((CheckBox)grCurrentRow.FindControl("CheckIfBreak")).Checked = true;
+                }
+                else
+                {
+                    grCurrentRow.Cells[0].Text = nCurrentHour.ToString();
+                    nCurrentHour++;
+                }
+            }
+            gvHours.Columns[3].Visible = false;
 
         }
-        protected void SaveClick(object sender, EventArgs e)
+
+        protected void IsBreak_changed(object sender, EventArgs e)
+        {
+            CheckIfBreakNewHour = true;
+        }
+
+        protected void NotBreak_changed(object sender, EventArgs e)
+        {
+            CheckIfBreakNewHour = false;
+        }
+
+        protected void BtnSave_Click(object sender, EventArgs e)
         {
 
             //string fields = "hour_of_school_day,start_time,finish_time,is_break,year_id";
@@ -82,7 +115,13 @@ namespace ReshitScheduler
             //}
             //JoinYear.SelectedIndex = 0;
         }
-        protected void BackClick(object sender, EventArgs e)
+
+        protected void BtnSaveBellSystem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void BtnBack_Click(object sender, EventArgs e)
         {
             Response.Redirect("MainForm.aspx");
         }

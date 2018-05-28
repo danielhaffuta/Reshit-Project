@@ -32,6 +32,9 @@ namespace ReshitScheduler
             dtStudentEvaluations = DBConnection.Instance.GetStudentEvaluations(nStudentID);
             gvEvaluations.DataSource = dtStudentEvaluations;
             gvEvaluations.DataBind();
+            gvEvaluations.Columns[2].Visible = false;
+            gvEvaluations.Columns[3].Visible = false;
+            gvEvaluations.Columns[4].Visible = false;
         }
         protected void BtnBack_Click(object sender, EventArgs e)
         {

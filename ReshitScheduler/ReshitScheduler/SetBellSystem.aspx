@@ -7,26 +7,36 @@
         <div class="col-12 col-sm-6 text-center" >
             <asp:GridView ID="gvHours" runat="server" AutoGenerateColumns ="False" CssClass="table table-striped table-bordered table-sm">
                 <Columns>
-                    <asp:BoundField DataField="name" HeaderText="שעה ביום">
+                    <asp:TemplateField HeaderText="שעה ביום">
                     <HeaderStyle Font-Bold="True" />
-                    </asp:BoundField>
-                    <asp:TemplateField HeaderText="שעת התחלה">
+                        <ItemTemplate>
+                            <asp:TextBox ID="hour_in_day" runat="server"
+                                CssClass="form-control" AutoPostBack ="true"></asp:TextBox>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="שעת התחלה" >
                        <ItemTemplate>
-                        <asp:TextBox ID="tblStartTime" runat="server" Type="time" 
-                            CssClass="form-control" AutoPostBack ="true" OnTextChanged="tblStartTime_TextChanged" 
-                            ></asp:TextBox>
+                        <asp:TextBox ID="tblStartTime" runat="server" Type="time" Text='<%# Bind("start_time") %>'
+                            CssClass="form-control" AutoPostBack ="true"></asp:TextBox>
                        </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="שעת התחלה">
+                    <asp:TemplateField HeaderText="שעת סיום">
                        <ItemTemplate>
-                        <asp:TextBox ID="tblFinishTime" runat="server" Type="time" 
-                            CssClass="form-control" AutoPostBack ="true" OnTextChanged="tblFinishTime_TextChanged" 
-                            ></asp:TextBox>
+                        <asp:TextBox ID="tblFinishTime" runat="server" Type="time" Text='<%# Bind("finish_time") %>'
+                            CssClass="form-control" AutoPostBack ="true"></asp:TextBox>
+                       </ItemTemplate>
+                     </asp:TemplateField>
+                    <asp:BoundField DataField="is_break" HeaderText="הפסקה" Visible="true">
+                    </asp:BoundField>
+                    <asp:TemplateField HeaderText="האם הפסקה?">
+                       <ItemTemplate>
+                           <asp:CheckBox ID="CheckIfBreak" runat="server" CssClass="form-control" AutoPostBack ="true" Text="כן"/>
                        </ItemTemplate>
                      </asp:TemplateField>
                         
                 </Columns>
             </asp:GridView>
+             <button  runat="server"  onserverclick="BtnSaveBellSystem_Click" class="btn btn-outline-dark">שמור מערכת צלצולים</button>
         </div>
 
     </asp:Panel>
@@ -43,6 +53,18 @@
                 <asp:Label ID="End" runat="server" Text="סיום:" class="col-form-label col-sm-3 col-md-4"></asp:Label>
                 <asp:TextBox ID="EndTime" runat="server" Type="time"
                     CssClass="form-control col col-sm-9 col-md-8"></asp:TextBox><br /><br />
+            </div>
+            <div class="form-group  row">
+                <asp:Label ID="CheckGroup" runat="server" Text="האם זאת הפסקה?"
+                    CssClass="col-form-label col-sm-3 col-md-4"></asp:Label>
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                        <asp:RadioButton ID="IsBreak" runat="server" Text="כן" CssClass="form-check-input" GroupName="IfBreak"  OnCheckedChanged="IsBreak_changed"/>
+                    </label>
+                    <label class="form-check-label">
+                        <asp:RadioButton ID="NotBreak" runat="server" Text="לא" CssClass="form-check-input" GroupName="IfBreak" OnCheckedChanged="NotBreak_changed" />
+                    </label>
+                </div>
             </div>
             <div class="row justify-content-center btn-group-vertical">
                 <button  runat="server"  onserverclick="BtnSave_Click" class="btn btn-outline-dark">שמור</button>
