@@ -380,6 +380,7 @@
     <Compile Include="SetBellSystem.aspx.designer.cs">
       <DependentUpon>SetBellSystem.aspx</DependentUpon>
     </Compile>
+    <Compile Include="SMS.cs" />
     <Compile Include="StudentDetailsForm.aspx.cs">
       <DependentUpon>StudentDetailsForm.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
