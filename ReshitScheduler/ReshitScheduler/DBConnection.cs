@@ -203,6 +203,42 @@ namespace ReshitScheduler
             return true;
 
         }
+        public bool UpdateTableRow1(string strTableName, int nID, string strFields, string strValues)
+        {
+            this.Connect();
+
+            if (this.IsConnected)
+            {
+                string strQuery = "update " + strTableName + " set ";
+                string[] straFields = strFields.Split(',');
+                string[] straValues = strValues.Split(',');
+                if (straFields.Length != straValues.Length)
+                {
+                    return false;
+                }
+                for (int nCurrentFieldIndex = 0; nCurrentFieldIndex < straFields.Length; nCurrentFieldIndex++)
+                {
+                    strQuery += straFields[nCurrentFieldIndex] + " = " + straValues[nCurrentFieldIndex] + ",";
+
+                }
+                strQuery = strQuery.Remove(strQuery.Length - 1);
+                strQuery += " where id = " + nID;
+                try
+                {
+                    MySqlCommand command = new MySqlCommand(strQuery, this.connection);
+                    command.ExecuteNonQuery();
+                }
+                catch (MySqlException e)
+                {
+                    return false;
+                }
+
+            }
+
+            this.Close();
+            return true;
+
+        }
 
         public bool InsertTableRow(DataTable dtTable, GridViewRow gvrRowData)
         {
@@ -715,6 +751,19 @@ namespace ReshitScheduler
         public string GetSemester()
         {
             return this.GetStringByQuery("select value from preferences where name = 'current_semester_number'");
+        }
+
+        public DataTable GetHoursDetails()
+        {
+            return this.GetDataTableByQuery("select * from hours_in_day " +
+                "where year_id = (select value from preferences where name='current_year_id')" +
+                "order by start_time");
+        }
+
+        public string GetHourOfSchoolDay()
+        {
+            return this.GetStringByQuery("select max(hour_of_school_day) from hours_in_day" + 
+                " where year_id = (select value from preferences where name='current_year_id')");
         }
     }
 }
