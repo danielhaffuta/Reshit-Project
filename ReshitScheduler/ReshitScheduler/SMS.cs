@@ -13,8 +13,9 @@ namespace ReshitScheduler
         private string strCoureName;
         private string strGroupName;
         private string strDay;
+        private int nStudentScheduleID;
 
-        public string phoneNumber
+        public string PhoneNumber
         {
             set { strPhoneNumber = value; }
             get { return strPhoneNumber; }
@@ -46,5 +47,17 @@ namespace ReshitScheduler
             get { return strDay; }
         }
 
+        public int StudentScheduleID
+        {
+            get
+            {
+                return nStudentScheduleID;
+            }
+
+            set
+            {
+                nStudentScheduleID = value;
+            }
+        }
     }
 }
