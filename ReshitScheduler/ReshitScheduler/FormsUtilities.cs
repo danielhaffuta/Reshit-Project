@@ -2,11 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Web;
 using System.Web.UI.WebControls;
+using System.Xml;
 
 namespace ReshitScheduler
 {
@@ -305,37 +307,16 @@ namespace ReshitScheduler
         }
 
 
-        public static void GenereteSMS()
-        {
-            String url = "https://019sms.co.il/api";
-            //String testUrl = "https://www.019sms.co.il:8090/api/test";
-            string xml = @"<?xml version='1.0' encoding='UTF-8'?><sms><user><username>019sms</username><password>050618</password>
-                </user><source>Reshit</source><destinations><phone>0546691913</phone></destinations>
-                <message>האם אתה מוכן שבנך יצטרף לקורס סיתות?</message>
-                <response>1</response></sms>";
-            WebRequest webRequest = WebRequest.Create(url);
-            webRequest.Method = "POST";
-            byte[] bytes = Encoding.UTF8.GetBytes(xml);
-            webRequest.ContentType = "application/xml";
-            webRequest.ContentLength = (long)bytes.Length;
-            Stream requestStream = webRequest.GetRequestStream();
-            requestStream.Write(bytes, 0, bytes.Length);
-            requestStream.Close();
-            WebResponse response = webRequest.GetResponse();
-            Stream responseStream = response.GetResponseStream();
-            StreamReader streamReader = new StreamReader(responseStream);
-            string result = streamReader.ReadToEnd();
-            streamReader.Close();
-            responseStream.Close();
-            response.Close();
-            Console.WriteLine(result);
-        }
+   
         public static void GetResponseSMS()
         {
             String url = "https://019sms.co.il/api";
+            DataTable dtLastDateSent = DBConnection.Instance.GetDataTableByQuery("select value from prefernces where name = last send date");
+            string strLastDateSent = (string)dtLastDateSent.Rows[0]["value"];
+
             //String testUrl = "https://www.019sms.co.il:8090/api/test";
             string xml = @"<?xml version='1.0' encoding='UTF-8'?><incoming><user><username>019sms</username><password>050618</password></user>
-                            <from>28/05/18 00:00</from><to>30/05/18 00:00</to></incoming>";
+                            <from>"+strLastDateSent+"</from><to>"+DateTime.Now.ToString("dd/mm/yy hh:mm")+"</to></incoming>";
 
             WebRequest webRequest = WebRequest.Create(url);
             webRequest.Method = "POST";
@@ -352,7 +333,26 @@ namespace ReshitScheduler
             streamReader.Close();
             responseStream.Close();
             response.Close();
-            Console.WriteLine(result);
+            checkResult(result);
+            
+        }
+
+        private static void checkResult(string result)
+        {
+            XmlDocument xmlResponse = new XmlDocument();
+            xmlResponse.LoadXml(result);
+            XmlNodeList allResponse = xmlResponse.GetElementsByTagName("transaction");
+            foreach (XmlElement item in allResponse)
+            {
+                string phoneNumber = item.ChildNodes.Item(0).InnerText.Replace("972","0");
+                string messege = item.ChildNodes.Item(2).InnerText;
+                if (messege.Contains("כן"))
+                {
+                    
+                    string updateQuery = "select id from students where replace(father_cellphone,'-','')='" + phoneNumber + "' or replace(mother_cellphone,'','')='" + phoneNumber + "'";
+
+                }
+            }
         }
 
     }
