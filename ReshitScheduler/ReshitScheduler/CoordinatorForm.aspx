@@ -32,6 +32,7 @@
      <div class="form-row justify-content-center mt-3">
         <button  runat="server"  onserverclick="BtnBack_Click" class="btn btn-outline-dark">חזור</button>
         <button  runat="server"  onserverclick="BtnLogout_Click" class="btn btn-outline-dark">התנתק</button>
+        <button  runat="server"  onserverclick="BtnIncreaseSemester_Click" class="btn btn-outline-dark">מעבר מחצית</button>
         <asp:Button ID="btnConfirm" CssClass="btn btn-outline-dark" runat="server" OnClick = "BtnIncreaseYear" Text = "מעבר שנה" OnClientClick = "Confirm()"/>
     </div>
 </asp:Content>

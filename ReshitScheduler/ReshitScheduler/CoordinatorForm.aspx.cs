@@ -107,6 +107,12 @@ namespace ReshitScheduler
             Response.Redirect("LoginForm.aspx");
 
         }
+
+        protected void BtnIncreaseSemester_Click(object sender, EventArgs e)
+        {
+            Helper.ShowMessage(ClientScript, "מבצע מעבר למחצית שניה של השנה");
+            DBConnection.Instance.IncreaseSemester();
+        }
     }
 
 }

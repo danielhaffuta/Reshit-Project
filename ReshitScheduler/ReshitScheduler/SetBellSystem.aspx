@@ -7,32 +7,29 @@
         <div class="col-12 col-sm-6 text-center" >
             <asp:GridView ID="gvHours" runat="server" AutoGenerateColumns ="False" CssClass="table table-striped table-bordered table-sm">
                 <Columns>
-                    <asp:TemplateField HeaderText="שעה ביום">
-                    <HeaderStyle Font-Bold="True" />
-                        <ItemTemplate>
-                            <asp:TextBox ID="hour_in_day" runat="server"
-                                CssClass="form-control" AutoPostBack ="true"></asp:TextBox>
-                        </ItemTemplate>
-                    </asp:TemplateField>
+                    <asp:BoundField HeaderText="שעה ביום">
+                    </asp:BoundField>
                     <asp:TemplateField HeaderText="שעת התחלה" >
                        <ItemTemplate>
                         <asp:TextBox ID="tblStartTime" runat="server" Type="time" Text='<%# Bind("start_time") %>'
-                            CssClass="form-control" AutoPostBack ="true"></asp:TextBox>
+                            CssClass="form-control"></asp:TextBox>
                        </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="שעת סיום">
                        <ItemTemplate>
                         <asp:TextBox ID="tblFinishTime" runat="server" Type="time" Text='<%# Bind("finish_time") %>'
-                            CssClass="form-control" AutoPostBack ="true"></asp:TextBox>
+                            CssClass="form-control"></asp:TextBox>
                        </ItemTemplate>
                      </asp:TemplateField>
-                    <asp:BoundField DataField="is_break" HeaderText="הפסקה" Visible="true">
+                    <asp:BoundField DataField="is_break" HeaderText="הפסקה">
                     </asp:BoundField>
                     <asp:TemplateField HeaderText="האם הפסקה?">
                        <ItemTemplate>
-                           <asp:CheckBox ID="CheckIfBreak" runat="server" CssClass="form-control" AutoPostBack ="true" Text="כן"/>
+                           <asp:CheckBox ID="CheckIfBreak" runat="server" CssClass="form-control"  Text="כן"/>
                        </ItemTemplate>
                      </asp:TemplateField>
+                    <asp:BoundField DataField="id">
+                    </asp:BoundField>
                         
                 </Columns>
             </asp:GridView>
@@ -62,7 +59,8 @@
                         <asp:RadioButton ID="IsBreak" runat="server" Text="כן" CssClass="form-check-input" GroupName="IfBreak"  OnCheckedChanged="IsBreak_changed"/>
                     </label>
                     <label class="form-check-label">
-                        <asp:RadioButton ID="NotBreak" runat="server" Text="לא" CssClass="form-check-input" GroupName="IfBreak" OnCheckedChanged="NotBreak_changed" />
+                        <asp:RadioButton ID="NotBreak" runat="server" Text="לא" CssClass="form-check-input" GroupName="IfBreak"
+                            checked ="true" OnCheckedChanged="NotBreak_changed" />
                     </label>
                 </div>
             </div>
