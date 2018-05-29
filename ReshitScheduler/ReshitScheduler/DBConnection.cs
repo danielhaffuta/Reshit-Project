@@ -446,6 +446,10 @@ namespace ReshitScheduler
 
                 command.ExecuteNonQuery();
 
+                command = new MySqlCommand("update preferences set value = '1' where name = 'current_semester_number'", this.connection);
+
+                command.ExecuteNonQuery();
+
                 command = new MySqlCommand("insert into teachers(first_name,last_name,teacher_type_id,user_name,password,year_id)" +
                                            " select first_name, last_name, teacher_type_id, user_name, password, " + (nCurrentYearID + 1) + 
                                            " from teachers where year_id = " + nCurrentYearID, this.connection);
@@ -760,10 +764,23 @@ namespace ReshitScheduler
                 "order by start_time");
         }
 
-        public string GetHourOfSchoolDay()
+        public string GetMaxHourOfSchoolDay()
         {
             return this.GetStringByQuery("select max(hour_of_school_day) from hours_in_day" + 
                 " where year_id = (select value from preferences where name='current_year_id')");
+        }
+
+        public void IncreaseSemester()
+        {
+            this.Connect();
+
+            if (this.IsConnected)
+            {
+                MySqlCommand command = new MySqlCommand("update preferences set value = '2' where name = 'current_semester_number'", this.connection);
+
+                command.ExecuteNonQuery();
+            }
+            this.Close();
         }
     }
 }

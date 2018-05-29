@@ -67,7 +67,7 @@ namespace ReshitScheduler
         protected void BtnSave_Click(object sender, EventArgs e)
         {
             string fields = "hour_of_school_day,start_time,finish_time,is_break,year_id";
-            int hour_of_school_day = Convert.ToInt32(DBConnection.Instance.GetHourOfSchoolDay()) + 1;
+            int hour_of_school_day = Convert.ToInt32(DBConnection.Instance.GetMaxHourOfSchoolDay()) + 1;
             string values = hour_of_school_day + "," +
                             "'" + StartTime.Text + "'," +
                             "'" + EndTime.Text + "',";
