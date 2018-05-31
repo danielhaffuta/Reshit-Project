@@ -44,7 +44,6 @@
 
             <div class="form-row justify-content-center btn-group-vertical">
                 <button id="BtnUpdateTeacher" runat="server" onserverclick="BtnUpdateTeacher_Click" class="btn btn-outline-dark">שמור</button>
-                <button  runat="server" onserverclick="BtnBack_Click" class="btn btn-outline-dark">חזור</button>
             </div>
          </div>
     </div>

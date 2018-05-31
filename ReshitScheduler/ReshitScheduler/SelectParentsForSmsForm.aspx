@@ -5,8 +5,11 @@
 
     <fieldset >
         <legend>בחר הורה לשליחת SMS</legend>
-        <div class="form-group" runat="server" id="pnlStudents">    
+        <div class="form-group form-row" runat="server" id="pnlStudents">    
             
         </div>
     </fieldset>
+    <div class="form-row justify-content-center">
+        <button  runat="server"  onserverclick="btnSend_Click" class="btn btn-outline-dark">שלח</button>
+    </div>
 </asp:Content>

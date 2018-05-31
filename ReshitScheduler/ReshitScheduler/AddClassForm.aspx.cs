@@ -53,7 +53,7 @@ namespace ReshitScheduler
         protected void BtnAddClass_Click(object sender, EventArgs e)
         {
             int nGradeID = Convert.ToInt32(ddlGrades.SelectedValue);
-            int nClassNumber = Convert.ToInt32(txtStudentFirstName.Text);
+            int nClassNumber = Convert.ToInt32(txtClassNumber.Text);
             int nTeacherID = Convert.ToInt32(ddlTeachers.SelectedValue);
             DataTable dtClassCheck = DBConnection.Instance.GetThisYearClassesDetails();
             if (dtClassCheck.Select("grade_id = " + nGradeID + " AND class_number = " + nClassNumber).Count() > 0)

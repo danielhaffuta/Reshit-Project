@@ -1,10 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="EditStudentDetailsForm.aspx.cs" Inherits="ReshitScheduler.EditStudentDetailsForm" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
-<asp:Content ID="Content3" ContentPlaceHolderID="navbar" runat="server">
-
+<asp:Content ID="Content3" ContentPlaceHolderID="navbar_extra" runat="server">
     <a class="nav-item nav-link" runat="server" onserverclick="BtnSave_Click">שמור</a>
-
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainForm" runat="server">
     <img class="figure-img img-fluid" src="<%=drStudentDetails["picture_path"] %>" width="350"/><br />
@@ -36,7 +34,7 @@
                 </div>
                 <div class="col-12 col-sm-6 border rounded form-group">
                     <label for="parents_email" class="form-control-label">אי-מייל : </label>
-                    <input id="parents_email" runat="server" type="text" class ="form-control mb-1"/>
+                    <textarea id="parents_email" runat="server" rows="2"  class ="form-control mb-1"></textarea>
                 </div>
                 <div class="col-12 col-sm-6 border rounded form-group">
                     <label for="settlement" class="form-control-label">יישוב : </label>
@@ -46,8 +44,5 @@
             </div>
         </div>
     </div>
-    <div class="form-row justify-content-center btn-group-vertical">
-        <button  runat="server"  onserverclick="BtnBack_Click" class="btn btn-outline-dark">חזור</button>
-        <button  runat="server"  onserverclick="BtnSave_Click" class="btn btn-outline-dark">שמור</button>
-    </div>
+
 </asp:Content>

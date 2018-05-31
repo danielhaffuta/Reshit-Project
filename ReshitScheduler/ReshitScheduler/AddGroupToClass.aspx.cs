@@ -11,33 +11,21 @@ namespace ReshitScheduler
 {
     public partial class AddGroupToClass : BasePage
     {
-        private int nClassID, nHourId, nDayId, nGroupId;
 
+        private List<int> lstOldSelectedStudentsIDs = new List<int>();
 
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
-            if (Request.QueryString["IDs"] == null)
-            {
-                nClassID = 5;
-                nHourId = 1;
-                nDayId = 1;
-                nGroupId = 2;
-            }
-            else
-            {
-                string[] strIDs = Request.QueryString["IDs"].Split('-');
-                nClassID = Convert.ToInt32(strIDs[0]);
-                nHourId = Convert.ToInt32(strIDs[1]);
-                nDayId = Convert.ToInt32(strIDs[2]);
-                nGroupId = Convert.ToInt32(strIDs[3]);
-            }
             if (!IsPostBack)
             {
-
-                string strGroupsQuery = DBConnection.Instance.GetDisplayQuery("Groups");
-
+                //string strGroupsQuery = DBConnection.Instance.GetDisplayQuery("Groups");
+                string strGroupsQuery =
+                " select groups.id as group_id, groups.group_name as name, " +
+                " concat(teachers.first_name, ' ', teachers.last_name) as teacher_name,group_goal" +
+                " from groups " +
+                " inner join teachers on teachers.id = groups.teacher_id " +
+                " inner join years on years.id = teachers.year_id";
                 strGroupsQuery += " where groups.teacher_id not in " +
                                         " (select distinct(teacher_id) from classes_schedule " +
                                         " inner join courses on courses.id = classes_schedule.course_id "+
@@ -58,7 +46,9 @@ namespace ReshitScheduler
                                         " and students_schedule.hour_id = " + nHourId + ")";
                 if (nGroupId != 0)
                 {
-                    strGroupsQuery += " or  groups.id =" + nGroupId;
+                    strGroupsQuery += " or groups.id =" + nGroupId;
+                    strGroupsQuery += " or groups.teacher_id =(select teacher_id from groups where id = " + nGroupId +")";
+                    GroupsList.Enabled = false;
                 }
 
                 strGroupsQuery += " and teachers.year_id = " + nYearID + ";";
@@ -87,7 +77,8 @@ namespace ReshitScheduler
                 //string test = "SELECT * FROM groups";
                 //DataTable testTable = DBConnection.Instance.GetDataTableByQuery(test);
             }
-                this.AddStudents();
+            this.AddStudents();
+            HideNavBar();
         }
 
         private void AddStudents()
@@ -95,21 +86,30 @@ namespace ReshitScheduler
             string strStudentsDisplayQuery = DBConnection.Instance.GetDisplayQuery("students");
             strStudentsDisplayQuery += " inner join students_classes on students_classes.student_id = students.id";
 
-            DataTable dtClassStudent = DBConnection.Instance.GetDataTableByQuery(strStudentsDisplayQuery + " where students_classes.class_id = " + nClassID+
+            DataTable dtClassStudent = DBConnection.Instance.GetDataTableByQuery(strStudentsDisplayQuery + " where students_classes.class_id = " + nClassID +
                                                                                 " order by name");
-            DataTable dtSelectedStudents = DBConnection.Instance.GetDataTableByQuery(strStudentsDisplayQuery +
-                " inner join students_schedule on students_schedule.student_id = students.id" +
-                " where students_classes.class_id = " + nClassID +
-                " and students_schedule.group_id = " + nGroupId+
-                " and students_schedule.hour_id = " + nHourId+
-                " and students_schedule.day_id = " + nDayId);
-
+            DataTable dtSelectedStudents = null;
+            if (nGroupId != 0)
+            {
+                dtSelectedStudents = DBConnection.Instance.GetDataTableByQuery(
+                      " select  distinct(students.id), approval_status_id, concat(first_name, ' ', last_name) as name" +
+                      " from students " +
+                      " inner join students_classes on students_classes.student_id = students.id " +
+                      " inner join students_schedule on students_schedule.student_id = students.id" +
+                      " where students_classes.class_id = " + nClassID +
+                      " and students_schedule.group_id = " + nGroupId +
+                      " and students_schedule.hour_id = " + nHourId +
+                      " and students_schedule.day_id = " + nDayId);
+            }
             DataTable dtDisabledStudents = DBConnection.Instance.GetDataTableByQuery(strStudentsDisplayQuery +
                 " inner join students_schedule on students_schedule.student_id = students.id" +
                 " where students_classes.class_id = " + nClassID +
                 " and students_schedule.group_id <> " + nGroupId +
                 " and students_schedule.hour_id = " + nHourId +
-                " and students_schedule.day_id = " + nDayId);
+                " and students_schedule.day_id = " + nDayId +
+                " or (students_schedule.approval_status_id = 1" +
+                    " and(students_schedule.hour_id <> " + nHourId +
+                        " or students_schedule.day_id <> " + nDayId + "))");
 
             int nCurrentStudentNumber = 0;
             
@@ -119,26 +119,122 @@ namespace ReshitScheduler
                 {
                     Text = drCurrentStudent["name"].ToString(),
                     ID = drCurrentStudent["id"].ToString(),
-                    CssClass = "form-control col col-sm-6 col-md-4 col-lg-3 col-xl-2 d-inline-flex justify-content-center align-items-center",
+                    CssClass = "form-control col col-sm-6 col-md-4 col-lg-3 col-xl-2 d-inline-flex justify-content-start align-items-right",
                     AutoPostBack = true
                 };
-                if(nGroupId != 0 && dtSelectedStudents.Select("id = " + drCurrentStudent["id"]).Count()>0)
+                
+                if (nGroupId != 0 && dtSelectedStudents.Select("id = " + drCurrentStudent["id"]).Count() > 0)
                 {
+                    lstOldSelectedStudentsIDs.Add(Convert.ToInt32(drCurrentStudent["id"]));
                     cbStudentCheckBox.Checked = true;
+                    switch (dtSelectedStudents.Select("id = " + drCurrentStudent["id"])[0]["approval_status_id"].ToString())
+                    {
+                        case "2":
+                            cbStudentCheckBox.CssClass += " bg-success";
+                            break;
+                        case "3":
+                            cbStudentCheckBox.CssClass += " bg-danger";
+                            break;
+                        default:
+                            break;
+                    }
                 }
                 if (dtDisabledStudents.Select("id = " + drCurrentStudent["id"]).Count() > 0)
                 {
-                    cbStudentCheckBox.Enabled = false;
                     cbStudentCheckBox.ToolTip = "נמצא בקבוצה אחרת";
+                    cbStudentCheckBox.Enabled = false;
                 }
-
+                
                 StudentsCol.Controls.Add(cbStudentCheckBox);
                 nCurrentStudentNumber++;
             }
         }
 
-
         protected void btnSave_Click(object sender, EventArgs e)
+        {
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            DataRow drScheduleDetails = DBConnection.Instance.GetScheduleDetails(nDayId, nHourId, nClassID, nGroupId);
+
+
+
+            string strInsertCommand = "insert into students_schedule(day_id, hour_id, group_id, student_id, approval_status_id) values ";
+            bool bIsGroupEmpty = true;
+            //List<int> lstNewSelectedStudentsIDs = new List<int>();
+            List<int> lstCurrentlySelectedStudentsIDs = new List<int>();
+            List<SMS> lstStudentsSMS = new List<SMS>();
+
+            foreach (Control ctrlCurrentControl in StudentsCol.Controls)
+            {
+                if (ctrlCurrentControl is CheckBox && (ctrlCurrentControl as CheckBox).Checked)
+                {
+                    lstCurrentlySelectedStudentsIDs.Add(Convert.ToInt32(ctrlCurrentControl.ID));
+                    if (!lstOldSelectedStudentsIDs.Contains(Convert.ToInt32(ctrlCurrentControl.ID)))
+                    {
+                        bIsGroupEmpty = false;
+                        //lstNewSelectedStudentsIDs.Add(Convert.ToInt32(ctrlCurrentControl.ID));
+                        SMS sms = new SMS()
+                        {
+                            StudentID = Convert.ToInt32(ctrlCurrentControl.ID),
+                            Day = nDayId,
+                            GroupName = GroupsList.SelectedItem.Text,
+                            CourseName = drScheduleDetails["course_name"].ToString(),
+                            StudentName = (ctrlCurrentControl as CheckBox).Text
+                        };
+                        lstStudentsSMS.Add(sms);
+                        strInsertCommand += "(" + nDayId + "," + nHourId + "," + GroupsList.SelectedValue + "," + ctrlCurrentControl.ID + ",1),";
+                    }
+                }
+            }
+            if (nGroupId != 0)
+            {
+                string strDeleteCommand = " delete students_schedule from students_schedule" +
+                                        " where day_id = " + nDayId +
+                                        " and hour_id = " + nHourId +
+                                        " and group_id = " + nGroupId +
+                                        " and student_id in (" + string.Join(",", lstOldSelectedStudentsIDs) + ")" +
+                                         (lstCurrentlySelectedStudentsIDs.Count >0? " and student_id not in (" + string.Join(",", lstCurrentlySelectedStudentsIDs) + ")":"");
+                DBConnection.Instance.ExecuteNonQuery(strDeleteCommand);
+            }
+            if (!bIsGroupEmpty)
+            {
+
+                strInsertCommand = strInsertCommand.Remove(strInsertCommand.Length - 1);
+                DBConnection.Instance.ExecuteNonQuery(strInsertCommand);
+                Session["lstSelectedStudents"] = lstStudentsSMS;
+                Response.Redirect("SelectParentsForSmsForm.aspx");
+            }
+            GoBack();
+        }
+
+
+
+        protected void btnSave_Click1(object sender, EventArgs e)
         {
             string strDeleteCommand = " delete students_schedule from students_schedule" +
                                       " inner join students_classes on students_classes.student_id = students_schedule.student_id" + 
@@ -148,7 +244,7 @@ namespace ReshitScheduler
                                       " and students_classes.class_id = " + nClassID;
             DBConnection.Instance.ExecuteNonQuery(strDeleteCommand);
 
-            string strInsertCommand = "insert into students_schedule(day_id,hour_id,group_id,student_id) values ";
+            string strInsertCommand = "insert into students_schedule(day_id, hour_id, group_id, student_id, approval_status_id) values ";
             bool bIsGroupEmpty = true;
             List<int> lstSelectedStudentsIDs = new List<int>();
             foreach (Control ctrlCurrentControl in StudentsCol.Controls)
@@ -157,7 +253,7 @@ namespace ReshitScheduler
                 {
                     bIsGroupEmpty = false;
                     lstSelectedStudentsIDs.Add(Convert.ToInt32(ctrlCurrentControl.ID));
-                    strInsertCommand += "(" + nDayId + "," + nHourId + "," + GroupsList.SelectedValue + "," + ctrlCurrentControl.ID + "),";
+                    strInsertCommand += "(" + nDayId + "," + nHourId + "," + GroupsList.SelectedValue + "," + ctrlCurrentControl.ID + ",1),";
                 }
             }
             if (!bIsGroupEmpty)
@@ -165,8 +261,8 @@ namespace ReshitScheduler
                 
                 strInsertCommand = strInsertCommand.Remove(strInsertCommand.Length - 1);
                 DBConnection.Instance.ExecuteNonQuery(strInsertCommand);
-                //Session["lstSelectedStudentsIDs"] = lstSelectedStudentsIDs;
-                //Response.Redirect("SelectParentsForSmsForm.aspx");
+                Session["lstSelectedStudentsIDs"] = lstSelectedStudentsIDs;
+                Response.Redirect("SelectParentsForSmsForm.aspx");
             }
             GoBack();
         }

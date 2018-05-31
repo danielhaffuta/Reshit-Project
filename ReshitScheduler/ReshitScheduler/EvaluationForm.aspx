@@ -12,7 +12,6 @@
 
     <div class="form-row justify-content-center">
         <button  runat="server"  onserverclick="BtnSave_Click" class="btn btn-outline-dark">שמור</button>
-        <button  runat="server"  onserverclick="BtnBack_Click" class="btn btn-outline-dark">חזור</button>
     </div>
 </asp:Content>
 

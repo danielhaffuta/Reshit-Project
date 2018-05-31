@@ -13,20 +13,7 @@ namespace ReshitScheduler
     public partial class LessonForm : BasePage
     {
 
-        /// <summary>
-        /// This script sets a focus to the control with a name to which
-        /// REQUEST_LASTFOCUS was replaced. Setting focus heppens after the page
-        /// (or update panel) was rendered. To delay setting focus the function
-        /// window.setTimeout() will be used.
-        /// </summary>
-        private const string SCRIPT_DOFOCUS =
-              @"window.setTimeout('DoFocus()', 1);
-            function DoFocus()
-            {
-                try {
-                    document.getElementById('REQUEST_LASTFOCUS').focus();
-                } catch (ex) {}
-            }";
+
 
 
         protected DataRow drLessonDetails;
@@ -34,7 +21,6 @@ namespace ReshitScheduler
         protected DataTable dtStudents;
 
         private int nLessonID;
-        private int nClassID;
 
         private bool IsGroup;
         protected void Page_Load(object sender, EventArgs e)
@@ -50,7 +36,7 @@ namespace ReshitScheduler
                 nLessonID = Convert.ToInt32(Request.QueryString["CourseID"]?.ToString() ?? "14");
                 IsGroup = false;
             }
-            nClassID = Convert.ToInt32(Request.QueryString["ClassID"]?.ToString() ?? "5");
+            //nClassID = Convert.ToInt32(Request.QueryString["ClassID"]?.ToString() ?? "5");
             if (IsGroup)
             {
                 drLessonDetails = DBConnection.Instance.GetDataTableByQuery("select id,group_name,teacher_id from groups where id = " + nLessonID).Rows[0];
@@ -79,7 +65,12 @@ namespace ReshitScheduler
         private void FillClasses()
         {
             LoadStudents();
-
+            if (dtStudents.Rows.Count == 0)
+            {
+                pnlNoStudentsMsg.Visible = true;
+                divClasses.Visible = false;
+                return;
+            }
             dtClasses = new DataView(dtStudents).ToTable(true, "class_id","class");
             ddlClassesList.DataSource = dtClasses;
             ddlClassesList.DataBind();
@@ -95,13 +86,19 @@ namespace ReshitScheduler
             {
                 dtStudents = DBConnection.Instance.GetCourseEvaluations(nLessonID);
             }
+
         }
 
 
         private void FillStudentsEvaluations()
         {
             LoadStudents();
-
+            if (dtStudents.Rows.Count == 0)
+            {
+                pnlNoStudentsMsg.Visible = true;
+                divClasses.Visible = false;
+                return;
+            }
             gvStudents.DataSource = dtStudents.Select("class_id = " + ddlClassesList.SelectedValue).CopyToDataTable();
             gvStudents.DataBind();
             if(gvStudents.Rows.Count==0)

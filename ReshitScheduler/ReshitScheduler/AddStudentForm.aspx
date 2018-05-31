@@ -14,48 +14,7 @@
         </div>
     </div>
 
-    <asp:Panel runat="server" ID="pnlStudents" CssClass="row justify-content-center mt-3">
-        <div class="col text-center" >
-            <asp:Panel runat="server" CssClass="border" ID="pnlNoStudentsMsg"><h2>אין תלמידים בכיתה</h2></asp:Panel>
-            <asp:GridView ID="gvStudents" runat="server" AutoGenerateColumns ="False" CssClass="table table-striped table-bordered">
-                <Columns>
-                    
-                    <asp:HyperLinkField DataNavigateUrlFields="student_id" 
-                        DataNavigateUrlFormatString="StudentDetailsForm.aspx?StudentID={0}"
-                         DataTextField="name" HeaderText="שם תלמיד">
-                    <HeaderStyle Font-Bold="True" />
-                    </asp:HyperLinkField>
-                    <asp:ImageField DataImageUrlField="picture_path" HeaderText="תמונה">
-                        <ControlStyle Width="100px" />
-                    </asp:ImageField>
-                    <asp:BoundField DataField="father_full_name" HeaderText="שם האב">
-                    <HeaderStyle Font-Bold="True" />
-                    </asp:BoundField>
-                    <asp:BoundField DataField="mother_full_name" HeaderText="שם האם">
-                    <HeaderStyle Font-Bold="True" />
-                    </asp:BoundField>
-                    <asp:BoundField DataField="father_cellphone" HeaderText="טלפון האב">
-                    <HeaderStyle Font-Bold="True" />
-                    </asp:BoundField>
-                    <asp:BoundField DataField="mother_cellphone" HeaderText="טלפון האם">
-                    <HeaderStyle Font-Bold="True" />
-                    </asp:BoundField>
-                    <asp:BoundField DataField="home_phone" HeaderText="טלפון בבית">
-                    <HeaderStyle Font-Bold="True" />
-                    </asp:BoundField>
-                    <asp:BoundField DataField="parents_email" HeaderText="אי-מייל">
-                    <HeaderStyle Font-Bold="True" />
-                    </asp:BoundField>
-                    <asp:BoundField DataField="settlement" HeaderText="יישוב">
-                    <HeaderStyle Font-Bold="True" />
-                    </asp:BoundField>
-                        
-                        
-                </Columns>
-            </asp:GridView>
-        </div>
 
-    </asp:Panel>
     <div class="row justify-content-center mt-3 ">
         <div class="col col-sm-6  border mb-2 pl-4" >
             <h2>הוספת תלמיד חדש</h2>
@@ -103,9 +62,52 @@
 
             <div class="form-row justify-content-center btn-group-vertical">
                 <button  runat="server" onserverclick="BtnAddStudent_Click" class="btn btn-outline-dark">הוסף תלמיד</button>
-                <button  runat="server" onserverclick="BtnBack_Click" class="btn btn-outline-dark">חזור</button>
             </div>
          </div>
     </div>
+
+    <asp:Panel runat="server" ID="pnlStudents" CssClass="row justify-content-center mt-3">
+        <div class="col text-center" >
+            <asp:Panel runat="server" CssClass="border" ID="pnlNoStudentsMsg"><h2>אין תלמידים בכיתה</h2></asp:Panel>
+            <asp:GridView ID="gvStudents" runat="server" AutoGenerateColumns ="False" CssClass="table table-striped table-bordered">
+                <Columns>
+                    
+                    <asp:HyperLinkField DataNavigateUrlFields="student_id" 
+                        DataNavigateUrlFormatString="StudentDetailsForm.aspx?StudentID={0}"
+                         DataTextField="name" HeaderText="שם תלמיד">
+                    <HeaderStyle Font-Bold="True" />
+                    </asp:HyperLinkField>
+                    <asp:ImageField DataImageUrlField="picture_path" HeaderText="תמונה">
+                        <ControlStyle Width="100px" />
+                    </asp:ImageField>
+                    <asp:BoundField DataField="father_full_name" HeaderText="שם האב">
+                    <HeaderStyle Font-Bold="True" />
+                    </asp:BoundField>
+                    <asp:BoundField DataField="mother_full_name" HeaderText="שם האם">
+                    <HeaderStyle Font-Bold="True" />
+                    </asp:BoundField>
+                    <asp:BoundField DataField="father_cellphone" HeaderText="טלפון האב">
+                    <HeaderStyle Font-Bold="True" />
+                    </asp:BoundField>
+                    <asp:BoundField DataField="mother_cellphone" HeaderText="טלפון האם">
+                    <HeaderStyle Font-Bold="True" />
+                    </asp:BoundField>
+                    <asp:BoundField DataField="home_phone" HeaderText="טלפון בבית">
+                    <HeaderStyle Font-Bold="True" />
+                    </asp:BoundField>
+                    <asp:BoundField DataField="parents_email" HeaderText="אי-מייל">
+                    <HeaderStyle Font-Bold="True" />
+                    </asp:BoundField>
+                    <asp:BoundField DataField="settlement" HeaderText="יישוב">
+                    <HeaderStyle Font-Bold="True" />
+                    </asp:BoundField>
+                        
+                        
+                </Columns>
+            </asp:GridView>
+        </div>
+
+    </asp:Panel>
+    
 </asp:Content>
 

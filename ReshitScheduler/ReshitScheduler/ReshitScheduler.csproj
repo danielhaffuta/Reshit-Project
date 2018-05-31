@@ -80,6 +80,7 @@
     <Content Include="css\Course.css" />
     <Content Include="css\Evaluation.css" />
     <Content Include="css\GridView.css" />
+    <Content Include="css\LessonForm.css" />
     <Content Include="css\page.css" />
     <Content Include="css\Student.css" />
     <Content Include="css\Teacher.css" />
@@ -175,6 +176,7 @@
     <Content Include="PrintStudentEvaluations.aspx" />
     <Content Include="SelectParentsForSmsForm.aspx" />
     <Content Include="SetBellSystem.aspx" />
+    <Content Include="SpecialFunctionsForm.aspx" />
     <Content Include="StudentDetailsForm.aspx" />
     <Content Include="TableEdit.aspx" />
     <Content Include="TeacherClassesForm.aspx" />
@@ -381,6 +383,13 @@
       <DependentUpon>SetBellSystem.aspx</DependentUpon>
     </Compile>
     <Compile Include="SMS.cs" />
+    <Compile Include="SpecialFunctionsForm.aspx.cs">
+      <DependentUpon>SpecialFunctionsForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SpecialFunctionsForm.aspx.designer.cs">
+      <DependentUpon>SpecialFunctionsForm.aspx</DependentUpon>
+    </Compile>
     <Compile Include="StudentDetailsForm.aspx.cs">
       <DependentUpon>StudentDetailsForm.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

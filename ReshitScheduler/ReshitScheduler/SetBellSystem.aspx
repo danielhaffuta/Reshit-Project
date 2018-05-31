@@ -25,7 +25,7 @@
                     </asp:BoundField>
                     <asp:TemplateField HeaderText="האם הפסקה?">
                        <ItemTemplate>
-                           <asp:CheckBox ID="CheckIfBreak" runat="server" CssClass="form-control"  Text="כן"/>
+                           <asp:CheckBox ID="CheckIfBreak" runat="server" CssClass="form-control-check"  Text="כן"/>
                        </ItemTemplate>
                      </asp:TemplateField>
                     <asp:BoundField DataField="id">
@@ -66,7 +66,6 @@
             </div>
             <div class="row justify-content-center btn-group-vertical">
                 <button  runat="server"  onserverclick="BtnSave_Click" class="btn btn-outline-dark">שמור</button>
-                <button  runat="server"  onserverclick="BtnBack_Click" class="btn btn-outline-dark">חזור</button>
             </div>
         </div>
     </div>

@@ -30,7 +30,7 @@
             </div>
             <div class="form-group form-inline row">
                 <label class="col-form-label col-sm-3 col-md-4">מספר כיתה:</label>
-                <asp:TextBox id="txtStudentFirstName" TextMode="Number"  min="1" max="10" step="1"  runat="server" 
+                <asp:TextBox id="txtClassNumber" TextMode="Number"  min="1" max="10" step="1"  runat="server" 
                              CssClass="form-control col col-sm-9 col-md-8"></asp:TextBox>
             </div>
             <div class="form-group form-inline row">
@@ -40,7 +40,6 @@
             </div>
             <div class="form-row justify-content-center btn-group-vertical">
                 <button  runat="server" onserverclick="BtnAddClass_Click" class="btn btn-outline-dark">הוסף כיתה</button>
-                <button  runat="server" onserverclick="BtnBack_Click" class="btn btn-outline-dark">חזור</button>
              </div>
         </div>
     </div>

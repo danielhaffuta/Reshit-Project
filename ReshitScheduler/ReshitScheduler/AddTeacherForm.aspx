@@ -33,7 +33,6 @@
 
             <div class="form-row justify-content-center btn-group-vertical">
                 <button  runat="server" onserverclick="BtnAddTeacher_Click" class="btn btn-outline-dark">הוסף מורה</button>
-                <button  runat="server" onserverclick="BtnBack_Click" class="btn btn-outline-dark">חזור</button>
             </div>
          </div>
     </div>

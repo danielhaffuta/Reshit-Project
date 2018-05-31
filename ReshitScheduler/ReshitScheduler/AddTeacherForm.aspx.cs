@@ -53,6 +53,7 @@ namespace ReshitScheduler
             if (!bInsertSucceeded)
             {
                 Helper.ShowMessage(ClientScript, "error saving");
+                return;
             }
             CleanFields();
 

@@ -22,7 +22,26 @@ namespace ReshitScheduler
         protected int nYearID;
         public Teacher LoggedInTeacher;
         protected static string strPreviousPage;
+        protected int nClassID, nHourId, nDayId, nGroupId;
+
+
+
         protected override void OnLoad(EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                strPreviousPage = Request.UrlReferrer?.ToString() ?? "LoginForm.aspx";
+            }
+            FillTeacher();
+            nYearID = DBConnection.Instance.GetCurrentYearID();
+            FillIDs();
+
+            base.OnLoad(e);
+            Page.ClientScript.RegisterStartupScript(typeof(LessonForm), "ScriptDoFocus",
+                                                    SCRIPT_DOFOCUS.Replace("REQUEST_LASTFOCUS", Request["__LASTFOCUS"]), true);
+        }
+
+        private void FillTeacher()
         {
             if (Session["LoggedInTeacher"] == null)
             {
@@ -39,19 +58,28 @@ namespace ReshitScheduler
             {
                 LoggedInTeacher = Session["LoggedInTeacher"] as Teacher;
             }
-            if (!IsPostBack)
+        }
+        private void FillIDs()
+        {
+            if (Session["IDs"] != null)
             {
-                strPreviousPage = Request.UrlReferrer?.ToString() ?? "LoginForm.aspx";
+                string[] strIDs = Session["IDs"].ToString().Split('-');
+                nClassID = strIDs.Length > 0 ? Convert.ToInt32(strIDs[0]) : 0;
+                nHourId = strIDs.Length > 1 ? Convert.ToInt32(strIDs[1]) : 0;
+                nDayId = strIDs.Length > 2 ? Convert.ToInt32(strIDs[2]) : 0;
+                nGroupId = strIDs.Length > 3 ? Convert.ToInt32(strIDs[3]) : 0;
+            }
+            else
+            {
+                nClassID = Convert.ToInt32( Request.QueryString["ClassID"]?.ToString() ?? LoggedInTeacher.ClassID.ToString());
 
             }
-
-            nYearID = DBConnection.Instance.GetCurrentYearID();
-
-            base.OnLoad(e);
-            Page.ClientScript.RegisterStartupScript(typeof(LessonForm), "ScriptDoFocus",
-                                                    SCRIPT_DOFOCUS.Replace("REQUEST_LASTFOCUS", Request["__LASTFOCUS"]), true);
         }
 
+        protected void HideNavBar()
+        {
+            Page.Master.FindControl("navbar").Visible = false;
+        }
         //protected void BtnBack_Click(object sender, EventArgs e)
         //{
         //    GoBack();

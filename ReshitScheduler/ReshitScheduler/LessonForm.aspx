@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="LessonForm.aspx.cs" Inherits="ReshitScheduler.LessonForm" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <link rel = "stylesheet" href = "/css/LessonForm.css" />
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainForm" runat="server">
@@ -18,7 +19,8 @@
     <asp:Panel runat="server" ID="pnlStudents" CssClass="row justify-content-center mt-3">
         <div class="col text-center" >
             <asp:Panel runat="server" CssClass="border" ID="pnlNoStudentsMsg"><h2>אין תלמידים בכיתה</h2></asp:Panel>
-            <asp:GridView ID="gvStudents" runat="server" AutoGenerateColumns ="false" CssClass="table table-striped table-bordered table-sm">
+            <asp:GridView ID="gvStudents" runat="server" AutoGenerateColumns ="false" 
+                CssClass="table table-striped table-bordered table-sm">
                 <Columns>
                     <asp:BoundField DataField="student_id" Visible="true">
                     </asp:BoundField>
@@ -27,8 +29,7 @@
                     <asp:BoundField DataField="student_name" HeaderText="שם תלמיד"  ItemStyle-Width="10%">
                     <HeaderStyle Font-Bold="True" />
                     </asp:BoundField>
-                    <asp:ImageField DataImageUrlField="picture_path" HeaderText="תמונה" ItemStyle-Width="10%">
-                        <ControlStyle Width="100px" />
+                    <asp:ImageField DataImageUrlField="picture_path" HeaderText="תמונה" ItemStyle-Width="10%" >
                     </asp:ImageField>
                     <asp:TemplateField HeaderText="הערכה" ItemStyle-Width="80%">
                        <ItemTemplate>
@@ -48,7 +49,6 @@
 
 
     <div class="form-row justify-content-center">
-        <button  runat="server"  onserverclick="BtnBack_Click" class="btn btn-outline-dark">חזור</button>
     </div>
 
 </asp:Content>

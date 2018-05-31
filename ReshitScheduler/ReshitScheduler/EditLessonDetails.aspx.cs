@@ -115,11 +115,11 @@ namespace ReshitScheduler
                 strFields = "course_name:teacher_id:also_group";
                 if (Yes.Checked)
                 {
-                    strValues += ":'1'";
+                    strValues += ":1";
                 }
                 if (No.Checked)
                 {
-                    strValues += ":'0'";
+                    strValues += ":0";
                 }
             }
             
@@ -129,8 +129,8 @@ namespace ReshitScheduler
             {
                 Helper.ShowMessage(ClientScript, "error saving");
             }
+            Helper.ShowMessage(ClientScript, "נשמר");
 
-            GoBack();
         }
 
         protected void BtnBack_Click(object sender, EventArgs e)

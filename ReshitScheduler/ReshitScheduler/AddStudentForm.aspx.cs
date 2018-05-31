@@ -15,25 +15,20 @@ namespace ReshitScheduler
     public partial class AddStudentForm : BasePage
     {
         protected DataTable dtClassesTable;
-        private int nClassID = 0;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(Request.QueryString["ClassID"] != null)
+            if(nClassID != 0)
             {
-                nClassID = Convert.ToInt32(Request.QueryString["ClassID"]?.ToString());
                 divClasses.Visible = false;
             }
-            LoggedInTeacher = Session["LoggedInTeacher"] as Teacher;
             if (!IsPostBack)
             {
                 if (nClassID == 0)
                 {
                     if (LoggedInTeacher.Type == "מנהל")
                     {
-                        string strDisplayQuert = DBConnection.Instance.GetDisplayQuery("classes");
-                        string strSelectClassesQuery = strDisplayQuert + " where year_id = " + nYearID;
-                        dtClassesTable = DBConnection.Instance.GetDataTableByQuery(strSelectClassesQuery);
+                        dtClassesTable = DBConnection.Instance.GetThisYearClasses();
                     }
                     else
                     {

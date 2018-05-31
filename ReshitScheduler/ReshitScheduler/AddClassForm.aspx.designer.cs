@@ -40,13 +40,13 @@ namespace ReshitScheduler {
         protected global::System.Web.UI.WebControls.DropDownList ddlGrades;
         
         /// <summary>
-        /// txtStudentFirstName control.
+        /// txtClassNumber control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtStudentFirstName;
+        protected global::System.Web.UI.WebControls.TextBox txtClassNumber;
         
         /// <summary>
         /// ddlTeachers control.

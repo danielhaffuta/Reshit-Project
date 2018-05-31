@@ -15,12 +15,13 @@ namespace ReshitScheduler
         {
             FillStudents();
 
+
         }
         private void FillStudents()
         {
             DataTable dtStudents = DBConnection.Instance.GetDataTableByQuery("select students.id,concat(first_name,' ' ,last_name) as name,picture_path from students" +
                                                                             " inner join students_classes on students_classes.student_id = students.id" +
-                                                                            " where students_classes.class_id = " + LoggedInTeacher.ClassID);
+                                                                            " where students_classes.class_id = " + nClassID);
 
             foreach (DataRow drCurrentStudent in dtStudents.Rows)
             {

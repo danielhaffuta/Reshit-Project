@@ -401,6 +401,16 @@ namespace ReshitScheduler
                                "where table_name = '" + strTableName + "'";
             return GetStringByQuery(strQuery);
         }
+
+        public string GetDisplayQuery(string strTableName,string strExtraFields)
+        {
+            string strQuery = "SELECT display_column_query " +
+                              "FROM tables_information " +
+                               "where table_name = '" + strTableName + "'";
+            string strDisplayQuery = GetStringByQuery(strQuery);
+            strDisplayQuery = "select " + strExtraFields +","+ strDisplayQuery.Substring(7);
+            return strDisplayQuery;
+        }
         public DataSet GetAllTables()
         {
             DataSet dsAllTables = new DataSet();
@@ -663,7 +673,8 @@ namespace ReshitScheduler
 
             return GetDataTableByQuery(GetDisplayQuery("classes") +
                 " inner join teacher_class_access on teacher_class_access.class_id = classes.id " +
-                " where teacher_class_access.teacher_id = " + nTeacherID);
+                " where teacher_class_access.teacher_id = " + nTeacherID+
+                " order by name");
         }
 
         public DataTable GetAllTeacherClasses(int nTeacherID)
@@ -673,7 +684,8 @@ namespace ReshitScheduler
                 " where teacher_class_access.teacher_id = " + nTeacherID +
                 " union " +
                 GetDisplayQuery("classes") +
-                " where classes.teacher_id = " + nTeacherID;
+                " where classes.teacher_id = " + nTeacherID +
+                " order by name";
             return GetDataTableByQuery(strClassQuery);
         }
 
@@ -686,12 +698,13 @@ namespace ReshitScheduler
         public DataTable GetThisYearClasses()
         {
             return this.GetDataTableByQuery(GetDisplayQuery("classes") +
-                                            " where teachers.year_id=(select value from preferences where name='current_year_id')");
+                                            " where teachers.year_id=(select value from preferences where name='current_year_id') order by name");
         }
 
         public DataTable GetThisYearClassesDetails()
         {
-            return this.GetDataTableByQuery("select classes.id as class_id, grades.id as grade_id,grades.grade_name,classes.class_number,"+                                            " teachers.id as teacher_id, concat(teachers.first_name, ' ', teachers.last_name) as teacher_name"+
+            return this.GetDataTableByQuery("select classes.id as class_id, grades.id as grade_id,grades.grade_name,classes.class_number,"+
+                                            " teachers.id as teacher_id, concat(teachers.first_name, ' ', teachers.last_name) as teacher_name"+
                                             " from classes"+
                                             " inner join grades on grades.id = classes.grade_id"+
                                             " inner join teachers on teachers.id = classes.teacher_id"+
@@ -781,6 +794,15 @@ namespace ReshitScheduler
                 command.ExecuteNonQuery();
             }
             this.Close();
+        }
+
+        public DataRow GetScheduleDetails(int nDayID,int nHourID,int nClassID,int nGroupID)
+        {
+            return GetDataTableByQuery("select (select group_name from groups where id = " + nGroupID + ") ,course_name" +
+                                       " from classes_schedule " +
+                                       " inner join courses on courses.id =  classes_schedule.course_id" +
+                                       " where classes_schedule.day_id = " + nDayID +
+                                       " and classes_schedule.hour_id = " + nHourID).Rows[0];
         }
     }
 }

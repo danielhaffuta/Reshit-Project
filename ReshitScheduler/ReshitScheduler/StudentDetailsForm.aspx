@@ -1,10 +1,21 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="StudentDetailsForm.aspx.cs" Inherits="ReshitScheduler.StudentDetailsForm" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
-<asp:Content ID="Content3" ContentPlaceHolderID="navbar" runat="server">
+<asp:Content ID="Content3" ContentPlaceHolderID="navbar_extra" runat="server">
 
     <a class="nav-item nav-link" href="EditStudentDetailsForm.aspx?StudentID=<%=nStudentID %>">ערוך פרטי תלמיד</a>
+    <div class="dropdown">
 
+        <a class="nav-item nav-link dropdown-toggle "
+            data-toggle="dropdown" id="printDropDown"
+            aria-haspopup="true" aria-expanded="false"
+            href="#">הדפסה</a>
+        <div class="dropdown-menu dropdown-menu-right text-right" aria-labelledby="printDropDown">
+            <a class="dropdown-item" href="PrintScheduleForm.aspx?StudentID=<%=nStudentID%>">מערכת</a>
+            <a class="dropdown-item" href="PrintStudentEvaluations.aspx?StudentID=<%=nStudentID%>">הערכה</a>
+        </div>
+    </div>
+    <a class="nav-item nav-link" href="EditStudentEvaluations.aspx?StudentID=<%=nStudentID %>">צפה בהערכות</a>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainForm" runat="server">
     <img class="figure-img img-fluid" src="<%=drStudentDetails["picture_path"] %>" width="350"/><br />
@@ -44,13 +55,7 @@
 
     </asp:Panel>
 
-    <div class="form-row justify-content-center btn-group-vertical">
-        <button  runat="server"  onserverclick="BtnBack_Click" class="btn btn-outline-dark">חזור</button>
-        <button  runat="server"  onserverclick="BtnEditStudentDetails" class="btn btn-outline-dark">ערוך פרטי תלמיד</button>
-        <button  runat="server"  onserverclick="BtnPrintSchedule_Click" class="btn btn-outline-dark">הדפס מערכת</button>
-        <button  runat="server"  onserverclick="BtnPrintEvaluations_Click" class="btn btn-outline-dark">הדפס הערכה</button>
-        <button  runat="server"  onserverclick="BtnviewEvaluations_Click" class="btn btn-outline-dark">צפה בהערכות</button>
-    </div>
+
     <script src="/js/general.js"></script>
 </asp:Content>
 

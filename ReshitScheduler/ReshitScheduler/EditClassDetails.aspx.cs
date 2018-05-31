@@ -14,7 +14,6 @@ namespace ReshitScheduler
         private DataTable dtTeachers;
         private DataTable dtClasses;
         private DataTable dtGrades;
-        private int nClassID;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -93,8 +92,8 @@ namespace ReshitScheduler
             {
                 Helper.ShowMessage(ClientScript, "error saving");
             }
+            Helper.ShowMessage(ClientScript, "נשמר");
 
-            GoBack();
         }
     }
 }

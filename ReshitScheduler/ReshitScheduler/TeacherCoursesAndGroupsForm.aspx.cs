@@ -60,7 +60,7 @@ namespace ReshitScheduler
 
         private void LessonClick(object sender, EventArgs e)
         {
-            Response.Redirect("LessonForm.aspx");
+            Response.Redirect("LessonForm.aspx?" + (sender as Button).ID);
         }
     }
 }

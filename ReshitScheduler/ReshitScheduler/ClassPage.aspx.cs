@@ -16,7 +16,6 @@ namespace ReshitScheduler
         private DataTable dtScheduleTable;
 
 
-        private int nClassID;
         protected string strClassName;
 
 
@@ -27,7 +26,6 @@ namespace ReshitScheduler
 
         private void LoadClassSchedule()
         {
-            nClassID = Convert.ToInt32( Request.QueryString["ClassID"]?.ToString() ?? "5");
             strClassName = DBConnection.Instance.GetConstraintData("classes", nClassID);
 
             dtScheduleTable = FormsUtilities.BuildEmptySchedule();

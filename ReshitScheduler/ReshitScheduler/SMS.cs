@@ -10,17 +10,19 @@ namespace ReshitScheduler
 {
     public class SMS
     {
+        private int nStudentID;
         private string strParentName;
         private string strPhoneNumber;
         private string strStudentName;
-        private string strCoureName;
+        private string strCourseName;
         private string strGroupName;
-        private string strDay;
+        private int nDayID;
+        private int nHourID;
         private int nStudentScheduleID;
 
         public string PhoneNumber
         {
-            set { strPhoneNumber = value; }
+            set { strPhoneNumber = value.Replace("-",""); }
             get { return strPhoneNumber; }
         }
 
@@ -34,20 +36,20 @@ namespace ReshitScheduler
             set { strStudentName = value; }
             get { return strStudentName; }
         }
-        public string CoureName
+        public string CourseName
         {
-            set { strCoureName = value; }
-            get { return strCoureName; }
+            set { strCourseName = value; }
+            get { return strCourseName; }
         }
         public string GroupName
         {
             set { strGroupName = value; }
             get { return strGroupName; }
         }
-        public string Day
+        public int Day
         {
-            set { strDay = value; }
-            get { return strDay; }
+            set { nDayID = value; }
+            get { return nDayID; }
         }
 
         public int StudentScheduleID
@@ -62,12 +64,39 @@ namespace ReshitScheduler
                 nStudentScheduleID = value;
             }
         }
-        public bool send()
+
+        public int HourID
+        {
+            get
+            {
+                return nHourID;
+            }
+
+            set
+            {
+                nHourID = value;
+            }
+        }
+
+        public int StudentID
+        {
+            get
+            {
+                return nStudentID;
+            }
+
+            set
+            {
+                nStudentID = value;
+            }
+        }
+
+        public bool Send()
         {
             string messegeForamt = "שלום <<parentName>>, האם אתה מוכן שבנך <<studentName>> יעבור משיעור <<courseName>> אשר נלמד ביום <<day>> לקבוצה <<groupName>> השב כן או לא";
             //String testUrl = "https://www.019sms.co.il:8090/api/test";
             string messege;
-            messege = messegeForamt.Replace("<<parentName>>", this.ParentName).Replace("<<studentName>>", this.StudentName).Replace("<<courseName>>", this.CoureName).Replace("<<day>>", this.Day).Replace("<<groupName>>", this.GroupName);
+            messege = messegeForamt.Replace("<<parentName>>", this.ParentName).Replace("<<studentName>>", this.StudentName).Replace("<<courseName>>", this.CourseName).Replace("<<day>>", this.Day.ToString()).Replace("<<groupName>>", this.GroupName);
             return GenereteSMS(messege, this.PhoneNumber);
         }
         private bool GenereteSMS(string messege, string phoneNumber)
@@ -75,6 +104,7 @@ namespace ReshitScheduler
             string xml = @"<?xml version='1.0' encoding='UTF-8'?><sms><user><username>019sms</username><password>050618</password>
             </user><source>Reshit</source><destinations><phone>" + phoneNumber + "</phone></destinations><message>" + messege + "</message><response>1</response></sms>";
             String url = "https://www.019sms.co.il:8090/api/test";
+           // url= "https://www.019sms.co.il/api";
             WebRequest webRequest = WebRequest.Create(url);
             webRequest.Method = "POST";
             byte[] bytes = Encoding.UTF8.GetBytes(xml);
@@ -90,11 +120,11 @@ namespace ReshitScheduler
             streamReader.Close();
             responseStream.Close();
             response.Close();
-            return checkResult(result);
+            return CheckResult(result);
 
 
         }
-        private static bool checkResult(string result)
+        private static bool CheckResult(string result)
         {
             result = result.Substring(result.IndexOf("<status>"));
             result = result.Substring(0, result.IndexOf("</status>"));

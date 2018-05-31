@@ -6,26 +6,26 @@
     <div class="mt-5">
         <h2 id="name" runat="server" ></h2>
         <asp:Panel runat="server" ID="pnlEvaluations" >
-            <div class="col-12 col-sm-6 text-center" >
+            <div class="col text-center" >
             <asp:GridView ID="gvEvaluations" runat="server" AutoGenerateColumns ="False" 
                 CssClass="table table-striped table-bordered table-sm">
                 <Columns>
-                    <asp:BoundField DataField="lesson_name" HeaderText="שם השיעור">
+                    <asp:BoundField DataField="lesson_name" HeaderText="שם השיעור" ItemStyle-Width="15%">
                     <HeaderStyle Font-Bold="True" />
                     </asp:BoundField>
-                    <asp:TemplateField HeaderText="הערכה">
+                    <asp:TemplateField HeaderText="הערכה" ItemStyle-Width="85%">
                        <ItemTemplate>
                         <asp:TextBox ID="txtEvaluation" runat="server" Text='<%# Bind("evaluation") %>'
-                            TextMode="MultiLine"  Columns="50" rows="10" 
+                            TextMode="MultiLine"  Columns="25" rows="3" 
                             CssClass="form-control" AutoPostBack ="true" OnTextChanged="txtEvaluation_TextChanged" 
                             ></asp:TextBox>
                        </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:BoundField DataField="is_group" HeaderText="קבוצה" Visible="true">
+                    <asp:BoundField DataField="is_group" HeaderText="קבוצה" >
                     </asp:BoundField>
-                    <asp:BoundField DataField="evaluation_id" HeaderText="מספר הערכה" Visible="true">
+                    <asp:BoundField DataField="evaluation_id" HeaderText="מספר הערכה">
                     </asp:BoundField>
-                    <asp:BoundField DataField="lesson_id" HeaderText="מספר שיעור" Visible="true">
+                    <asp:BoundField DataField="lesson_id" HeaderText="מספר שיעור">
                     </asp:BoundField>
                         
                 </Columns>
@@ -33,7 +33,6 @@
         </div>
         </asp:Panel>
         <div class="form-row justify-content-center">
-            <button  runat="server" onserverclick="BtnBack_Click" class="btn btn-outline-dark">חזור</button>
         </div>
     </div>
 </asp:Content>

@@ -39,7 +39,6 @@
             <%} %>
             <div class="row justify-content-center btn-group-vertical">
                 <button  runat="server"  onserverclick="BtnSave_Click" class="btn btn-outline-dark">שמור</button>
-                <button  runat="server"  onserverclick="BtnBack_Click" class="btn btn-outline-dark">חזור</button>
             </div>
         </div>
     </div>

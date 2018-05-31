@@ -13,7 +13,6 @@ namespace ReshitScheduler
     {
         protected string strTitle;
 
-        private int nClassID;
         private int nStudentID;
         private DataTable dtScheduleTable;
         protected DataRow drStudentDetails;

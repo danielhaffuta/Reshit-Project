@@ -3,7 +3,6 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Data;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -257,7 +256,7 @@ namespace ReshitScheduler
                 " where groups.teacher_id = " + nTeacherID);
             foreach (DataRow drCurrentHour in dtTeacherSchedule.Rows)
             {
-                dtScheduleTable.Select("hour_id = '" + drCurrentHour["hour_id"].ToString().Replace("*", "") + "'")[0][drCurrentHour["day_id"].ToString()] =
+                dtScheduleTable.Select("hour_id = '" + drCurrentHour["hour_id"].ToString().Replace("*", "") + "'")[0][drCurrentHour["day_id"].ToString()] +=
                     dtCourses.Select("course_id = " + drCurrentHour["course_id"].ToString())[0]["name"].ToString();
             }
             foreach (DataRow drCurrentHour in dtStudentsSchedule.Rows)
