@@ -22,7 +22,7 @@ namespace ReshitScheduler
                 //string strGroupsQuery = DBConnection.Instance.GetDisplayQuery("Groups");
                 string strGroupsQuery =
                 " select groups.id as group_id, groups.group_name as name, " +
-                " concat(teachers.first_name, ' ', teachers.last_name) as teacher_name,group_goal" +
+                " concat(teachers.first_name, ' ', teachers.last_name) as teacher_name" +
                 " from groups " +
                 " inner join teachers on teachers.id = groups.teacher_id " +
                 " inner join years on years.id = teachers.year_id";
@@ -106,10 +106,12 @@ namespace ReshitScheduler
                 " where students_classes.class_id = " + nClassID +
                 " and students_schedule.group_id <> " + nGroupId +
                 " and students_schedule.hour_id = " + nHourId +
-                " and students_schedule.day_id = " + nDayId +
-                " or (students_schedule.approval_status_id = 1" +
-                    " and(students_schedule.hour_id <> " + nHourId +
-                        " or students_schedule.day_id <> " + nDayId + "))");
+                " and students_schedule.day_id = " + nDayId);
+
+            // need to ask idan,probably because sms
+            //+" or (students_schedule.approval_status_id = 1" +
+            //        " and(students_schedule.hour_id <> " + nHourId +
+            //            " or students_schedule.day_id <> " + nDayId + ")) group by students.id");
 
             int nCurrentStudentNumber = 0;
             
@@ -152,43 +154,14 @@ namespace ReshitScheduler
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             DataRow drScheduleDetails = DBConnection.Instance.GetScheduleDetails(nDayId, nHourId, nClassID, nGroupId);
-
-
-
-            string strInsertCommand = "insert into students_schedule(day_id, hour_id, group_id, student_id, approval_status_id) values ";
+            string strInsertCommand = "insert into students_schedule(day_id, hour_id, group_id, student_id, approval_status_id,group_purpose) values ";
             bool bIsGroupEmpty = true;
             //List<int> lstNewSelectedStudentsIDs = new List<int>();
             List<int> lstCurrentlySelectedStudentsIDs = new List<int>();
             List<SMS> lstStudentsSMS = new List<SMS>();
-
+            string strGroupPurpose = groupPurpose.Value ?? "";
+            strGroupPurpose = "'" + strGroupPurpose + "'";
             foreach (Control ctrlCurrentControl in StudentsCol.Controls)
             {
                 if (ctrlCurrentControl is CheckBox && (ctrlCurrentControl as CheckBox).Checked)
@@ -204,10 +177,11 @@ namespace ReshitScheduler
                             Day = nDayId,
                             GroupName = GroupsList.SelectedItem.Text,
                             CourseName = drScheduleDetails["course_name"].ToString(),
-                            StudentName = (ctrlCurrentControl as CheckBox).Text
+                            StudentName = (ctrlCurrentControl as CheckBox).Text,
+                            GroupId = Convert.ToInt32(GroupsList.SelectedValue)
                         };
                         lstStudentsSMS.Add(sms);
-                        strInsertCommand += "(" + nDayId + "," + nHourId + "," + GroupsList.SelectedValue + "," + ctrlCurrentControl.ID + ",1),";
+                        strInsertCommand += "(" + nDayId + "," + nHourId + "," + GroupsList.SelectedValue + "," + ctrlCurrentControl.ID + ",1,"+strGroupPurpose+"),";
                     }
                 }
             }

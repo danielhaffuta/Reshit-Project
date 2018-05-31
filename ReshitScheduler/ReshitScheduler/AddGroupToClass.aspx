@@ -13,6 +13,9 @@
             <asp:Panel  runat="server" ID="StudentsCol" >
             </asp:Panel>
             </div>
+        <div>
+            הכנס את מטרת הקבוצה:<input type="text" name="groupPurpose" placeholder="שדה זה אינו חובה" runat="server" id="groupPurpose" />
+        </div>
         
         <div class="form-row justify-content-center">
             <button  runat="server"  onserverclick="btnSave_Click" class="btn btn-outline-dark">שמור</button>

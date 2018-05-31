@@ -11,6 +11,7 @@ namespace ReshitScheduler
     public class SMS
     {
         private int nStudentID;
+        private int nGroupId;
         private string strParentName;
         private string strPhoneNumber;
         private string strStudentName;
@@ -89,6 +90,11 @@ namespace ReshitScheduler
             {
                 nStudentID = value;
             }
+        }
+        public int GroupId
+        {
+            get { return nGroupId; }
+            set { nGroupId = value; }
         }
 
         public bool Send()

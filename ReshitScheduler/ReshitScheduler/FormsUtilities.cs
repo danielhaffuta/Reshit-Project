@@ -336,7 +336,6 @@ namespace ReshitScheduler
             checkResult(result);
             
         }
-
         private static void checkResult(string result)
         {
             XmlDocument xmlResponse = new XmlDocument();
@@ -344,13 +343,17 @@ namespace ReshitScheduler
             XmlNodeList allResponse = xmlResponse.GetElementsByTagName("transaction");
             foreach (XmlElement item in allResponse)
             {
-                string phoneNumber = item.ChildNodes.Item(0).InnerText.Replace("972","0");
-                string messege = item.ChildNodes.Item(2).InnerText;
-                if (messege.Contains("כן"))
+                string strPhoneNumber = item.ChildNodes.Item(0).InnerText.Replace("972", "0");
+                string strMessege = item.ChildNodes.Item(2).InnerText;
+                string strSelectID = "select id from students where replace(father_cellphone,'-','')='" + strPhoneNumber + "' or replace(mother_cellphone,'','')='" + strPhoneNumber + "'";
+                string strCurrStudentId = DBConnection.Instance.GetDataTableByQuery(strSelectID).Rows[0]["id"].ToString();
+                if (strMessege.Contains("כן"))
                 {
-                    
-                    string updateQuery = "select id from students where replace(father_cellphone,'-','')='" + phoneNumber + "' or replace(mother_cellphone,'','')='" + phoneNumber + "'";
-
+                    DBConnection.Instance.ExecuteNonQuery("update students_schedule set approval_status_id=2 where approval_status_id<>2 and student_id=" + strCurrStudentId);
+                }
+                else if (strMessege.Contains("לא"))
+                {
+                    DBConnection.Instance.ExecuteNonQuery("update students_schedule set approval_status_id=3 where approval_status_id<>2 and student_id=" + strCurrStudentId);
                 }
             }
         }
