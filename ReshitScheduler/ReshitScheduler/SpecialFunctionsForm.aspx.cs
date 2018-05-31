@@ -29,10 +29,20 @@ namespace ReshitScheduler
 
         }
 
-        protected void BtnIncreaseSemester_Click(object sender, EventArgs e)
+        protected void BtnChangeSemester_Click(object sender, EventArgs e)
         {
-            Helper.ShowMessage(ClientScript, "מבצע מעבר למחצית שניה של השנה");
-            DBConnection.Instance.IncreaseSemester();
+            int semesterNum;
+            if (FirstSemester.Checked)
+                semesterNum = 1;
+            else
+                semesterNum = 2;
+            string message;
+            if (semesterNum == 1)
+                message = "מבצע מעבר למחצית הראשונה של השנה";
+            else
+                message = "מבצע מעבר למחצית השניה של השנה";
+            Helper.ShowMessage(ClientScript, message);
+            DBConnection.Instance.ChangeSemester(semesterNum);
         }
     }
 }

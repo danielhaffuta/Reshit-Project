@@ -14,7 +14,6 @@ namespace ReshitScheduler
     public partial class AddCourseForm : BasePage
     {
         protected bool IsGroup = false;
-        private bool YesChecked = false;
         private DataTable dtCourses;
         private DataTable dtGroups;
 
@@ -25,6 +24,7 @@ namespace ReshitScheduler
                 IsGroup = true;
                 AddLesson.InnerText = "הוספת קבוצה חדשה:";
                 Course.Text = "שם הקבוצה:";
+                CheckGroup.Text = "האם זו קבוצה עם הערכה?";
             }
             else
             {
@@ -50,12 +50,6 @@ namespace ReshitScheduler
             if (IsGroup)
             {
                 dtGroups = DBConnection.Instance.GetThisYearGroups();
-                BoundField bfGoal = new BoundField();
-                bfGoal.HeaderText = "מטרת הקבוצה";
-                bfGoal.DataField = "group_goal";
-                bfGoal.HeaderStyle.Font.Bold = true;
-
-                gvLessons.Columns.Add(bfGoal);
                 gvLessons.DataSource = dtGroups;
             }
             else
@@ -66,20 +60,8 @@ namespace ReshitScheduler
             gvLessons.DataBind();
         }
 
-        protected void Yes_changed(object sender, EventArgs e)
-        {
-            YesChecked = true;
-        }
-
-        protected void No_changed(object sender, EventArgs e)
-        {
-            YesChecked = false;
-        }
-
         protected void BtnSave_Click(object sender, EventArgs e)
         {
-            string values = "'" + CourseName.Text + "',"
-                            + ddlTeachers.SelectedValue ;
             string fields = "";
             string tableName = "";
             string strPriorityGroup = DBConnection.Instance.GetPriority("groups");
@@ -95,17 +77,26 @@ namespace ReshitScheduler
             {
                 priority = courseP+1;
             }
-            if (IsGroup)
+            string values = "'" + CourseName.Text + "',"
+                            + ddlTeachers.SelectedValue + ","
+                            + priority + ",";
+            if (HasEvaluation.Checked)
             {
-                tableName = "groups";
-                fields = "group_name,teacher_id,priority,group_goal";
-                values += "," + priority + ",'" + GroupGoal.Text + "'";
+                values += "0";
             }
             else
             {
-                fields = "course_name,teacher_id,also_group,priority";
+                values += "1";
+            }
+            if (IsGroup)
+            {
+                tableName = "groups";
+                fields = "group_name,teacher_id,priority,has_evaluation";
+            }
+            else
+            {
                 tableName = "courses";
-                values += ","+ Convert.ToInt32(YesChecked) + "," + priority;
+                fields = "course_name,teacher_id,priority,has_evaluation";
             }
             bool bInsertSucceeded = DBConnection.Instance.InsertTableRow(tableName, fields, values);
             if (!bInsertSucceeded)
@@ -114,7 +105,6 @@ namespace ReshitScheduler
             }
             CourseName.Text = "";
             ddlTeachers.SelectedIndex = 0;
-            GroupGoal.Text = "";
             FillLessons();
         }
         protected void BtnBack_Click(object sender, EventArgs e)

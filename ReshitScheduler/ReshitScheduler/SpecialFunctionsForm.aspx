@@ -19,7 +19,21 @@
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="MainForm" runat="server">
     <div class="form-row justify-content-center mt-3">
-        <button  runat="server"  onserverclick="BtnIncreaseSemester_Click" class="btn btn-outline-dark">מעבר מחצית</button>
         <asp:Button ID="btnConfirm" CssClass="btn btn-outline-dark" runat="server" OnClick = "BtnIncreaseYear" Text = "מעבר שנה" OnClientClick = "Confirm()"/>
+        <button  runat="server"  onserverclick="BtnChangeSemester_Click" class="btn btn-outline-dark">מעבר מחצית</button>
     </div>
+    <div class="form-check form-check-inline">
+            <label class="form-check-label">
+                <asp:RadioButton ID="FirstSemester" runat="server" Text="מחצית ראשונה" CssClass="form-check-input" 
+                    GroupName="ChooseSemester"/>
+            </label>
+            <label class="form-check-label">
+                <asp:RadioButton ID="SecondSemester" runat="server" Text="מחצית שניה" CssClass="form-check-input" 
+                    GroupName="ChooseSemester" Checked ="true" />
+            </label>
+        </div>
+    <%--<div class="row justify-content-center btn-group-vertical">
+        
+        
+    </div>--%>
 </asp:Content>

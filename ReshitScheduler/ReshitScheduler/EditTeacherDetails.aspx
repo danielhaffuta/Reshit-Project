@@ -36,7 +36,7 @@
             </div>
 
             <asp:Panel runat="server" ID="pnlClasses" CssClass="row mx-3">
-                <h2 class="col-12">הרשאות לכיתות</h2>
+                <h2 class="col-12">הרשאות לניהול כיתות</h2>
 
 
             </asp:Panel>

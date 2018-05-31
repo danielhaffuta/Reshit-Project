@@ -5,13 +5,22 @@
     <img src="<%=drStudentDetails["picture_path"] %>" width="350"/><br />
     <h1><%=drStudentDetails["name"]%></h1>
     <h2><%=drStudentDetails["class"] %><br /></h2>
+    <%if (CheckIfHaveEvaluation)
+        {%>
     <h3> הערכה עבור
-    <% if (IsGroup){ %> קבוצת <%}else{%> קורס <%} %> <%=strLessonName %>
-        </h3>
+        <% if (IsGroup){ %> קבוצת <%}else{%> קורס <%} %> <%=strLessonName %></h3>
+
     <asp:TextBox  runat ="server" ID="txtEvaluation" TextMode="MultiLine"  Columns="50" rows="10"></asp:TextBox>
 
     <div class="form-row justify-content-center">
         <button  runat="server"  onserverclick="BtnSave_Click" class="btn btn-outline-dark">שמור</button>
+        <button  runat="server"  onserverclick="BtnBack_Click" class="btn btn-outline-dark">חזור</button>
     </div>
+    <%}
+    else
+    { %>
+        <button  runat="server"  onserverclick="BtnBack_Click" class="btn btn-outline-dark">חזור</button>
+    <%} %>
+    
 </asp:Content>
 

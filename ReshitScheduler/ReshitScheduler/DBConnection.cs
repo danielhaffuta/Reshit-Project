@@ -610,6 +610,43 @@ namespace ReshitScheduler
                                                                                             " and students_schedule.hour_id = classes_schedule.hour_id)");
         }
 
+        public DataTable GetStudentEvaluationsForEdit(int nStudentID)
+        {
+            return GetDataTableByQuery(
+                " select concat(groups.group_name,'-', teachers.first_name, ' ', teachers.last_name) as lesson_name" +
+                ",ifnull(evaluation,\"\" ) as evaluation," +
+                " groups.id as lesson_id,1 as is_group,groups_evaluations.id as evaluation_id from students_schedule" +
+                " left join groups_evaluations on groups_evaluations.student_id = students_schedule.student_id" +
+                " and groups_evaluations.group_id = students_schedule.group_id" +
+                " and groups_evaluations.semester_number =(select value from preferences where name='current_semester_number')" +
+                " inner join groups on groups.id = students_schedule.group_id" +
+                " inner join teachers on teachers.id = groups.teacher_id" +
+                " where students_schedule.student_id = " + nStudentID +
+                " union" +
+                " select concat(courses.course_name, '-', teachers.first_name, ' ', teachers.last_name) as lesson_name" +
+                ", ifnull(evaluation,\"\" ) as evaluation," +
+                " courses.id as lesson_id,0 as is_group,courses_evaluations.id as evaluation_id from classes_schedule" +
+                " inner join students_classes on students_classes.class_id = classes_schedule.class_id" +
+                                            " and students_classes.student_id = " + nStudentID +
+                " inner join courses on courses.id = classes_schedule.course_id" +
+                " inner join teachers on teachers.id = courses.teacher_id" +
+                " left join courses_evaluations on courses_evaluations.course_id = classes_schedule.course_id" +
+                                              " and courses_evaluations.student_id = " + nStudentID +
+                                              " and courses_evaluations.semester_number =(select value from preferences where name='current_semester_number')" +
+                " where " + nStudentID + " not in (select student_id from students_schedule where students_schedule.day_id = classes_schedule.day_id" +
+                                                                                            " and students_schedule.hour_id = classes_schedule.hour_id)");
+        }
+
+        public bool CheckIfHaveEvaluation(int nLessonID, string strTableName)
+        {
+            string haveEvaluation = GetStringByQuery("select has_evaluation from " + strTableName + 
+                                                     " where " + strTableName + ".id = " + nLessonID );
+            if (haveEvaluation.Equals("0"))
+                return true;
+            else
+                return false;
+        }
+
         public DataTable GetClassStudents(int nClassID)
         {
             return GetDataTableByQuery(" select concat(students.first_name,' ' ,students.last_name) as name," +
@@ -783,13 +820,13 @@ namespace ReshitScheduler
                 " where year_id = (select value from preferences where name='current_year_id')");
         }
 
-        public void IncreaseSemester()
+        public void ChangeSemester(int semesterNum)
         {
             this.Connect();
 
             if (this.IsConnected)
             {
-                MySqlCommand command = new MySqlCommand("update preferences set value = '2' where name = 'current_semester_number'", this.connection);
+                MySqlCommand command = new MySqlCommand("update preferences set value = " + semesterNum + " where name = 'current_semester_number'", this.connection);
 
                 command.ExecuteNonQuery();
             }

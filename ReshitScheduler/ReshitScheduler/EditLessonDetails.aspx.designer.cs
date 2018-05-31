@@ -76,24 +76,6 @@ namespace ReshitScheduler {
         protected global::System.Web.UI.WebControls.DropDownList ddlTeachers;
         
         /// <summary>
-        /// Goal control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Goal;
-        
-        /// <summary>
-        /// GroupGoal control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox GroupGoal;
-        
-        /// <summary>
         /// CheckGroup control.
         /// </summary>
         /// <remarks>
@@ -103,22 +85,22 @@ namespace ReshitScheduler {
         protected global::System.Web.UI.WebControls.Label CheckGroup;
         
         /// <summary>
-        /// Yes control.
+        /// HasEvaluation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton Yes;
+        protected global::System.Web.UI.WebControls.RadioButton HasEvaluation;
         
         /// <summary>
-        /// No control.
+        /// NotHaveEvaluation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton No;
+        protected global::System.Web.UI.WebControls.RadioButton NotHaveEvaluation;
         
         /// <summary>
         /// BtnUpdateLesson control.

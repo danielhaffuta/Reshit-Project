@@ -29,7 +29,7 @@ namespace ReshitScheduler
         }
         private void FillEvaluations()
         {
-            dtStudentEvaluations = DBConnection.Instance.GetStudentEvaluations(nStudentID);
+            dtStudentEvaluations = DBConnection.Instance.GetStudentEvaluationsForEdit(nStudentID);
             gvEvaluations.DataSource = dtStudentEvaluations;
             gvEvaluations.DataBind();
             gvEvaluations.Columns[2].Visible = false;

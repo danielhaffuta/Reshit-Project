@@ -15,28 +15,20 @@
                 <asp:Label ID="Teacher" runat="server" Text="שם המורה:" CssClass="col-form-label col-sm-3 col-md-4"></asp:Label>
                 <asp:DropDownList ID="ddlTeachers" runat="server" CssClass="form-control col col-sm-9 col-md-8"></asp:DropDownList><br /><br />
             </div>
-            <%if (IsGroup)
-                { %>
-            <div class="form-group form-inline row">
-                <asp:Label ID="Goal" runat="server" Text="מטרת הקבוצה:" CssClass="col-form-label col-sm-3 col-md-4"></asp:Label>
-                    <asp:TextBox ID="GroupGoal" runat="server"  MaxLength ="40"
-                        CssClass="form-control col col-sm-9 col-md-8"></asp:TextBox><br /><br />
-            </div>
-            <%} else
-                { %>
             <div class="form-group  row">
-                <asp:Label ID="CheckGroup" runat="server" Text="האם השיעור הוא גם קבוצה?"
+                <asp:Label ID="CheckGroup" runat="server" Text="האם זה שיעור עם הערכה?"
                     CssClass="col-form-label col-sm-3 col-md-4"></asp:Label>
                 <div class="form-check form-check-inline">
                     <label class="form-check-label">
-                        <asp:RadioButton ID="IsAlsoGroup" runat="server" Text="כן" CssClass="form-check-input" GroupName="IfAlsoGroup"  OnCheckedChanged="Yes_changed"/>
+                        <asp:RadioButton ID="HasEvaluation" runat="server" Text="כן" CssClass="form-check-input" 
+                            GroupName="IfHasEvaluation" Checked="true"/>
                     </label>
                     <label class="form-check-label">
-                        <asp:RadioButton ID="NotAlsoGroup" runat="server" Text="לא" CssClass="form-check-input" GroupName="IfAlsoGroup" OnCheckedChanged="No_changed" />
+                        <asp:RadioButton ID="NotHaveEvaluation" runat="server" Text="לא" CssClass="form-check-input"
+                             GroupName="IfHasEvaluation"/>
                     </label>
                 </div>
             </div>
-            <%} %>
             <div class="row justify-content-center btn-group-vertical">
                 <button  runat="server"  onserverclick="BtnSave_Click" class="btn btn-outline-dark">שמור</button>
             </div>

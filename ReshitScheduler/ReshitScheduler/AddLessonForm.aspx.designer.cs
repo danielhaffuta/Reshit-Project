@@ -58,24 +58,6 @@ namespace ReshitScheduler {
         protected global::System.Web.UI.WebControls.DropDownList ddlTeachers;
         
         /// <summary>
-        /// Goal control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Goal;
-        
-        /// <summary>
-        /// GroupGoal control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox GroupGoal;
-        
-        /// <summary>
         /// CheckGroup control.
         /// </summary>
         /// <remarks>
@@ -85,22 +67,22 @@ namespace ReshitScheduler {
         protected global::System.Web.UI.WebControls.Label CheckGroup;
         
         /// <summary>
-        /// IsAlsoGroup control.
+        /// HasEvaluation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton IsAlsoGroup;
+        protected global::System.Web.UI.WebControls.RadioButton HasEvaluation;
         
         /// <summary>
-        /// NotAlsoGroup control.
+        /// NotHaveEvaluation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton NotAlsoGroup;
+        protected global::System.Web.UI.WebControls.RadioButton NotHaveEvaluation;
         
         /// <summary>
         /// pnlCourses control.

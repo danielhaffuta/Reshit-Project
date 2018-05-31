@@ -18,6 +18,7 @@ namespace ReshitScheduler
         private string strStudentID;
         protected DataTable dtEvaluationDetails;
         protected DataRow drStudentDetails;
+        protected bool CheckIfHaveEvaluation;
 
 
         protected void Page_Load(object sender, EventArgs e)
@@ -26,6 +27,11 @@ namespace ReshitScheduler
             if (Request.QueryString["GroupID"] != null)
             {
                 strLessonID = Request.QueryString["GroupID"].ToString();
+                CheckIfHaveEvaluation = DBConnection.Instance.CheckIfHaveEvaluation(Convert.ToInt32(strLessonID), "groups");
+                if(!CheckIfHaveEvaluation)
+                {
+                    Helper.ShowMessage(ClientScript, "לקבוצה זאת אין אפשרות להכניס הערכה");
+                }
                 strLessonName = DBConnection.Instance.GetStringByQuery("select group_name from groups where id = " + strLessonID);
                 dtEvaluationDetails = DBConnection.Instance.GetDataTableByQuery("select id,evaluation from groups_evaluations" +
                                                                                 " where group_id = " + strLessonID +
@@ -35,6 +41,11 @@ namespace ReshitScheduler
             else
             {
                 strLessonID = Request.QueryString["CourseID"]?.ToString() ?? "14";
+                CheckIfHaveEvaluation = DBConnection.Instance.CheckIfHaveEvaluation(Convert.ToInt32(strLessonID), "courses");
+                if (!CheckIfHaveEvaluation)
+                {
+                    Helper.ShowMessage(ClientScript, "לשיעור זה אין אפשרות להכניס הערכה");
+                }
                 strLessonName = DBConnection.Instance.GetStringByQuery("select course_name from courses where id = " + strLessonID);
                 dtEvaluationDetails = DBConnection.Instance.GetDataTableByQuery("select id,evaluation from courses_evaluations" +
                                                                                 " where course_id = " + strLessonID +

@@ -25,23 +25,20 @@
                 <asp:DropDownList ID="ddlTeachers" runat="server" CssClass="form-control col col-sm-9 col-md-8" ></asp:DropDownList>
             
             </div>
-            <%if (IsGroup)
-                { %>
-            <div class="form-group form-inline row">
-                <asp:Label ID="Goal" runat="server" Text="מטרת הקבוצה:" class="col-form-label col-sm-3 col-md-4"></asp:Label>
-                <asp:TextBox ID="GroupGoal" runat="server" Type="text" MaxLength ="40"
-                    CssClass="form-control col col-sm-9 col-md-8"></asp:TextBox><br /><br />
+            <div class="form-group  row">
+                <asp:Label ID="CheckGroup" runat="server" Text="האם זה שיעור עם הערכה?"
+                    CssClass="col-form-label col-sm-3 col-md-4"></asp:Label>
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                        <asp:RadioButton ID="HasEvaluation" runat="server" Text="כן" CssClass="form-check-input" 
+                            GroupName="IfHasEvaluation"/>
+                    </label>
+                    <label class="form-check-label">
+                        <asp:RadioButton ID="NotHaveEvaluation" runat="server" Text="לא" CssClass="form-check-input"
+                             GroupName="IfHasEvaluation"/>
+                    </label>
+                </div>
             </div>
-            <%} %>
-            <%if (!IsGroup)
-                { %>
-            <div class="form-group form-inline row">
-                <asp:Label ID="CheckGroup" runat="server" Text="האם השיעור הוא גם קבוצה?" 
-                    class="col-form-label col-sm-3 col-md-4"></asp:Label>
-                <asp:RadioButton ID="Yes" runat="server" Text="כן" GroupName ="IfGroup" />
-                <asp:RadioButton ID="No" runat="server" Text="לא" GroupName ="IfGroup" />
-            </div>
-            <%} %>
             <div class="form-row justify-content-center btn-group-vertical">
                 <button id="BtnUpdateLesson" runat="server" onserverclick="BtnUpdateLesson_Click" class="btn btn-outline-dark">שמור</button>
             </div>
