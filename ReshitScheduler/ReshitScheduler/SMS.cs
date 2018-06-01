@@ -17,13 +17,14 @@ namespace ReshitScheduler
         private string strStudentName;
         private string strCourseName;
         private string strGroupName;
+        private string strGroupPurpose;
         private int nDayID;
         private int nHourID;
         private int nStudentScheduleID;
 
         public string PhoneNumber
         {
-            set { strPhoneNumber = value.Replace("-",""); }
+            set { strPhoneNumber = value.Replace("-", ""); }
             get { return strPhoneNumber; }
         }
 
@@ -96,13 +97,25 @@ namespace ReshitScheduler
             get { return nGroupId; }
             set { nGroupId = value; }
         }
+        public string GroupPurpose
+        {
+            get { return strGroupPurpose; }
+            set { strGroupPurpose = value; }
+        }
 
         public bool Send()
         {
-            string messegeForamt = "שלום <<parentName>>, האם אתה מוכן שבנך <<studentName>> יעבור משיעור <<courseName>> אשר נלמד ביום <<day>> לקבוצה <<groupName>> השב כן או לא";
-            //String testUrl = "https://www.019sms.co.il:8090/api/test";
+            int nConfarmationNumber = Convert.ToInt32(DBConnection.Instance.GetDataTableByQuery("select count(*) as nStudentGroups,student_id from students_schedule where approval_status_id = 1  and student_id = "+this.StudentID).Rows[0]["nStudentGroups"]);
+            nConfarmationNumber = nConfarmationNumber + nConfarmationNumber - 1;
+            DBConnection.Instance.ExecuteNonQuery("update students_schedule set confarmation_number=" + nConfarmationNumber+" where group_id="+this.nGroupId+" and student_id="+this.nStudentID);
+            string messegeForamt = (string)DBConnection.Instance.GetDataTableByQuery("select value from preferences where name ='sms messege format'").Rows[0]["value"];
             string messege;
-            messege = messegeForamt.Replace("<<parentName>>", this.ParentName).Replace("<<studentName>>", this.StudentName).Replace("<<courseName>>", this.CourseName).Replace("<<day>>", this.Day.ToString()).Replace("<<groupName>>", this.GroupName);
+            if(this.GroupPurpose=="")
+            {
+                messegeForamt = messegeForamt.Replace("מטרת הקבוצה: <<gP>>", "");
+            }
+            messege = messegeForamt.Replace("<<pN>>", this.ParentName).Replace("<<sN>>", this.StudentName).Replace("<<gN>>", this.GroupName).Replace("<<cN>>", this.CourseName).Replace("<<gP>>", this.GroupPurpose).Replace("<<nC>>", nConfarmationNumber.ToString()).Replace("<<nD>>", (nConfarmationNumber + 1).ToString());
+            //messege+= messegeForamt
             return GenereteSMS(messege, this.PhoneNumber);
         }
         private bool GenereteSMS(string messege, string phoneNumber)
@@ -110,7 +123,7 @@ namespace ReshitScheduler
             string xml = @"<?xml version='1.0' encoding='UTF-8'?><sms><user><username>019sms</username><password>050618</password>
             </user><source>Reshit</source><destinations><phone>" + phoneNumber + "</phone></destinations><message>" + messege + "</message><response>1</response></sms>";
             String url = "https://www.019sms.co.il:8090/api/test";
-           // url= "https://www.019sms.co.il/api";
+          // url= "https://www.019sms.co.il/api";
             WebRequest webRequest = WebRequest.Create(url);
             webRequest.Method = "POST";
             byte[] bytes = Encoding.UTF8.GetBytes(xml);

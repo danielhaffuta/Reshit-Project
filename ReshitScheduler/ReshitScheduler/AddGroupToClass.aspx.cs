@@ -178,7 +178,8 @@ namespace ReshitScheduler
                             GroupName = GroupsList.SelectedItem.Text,
                             CourseName = drScheduleDetails["course_name"].ToString(),
                             StudentName = (ctrlCurrentControl as CheckBox).Text,
-                            GroupId = Convert.ToInt32(GroupsList.SelectedValue)
+                            GroupId = Convert.ToInt32(GroupsList.SelectedValue),
+                            GroupPurpose = strGroupPurpose.Substring(1, strGroupPurpose.Length - 2) //remove the ' from the string
                         };
                         lstStudentsSMS.Add(sms);
                         strInsertCommand += "(" + nDayId + "," + nHourId + "," + GroupsList.SelectedValue + "," + ctrlCurrentControl.ID + ",1,"+strGroupPurpose+"),";

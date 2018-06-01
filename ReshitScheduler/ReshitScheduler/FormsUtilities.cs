@@ -311,9 +311,9 @@ namespace ReshitScheduler
         public static void GetResponseSMS()
         {
             String url = "https://019sms.co.il/api";
-            DataTable dtLastDateSent = DBConnection.Instance.GetDataTableByQuery("select value from prefernces where name = last send date");
+            DataTable dtLastDateSent = DBConnection.Instance.GetDataTableByQuery("select value from preferences where name = 'last send date'");
             string strLastDateSent = (string)dtLastDateSent.Rows[0]["value"];
-
+            DBConnection.Instance.ExecuteNonQuery("update preferences set value=" + DateTime.Now.ToString("dd/mm/yy hh:mm") + " where name ='last send date'");
             //String testUrl = "https://www.019sms.co.il:8090/api/test";
             string xml = @"<?xml version='1.0' encoding='UTF-8'?><incoming><user><username>019sms</username><password>050618</password></user>
                             <from>"+strLastDateSent+"</from><to>"+DateTime.Now.ToString("dd/mm/yy hh:mm")+"</to></incoming>";
@@ -344,17 +344,19 @@ namespace ReshitScheduler
             foreach (XmlElement item in allResponse)
             {
                 string strPhoneNumber = item.ChildNodes.Item(0).InnerText.Replace("972", "0");
-                string strMessege = item.ChildNodes.Item(2).InnerText;
+                int confarmationNumber = Convert.ToInt32(item.ChildNodes.Item(2).InnerText);
                 string strSelectID = "select id from students where replace(father_cellphone,'-','')='" + strPhoneNumber + "' or replace(mother_cellphone,'','')='" + strPhoneNumber + "'";
                 string strCurrStudentId = DBConnection.Instance.GetDataTableByQuery(strSelectID).Rows[0]["id"].ToString();
-                if (strMessege.Contains("כן"))
+
+                if(confarmationNumber%2 ==0 )//not approve
                 {
-                    DBConnection.Instance.ExecuteNonQuery("update students_schedule set approval_status_id=2 where approval_status_id<>2 and student_id=" + strCurrStudentId);
+                    DBConnection.Instance.ExecuteNonQuery("update students_schedule set approval_status_id=3 where approval_status_id=1 and confarmation_number =" +(confarmationNumber-1).ToString()+" and student_id="+ strCurrStudentId);
                 }
-                else if (strMessege.Contains("לא"))
+                else//approve
                 {
-                    DBConnection.Instance.ExecuteNonQuery("update students_schedule set approval_status_id=3 where approval_status_id<>2 and student_id=" + strCurrStudentId);
+                    DBConnection.Instance.ExecuteNonQuery("update students_schedule set approval_status_id=2 where approval_status_id=1 and confarmation_number =" + confarmationNumber.ToString() + " and student_id=" + strCurrStudentId);
                 }
+
             }
         }
 
