@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -21,7 +22,7 @@ namespace ReshitScheduler
         private int nDayID;
         private int nHourID;
         private int nStudentScheduleID;
-
+        static int ALLOW_WAITING_SMS=7;
         public string PhoneNumber
         {
             set { strPhoneNumber = value.Replace("-", ""); }
@@ -105,8 +106,20 @@ namespace ReshitScheduler
 
         public bool Send()
         {
-            int nConfarmationNumber = Convert.ToInt32(DBConnection.Instance.GetDataTableByQuery("select count(*) as nStudentGroups,student_id from students_schedule where approval_status_id = 1  and student_id = "+this.StudentID).Rows[0]["nStudentGroups"]);
-            nConfarmationNumber = nConfarmationNumber + nConfarmationNumber - 1;
+            int? nConfarmationNumber = 1;
+            DataTable dtConfatmationNumber = DBConnection.Instance.GetDataTableByQuery("select confarmation_number from students_schedule where student_id = " + this.StudentID + " order by confarmation_number desc limit 1");
+            if(dtConfatmationNumber.Rows.Count== ALLOW_WAITING_SMS)
+            {
+                // need to alert to the techer??
+            }
+            if (Convert.IsDBNull(dtConfatmationNumber.Rows[0]["confarmation_number"]))
+            {
+                nConfarmationNumber = 1;
+            }
+            else
+            {
+                nConfarmationNumber = (Convert.ToInt32(dtConfatmationNumber.Rows[0]["confarmation_number"]) + 2);// % ALLOW_WAITING_SMS;
+            }
             DBConnection.Instance.ExecuteNonQuery("update students_schedule set confarmation_number=" + nConfarmationNumber+" where group_id="+this.nGroupId+" and student_id="+this.nStudentID);
             string messegeForamt = (string)DBConnection.Instance.GetDataTableByQuery("select value from preferences where name ='sms messege format'").Rows[0]["value"];
             string messege;
@@ -115,7 +128,6 @@ namespace ReshitScheduler
                 messegeForamt = messegeForamt.Replace("מטרת הקבוצה: <<gP>>", "");
             }
             messege = messegeForamt.Replace("<<pN>>", this.ParentName).Replace("<<sN>>", this.StudentName).Replace("<<gN>>", this.GroupName).Replace("<<cN>>", this.CourseName).Replace("<<gP>>", this.GroupPurpose).Replace("<<nC>>", nConfarmationNumber.ToString()).Replace("<<nD>>", (nConfarmationNumber + 1).ToString());
-            //messege+= messegeForamt
             return GenereteSMS(messege, this.PhoneNumber);
         }
         private bool GenereteSMS(string messege, string phoneNumber)
