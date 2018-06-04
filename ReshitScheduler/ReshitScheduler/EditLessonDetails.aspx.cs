@@ -75,18 +75,18 @@ namespace ReshitScheduler
             {
                 dtCourseDetails = DBConnection.Instance.GetThisYearLessons("courses");
                 drLessonDetails = dtCourseDetails.Select("course_id = " + nLessonID)[0];
-                if (drLessonDetails["has_evaluation"].ToString().Equals("0"))
-                {
-                    HasEvaluation.Checked = true;
-                    NotHaveEvaluation.Checked = false;
-                }
-                else
-                {
-                    HasEvaluation.Checked = false;
-                    NotHaveEvaluation.Checked = true;
-                }
             }
-            
+            if (drLessonDetails["has_evaluation"].ToString().Equals("0"))
+            {
+                HasEvaluation.Checked = true;
+                NotHaveEvaluation.Checked = false;
+            }
+            else
+            {
+                HasEvaluation.Checked = false;
+                NotHaveEvaluation.Checked = true;
+            }
+
             CourseName.Text = drLessonDetails["name"].ToString();
             ddlTeachers.SelectedValue = drLessonDetails["teacher_id"].ToString();
         }
@@ -105,22 +105,22 @@ namespace ReshitScheduler
             if (IsGroup)
             {
                 tableName = "groups";
-                strFields = "group_name:teacher_id";
+                strFields = "group_name:teacher_id:has_evaluation";
             }
             else
             {
                 tableName = "courses";
-                strFields = "course_name:teacher_id";
-                if (HasEvaluation.Checked)
-                {
-                    strValues += ":0";
-                }
-                if (NotHaveEvaluation.Checked)
-                {
-                    strValues += ":1";
-                }
+                strFields = "course_name:teacher_id:has_evaluation";
             }
-            
+            if (HasEvaluation.Checked)
+            {
+                strValues += ":0";
+            }
+            if (NotHaveEvaluation.Checked)
+            {
+                strValues += ":1";
+            }
+
 
             bool bUpdateSucceeded = DBConnection.Instance.UpdateTableRow(tableName, nLessonID, strFields, strValues);
             if (!bUpdateSucceeded)

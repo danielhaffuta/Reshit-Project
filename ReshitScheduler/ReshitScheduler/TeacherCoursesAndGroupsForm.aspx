@@ -5,7 +5,7 @@
         <asp:Panel runat="server" CssClass="border" ID="pnlNoLessonsMsg"><h2>אינך מלמד אף שיעור</h2></asp:Panel>
         <div class="row justify-content-center" >
             <div class="col-6 col-sm-3"  runat="server" id="divCourses">
-                <div class="h4">הקורסים שלך:</div>
+                <div class="h4">השיעורים שלך:</div>
                 <asp:Panel runat="server" ID="pnlCourses" CssClass="btn-group-vertical"> 
 
                 </asp:Panel>
