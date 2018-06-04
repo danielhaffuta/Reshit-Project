@@ -620,6 +620,7 @@ namespace ReshitScheduler
                 " and groups_evaluations.group_id = students_schedule.group_id" +
                 " and groups_evaluations.semester_number =(select value from preferences where name='current_semester_number')" +
                 " inner join groups on groups.id = students_schedule.group_id" +
+                " and groups.has_evaluation = '0'" +
                 " inner join teachers on teachers.id = groups.teacher_id" +
                 " where students_schedule.student_id = " + nStudentID +
                 " union" +
@@ -629,6 +630,7 @@ namespace ReshitScheduler
                 " inner join students_classes on students_classes.class_id = classes_schedule.class_id" +
                                             " and students_classes.student_id = " + nStudentID +
                 " inner join courses on courses.id = classes_schedule.course_id" +
+                " and courses.has_evaluation = '0'" +
                 " inner join teachers on teachers.id = courses.teacher_id" +
                 " left join courses_evaluations on courses_evaluations.course_id = classes_schedule.course_id" +
                                               " and courses_evaluations.student_id = " + nStudentID +
@@ -779,7 +781,7 @@ namespace ReshitScheduler
             {
                 name = "course";
                 return this.GetDataTableByQuery("select " + tableName + ".id as " + name + "_id, " +
-                    tableName + "." + name + "_name as name," + tableName + ".also_group as also_group," +
+                    tableName + "." + name + "_name as name," + tableName + ".has_evaluation as has_evaluation," +
                 " teachers.id as teacher_id from " + tableName +
                 " inner join teachers on teachers.id = " + tableName + ".teacher_id " +
                 " inner join years on years.id = teachers.year_id" +
