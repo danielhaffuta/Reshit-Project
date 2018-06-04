@@ -39,6 +39,7 @@ namespace ReshitScheduler
                 ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Hello " + LoggedInTeacher.FirstName + " " + LoggedInTeacher.LastName + "');", true);
 
                 Session["LoggedInTeacher"] = LoggedInTeacher;
+                FormsUtilities.GetResponseSMS();
                 Response.Redirect("MainForm.aspx");
             }
             else
