@@ -313,7 +313,7 @@ namespace ReshitScheduler
             String url = "https://019sms.co.il/api";
             DataTable dtLastDateSent = DBConnection.Instance.GetDataTableByQuery("select value from preferences where name = 'last send date'");
             string strLastDateSent = (string)dtLastDateSent.Rows[0]["value"];
-            DBConnection.Instance.ExecuteNonQuery("update preferences set value=" + DateTime.Now.ToString("dd/mm/yy hh:mm") + " where name ='last send date'");
+            DBConnection.Instance.ExecuteNonQuery("update preferences set value='" + DateTime.Now.ToString("dd/mm/yy hh:mm") + "' where name ='last send date'");
             //String testUrl = "https://www.019sms.co.il:8090/api/test";
             string xml = @"<?xml version='1.0' encoding='UTF-8'?><incoming><user><username>019sms</username><password>050618</password></user>
                             <from>"+strLastDateSent+"</from><to>"+DateTime.Now.ToString("dd/mm/yy hh:mm")+"</to></incoming>";
