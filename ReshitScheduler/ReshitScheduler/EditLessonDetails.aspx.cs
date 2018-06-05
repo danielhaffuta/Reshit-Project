@@ -23,6 +23,7 @@ namespace ReshitScheduler
                 LessonEdit.InnerText = "עריכת פרטי קבוצה";
                 LessonSelection.Text = "בחר קבוצה";
                 Course.Text = "שם הקבוצה:";
+                BtnDeleteLesson.InnerText = "מחק קבוצה";
             }
             else
             {
@@ -128,7 +129,27 @@ namespace ReshitScheduler
                 Helper.ShowMessage(ClientScript, "error saving");
             }
             Helper.ShowMessage(ClientScript, "נשמר");
+            ResetLessonDetails();
 
+        }
+        protected void BtnDeleteLesson_Click(object sender, EventArgs e)
+        {
+            string strTableName;
+            if (IsGroup)
+            {
+                strTableName = "groups";
+                DBConnection.Instance.DeleteRowFromTable("groups_evaluation", nLessonID, "group_id");
+                DBConnection.Instance.DeleteRowFromTable("students_schedule", nLessonID, "group_id");
+            }
+            else
+            {
+                strTableName = "courses";
+                DBConnection.Instance.DeleteRowFromTable("courses_evaluation", nLessonID, "course_id");
+                DBConnection.Instance.DeleteRowFromTable("classes_schedule", nLessonID, "course_id");
+            }
+            DBConnection.Instance.DeleteRowFromTable(strTableName, nLessonID);
+            Helper.ShowMessage(ClientScript, "נמחק");
+            ResetLessonDetails();
         }
 
         protected void BtnBack_Click(object sender, EventArgs e)
@@ -138,6 +159,13 @@ namespace ReshitScheduler
         private void GoBack()
         {
             Response.Redirect("MainForm.aspx");
+        }
+
+        private void ResetLessonDetails()
+        {
+            ddlLessons.SelectedIndex = 0;
+            nLessonID = Convert.ToInt32(ddlLessons.SelectedValue);
+            FillLessonDetails();
         }
     }
 }

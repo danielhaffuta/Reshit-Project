@@ -30,6 +30,7 @@
             </div>
             <div class="form-row justify-content-center btn-group-vertical">
                 <button id="BtnUpdateClass" runat="server" onserverclick="BtnUpdateClass_Click" class="btn btn-outline-dark">שמור</button>
+                <button id="BtnDeleteClass" runat="server" onserverclick="BtnDeleteClass_Click" class="btn btn-outline-dark">מחק כיתה</button>
             </div>
         </div>
     </div>

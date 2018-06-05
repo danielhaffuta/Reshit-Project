@@ -58,6 +58,17 @@ namespace ReshitScheduler
                 gvLessons.DataSource = dtCourses;
             }
             gvLessons.DataBind();
+            foreach(GridViewRow grCurrentRow in gvLessons.Rows )
+            {
+                if(grCurrentRow.Cells[2].Text.Equals("0"))
+                {
+                    grCurrentRow.Cells[2].Text = "כן";
+                }
+                else
+                {
+                    grCurrentRow.Cells[2].Text = "לא";
+                }
+            }
         }
 
         protected void BtnSave_Click(object sender, EventArgs e)

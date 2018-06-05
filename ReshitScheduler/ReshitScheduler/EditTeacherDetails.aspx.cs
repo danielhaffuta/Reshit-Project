@@ -37,7 +37,7 @@ namespace ReshitScheduler
 
             }
             nTeacherID = Convert.ToInt32(ddlTeachers.SelectedValue);
-            if (!IsPostBack )
+            if (!IsPostBack)
             {
                 FillTeacherDetails();
 
@@ -99,7 +99,7 @@ namespace ReshitScheduler
         protected void ddlTeachers_SelectedIndexChanged(object sender, EventArgs e)
         {
             FillTeacherDetails();
-                FillClasses();
+            FillClasses();
         }
         protected void BtnBack_Click(object sender, EventArgs e)
         {
@@ -113,14 +113,14 @@ namespace ReshitScheduler
         protected void BtnUpdateTeacher_Click(object sender, EventArgs e)
         {
             string strFields = "first_name:last_name:teacher_type_id:user_name:password:year_id";
-            string strValues = "'" + txtTeacherFirstName.Text + "':'"+
-                               txtTeacherLastName.Text + "':"+
-                               ddlTeacherTypes.SelectedValue + ":'"+
-                               txtUserName.Text + "':'"+
-                               txtPassword.Text + "':"+
+            string strValues = "'" + txtTeacherFirstName.Text + "':'" +
+                               txtTeacherLastName.Text + "':" +
+                               ddlTeacherTypes.SelectedValue + ":'" +
+                               txtUserName.Text + "':'" +
+                               txtPassword.Text + "':" +
                                "(select value from preferences where name = 'current_year_id')";
 
-            bool bUpdateSucceeded = DBConnection.Instance.UpdateTableRow("teachers",nTeacherID, strFields, strValues);
+            bool bUpdateSucceeded = DBConnection.Instance.UpdateTableRow("teachers", nTeacherID, strFields, strValues);
             if (!bUpdateSucceeded)
             {
                 Helper.ShowMessage(ClientScript, "error saving");
@@ -147,8 +147,26 @@ namespace ReshitScheduler
                 }
             }
 
-            GoBack();
+            ResetTeacherDetails();
 
+        }
+        protected void BtnDeleteTeacher_Click(object sender, EventArgs e)
+        {
+            DBConnection.Instance.DeleteRowFromTable("teacher_class_access", nTeacherID, "teacher_id");
+            DBConnection.Instance.DeleteRowFromTable("courses", nTeacherID, "teacher_id");
+            DBConnection.Instance.DeleteRowFromTable("groups", nTeacherID, "teacher_id");
+            DBConnection.Instance.DeleteRowFromTable("classes", nTeacherID, "teacher_id");
+            DBConnection.Instance.DeleteRowFromTable("teachers", nTeacherID);
+            Helper.ShowMessage(ClientScript, "מורה נמחק");
+            ResetTeacherDetails();
+        }
+
+        private void ResetTeacherDetails()
+        {
+            ddlTeachers.SelectedIndex = 0;
+            nTeacherID = Convert.ToInt32(ddlTeachers.SelectedValue);
+            FillTeacherDetails();
+            FillClasses();
         }
     }
 }

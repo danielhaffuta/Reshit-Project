@@ -30,6 +30,11 @@
                      </asp:TemplateField>
                     <asp:BoundField DataField="id">
                     </asp:BoundField>
+                    <asp:TemplateField HeaderText="מחק שעה">
+                       <ItemTemplate>
+                           <asp:CheckBox ID="DeleteHour" runat="server" CssClass="form-control-check"  Text="כן"/>
+                       </ItemTemplate>
+                    </asp:TemplateField>
                         
                 </Columns>
             </asp:GridView>

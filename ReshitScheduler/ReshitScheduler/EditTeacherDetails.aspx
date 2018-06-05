@@ -44,6 +44,7 @@
 
             <div class="form-row justify-content-center btn-group-vertical">
                 <button id="BtnUpdateTeacher" runat="server" onserverclick="BtnUpdateTeacher_Click" class="btn btn-outline-dark">שמור</button>
+                <button id="BtnDeleteTeacher" runat="server" onserverclick="BtnDeleteTeacher_Click" class="btn btn-outline-dark">מחק מורה</button>
             </div>
          </div>
     </div>

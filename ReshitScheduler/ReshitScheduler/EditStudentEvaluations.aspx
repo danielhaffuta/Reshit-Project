@@ -4,6 +4,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainForm" runat="server">
     <div class="mt-5">
+        <asp:DropDownList ID="ddlStudents" runat="server" OnSelectedIndexChanged ="ddlStudents_changed"></asp:DropDownList>
         <h2 id="name" runat="server" ></h2>
         <asp:Panel runat="server" ID="pnlEvaluations" >
             <div class="col text-center" >

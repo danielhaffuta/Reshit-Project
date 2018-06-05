@@ -23,6 +23,17 @@ namespace ReshitScheduler
                 
                 if(!IsPostBack)
                 {
+                    string strStudentQuery = "select students.id as id, concat(students.last_name,' ' ,students.first_name) as name" + 
+                                        " from students" +
+                                        " inner join students_classes on students_classes.student_id = students.id" +
+                                        " where students_classes.class_id = " + nClassID +
+                                        " order by last_name";
+                    DataTable dtStudents = DBConnection.Instance.GetDataTableByQuery(strStudentQuery);
+                    ddlStudents.DataSource = dtStudents;
+                    ddlStudents.DataValueField = "id";
+                    ddlStudents.DataTextField = "name";
+                    ddlStudents.AutoPostBack = true;
+                    ddlStudents.DataBind();
                     FillEvaluations();
                 }
             }
@@ -40,6 +51,12 @@ namespace ReshitScheduler
         {
             if (Request.QueryString["StudentID"] != null)
                 Response.Redirect("StudentDetailsForm.aspx?StudentID=" + nStudentID);
+        }
+
+        protected void ddlStudents_changed(object sender, EventArgs e)
+        {
+            nStudentID = Convert.ToInt32(ddlStudents.SelectedValue);
+            Response.Redirect("EditStudentEvaluations.aspx?StudentID=" + nStudentID);
         }
 
         protected void txtEvaluation_TextChanged(object sender, EventArgs e)

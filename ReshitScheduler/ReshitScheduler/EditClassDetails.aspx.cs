@@ -20,7 +20,7 @@ namespace ReshitScheduler
             dtTeachers = DBConnection.Instance.GetThisYearTeachers();
             dtClasses = DBConnection.Instance.GetThisYearClasses();
             dtGrades = DBConnection.Instance.GetGrades();
-            
+
 
             if (!IsPostBack)
             {
@@ -93,7 +93,22 @@ namespace ReshitScheduler
                 Helper.ShowMessage(ClientScript, "error saving");
             }
             Helper.ShowMessage(ClientScript, "נשמר");
+            ResetClassDetails();
 
+        }
+
+        protected void BtnDeleteClass_Click(object sender, EventArgs e)
+        {
+            DBConnection.Instance.DeleteRowFromTable("classes", nClassID);
+            Helper.ShowMessage(ClientScript, "כיתה נמחקה");
+            ResetClassDetails();
+        }
+
+        private void ResetClassDetails()
+        {
+            ddlClasses.SelectedIndex = 0;
+            nClassID = Convert.ToInt32(ddlClasses.SelectedValue);
+            FillClassDetails();
         }
     }
 }

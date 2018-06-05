@@ -3,6 +3,7 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="navbar_extra" runat="server">
     <a class="nav-item nav-link" runat="server" onserverclick="BtnSave_Click">שמור</a>
+    <a class="nav-item nav-link" runat="server" onserverclick="BtnDelete_Click">מחק תלמיד</a>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainForm" runat="server">
     <img class="figure-img img-fluid" src="<%=drStudentDetails["picture_path"] %>" width="350"/><br />

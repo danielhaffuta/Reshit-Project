@@ -51,6 +51,15 @@ namespace ReshitScheduler
             GoBack();
 
         }
+        protected void BtnDelete_Click(object sender, EventArgs e)
+        {
+            DBConnection.Instance.DeleteRowFromTable("students_schedule", nStudentID, "student_id");
+            DBConnection.Instance.DeleteRowFromTable("groups_evaluations", nStudentID, "student_id");
+            DBConnection.Instance.DeleteRowFromTable("courses_evaluations", nStudentID, "student_id");
+            DBConnection.Instance.DeleteRowFromTable("students_classes", nStudentID, "student_id");
+            DBConnection.Instance.DeleteRowFromTable("students", nStudentID);
+            Response.Redirect("ClassPage.aspx?ClassId=" + nClassID);
+        }
         protected void BtnBack_Click(object sender, EventArgs e)
         {
             GoBack();

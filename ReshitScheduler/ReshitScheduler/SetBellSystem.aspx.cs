@@ -101,24 +101,35 @@ namespace ReshitScheduler
             foreach (GridViewRow grCurrentRow in gvHours.Rows)
             {
                 int.TryParse(grCurrentRow.Cells[5].Text, out nHourID);
-                values = "'" + ((TextBox)grCurrentRow.Cells[1].FindControl("tblStartTime")).Text + "'," +
-                            "'" + ((TextBox)grCurrentRow.Cells[2].FindControl("tblFinishTime")).Text + "',";
-                if(((CheckBox)grCurrentRow.FindControl("CheckIfBreak")).Checked)
+                if (((CheckBox)grCurrentRow.FindControl("DeleteHour")).Checked)
                 {
-                    values += "1";
+                    DBConnection.Instance.DeleteRowFromTable("classes_schedule", nHourID, "hour_id");
+                    DBConnection.Instance.DeleteRowFromTable("students_schedule", nHourID, "hour_id");
+                    DBConnection.Instance.DeleteRowFromTable("hours_in_day", nHourID);
                 }
                 else
                 {
-                    values += "0";
-                }
-                bool bInsertSucceeded = DBConnection.Instance.UpdateTableRow1("hours_in_day", nHourID, fields, values);
-                if (!bInsertSucceeded)
-                {
-                    Helper.ShowMessage(ClientScript, "error saving bell system");
+                    values = "'" + ((TextBox)grCurrentRow.Cells[1].FindControl("tblStartTime")).Text + "'," +
+                                "'" + ((TextBox)grCurrentRow.Cells[2].FindControl("tblFinishTime")).Text + "',";
+                    if (((CheckBox)grCurrentRow.FindControl("CheckIfBreak")).Checked)
+                    {
+                        values += "1";
+                    }
+                    else
+                    {
+                        values += "0";
+                    }
+                    bool bInsertSucceeded = DBConnection.Instance.UpdateTableRow1("hours_in_day", nHourID, fields, values);
+                    if (!bInsertSucceeded)
+                    {
+                        Helper.ShowMessage(ClientScript, "error saving bell system");
+                    }
                 }
             }
+            Helper.ShowMessage(ClientScript, "מערכת צלצולים נשמרה");
             showHours();
         }
+        
 
         protected void BtnBack_Click(object sender, EventArgs e)
         {

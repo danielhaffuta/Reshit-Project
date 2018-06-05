@@ -47,6 +47,9 @@
                     <asp:BoundField DataField="teacher_name" HeaderText="מורה">
                         <HeaderStyle Font-Bold="True" />
                     </asp:BoundField>
+                    <asp:BoundField DataField="has_evaluation" HeaderText="האם יש הערכה">
+                        <HeaderStyle Font-Bold="True" />
+                    </asp:BoundField>
 
                 </Columns>
             </asp:GridView>

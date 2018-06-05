@@ -306,7 +306,7 @@ namespace ReshitScheduler
             return true;
         }
 
-        public bool InsertTableRow(string tableName, string strFields, string strValues,out int nInsertID)
+        public bool InsertTableRow(string tableName, string strFields, string strValues, out int nInsertID)
         {
             this.Connect();
 
@@ -402,13 +402,13 @@ namespace ReshitScheduler
             return GetStringByQuery(strQuery);
         }
 
-        public string GetDisplayQuery(string strTableName,string strExtraFields)
+        public string GetDisplayQuery(string strTableName, string strExtraFields)
         {
             string strQuery = "SELECT display_column_query " +
                               "FROM tables_information " +
                                "where table_name = '" + strTableName + "'";
             string strDisplayQuery = GetStringByQuery(strQuery);
-            strDisplayQuery = "select " + strExtraFields +","+ strDisplayQuery.Substring(7);
+            strDisplayQuery = "select " + strExtraFields + "," + strDisplayQuery.Substring(7);
             return strDisplayQuery;
         }
         public DataSet GetAllTables()
@@ -446,7 +446,7 @@ namespace ReshitScheduler
 
         public void IncreaseCurrentYearID()
         {
-                int nCurrentYearID = Convert.ToInt32(GetCurrentYearID());
+            int nCurrentYearID = Convert.ToInt32(GetCurrentYearID());
             this.Connect();
 
             if (this.IsConnected)
@@ -461,14 +461,14 @@ namespace ReshitScheduler
                 command.ExecuteNonQuery();
 
                 command = new MySqlCommand("insert into teachers(first_name,last_name,teacher_type_id,user_name,password,year_id)" +
-                                           " select first_name, last_name, teacher_type_id, user_name, password, " + (nCurrentYearID + 1) + 
+                                           " select first_name, last_name, teacher_type_id, user_name, password, " + (nCurrentYearID + 1) +
                                            " from teachers where year_id = " + nCurrentYearID, this.connection);
                 command.ExecuteNonQuery();
 
                 command = new MySqlCommand("insert into classes(grade_id,class_number,teacher_id)" +
                                            " select (grade_id+1), class_number,new_teacher.id from classes " +
                                            " inner join teachers old_teacher on old_teacher.id = classes.teacher_id" +
-                                           " inner join teachers new_teacher on new_teacher.user_name = old_teacher.user_name "+
+                                           " inner join teachers new_teacher on new_teacher.user_name = old_teacher.user_name " +
                                            " and new_teacher.year_id = " + (nCurrentYearID + 1) +
                                            " where grade_id < 8", this.connection);
                 command.ExecuteNonQuery();
@@ -481,7 +481,7 @@ namespace ReshitScheduler
                                            " inner join classes old_class on old_class.id = teacher_class_access.class_id " +
                                            " inner join teachers old_class_teacher on old_class_teacher.id = old_class.teacher_id " +
                                            " inner join teachers new_class_teacher on new_class_teacher.user_name = old_class_teacher.user_name " +
-                                                                                 " and new_class_teacher.year_id = "+ (nCurrentYearID + 1)+
+                                                                                 " and new_class_teacher.year_id = " + (nCurrentYearID + 1) +
                                            " inner join classes new_class on new_class.teacher_id = new_class_teacher.id  " +
                                                                         " and new_class.class_number = old_class.class_number " +
                                                                         " and new_class.grade_id = (old_class.grade_id +1) ", this.connection);
@@ -493,7 +493,7 @@ namespace ReshitScheduler
                                            " select group_name, new_teacher.id from groups " +
                                            " inner join teachers old_teacher on old_teacher.id = groups.teacher_id" +
                                            " inner join teachers new_teacher on new_teacher.user_name = old_teacher.user_name " +
-                                                                           " and new_teacher.year_id = " + (nCurrentYearID + 1)  , this.connection);
+                                                                           " and new_teacher.year_id = " + (nCurrentYearID + 1), this.connection);
 
                 command.ExecuteNonQuery();
 
@@ -515,7 +515,7 @@ namespace ReshitScheduler
                                            " inner join classes new_class on new_class.teacher_id = new_class_teacher.id  " +
                                                                         " and new_class.class_number = old_class.class_number " +
                                                                         " and new_class.grade_id = (old_class.grade_id +1) ", this.connection);
-                                    
+
 
                 command.ExecuteNonQuery();
 
@@ -531,7 +531,7 @@ namespace ReshitScheduler
             }
 
             this.Close();
-        } 
+        }
 
         public void ExecuteNonQuery(string strCommand)
         {
@@ -605,7 +605,7 @@ namespace ReshitScheduler
                 " inner join courses on courses.id = classes_schedule.course_id" +
                 " left join courses_evaluations on courses_evaluations.course_id = classes_schedule.course_id" +
                                               " and courses_evaluations.student_id = " + nStudentID +
-                                              " and courses_evaluations.semester_number =(select value from preferences where name='current_semester_number')"+
+                                              " and courses_evaluations.semester_number =(select value from preferences where name='current_semester_number')" +
                 " where " + nStudentID + " not in (select student_id from students_schedule where students_schedule.day_id = classes_schedule.day_id" +
                                                                                             " and students_schedule.hour_id = classes_schedule.hour_id)");
         }
@@ -641,8 +641,8 @@ namespace ReshitScheduler
 
         public bool CheckIfHaveEvaluation(int nLessonID, string strTableName)
         {
-            string haveEvaluation = GetStringByQuery("select has_evaluation from " + strTableName + 
-                                                     " where " + strTableName + ".id = " + nLessonID );
+            string haveEvaluation = GetStringByQuery("select has_evaluation from " + strTableName +
+                                                     " where " + strTableName + ".id = " + nLessonID);
             if (haveEvaluation.Equals("0"))
                 return true;
             else
@@ -712,7 +712,7 @@ namespace ReshitScheduler
 
             return GetDataTableByQuery(GetDisplayQuery("classes") +
                 " inner join teacher_class_access on teacher_class_access.class_id = classes.id " +
-                " where teacher_class_access.teacher_id = " + nTeacherID+
+                " where teacher_class_access.teacher_id = " + nTeacherID +
                 " order by name");
         }
 
@@ -742,12 +742,12 @@ namespace ReshitScheduler
 
         public DataTable GetThisYearClassesDetails()
         {
-            return this.GetDataTableByQuery("select classes.id as class_id, grades.id as grade_id,grades.grade_name,classes.class_number,"+
-                                            " teachers.id as teacher_id, concat(teachers.first_name, ' ', teachers.last_name) as teacher_name"+
-                                            " from classes"+
-                                            " inner join grades on grades.id = classes.grade_id"+
-                                            " inner join teachers on teachers.id = classes.teacher_id"+
-                                            " inner join years on years.id = teachers.year_id"+
+            return this.GetDataTableByQuery("select classes.id as class_id, grades.id as grade_id,grades.grade_name,classes.class_number," +
+                                            " teachers.id as teacher_id, concat(teachers.first_name, ' ', teachers.last_name) as teacher_name" +
+                                            " from classes" +
+                                            " inner join grades on grades.id = classes.grade_id" +
+                                            " inner join teachers on teachers.id = classes.teacher_id" +
+                                            " inner join years on years.id = teachers.year_id" +
                                             " where teachers.year_id=(select value from preferences where name='current_year_id')");
         }
 
@@ -777,28 +777,23 @@ namespace ReshitScheduler
         public DataTable GetThisYearLessons(string tableName)
         {
             string name = "";
-            if(tableName.Equals("courses"))
+            if (tableName.Equals("courses"))
             {
                 name = "course";
-                return this.GetDataTableByQuery("select " + tableName + ".id as " + name + "_id, " +
+            }
+            else
+            {
+                name = "group";
+            }
+            return this.GetDataTableByQuery("select " + tableName + ".id as " + name + "_id, " +
                     tableName + "." + name + "_name as name," + tableName + ".has_evaluation as has_evaluation," +
                 " teachers.id as teacher_id from " + tableName +
                 " inner join teachers on teachers.id = " + tableName + ".teacher_id " +
                 " inner join years on years.id = teachers.year_id" +
                 " where teachers.year_id=(select value from preferences where name='current_year_id')");
-            }
-            else
-            {
-                name = "group";
-                return this.GetDataTableByQuery("select " + tableName + ".id as " + name + "_id, " + tableName + "." + name + "_name as name," +
-                tableName + "." +name +"_goal, teachers.id as teacher_id from " + tableName +
-                " inner join teachers on teachers.id = " + tableName + ".teacher_id " +
-                " inner join years on years.id = teachers.year_id" +
-                " where teachers.year_id=(select value from preferences where name='current_year_id')");
-            }
-            
+
         }
-        
+
         public string GetPriority(string TableName)
         {
             return this.GetStringByQuery("select MAX(priority) from " + TableName);
@@ -818,7 +813,7 @@ namespace ReshitScheduler
 
         public string GetMaxHourOfSchoolDay()
         {
-            return this.GetStringByQuery("select max(hour_of_school_day) from hours_in_day" + 
+            return this.GetStringByQuery("select max(hour_of_school_day) from hours_in_day" +
                 " where year_id = (select value from preferences where name='current_year_id')");
         }
 
@@ -835,7 +830,7 @@ namespace ReshitScheduler
             this.Close();
         }
 
-        public DataRow GetScheduleDetails(int nDayID,int nHourID,int nClassID,int nGroupID)
+        public DataRow GetScheduleDetails(int nDayID, int nHourID, int nClassID, int nGroupID)
         {
             return GetDataTableByQuery("select (select group_name from groups where id = " + nGroupID + ") ,course_name" +
                                        " from classes_schedule " +
@@ -843,5 +838,38 @@ namespace ReshitScheduler
                                        " where classes_schedule.day_id = " + nDayID +
                                        " and classes_schedule.hour_id = " + nHourID).Rows[0];
         }
+
+        public void DeleteRowFromTable(string strTableName, int nID)
+        {
+            this.Connect();
+
+            if (this.IsConnected)
+            {
+                MySqlCommand command = new MySqlCommand("delete from " + strTableName + " where id = " +nID, this.connection);
+
+                command.ExecuteNonQuery();
+            }
+            this.Close();
+        }
+
+        public void DeleteRowFromTable(string strTableName, int value, string strField)
+        {
+            this.Connect();
+
+            if (this.IsConnected)
+            {
+                MySqlCommand command;
+                if (strTableName.Equals("teachers") || strTableName.Equals("hours_in_day"))
+                {
+                    command = new MySqlCommand("delete from " + strTableName + " where " + strField + " = " + value+
+                                        "and " + strTableName + ".year_id = " + GetCurrentYearID(), this.connection);
+                }
+                command = new MySqlCommand("delete from " + strTableName + " where " + strField + " = " + value, this.connection);
+
+                command.ExecuteNonQuery();
+            }
+            this.Close();
+        }
+
     }
 }
