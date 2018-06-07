@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -81,7 +82,9 @@ namespace ReshitScheduler
 
         protected void btnWordPrint_ServerClick(object sender, EventArgs e)
         {
-            var docEveluation = DocX.Load(@"D:\ReshitProject\Evaluations\example.docx");
+            
+            var docEveluation = DocX.Load(AppDomain.CurrentDomain.BaseDirectory+ "Evaluations\\example.docx");
+
             docEveluation.SetDirection(Direction.RightToLeft);
             string strCurrentSemester = DBConnection.Instance.GetCurrentSemester();
             insertHeader(docEveluation, strCurrentSemester);
@@ -136,7 +139,7 @@ namespace ReshitScheduler
                 string strEvaluation = ((System.Web.UI.WebControls.TableCell)(pnlEvaluations.Controls[2].Controls[currentEvelaution].Controls[1])).Text;
                 tblEvaluation.Rows[0].Cells[0].Paragraphs.First().Append(strCourseName).FontSize(15).Font(new Font("David")).Bold();
                 tblEvaluation.Rows[0].Cells[1].Paragraphs.First().Append(strEvaluation).FontSize(10).Font(new Font("David"));
-                tblEvaluation.SetWidthsPercentage(new float[] { 20, 70 },null)
+                tblEvaluation.SetWidthsPercentage(new float[] { 20, 70 }, null);
                 tblEvaluation.Rows[0].Height = 50;
                 docEveluation.InsertTable(tblEvaluation);
                 docEveluation.InsertParagraph(" ");
