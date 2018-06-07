@@ -15,6 +15,7 @@
         <div class="form-row justify-content-center">
             <button  runat="server" onserverclick="BtnBack_Click" class="btn btn-outline-dark d-print-none">חזור</button>
             <button  runat="server" onserverclick="BtnPrint_Click" class="btn btn-outline-dark d-print-none">הדפס</button>
+            <button runat="server" class="btn btn-outline-dark d-print-none" id="btnWordPrint" onserverclick="btnWordPrint_ServerClick">וורד</button>
         </div>
     </div>
 </asp:Content>

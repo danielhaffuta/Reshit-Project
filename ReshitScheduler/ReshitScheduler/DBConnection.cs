@@ -871,5 +871,26 @@ namespace ReshitScheduler
             this.Close();
         }
 
+        public string GetRootDirectory()
+        {
+            return (String)GetDataTableByQuery("select value from preferences where name = 'root directory'").Rows[0]["value"];
+        }
+
+        public string GetCurrentSemester()
+        {
+            int nCurrentSemester = Convert.ToInt32(DBConnection.Instance.GetDataTableByQuery("select value from preferences where name='current_semester_number'").Rows[0]["value"]);
+            if(nCurrentSemester==1)
+            {
+                return "מחצית ראשונה";
+            }
+            return "מחצית שניה";
+        }
+
+        public string GetYearName()
+        {
+
+            return GetDataTableByQuery("select year_name from years where id in(select value from preferences where name='current_year_id')").Rows[0]["year_name"].ToString();
+        }
     }
+
 }
