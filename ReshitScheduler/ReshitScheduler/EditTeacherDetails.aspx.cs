@@ -15,6 +15,7 @@ namespace ReshitScheduler
         private DataTable dtClasses;
         private DataTable dtTeachersAccesses;
         private int nTeacherID;
+        private bool bTeacherDeleted = false;
         protected void Page_Load(object sender, EventArgs e)
         {
             dtTeachers = DBConnection.Instance.GetThisYearTeachers();
@@ -152,17 +153,32 @@ namespace ReshitScheduler
         }
         protected void BtnDeleteTeacher_Click(object sender, EventArgs e)
         {
-            DBConnection.Instance.DeleteRowFromTable("teacher_class_access", nTeacherID, "teacher_id");
-            DBConnection.Instance.DeleteRowFromTable("courses", nTeacherID, "teacher_id");
-            DBConnection.Instance.DeleteRowFromTable("groups", nTeacherID, "teacher_id");
-            DBConnection.Instance.DeleteRowFromTable("classes", nTeacherID, "teacher_id");
-            DBConnection.Instance.DeleteRowFromTable("teachers", nTeacherID);
+            bTeacherDeleted = true;
+            int nCurrentYearID = DBConnection.Instance.GetCurrentYearID();
+            string strDeleteQuery = "delete from teacher_class_access where teacher_id = " + nTeacherID +
+                 " and teacher_id in(select id from teachers where year_id = " + nCurrentYearID + ");";
+            strDeleteQuery += " delete from groups where teacher_id = " + nTeacherID +
+                     " and teacher_id in(select id from teachers where year_id = " + nCurrentYearID + ");";
+            strDeleteQuery += " delete from courses where teacher_id = " + nTeacherID +
+                     " and teacher_id in(select id from teachers where year_id = " + nCurrentYearID + ");";
+            strDeleteQuery += " delete from classes where teacher_id = " + nTeacherID +
+                    " and teacher_id in(select id from teachers where year_id = " + nCurrentYearID + ");";
+            strDeleteQuery += " delete from teachers where id = " + nTeacherID + " and year_id = " + nCurrentYearID + ";";
+            DBConnection.Instance.ExecuteNonQuery(strDeleteQuery);
             Helper.ShowMessage(ClientScript, "מורה נמחק");
             ResetTeacherDetails();
         }
 
         private void ResetTeacherDetails()
         {
+            if(bTeacherDeleted)
+            {
+                dtTeachers = DBConnection.Instance.GetThisYearTeachers();
+                ddlTeachers.DataSource = dtTeachers;
+                ddlTeachers.DataValueField = "id";
+                ddlTeachers.DataTextField = "name";
+                ddlTeachers.DataBind();
+            }
             ddlTeachers.SelectedIndex = 0;
             nTeacherID = Convert.ToInt32(ddlTeachers.SelectedValue);
             FillTeacherDetails();

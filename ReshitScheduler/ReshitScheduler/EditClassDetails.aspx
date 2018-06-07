@@ -25,7 +25,8 @@
             </div>
             <div class="form-group form-inline row">
                 <asp:Label ID="Educator" runat="server" Text="מחנך:" class="col-form-label col-sm-3 col-md-4"></asp:Label>
-                <asp:DropDownList ID="ddlTeachers" runat="server" CssClass="form-control col col-sm-9 col-md-8" ></asp:DropDownList>
+                <asp:DropDownList ID="ddlTeachers" runat="server" CssClass="form-control col col-sm-9 col-md-8" 
+                    OnSelectedIndexChanged ="ddlTeachers_SelectedIndexChanged"></asp:DropDownList>
             
             </div>
             <div class="form-row justify-content-center btn-group-vertical">

@@ -103,9 +103,14 @@ namespace ReshitScheduler
                 int.TryParse(grCurrentRow.Cells[5].Text, out nHourID);
                 if (((CheckBox)grCurrentRow.FindControl("DeleteHour")).Checked)
                 {
-                    DBConnection.Instance.DeleteRowFromTable("classes_schedule", nHourID, "hour_id");
-                    DBConnection.Instance.DeleteRowFromTable("students_schedule", nHourID, "hour_id");
-                    DBConnection.Instance.DeleteRowFromTable("hours_in_day", nHourID);
+                    int nCurrentYearID = DBConnection.Instance.GetCurrentYearID();
+                    string strDeleteQuery = "delete from students_schedule where hour_id = " + nHourID + 
+                         " and hour_id in(select id from hours_in_day where year_id = " + nCurrentYearID + ");";
+                    strDeleteQuery += " delete from classes_schedule where hour_id = " + nHourID +
+                         " and hour_id in(select id from hours_in_day where year_id = " + nCurrentYearID + ");";
+                    strDeleteQuery += " delete from hours_in_day where id = " + nHourID + 
+                        " and year_id = " + nCurrentYearID + ";";
+                    DBConnection.Instance.ExecuteNonQuery(strDeleteQuery);
                 }
                 else
                 {

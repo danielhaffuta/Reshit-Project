@@ -14,6 +14,7 @@ namespace ReshitScheduler
         private DataTable dtCourses;
         private DataTable dtGroups;
         protected bool IsGroup;
+        private bool bLessonDeleted = false;
         private int nLessonID;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -134,20 +135,29 @@ namespace ReshitScheduler
         }
         protected void BtnDeleteLesson_Click(object sender, EventArgs e)
         {
-            string strTableName;
+            bLessonDeleted = true;
+            string strDeleteQuery;
+            int nCurrentYearID = DBConnection.Instance.GetCurrentYearID();
             if (IsGroup)
             {
-                strTableName = "groups";
-                DBConnection.Instance.DeleteRowFromTable("groups_evaluation", nLessonID, "group_id");
-                DBConnection.Instance.DeleteRowFromTable("students_schedule", nLessonID, "group_id");
+                strDeleteQuery = "delete from students_schedule where group_id = " + nLessonID +
+                     " and hour_id in(select id from hours_in_day where year_id = " + nCurrentYearID + ");";
+                strDeleteQuery += " delete from groups_evaluations where group_id = " + nLessonID +
+                     " and group_id in(select id from groups where teacher_id in(select id from teachers where year_id = " + nCurrentYearID + "));";
+                strDeleteQuery += " delete from groups where id = " + nLessonID +
+                     " and teacher_id in(select id from teachers where year_id = " + nCurrentYearID + ");";
             }
             else
             {
-                strTableName = "courses";
-                DBConnection.Instance.DeleteRowFromTable("courses_evaluation", nLessonID, "course_id");
-                DBConnection.Instance.DeleteRowFromTable("classes_schedule", nLessonID, "course_id");
+                strDeleteQuery = "delete from classes_schedule where course_id = " + nLessonID +
+                     " and hour_id in(select id from hours_in_day where year_id = " + nCurrentYearID + ");";
+                strDeleteQuery += " delete from courses_evaluations where course_id = " + nLessonID +
+                     " and course_id in(select id from courses where teacher_id in(select id from teachers where year_id = " + nCurrentYearID + "));";
+                strDeleteQuery += " delete from courses where id = " + nLessonID +
+                     " and teacher_id in(select id from teachers where year_id = " + nCurrentYearID + ");";
             }
-            DBConnection.Instance.DeleteRowFromTable(strTableName, nLessonID);
+            
+            DBConnection.Instance.ExecuteNonQuery(strDeleteQuery);
             Helper.ShowMessage(ClientScript, "נמחק");
             ResetLessonDetails();
         }
@@ -163,6 +173,24 @@ namespace ReshitScheduler
 
         private void ResetLessonDetails()
         {
+            if (bLessonDeleted)
+            {
+                dtCourses = DBConnection.Instance.GetThisYearCourses();
+                dtGroups = DBConnection.Instance.GetThisYearGroups();
+                if (IsGroup)
+                {
+                    ddlLessons.DataSource = dtGroups;
+                    ddlLessons.DataValueField = "group_id";
+                }
+                else
+                {
+                    ddlLessons.DataSource = dtCourses;
+                    ddlLessons.DataValueField = "course_id";
+                }
+                ddlLessons.DataTextField = "name";
+                ddlLessons.AutoPostBack = true;
+                ddlLessons.DataBind();
+            }
             ddlLessons.SelectedIndex = 0;
             nLessonID = Convert.ToInt32(ddlLessons.SelectedValue);
             FillLessonDetails();
