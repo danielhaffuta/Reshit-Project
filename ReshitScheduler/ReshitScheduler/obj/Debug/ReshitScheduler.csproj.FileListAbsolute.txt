@@ -179,3 +179,4 @@ D:\ReshitProject\ReshitScheduler\ReshitScheduler\obj\Debug\ReshitScheduler.pdb
 D:\ReshitProject\ReshitScheduler\ReshitScheduler\obj\Debug\ReshitScheduler.csproj.ResolveComReference.cache
 D:\ReshitProject\ReshitScheduler\ReshitScheduler\bin\Xceed.Words.NET.dll
 C:\Users\user\Desktop\project\Reshit-Project\ReshitScheduler\ReshitScheduler\bin\Xceed.Words.NET.dll
+D:\Google Drive\programming\github\reshit\Reshit-Project\ReshitScheduler\ReshitScheduler\bin\Xceed.Words.NET.dll

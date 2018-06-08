@@ -56,8 +56,6 @@ namespace ReshitScheduler
             }
 
 
-            Page.ClientScript.RegisterStartupScript(typeof(LessonForm), "ScriptDoFocus",
-                                                    SCRIPT_DOFOCUS.Replace("REQUEST_LASTFOCUS", Request["__LASTFOCUS"]), true);
 
         }
 
@@ -113,7 +111,7 @@ namespace ReshitScheduler
             {
                 TextBox txtStudentEvaluation = (gvrCurrentRow.Cells[4].Controls[1] as TextBox);
                 txtStudentEvaluation.Text = dtStudents.Select("student_id = " + gvrCurrentRow.Cells[0].Text)[0]["evaluation"].ToString();
-                txtStudentEvaluation.Attributes.Add("onfocus", "try{document.getElementById('__LASTFOCUS').value=this.id} catch(e) {}");
+                //txtStudentEvaluation.Attributes.Add("onfocus", "try{document.getElementById('__LASTFOCUS').value=this.id} catch(e) {}");
                 gvrCurrentRow.Cells[0].Visible = false;
                 gvrCurrentRow.Cells[1].Visible = false;
             }
