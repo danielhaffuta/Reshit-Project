@@ -6,7 +6,7 @@
             var confirm_value = document.createElement("INPUT");
             confirm_value.type = "hidden";
             confirm_value.name = "confirm_value";
-            if (confirm("האם אתה בטוח שברצונך למחוק כיתה זאת? \n לא ניתן לבטל את הפעולה!")) {
+            if (confirm("האם אתה בטוח שברצונך למחוק שיעור זה? \n לא ניתן לבטל את הפעולה!")) {
                 confirm_value.value = "Yes";
             } else {
                 confirm_value.value = "No";
