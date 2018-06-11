@@ -51,7 +51,17 @@ namespace ReshitScheduler
             GoBack();
 
         }
-        protected void BtnDelete_Click(object sender, EventArgs e)
+
+        protected void BtnDeleteStudent(object sender, EventArgs e)
+        {
+            string confirmValue = Request.Form["confirm_value"];
+            if (confirmValue == "Yes")
+            {
+                DeleteStudent();
+            }
+        }
+
+        private void DeleteStudent()
         {
             int nCurrentYearID = DBConnection.Instance.GetCurrentYearID();
             string strDeleteQuery = "delete from students_schedule where student_id = " + nStudentID +
@@ -62,10 +72,10 @@ namespace ReshitScheduler
                      " and course_id in(select id from courses where teacher_id in(select id from teachers where year_id = " + nCurrentYearID + "));";
             strDeleteQuery += " delete from students_classes where student_id = " + nStudentID +
                     " and class_id in(select id from classes where teacher_id in(select id from teachers where year_id = " + nCurrentYearID + "));";
-            strDeleteQuery += " delete from students where id = " + nStudentID + ";";
             DBConnection.Instance.ExecuteNonQuery(strDeleteQuery);
             Response.Redirect("ClassPage.aspx?ClassId=" + nClassID);
         }
+
         protected void BtnBack_Click(object sender, EventArgs e)
         {
             GoBack();

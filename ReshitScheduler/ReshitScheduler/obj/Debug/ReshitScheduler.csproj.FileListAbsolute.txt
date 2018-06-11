@@ -180,3 +180,5 @@ D:\ReshitProject\ReshitScheduler\ReshitScheduler\obj\Debug\ReshitScheduler.cspro
 D:\ReshitProject\ReshitScheduler\ReshitScheduler\bin\Xceed.Words.NET.dll
 C:\Users\user\Desktop\project\Reshit-Project\ReshitScheduler\ReshitScheduler\bin\Xceed.Words.NET.dll
 D:\Google Drive\programming\github\reshit\Reshit-Project\ReshitScheduler\ReshitScheduler\bin\Xceed.Words.NET.dll
+C:\Users\user\Desktop\project\Reshit-Project\ReshitScheduler\ReshitScheduler\bin\MySql.Data.xml
+C:\Users\user\Desktop\project\Reshit-Project\ReshitScheduler\ReshitScheduler\bin\MySql.Web.xml

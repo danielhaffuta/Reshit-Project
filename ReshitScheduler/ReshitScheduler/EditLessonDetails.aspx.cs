@@ -24,7 +24,7 @@ namespace ReshitScheduler
                 LessonEdit.InnerText = "עריכת פרטי קבוצה";
                 LessonSelection.Text = "בחר קבוצה";
                 Course.Text = "שם הקבוצה:";
-                BtnDeleteLesson.InnerText = "מחק קבוצה";
+                btnDelete.Text = "מחק קבוצה";
             }
             else
             {
@@ -133,35 +133,72 @@ namespace ReshitScheduler
             ResetLessonDetails();
 
         }
-        protected void BtnDeleteLesson_Click(object sender, EventArgs e)
+
+        protected void BtnDeleteLesson(object sender, EventArgs e)
         {
-            bLessonDeleted = true;
+            string confirmValue = Request.Form["confirm_value"];
+            if (confirmValue == "Yes")
+            {
+                DeleteLesson();
+            }
+        }
+        private void DeleteLesson()
+        {
             string strDeleteQuery;
+            DataTable dtCheckTables;
             int nCurrentYearID = DBConnection.Instance.GetCurrentYearID();
             if (IsGroup)
             {
-                strDeleteQuery = "delete from students_schedule where group_id = " + nLessonID +
-                     " and hour_id in(select id from hours_in_day where year_id = " + nCurrentYearID + ");";
-                strDeleteQuery += " delete from groups_evaluations where group_id = " + nLessonID +
-                     " and group_id in(select id from groups where teacher_id in(select id from teachers where year_id = " + nCurrentYearID + "));";
-                strDeleteQuery += " delete from groups where id = " + nLessonID +
+                dtCheckTables = DBConnection.Instance.GetDataTableByQuery("select group_id from students_schedule where group_id = " + nLessonID +
+                                                                        " and hour_id in(select id from hours_in_day where year_id = " + nCurrentYearID + ")");
+                if (dtCheckTables.Rows.Count != 0)
+                {
+                    Helper.ShowMessage(ClientScript, "לא ניתן למחוק קבוצה שמשובצים בה תלמידים");
+                    ResetLessonDetails();
+                    return;
+                }
+                dtCheckTables = DBConnection.Instance.GetDataTableByQuery("select group_id from groups_evaluations where group_id = " + nLessonID +
+                                                                        " and group_id in(select id from groups where teacher_id in(select id from teachers where year_id = " + nCurrentYearID + "))");
+                if (dtCheckTables.Rows.Count != 0)
+                {
+                    Helper.ShowMessage(ClientScript, "לא ניתן למחוק קבוצה שיש בה הערכות");
+                    ResetLessonDetails();
+                    return;
+                }
+                //strDeleteQuery = "delete from students_schedule where group_id = " + nLessonID +
+                //     " and hour_id in(select id from hours_in_day where year_id = " + nCurrentYearID + ");";
+                //strDeleteQuery += " delete from groups_evaluations where group_id = " + nLessonID +
+                //     " and group_id in(select id from groups where teacher_id in(select id from teachers where year_id = " + nCurrentYearID + "));";
+                strDeleteQuery = " delete from groups where id = " + nLessonID +
                      " and teacher_id in(select id from teachers where year_id = " + nCurrentYearID + ");";
             }
             else
             {
-                strDeleteQuery = "delete from classes_schedule where course_id = " + nLessonID +
-                     " and hour_id in(select id from hours_in_day where year_id = " + nCurrentYearID + ");";
-                strDeleteQuery += " delete from courses_evaluations where course_id = " + nLessonID +
-                     " and course_id in(select id from courses where teacher_id in(select id from teachers where year_id = " + nCurrentYearID + "));";
-                strDeleteQuery += " delete from courses where id = " + nLessonID +
+                dtCheckTables = DBConnection.Instance.GetDataTableByQuery("select course_id from classes_schedule where course_id = " + nLessonID +
+                                                                        " and hour_id in(select id from hours_in_day where year_id = " + nCurrentYearID + ")");
+                if (dtCheckTables.Rows.Count != 0)
+                {
+                    Helper.ShowMessage(ClientScript, "לא ניתן למחוק שיעור שמשובצים בו תלמידים");
+                    ResetLessonDetails();
+                    return;
+                }
+                dtCheckTables = DBConnection.Instance.GetDataTableByQuery("select course_id from courses_evaluations where course_id = " + nLessonID +
+                                                                        " and course_id in(select id from courses where teacher_id in(select id from teachers where year_id = " + nCurrentYearID + "))");
+                if (dtCheckTables.Rows.Count != 0)
+                {
+                    Helper.ShowMessage(ClientScript, "לא ניתן למחוק שיעור שיש בו הערכות");
+                    ResetLessonDetails();
+                    return;
+                }
+                strDeleteQuery = " delete from courses where id = " + nLessonID +
                      " and teacher_id in(select id from teachers where year_id = " + nCurrentYearID + ");";
             }
             
             DBConnection.Instance.ExecuteNonQuery(strDeleteQuery);
             Helper.ShowMessage(ClientScript, "נמחק");
+            bLessonDeleted = true;
             ResetLessonDetails();
         }
-
         protected void BtnBack_Click(object sender, EventArgs e)
         {
             GoBack();

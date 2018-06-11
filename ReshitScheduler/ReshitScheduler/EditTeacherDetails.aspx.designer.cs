@@ -85,12 +85,12 @@ namespace ReshitScheduler {
         protected global::System.Web.UI.HtmlControls.HtmlButton BtnUpdateTeacher;
         
         /// <summary>
-        /// BtnDeleteTeacher control.
+        /// btnDelete control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton BtnDeleteTeacher;
+        protected global::System.Web.UI.WebControls.Button btnDelete;
     }
 }

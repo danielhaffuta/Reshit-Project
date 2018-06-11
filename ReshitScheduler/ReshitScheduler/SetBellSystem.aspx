@@ -1,6 +1,19 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="SetBellSystem.aspx.cs" Inherits="ReshitScheduler.SetBellSystem" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link rel = "stylesheet" href = "/css/BellSystem.css" />
+    <script type = "text/javascript">
+        function Confirm() {
+            var confirm_value = document.createElement("INPUT");
+            confirm_value.type = "hidden";
+            confirm_value.name = "confirm_value";
+            if (confirm("האם אתה בטוח שברצונך למחוק את השעות המסומנות? \n לא ניתן לבטל את הפעולה!")) {
+                confirm_value.value = "Yes";
+            } else {
+                confirm_value.value = "No";
+            }
+            document.forms[0].appendChild(confirm_value);
+        }
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainForm" runat="server">
     <asp:Panel runat="server" ID="pnlHours" CssClass="row justify-content-center mt-3">
@@ -21,7 +34,7 @@
                             CssClass="form-control"></asp:TextBox>
                        </ItemTemplate>
                      </asp:TemplateField>
-                    <asp:BoundField DataField="is_break" HeaderText="הפסקה">
+                    <asp:BoundField DataField="is_break">
                     </asp:BoundField>
                     <asp:TemplateField HeaderText="האם הפסקה?">
                        <ItemTemplate>
@@ -30,9 +43,14 @@
                      </asp:TemplateField>
                     <asp:BoundField DataField="id">
                     </asp:BoundField>
-                    <asp:TemplateField HeaderText="מחק שעה">
+                    <%--<asp:TemplateField HeaderText="מחק שעה">
                        <ItemTemplate>
                            <asp:CheckBox ID="DeleteHour" runat="server" CssClass="form-control-check"  Text="כן"/>
+                       </ItemTemplate>
+                    </asp:TemplateField>--%>
+                    <asp:TemplateField HeaderText="מחיקת שעה">
+                       <ItemTemplate>
+                            <asp:Button ID="btnDelete" CssClass="btn btn-outline-dark" runat="server" OnClick = "BtnDeleteHour" Text = "מחק שעה" OnClientClick = "Confirm()"/>
                        </ItemTemplate>
                     </asp:TemplateField>
                         

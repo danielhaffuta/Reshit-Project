@@ -139,8 +139,16 @@ namespace ReshitScheduler
             ResetClassDetails();
 
         }
+        protected void BtnDeleteClass(object sender, EventArgs e)
+        {
+            string confirmValue = Request.Form["confirm_value"];
+            if (confirmValue == "Yes")
+            {
+                DeleteClass();
+            }
+        }
 
-        protected void BtnDeleteClass_Click(object sender, EventArgs e)
+        private void DeleteClass()
         {
             bClassDeleted = true;
             string strDeleteQuery = "delete from classes where id = " + nClassID +
