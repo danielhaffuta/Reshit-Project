@@ -15,6 +15,7 @@ namespace ReshitScheduler
         private DataTable dtClasses;
         private DataTable dtGrades;
         private bool EducatorChanged = false;
+        private bool bChangeLessons = false;
         private bool bClassDeleted = false;
         private static int nCurrentEducatorID;
 
@@ -68,6 +69,13 @@ namespace ReshitScheduler
 
         protected void ddlTeachers_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //ScriptManager.RegisterStartupScript(this, typeof(string), "change",
+            //    "ChangeEducator();", true);
+            //string changeValue = Request.Form["change_value"];
+            //if (changeValue == "Yes")
+            //{
+            //    bChangeLessons = true;
+            //}
             EducatorChanged = true;
         }
 
@@ -94,36 +102,31 @@ namespace ReshitScheduler
             if(EducatorChanged)
             {
                 int nNewEducatorID = Convert.ToInt32(ddlTeachers.SelectedValue);
-                string newTecherType = DBConnection.Instance.GetStringByQuery("select teacher_type_id from teachers where id = " + nNewEducatorID);
-                if (newTecherType.Equals("4") || newTecherType.Equals("6"))
+                string newTecherType = DBConnection.Instance.GetStringByQuery("select teacher_type_name from teacher_types" +
+                                                                                " inner join teachers on teachers.teacher_type_id = teacher_types.id" +
+                                                                                " where teachers.id = " + nNewEducatorID);
+                if (newTecherType.Equals("מורה") || newTecherType.Equals("מורה לחינוך מיוחד"))
                 {
-                    bool bUpdateTypeSucceeded = DBConnection.Instance.UpdateTableRow("teachers", nNewEducatorID, "teacher_type_id", "2");
+                    string educatorType = DBConnection.Instance.GetStringByQuery("select id from teacher_types where teacher_type_name = 'מחנך'");
+                    bool bUpdateTypeSucceeded = DBConnection.Instance.UpdateTableRow("teachers", nNewEducatorID, "teacher_type_id", educatorType);
                     if (!bUpdateTypeSucceeded)
                     {
                         Helper.ShowMessage(ClientScript, "error saving");
                         return;
                     }
                 }
-                DataTable dtCourses = DBConnection.Instance.GetDataTableByQuery("select * from courses where teacher_id = " + nCurrentEducatorID);
-                foreach(DataRow drCurrentRow in dtCourses.Rows)
-                {
-                    bool bUpdateCoursesSucceeded = DBConnection.Instance.UpdateTableRow("courses", Convert.ToInt32(drCurrentRow[0]), "teacher_id", Convert.ToString(nNewEducatorID));
-                    if (!bUpdateCoursesSucceeded)
-                    {
-                        Helper.ShowMessage(ClientScript, "error saving");
-                        return;
-                    }
-                }
+                DBConnection.Instance.UptadeTableCol("courses", "teacher_id", Convert.ToString(nCurrentEducatorID), Convert.ToString(nNewEducatorID));
+                DBConnection.Instance.UptadeTableCol("groups", "teacher_id", Convert.ToString(nCurrentEducatorID), Convert.ToString(nNewEducatorID));
                 DataTable dtGroups = DBConnection.Instance.GetDataTableByQuery("select * from groups where teacher_id = " + nCurrentEducatorID);
-                foreach (DataRow drCurrentRow in dtGroups.Rows)
-                {
-                    bool bUpdateGroupsSucceeded = DBConnection.Instance.UpdateTableRow("groups", Convert.ToInt32(drCurrentRow[0]), "teacher_id", Convert.ToString(nNewEducatorID));
-                    if (!bUpdateGroupsSucceeded)
-                    {
-                        Helper.ShowMessage(ClientScript, "error saving");
-                        return;
-                    }
-                }
+                //foreach (DataRow drCurrentRow in dtGroups.Rows)
+                //{
+                //    bool bUpdateGroupsSucceeded = DBConnection.Instance.UpdateTableRow("groups", Convert.ToInt32(drCurrentRow[0]), "teacher_id", Convert.ToString(nNewEducatorID));
+                //    if (!bUpdateGroupsSucceeded)
+                //    {
+                //        Helper.ShowMessage(ClientScript, "error saving");
+                //        return;
+                //    }
+                //}
             }
             string strFields = "grade_id:class_number:teacher_id";
             string strValues = ddlGrades.SelectedValue + ":'" +

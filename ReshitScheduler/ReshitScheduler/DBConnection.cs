@@ -859,6 +859,12 @@ namespace ReshitScheduler
 
             return GetDataTableByQuery("select year_name from years where id in(select value from preferences where name='current_year_id')").Rows[0]["year_name"].ToString();
         }
+
+        public void UptadeTableCol(string strTableName, string field, string oldValue, string newValue)
+        {
+            string strQuery = "update " + strTableName + " set " + field + " = " + newValue + " where " + field + " = " + oldValue;
+            ExecuteNonQuery(strQuery);
+        }
     }
 
 }

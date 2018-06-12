@@ -13,6 +13,19 @@
             document.forms[0].appendChild(confirm_value);
         }
     </script>
+    <script type = "text/javascript">
+        function ChangeEducator() {
+            var change_value = document.createElement("INPUT");
+            change_value.type = "hidden";
+            change_value.name = "change_value";
+            if (confirm("האם להעביר למורה זה גם את השיעורים והקבוצות?")) {
+                change_value.value = "Yes";
+            } else {
+                change_value.value = "No";
+            }
+            document.forms[0].appendChild(change_value);
+        }
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainForm" runat="server">
     <div class="row justify-content-center mt-3 ">
