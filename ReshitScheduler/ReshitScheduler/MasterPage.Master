@@ -44,7 +44,7 @@
 
                         </div>
                         </div>
-                    <a class="nav-item nav-link" href="EditStudentEvaluations.aspx?StudentID=0">צפה בהערכות</a>
+                    
 
                     <%} %>
                     <a class="nav-item nav-link" href="TeacherCoursesAndGroupsForm.aspx">שיעורים וקבוצות</a>
