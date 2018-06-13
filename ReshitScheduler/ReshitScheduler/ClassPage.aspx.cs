@@ -22,6 +22,7 @@ namespace ReshitScheduler
         protected void Page_Load(object sender, EventArgs e)
         {
             LoadClassSchedule();
+            Session["ClassID"] = nClassID;
         }
 
         private void LoadClassSchedule()

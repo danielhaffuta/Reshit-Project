@@ -21,7 +21,7 @@ namespace ReshitScheduler
                                         " where students_classes.class_id = " + nClassID +
                                         " order by last_name";
             DataTable dtStudents = DBConnection.Instance.GetDataTableByQuery(strStudentQuery);
-            if (Request.QueryString["StudentID"] != null)
+            if (Request.QueryString["StudentID"] != null && dtStudents.Rows.Count>0)
             {
                 nStudentID = Convert.ToInt32(Request.QueryString["StudentID"]?.ToString() ?? "5");
                 if(nStudentID == 0)
@@ -93,13 +93,13 @@ namespace ReshitScheduler
             }
             else
             {
-                int semester = Convert.ToInt32(DBConnection.Instance.GetSemester());
+                int nSemester = Convert.ToInt32(DBConnection.Instance.GetSemester());
                 DBConnection.Instance.InsertTableRow(IsGroup ? "groups_evaluations" : "courses_evaluations",
                                       "evaluation,student_id," + (IsGroup ? "group_id" : "course_id")+",semester_number",
                                       "'" + (gvrChangedRow.Cells[1].Controls[1] as TextBox).Text.Replace("'", "''") + "'," +
-                                      nStudentID + "," + nLessonID + "," + semester);
+                                      nStudentID + "," + nLessonID + "," + nSemester);
             }
-            return;
+            
         }
     }
 }

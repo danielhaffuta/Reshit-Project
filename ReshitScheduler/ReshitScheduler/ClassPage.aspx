@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="navbar_extra" runat="server">
-    <a class="nav-item nav-link" href="EditStudentEvaluations.aspx?StudentID=0&ClassID=<%=nClassID %>">צפה בהערכות</a>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainForm" runat="server">
     <h2><%=strClassName %></h2>

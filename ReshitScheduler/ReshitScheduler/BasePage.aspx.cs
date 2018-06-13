@@ -22,7 +22,7 @@ namespace ReshitScheduler
         protected int nYearID;
         public Teacher LoggedInTeacher;
         protected static string strPreviousPage;
-        protected int nClassID, nHourId, nDayId, nGroupId;
+        public int nClassID, nHourId, nDayId, nGroupId;
 
 
 
@@ -84,7 +84,7 @@ namespace ReshitScheduler
             }
             else
             {
-                nClassID = Convert.ToInt32( Request.QueryString["ClassID"]?.ToString() ?? LoggedInTeacher.ClassID.ToString());
+                nClassID = Convert.ToInt32( Request.QueryString["ClassID"]?.ToString()?? Session["ClassID"]?.ToString() ?? LoggedInTeacher.ClassID.ToString());
 
             }
         }
