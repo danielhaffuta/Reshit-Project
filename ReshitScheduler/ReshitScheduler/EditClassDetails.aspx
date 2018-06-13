@@ -55,6 +55,22 @@
                     OnSelectedIndexChanged ="ddlTeachers_SelectedIndexChanged"></asp:DropDownList>
             
             </div>
+            <asp:Panel runat="server" ID="pnlChangeEducator" CssClass="table-responsive col-12" Visible ="false">
+                <div class="form-group  row">
+                    <asp:Label ID="CheckGroup" runat="server" Text="האם זה שיעור עם הערכה?"
+                        CssClass="col-form-label col-sm-3 col-md-4"></asp:Label>
+                    <div class="form-check form-check-inline">
+                        <label class="form-check-label">
+                            <asp:RadioButton ID="HasEvaluation" runat="server" Text="כן" CssClass="form-check-input"
+                                GroupName="IfHasEvaluation" />
+                        </label>
+                        <label class="form-check-label">
+                            <asp:RadioButton ID="NotHaveEvaluation" runat="server" Text="לא" CssClass="form-check-input"
+                                GroupName="IfHasEvaluation" />
+                        </label>
+                    </div>
+                </div>
+            </asp:Panel>
             <div class="form-row justify-content-center btn-group-vertical">
                 <button id="BtnUpdateClass" runat="server" onserverclick="BtnUpdateClass_Click" class="btn btn-outline-dark">שמור</button>
                 <asp:Button ID="btnDelete" CssClass="btn btn-outline-dark" runat="server" OnClick = "BtnDeleteClass" Text = "מחק כיתה" OnClientClick = "Confirm()"/>

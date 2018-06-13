@@ -85,6 +85,42 @@ namespace ReshitScheduler {
         protected global::System.Web.UI.WebControls.DropDownList ddlTeachers;
         
         /// <summary>
+        /// pnlChangeEducator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlChangeEducator;
+        
+        /// <summary>
+        /// CheckGroup control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label CheckGroup;
+        
+        /// <summary>
+        /// HasEvaluation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton HasEvaluation;
+        
+        /// <summary>
+        /// NotHaveEvaluation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton NotHaveEvaluation;
+        
+        /// <summary>
         /// BtnUpdateClass control.
         /// </summary>
         /// <remarks>

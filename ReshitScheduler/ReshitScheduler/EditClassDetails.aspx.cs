@@ -69,14 +69,48 @@ namespace ReshitScheduler
 
         protected void ddlTeachers_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //ScriptManager.RegisterStartupScript(this, typeof(string), "change",
-            //    "ChangeEducator();", true);
-            //string changeValue = Request.Form["change_value"];
-            //if (changeValue == "Yes")
-            //{
-            //    bChangeLessons = true;
-            //}
+            pnlChangeEducator.Visible = true;
             EducatorChanged = true;
+        }
+
+        private void AddRadioButtons()
+        {
+            Label lbQuestion = new Label()
+            {
+                ID = "ChangeLessons",
+                Text = "האם תרצה להעביר למורה זה גם קורסים וקבוצות?",
+                CssClass = "col-form-label col-sm-3 col-md-4",
+            };
+            pnlChangeEducator.Controls.Add(lbQuestion);
+            Label lbChange = new Label()
+            {
+                CssClass = "form-check-label",
+            };
+            pnlChangeEducator.Controls.Add(lbChange);
+            RadioButton rbChange = new RadioButton()
+            {
+                ID = "ReplaceLessons",
+                Text = "כן",
+                CssClass = "form-check-input",
+                GroupName = "Replace",
+                Checked = true
+            };
+            rbChange.AutoPostBack = true;
+            lbChange.Controls.Add(rbChange);
+            Label lbNotChange = new Label()
+            {
+                CssClass = "form-check-label",
+            };
+            pnlChangeEducator.Controls.Add(lbNotChange);
+            RadioButton rbNotChange = new RadioButton()
+            {
+                ID = "NotReplaceLessons",
+                Text = "לא",
+                CssClass = "form-check-input",
+                GroupName = "Replace"
+            };
+            rbNotChange.AutoPostBack = true;
+            lbNotChange.Controls.Add(rbNotChange);
         }
 
         protected void BtnBack_Click(object sender, EventArgs e)
@@ -99,7 +133,7 @@ namespace ReshitScheduler
                 Helper.ShowMessage(ClientScript, "כיתה כבר קיימת - לא ניתן לערוך כיתה");
                 return;
             }
-            if(EducatorChanged)
+            if (EducatorChanged)
             {
                 int nNewEducatorID = Convert.ToInt32(ddlTeachers.SelectedValue);
                 string newTecherType = DBConnection.Instance.GetStringByQuery("select teacher_type_name from teacher_types" +
@@ -117,16 +151,7 @@ namespace ReshitScheduler
                 }
                 DBConnection.Instance.UptadeTableCol("courses", "teacher_id", Convert.ToString(nCurrentEducatorID), Convert.ToString(nNewEducatorID));
                 DBConnection.Instance.UptadeTableCol("groups", "teacher_id", Convert.ToString(nCurrentEducatorID), Convert.ToString(nNewEducatorID));
-                DataTable dtGroups = DBConnection.Instance.GetDataTableByQuery("select * from groups where teacher_id = " + nCurrentEducatorID);
-                //foreach (DataRow drCurrentRow in dtGroups.Rows)
-                //{
-                //    bool bUpdateGroupsSucceeded = DBConnection.Instance.UpdateTableRow("groups", Convert.ToInt32(drCurrentRow[0]), "teacher_id", Convert.ToString(nNewEducatorID));
-                //    if (!bUpdateGroupsSucceeded)
-                //    {
-                //        Helper.ShowMessage(ClientScript, "error saving");
-                //        return;
-                //    }
-                //}
+
             }
             string strFields = "grade_id:class_number:teacher_id";
             string strValues = ddlGrades.SelectedValue + ":'" +
