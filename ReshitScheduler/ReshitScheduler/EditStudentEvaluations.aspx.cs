@@ -45,7 +45,10 @@ namespace ReshitScheduler
                         Text = drCurrentRow["name"].ToString(),
                         ID = drCurrentRow["id"].ToString()
                     };
-
+                    if(btnStudent.ID.Equals(nStudentID.ToString()))
+                    {
+                        btnStudent.CssClass += " active";
+                    }
                     btnStudent.Click += btnStudent_Click;
                     pnlStudents.Controls.Add(btnStudent);
                 }
