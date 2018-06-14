@@ -731,7 +731,13 @@ namespace ReshitScheduler
         public DataTable GetThisYearTeachers()
         {
             return this.GetDataTableByQuery(GetDisplayQuery("teachers") +
-                                            " where year_id=(select value from preferences where name='current_year_id')");
+                                            " where year_id=(select value from preferences where name='current_year_id')"+
+                                            " and teacher_type_id in(select id from teacher_types where teacher_type_name != 'admin')");
+        }
+        public DataTable GetAllThisYearTeachers()
+        {
+            return this.GetDataTableByQuery(GetDisplayQuery("teachers") +
+                                            " where year_id=(select value from preferences where name='current_year_id')" );
         }
 
         public DataTable GetThisYearClasses()

@@ -18,7 +18,7 @@ namespace ReshitScheduler
         private bool bTeacherDeleted = false;
         protected void Page_Load(object sender, EventArgs e)
         {
-            dtTeachers = DBConnection.Instance.GetThisYearTeachers();
+            dtTeachers = DBConnection.Instance.GetAllThisYearTeachers();
             dtClasses = DBConnection.Instance.GetThisYearClasses();
             dtTeachersAccesses = DBConnection.Instance.GetThisYearTeachersAccesses();
             if (!IsPostBack)
@@ -202,7 +202,7 @@ namespace ReshitScheduler
         {
             if(bTeacherDeleted)
             {
-                dtTeachers = DBConnection.Instance.GetThisYearTeachers();
+                dtTeachers = DBConnection.Instance.GetAllThisYearTeachers();
                 ddlTeachers.DataSource = dtTeachers;
                 ddlTeachers.DataValueField = "id";
                 ddlTeachers.DataTextField = "name";

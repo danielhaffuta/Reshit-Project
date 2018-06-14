@@ -13,19 +13,6 @@
             document.forms[0].appendChild(confirm_value);
         }
     </script>
-    <script type = "text/javascript">
-        function ChangeEducator() {
-            var change_value = document.createElement("INPUT");
-            change_value.type = "hidden";
-            change_value.name = "change_value";
-            if (confirm("האם להעביר למורה זה גם את השיעורים והקבוצות?")) {
-                change_value.value = "Yes";
-            } else {
-                change_value.value = "No";
-            }
-            document.forms[0].appendChild(change_value);
-        }
-    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainForm" runat="server">
     <div class="row justify-content-center mt-3 ">
@@ -52,21 +39,21 @@
             <div class="form-group form-inline row">
                 <asp:Label ID="Educator" runat="server" Text="מחנך:" class="col-form-label col-sm-3 col-md-4"></asp:Label>
                 <asp:DropDownList ID="ddlTeachers" runat="server" CssClass="form-control col col-sm-9 col-md-8" 
-                    OnSelectedIndexChanged ="ddlTeachers_SelectedIndexChanged"></asp:DropDownList>
+                    OnSelectedIndexChanged ="ddlTeachers_SelectedIndexChanged" AutoPostBack ="true"></asp:DropDownList>
             
             </div>
-            <asp:Panel runat="server" ID="pnlChangeEducator" CssClass="table-responsive col-12" Visible ="false">
+            <asp:Panel runat="server" ID="pnlChangeEducator" CssClass="table-responsive col-12" >
                 <div class="form-group  row">
-                    <asp:Label ID="CheckGroup" runat="server" Text="האם זה שיעור עם הערכה?"
+                    <asp:Label ID="ChangeLessons" runat="server" Text="האם להעביר למורה זה גם את השיעורים והקבוצות?"
                         CssClass="col-form-label col-sm-3 col-md-4"></asp:Label>
                     <div class="form-check form-check-inline">
                         <label class="form-check-label">
-                            <asp:RadioButton ID="HasEvaluation" runat="server" Text="כן" CssClass="form-check-input"
-                                GroupName="IfHasEvaluation" />
+                            <asp:RadioButton ID="Change" runat="server" Text="כן" CssClass="form-check-input"
+                                GroupName="IfChangeLessons" Checked="true"/>
                         </label>
                         <label class="form-check-label">
-                            <asp:RadioButton ID="NotHaveEvaluation" runat="server" Text="לא" CssClass="form-check-input"
-                                GroupName="IfHasEvaluation" />
+                            <asp:RadioButton ID="DontChange" runat="server" Text="לא" CssClass="form-check-input"
+                                GroupName="IfChangeLessons" />
                         </label>
                     </div>
                 </div>
