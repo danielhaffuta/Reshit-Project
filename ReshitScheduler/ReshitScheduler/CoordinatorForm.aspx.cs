@@ -18,8 +18,7 @@ namespace ReshitScheduler
         {
             
             FillClasses();
-
-
+            Session["ClassID"] = null;
         }
 
         private void FillClasses()

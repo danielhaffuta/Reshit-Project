@@ -32,6 +32,10 @@ namespace ReshitScheduler
                     " from classes " +
                     " inner join teachers on teachers.id = classes.teacher_id " +
                     " where teachers.id = " + LoggedInTeacher.ID);
+                if(dtClasses.Rows.Count == 0)
+                {
+                    Response.Redirect("TeacherForm.aspx");
+                }
                 Response.Redirect("ClassPage.aspx?ClassId=" + dtClasses.Rows[0]["id"]);
             }
             

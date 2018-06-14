@@ -731,7 +731,13 @@ namespace ReshitScheduler
         public DataTable GetThisYearTeachers()
         {
             return this.GetDataTableByQuery(GetDisplayQuery("teachers") +
-                                            " where year_id=(select value from preferences where name='current_year_id')");
+                                            " where year_id=(select value from preferences where name='current_year_id')"+
+                                            " and teacher_type_id in(select id from teacher_types where teacher_type_name != 'admin')");
+        }
+        public DataTable GetAllThisYearTeachers()
+        {
+            return this.GetDataTableByQuery(GetDisplayQuery("teachers") +
+                                            " where year_id=(select value from preferences where name='current_year_id')" );
         }
 
         public DataTable GetThisYearClasses()
@@ -839,38 +845,6 @@ namespace ReshitScheduler
                                        " and classes_schedule.hour_id = " + nHourID).Rows[0];
         }
 
-        public void DeleteRowFromTable(string strTableName, int nID)
-        {
-            this.Connect();
-
-            if (this.IsConnected)
-            {
-                MySqlCommand command = new MySqlCommand("delete from " + strTableName + " where id = " +nID, this.connection);
-
-                command.ExecuteNonQuery();
-            }
-            this.Close();
-        }
-
-        public void DeleteRowFromTable(string strTableName, int value, string strField)
-        {
-            this.Connect();
-
-            if (this.IsConnected)
-            {
-                MySqlCommand command;
-                if (strTableName.Equals("teachers") || strTableName.Equals("hours_in_day"))
-                {
-                    command = new MySqlCommand("delete from " + strTableName + " where " + strField + " = " + value+
-                                        "and " + strTableName + ".year_id = " + GetCurrentYearID(), this.connection);
-                }
-                command = new MySqlCommand("delete from " + strTableName + " where " + strField + " = " + value, this.connection);
-
-                command.ExecuteNonQuery();
-            }
-            this.Close();
-        }
-
         public string GetRootDirectory()
         {
             return (String)GetDataTableByQuery("select value from preferences where name = 'root directory'").Rows[0]["value"];
@@ -890,6 +864,12 @@ namespace ReshitScheduler
         {
 
             return GetDataTableByQuery("select year_name from years where id in(select value from preferences where name='current_year_id')").Rows[0]["year_name"].ToString();
+        }
+
+        public void UptadeTableCol(string strTableName, string field, string oldValue, string newValue)
+        {
+            string strQuery = "update " + strTableName + " set " + field + " = " + newValue + " where " + field + " = " + oldValue;
+            ExecuteNonQuery(strQuery);
         }
     }
 

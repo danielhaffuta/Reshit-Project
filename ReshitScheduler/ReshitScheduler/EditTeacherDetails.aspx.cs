@@ -15,9 +15,10 @@ namespace ReshitScheduler
         private DataTable dtClasses;
         private DataTable dtTeachersAccesses;
         private int nTeacherID;
+        private bool bTeacherDeleted = false;
         protected void Page_Load(object sender, EventArgs e)
         {
-            dtTeachers = DBConnection.Instance.GetThisYearTeachers();
+            dtTeachers = DBConnection.Instance.GetAllThisYearTeachers();
             dtClasses = DBConnection.Instance.GetThisYearClasses();
             dtTeachersAccesses = DBConnection.Instance.GetThisYearTeachersAccesses();
             if (!IsPostBack)
@@ -150,19 +151,63 @@ namespace ReshitScheduler
             ResetTeacherDetails();
 
         }
-        protected void BtnDeleteTeacher_Click(object sender, EventArgs e)
+        protected void BtnDeleteTeacher(object sender, EventArgs e)
         {
-            DBConnection.Instance.DeleteRowFromTable("teacher_class_access", nTeacherID, "teacher_id");
-            DBConnection.Instance.DeleteRowFromTable("courses", nTeacherID, "teacher_id");
-            DBConnection.Instance.DeleteRowFromTable("groups", nTeacherID, "teacher_id");
-            DBConnection.Instance.DeleteRowFromTable("classes", nTeacherID, "teacher_id");
-            DBConnection.Instance.DeleteRowFromTable("teachers", nTeacherID);
+            string confirmValue = Request.Form["confirm_value"];
+            if (confirmValue == "Yes")
+            {
+                DeleteTeacher();
+            }
+        }
+        private void DeleteTeacher()
+        {
+            int nCurrentYearID = DBConnection.Instance.GetCurrentYearID();
+            bool bCheckTables = CheckTables("teacher_class_access", "לא ניתן למחוק מורה בעל גישה לכיתות");
+            if(!bCheckTables)
+                return;
+            bCheckTables = CheckTables("groups", "לא ניתן למחוק מורה שמלמד קבוצות");
+            if (!bCheckTables)
+                return;
+            bCheckTables = CheckTables("courses", "לא ניתן למחוק מורה שמלמד שיעורים");
+            if (!bCheckTables)
+                return;
+            bCheckTables = CheckTables("classes", "לא ניתן למחוק מורה שמחנך כיתה");
+            if (!bCheckTables)
+                return;
+            string strDeleteQuery = " delete from teachers where id = " + nTeacherID + " and year_id = " + nCurrentYearID + ";";
+            DBConnection.Instance.ExecuteNonQuery(strDeleteQuery);
             Helper.ShowMessage(ClientScript, "מורה נמחק");
+            bTeacherDeleted = true;
             ResetTeacherDetails();
+        }
+
+        private bool CheckTables(string strTableName, string message)
+        {
+            DataTable dtCheckTables;
+            int nCurrentYearID = DBConnection.Instance.GetCurrentYearID();
+            dtCheckTables = DBConnection.Instance.GetDataTableByQuery("select " + strTableName + ".teacher_id from " + strTableName +
+                                                                    " inner join teachers on " + strTableName + ".teacher_id = teachers.id" +
+                                                                    " where " + strTableName + ".teacher_id = " + nTeacherID +
+                                                                    " and teachers.year_id = " + nCurrentYearID);
+            if (dtCheckTables.Rows.Count != 0)
+            {
+                Helper.ShowMessage(ClientScript, message);
+                ResetTeacherDetails();
+                return false;
+            }
+            return true;
         }
 
         private void ResetTeacherDetails()
         {
+            if(bTeacherDeleted)
+            {
+                dtTeachers = DBConnection.Instance.GetAllThisYearTeachers();
+                ddlTeachers.DataSource = dtTeachers;
+                ddlTeachers.DataValueField = "id";
+                ddlTeachers.DataTextField = "name";
+                ddlTeachers.DataBind();
+            }
             ddlTeachers.SelectedIndex = 0;
             nTeacherID = Convert.ToInt32(ddlTeachers.SelectedValue);
             FillTeacherDetails();

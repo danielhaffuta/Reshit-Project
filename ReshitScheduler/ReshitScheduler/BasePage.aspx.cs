@@ -22,7 +22,7 @@ namespace ReshitScheduler
         protected int nYearID;
         public Teacher LoggedInTeacher;
         protected static string strPreviousPage;
-        protected int nClassID, nHourId, nDayId, nGroupId;
+        public int nClassID, nHourId, nDayId, nGroupId;
 
 
 
@@ -35,10 +35,23 @@ namespace ReshitScheduler
             FillTeacher();
             nYearID = DBConnection.Instance.GetCurrentYearID();
             FillIDs();
-
             base.OnLoad(e);
+            AddOnFocusAttribute(this.Controls);
+
             Page.ClientScript.RegisterStartupScript(typeof(LessonForm), "ScriptDoFocus",
                                                     SCRIPT_DOFOCUS.Replace("REQUEST_LASTFOCUS", Request["__LASTFOCUS"]), true);
+        }
+
+        private void AddOnFocusAttribute(ControlCollection ccControls)
+        {
+            foreach (Control ctrlControl in ccControls)
+            {
+                if (ctrlControl is WebControl)
+                {
+                    (ctrlControl as WebControl).Attributes.Add("onfocus", "try{document.getElementById('__LASTFOCUS').value=this.id} catch(e) {}");
+                }
+                AddOnFocusAttribute(ctrlControl.Controls);
+            }
         }
 
         private void FillTeacher()
@@ -71,7 +84,7 @@ namespace ReshitScheduler
             }
             else
             {
-                nClassID = Convert.ToInt32( Request.QueryString["ClassID"]?.ToString() ?? LoggedInTeacher.ClassID.ToString());
+                nClassID = Convert.ToInt32( Request.QueryString["ClassID"]?.ToString()?? Session["ClassID"]?.ToString() ?? LoggedInTeacher.ClassID.ToString());
 
             }
         }

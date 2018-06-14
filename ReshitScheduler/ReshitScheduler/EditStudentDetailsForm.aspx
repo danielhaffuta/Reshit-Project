@@ -1,9 +1,24 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="EditStudentDetailsForm.aspx.cs" Inherits="ReshitScheduler.EditStudentDetailsForm" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <script type = "text/javascript">
+        function Confirm() {
+            var confirm_value = document.createElement("INPUT");
+            confirm_value.type = "hidden";
+            confirm_value.name = "confirm_value";
+            if (confirm("האם אתה בטוח שברצונך למחוק תלמיד זה? \n לא ניתן לבטל את הפעולה!")) {
+                confirm_value.value = "Yes";
+            } else {
+                confirm_value.value = "No";
+            }
+            document.forms[0].appendChild(confirm_value);
+        }
+    </script>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="navbar_extra" runat="server">
     <a class="nav-item nav-link" runat="server" onserverclick="BtnSave_Click">שמור</a>
-    <a class="nav-item nav-link" runat="server" onserverclick="BtnDelete_Click">מחק תלמיד</a>
+    <%--<asp:LinkButton ID="btnDelete" CssClass="nav-item nav-link" runat="server" 
+        OnClick = "BtnDeleteStudent" OnClientClick = "Confirm()">מחק תלמיד</asp:LinkButton>--%>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainForm" runat="server">
     <img class="figure-img img-fluid" src="<%=drStudentDetails["picture_path"] %>" width="350"/><br />
@@ -45,5 +60,6 @@
             </div>
         </div>
     </div>
+    <asp:Button ID="btnDeleteStudent" CssClass="btn btn-outline-dark" runat="server" OnClick = "BtnDeleteStudent" Text = "מחק תלמיד" OnClientClick = "Confirm()"/>
 
 </asp:Content>

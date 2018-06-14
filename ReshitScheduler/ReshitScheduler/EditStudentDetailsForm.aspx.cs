@@ -51,15 +51,31 @@ namespace ReshitScheduler
             GoBack();
 
         }
-        protected void BtnDelete_Click(object sender, EventArgs e)
+
+        protected void BtnDeleteStudent(object sender, EventArgs e)
         {
-            DBConnection.Instance.DeleteRowFromTable("students_schedule", nStudentID, "student_id");
-            DBConnection.Instance.DeleteRowFromTable("groups_evaluations", nStudentID, "student_id");
-            DBConnection.Instance.DeleteRowFromTable("courses_evaluations", nStudentID, "student_id");
-            DBConnection.Instance.DeleteRowFromTable("students_classes", nStudentID, "student_id");
-            DBConnection.Instance.DeleteRowFromTable("students", nStudentID);
+            string confirmValue = Request.Form["confirm_value"];
+            if (confirmValue == "Yes")
+            {
+                DeleteStudent();
+            }
+        }
+
+        private void DeleteStudent()
+        {
+            int nCurrentYearID = DBConnection.Instance.GetCurrentYearID();
+            string strDeleteQuery = "delete from students_schedule where student_id = " + nStudentID +
+                 " and hour_id in(select id from hours_in_day where year_id = " + nCurrentYearID + ");";
+            strDeleteQuery += " delete from groups_evaluations where student_id = " + nStudentID +
+                     " and group_id in(select id from groups where teacher_id in(select id from teachers where year_id = " + nCurrentYearID + "));";
+            strDeleteQuery += " delete from courses_evaluations where student_id = " + nStudentID +
+                     " and course_id in(select id from courses where teacher_id in(select id from teachers where year_id = " + nCurrentYearID + "));";
+            strDeleteQuery += " delete from students_classes where student_id = " + nStudentID +
+                    " and class_id in(select id from classes where teacher_id in(select id from teachers where year_id = " + nCurrentYearID + "));";
+            DBConnection.Instance.ExecuteNonQuery(strDeleteQuery);
             Response.Redirect("ClassPage.aspx?ClassId=" + nClassID);
         }
+
         protected void BtnBack_Click(object sender, EventArgs e)
         {
             GoBack();

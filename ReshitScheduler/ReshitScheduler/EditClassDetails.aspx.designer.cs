@@ -85,6 +85,42 @@ namespace ReshitScheduler {
         protected global::System.Web.UI.WebControls.DropDownList ddlTeachers;
         
         /// <summary>
+        /// pnlChangeEducator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlChangeEducator;
+        
+        /// <summary>
+        /// ChangeLessons control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label ChangeLessons;
+        
+        /// <summary>
+        /// Change control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton Change;
+        
+        /// <summary>
+        /// DontChange control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton DontChange;
+        
+        /// <summary>
         /// BtnUpdateClass control.
         /// </summary>
         /// <remarks>
@@ -94,12 +130,12 @@ namespace ReshitScheduler {
         protected global::System.Web.UI.HtmlControls.HtmlButton BtnUpdateClass;
         
         /// <summary>
-        /// BtnDeleteClass control.
+        /// btnDelete control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton BtnDeleteClass;
+        protected global::System.Web.UI.WebControls.Button btnDelete;
     }
 }

@@ -34,19 +34,27 @@
                             aria-haspopup="true" aria-expanded="false"
                             href="#">ניהול כיתה</a>
 
-                        <div class="dropdown-menu dropdown-menu-right text-right" aria-labelledby="classManageDropDown">
+                            <div class="dropdown-menu dropdown-menu-right text-right" aria-labelledby="classManageDropDown">
 
-                            <a class="dropdown-item" href="ClassPage.aspx">מערכת כיתה</a>
-                            <a class="dropdown-item" href="ClassStudents.aspx">תלמידים</a>
-                            <a class="dropdown-item" href="AddStudentForm.aspx">הוספת תלמיד חדש</a>
+                                <a class="dropdown-item" href="ClassPage.aspx">מערכת כיתה</a>
+                                <a class="dropdown-item" href="ClassStudents.aspx">תלמידים</a>
+                                <a class="dropdown-item" href="AddStudentForm.aspx">הוספת תלמיד חדש</a>
 
 
 
+                            </div>
                         </div>
-                        </div>
+                        
+                    
 
                     <%} %>
+
                     <a class="nav-item nav-link" href="TeacherCoursesAndGroupsForm.aspx">שיעורים וקבוצות</a>
+
+                    <%if (bpCurrentPage.nClassID != 0)
+                        { %>
+                        <a class="nav-item nav-link" href="EditStudentEvaluations.aspx?StudentID=0&ClassID=<%=bpCurrentPage.nClassID %>">צפה בהערכות</a>
+                    <%} %>
 
                     <%if (bpCurrentPage.LoggedInTeacher.Type == "מנהל")
                         {
@@ -95,5 +103,23 @@
     <script src="/js/jquery.slim.min.js"></script>
     <script src="/js/popper.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
+
+
+
+    
+
+
+    <script>
+$(document).ready(function(){
+  $('.dropdown-submenu a.test').on("click", function(e){
+    $(this).next('ul').toggle();
+    e.stopPropagation();
+    e.preventDefault();
+  });
+});
+
+
+
+</script>
 </body>
 </html>
