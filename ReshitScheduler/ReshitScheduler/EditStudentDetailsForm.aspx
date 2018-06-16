@@ -29,6 +29,18 @@
         <div class="col-12 col-lg-8">
             <div class="row h4">
                 <div class="col-12 col-sm-6 border rounded form-group">
+                    <label for="student_first_name" class="form-control-label">שם התלמיד : </label>
+                    <input id="student_first_name" runat="server" type="text" class ="form-control mb-1"/>
+                </div>
+                <div class="col-12 col-sm-6 border rounded form-group">
+                    <label for="student_last_name" class="form-control-label">שם משפחה של התלמיד : </label>
+                    <input id="student_last_name" runat="server" type="text" class ="form-control mb-1"/>
+                </div>
+                <div class="form-group form-inline row">
+                    <label for="student_picture" class="col-form-label col-sm-3 col-md-4">החלף תמונה לתלמיד:</label>
+                    <asp:FileUpload ID="FileUpload1" runat="server" CssClass="btn " />
+                </div>
+                <div class="col-12 col-sm-6 border rounded form-group">
                     <label for="mother_full_name" class="form-control-label">שם האם : </label>
                     <input id="mother_full_name" runat="server" type="text" class ="form-control mb-1"/>
                 </div>

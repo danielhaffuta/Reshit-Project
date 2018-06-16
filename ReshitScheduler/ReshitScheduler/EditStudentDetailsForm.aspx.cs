@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -27,6 +28,9 @@ namespace ReshitScheduler
         }
         private void FillStudentInformation()
         {
+            string[] name = drStudentDetails["name"].ToString().Split(' ');
+            student_first_name.Value = name[0];
+            student_last_name.Value = name[1];
             mother_full_name.Value = drStudentDetails["mother_full_name"].ToString();
             father_full_name.Value = drStudentDetails["father_full_name"].ToString();
             mother_cellphone.Value = drStudentDetails["mother_cellphone"].ToString();
@@ -38,15 +42,24 @@ namespace ReshitScheduler
 
         protected void BtnSave_Click(object sender, EventArgs e)
         {
-            DBConnection.Instance.UpdateTableRow("students", nStudentID,
-                                                 "mother_full_name:father_full_name:" +
+            string strFields = "first_name: last_name: mother_full_name: father_full_name: " +
                                                  "mother_cellphone:father_cellphone:" +
                                                  "home_phone:parents_email:" +
-                                                 "settlement",
-                                                 "'" + mother_full_name.Value + "':'" + father_full_name.Value + "':'" +
+                                                 "settlement";
+            string strValues = "'" + student_first_name.Value + "':'" + student_last_name.Value + "':'" +
+                                                 mother_full_name.Value + "':'" + father_full_name.Value + "':'" +
                                                  mother_cellphone.Value + "':'" + father_cellphone.Value + "':'" +
                                                  home_phone.Value + "':'" + parents_email.Value + "':'" +
-                                                 settlement.Value + "'");
+                                                 settlement.Value + "'";
+            string fileName = string.Empty;
+            if (FileUpload1.HasFile)
+            {
+                fileName = Path.GetFileName(FileUpload1.PostedFile.FileName);
+                FileUpload1.PostedFile.SaveAs(Server.MapPath("~/pictures/") + fileName);
+                strFields += ":picture_path";
+                strValues += ":'pictures/" + fileName + "'";
+            }
+            DBConnection.Instance.UpdateTableRow("students", nStudentID,strFields,strValues);
 
             GoBack();
 

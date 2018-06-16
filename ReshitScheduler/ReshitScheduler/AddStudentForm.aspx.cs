@@ -56,20 +56,33 @@ namespace ReshitScheduler
             pnlNoStudentsMsg.Visible = gvStudents.Rows.Count == 0;
         }
 
-        private void ValidateFields()
+        private bool ValidateFields()
         {
-            
+            if(txtStudentFirstName.Text == "" || txtStudentFirstName.Text == null)
+            {
+                Helper.ShowMessage(ClientScript, "חובה להכניס שם פרטי של התלמיד");
+                return false;
+            }
+            if (txtStudentLastName.Text == "" || txtStudentLastName.Text == null)
+            {
+                Helper.ShowMessage(ClientScript, "חובה להכניס שם משפחה של התלמיד");
+                return false;
+            }
+            return true;
         }
 
         protected void BtnAddStudent_Click(object sender, EventArgs e)
         {
-            ValidateFields();
+            bool bValid = ValidateFields();
+            if (!bValid)
+                return;
             int nSelectedClassID = nClassID != 0 ? nClassID : Convert.ToInt32(ddlClassesList.SelectedValue);
             string fileName = string.Empty;
+            bool saveFile = false;
             if (FileUpload1.HasFile)
             {
                 fileName = Path.GetFileName(FileUpload1.PostedFile.FileName);
-                FileUpload1.PostedFile.SaveAs(Server.MapPath("~/pictures/") + fileName);
+                saveFile = true;
             }
 
             string fields = "first_name,last_name,father_full_name,mother_full_name,father_cellphone,mother_cellphone,home_phone,parents_email,settlement,picture_path";
@@ -83,20 +96,43 @@ namespace ReshitScheduler
             bool bSuccess = DBConnection.Instance.InsertTableRow("students", fields, values,out nNewStudentIS);
             if (!bSuccess)
             {
-                Helper.ShowMessage(ClientScript, "error saving student information");
+                Helper.ShowMessage(ClientScript, "שגיאה בשמירת פרטי תלמיד");
+                Helper.ShowMessage(ClientScript, "תמונה לא הועלתה, נא לטעון תמונה מחדש");
+                return;
             }
             else
             {
                 bSuccess = DBConnection.Instance.InsertTableRow("students_classes", "student_id,class_id", nNewStudentIS+","+ nSelectedClassID);
                 if (!bSuccess)
                 {
-                    Helper.ShowMessage(ClientScript,  "error connecting student to class");
+                    Helper.ShowMessage(ClientScript,  "שגיאה בצירוף סטודנט לכיתה, פרטים לא נשמרו");
+                    string strDeleteQuery = "delete from students where id = " + nNewStudentIS;
+                    DBConnection.Instance.ExecuteNonQuery(strDeleteQuery);
+                    return;
                 }
             }
+            if (saveFile)
+            {
+                FileUpload1.PostedFile.SaveAs(Server.MapPath("~/pictures/") + fileName);
+            }
             Helper.ShowMessage(ClientScript, "תלמיד נשמר");
+            ResetFields();
             LoadClassStudents();
 
 
+        }
+
+        private void ResetFields()
+        {
+            txtStudentFirstName.Text = "";
+            txtStudentLastName.Text = "";
+            txtFather_full_name.Text = "";
+            txtMother_full_name.Text = "";
+            txtFather_cellphone.Text = "";
+            txtMother_cellphone.Text = "";
+            txtHome_phone.Text = "";
+            txtParents_email.Text = "";
+            txtSettlement.Text = "";
         }
 
         protected void BtnChoosePicture_Click(object sender, EventArgs e)

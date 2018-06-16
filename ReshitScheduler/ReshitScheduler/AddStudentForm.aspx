@@ -53,7 +53,7 @@
 
             <div class="form-group form-inline row">
                 <label class="col-form-label col-sm-3 col-md-4">אי-מייל:</label>
-                <asp:TextBox id="txtParents_email" runat="server" CssClass="form-control col col-sm-9 col-md-8"></asp:TextBox>
+                <asp:TextBox id="txtParents_email" runat="server" type="email" CssClass="form-control col col-sm-9 col-md-8"></asp:TextBox>
             </div>
             <div class="form-group form-inline row">
                 <label class="col-form-label col-sm-3 col-md-4">יישוב:</label>
