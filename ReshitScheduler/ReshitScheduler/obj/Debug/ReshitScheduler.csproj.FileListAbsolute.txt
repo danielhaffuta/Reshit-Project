@@ -182,3 +182,4 @@ C:\Users\user\Desktop\project\Reshit-Project\ReshitScheduler\ReshitScheduler\bin
 D:\Google Drive\programming\github\reshit\Reshit-Project\ReshitScheduler\ReshitScheduler\bin\Xceed.Words.NET.dll
 C:\Users\user\Desktop\project\Reshit-Project\ReshitScheduler\ReshitScheduler\bin\MySql.Data.xml
 C:\Users\user\Desktop\project\Reshit-Project\ReshitScheduler\ReshitScheduler\bin\MySql.Web.xml
+C:\Users\user\Desktop\project\Reshit-Project\ReshitScheduler\ReshitScheduler\obj\Debug\ReshitScheduler.csproj.ResolveComReference.cache

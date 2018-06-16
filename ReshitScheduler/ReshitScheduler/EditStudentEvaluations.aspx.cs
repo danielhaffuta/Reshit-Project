@@ -78,6 +78,7 @@ namespace ReshitScheduler
         {
             TextBox txtChangedEvaluation = sender as TextBox;
             GridViewRow gvrChangedRow = txtChangedEvaluation.Parent.Parent as GridViewRow;
+            ((TextBox)gvrChangedRow.FindControl("txtEvaluation")).ReadOnly = true;
             int nLessonID;
             int.TryParse(gvrChangedRow.Cells[4].Text, out nLessonID);
             int buffer;
@@ -99,7 +100,8 @@ namespace ReshitScheduler
                                       "'" + (gvrChangedRow.Cells[1].Controls[1] as TextBox).Text.Replace("'", "''") + "'," +
                                       nStudentID + "," + nLessonID + "," + nSemester);
             }
-            
+            ((TextBox)gvrChangedRow.FindControl("txtEvaluation")).ReadOnly = false;
+
         }
     }
 }

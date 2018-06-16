@@ -93,8 +93,7 @@ namespace ReshitScheduler
                     Helper.ShowMessage(ClientScript,  "error connecting student to class");
                 }
             }
-
-
+            Helper.ShowMessage(ClientScript, "תלמיד נשמר");
             LoadClassStudents();
 
 
