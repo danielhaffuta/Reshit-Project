@@ -871,6 +871,27 @@ namespace ReshitScheduler
             string strQuery = "update " + strTableName + " set " + field + " = " + newValue + " where " + field + " = " + oldValue;
             ExecuteNonQuery(strQuery);
         }
+
+        public string GetSmsUserName()
+        {
+            return (string)GetDataTableByQuery("select value from preferences where name='SMS_User_Name'").Rows[0]["value"];
+        }
+
+        public string GetSmsPassword()
+        {
+            return (string)GetDataTableByQuery("select value from preferences where name='SMS_Password'").Rows[0]["value"];
+        }
+
+        public string GetSmsUrl()
+        {
+            return (string) GetDataTableByQuery("select value from preferences where name='SMS_Url'").Rows[0]["value"];
+        }
+
+        public void UpdateApprovalStatus(string studentId,string approvalStatusId,string confarmationNumber)
+        {
+            DBConnection.Instance.ExecuteNonQuery("update students_schedule set approval_status_id="+ approvalStatusId+ " where approval_status_id=1 and confarmation_number =" + confarmationNumber + " and student_id=" + studentId);
+
+        }
     }
 
 }
