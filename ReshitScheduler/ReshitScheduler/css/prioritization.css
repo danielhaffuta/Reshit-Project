@@ -1,0 +1,20 @@
+﻿body,html {
+    direction:rtl;
+}
+
+
+#MainForm_lbPrioritization
+{
+   height:50vh;
+   width:20%;
+}
+
+input{
+    margin-top:7%;
+    margin-right:2%;
+}
+
+input[type="image"]{
+    padding-right:2%;
+    width:5%;
+}

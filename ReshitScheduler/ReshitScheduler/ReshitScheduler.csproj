@@ -186,7 +186,7 @@
     <Content Include="PrincipalPage.aspx" />
     <Content Include="PrintScheduleForm.aspx" />
     <Content Include="PrintStudentEvaluations.aspx" />
-    <Content Include="prioritization.aspx" />
+    <Content Include="Prioritization.aspx" />
     <Content Include="SelectParentsForSmsForm.aspx" />
     <Content Include="SetBellSystem.aspx" />
     <Content Include="SpecialFunctionsForm.aspx" />
@@ -387,12 +387,12 @@
     <Compile Include="PrintStudentEvaluations.aspx.designer.cs">
       <DependentUpon>PrintStudentEvaluations.aspx</DependentUpon>
     </Compile>
-    <Compile Include="prioritization.aspx.cs">
-      <DependentUpon>prioritization.aspx</DependentUpon>
+    <Compile Include="Prioritization.aspx.cs">
+      <DependentUpon>Prioritization.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="prioritization.aspx.designer.cs">
-      <DependentUpon>prioritization.aspx</DependentUpon>
+    <Compile Include="Prioritization.aspx.designer.cs">
+      <DependentUpon>Prioritization.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SelectParentsForSmsForm.aspx.cs">
