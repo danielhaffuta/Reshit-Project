@@ -36,8 +36,8 @@
                     <label for="student_last_name" class="form-control-label">שם משפחה של התלמיד : </label>
                     <input id="student_last_name" runat="server" type="text" class ="form-control mb-1"/>
                 </div>
-                <div class="form-group form-inline row">
-                    <label for="student_picture" class="col-form-label col-sm-3 col-md-4">החלף תמונה לתלמיד:</label>
+                <div class="col-12 border rounded form-group">
+                    <label for="student_picture" class="form-control-label">החלף תמונה לתלמיד:</label>
                     <asp:FileUpload ID="FileUpload1" runat="server" CssClass="btn " />
                 </div>
                 <div class="col-12 col-sm-6 border rounded form-group">
