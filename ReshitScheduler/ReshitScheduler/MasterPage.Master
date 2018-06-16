@@ -78,7 +78,7 @@
                             <a class="dropdown-item" href="AddTeacherForm.aspx">הוספת מורה</a>
                             <a class="dropdown-item" href="EditTeacherDetails.aspx">ערוך פרטי מורה</a>
                             <a class="dropdown-item" href="SpecialFunctionsForm.aspx">מעבר תקופה</a>
-
+                            <a class="dropdown-item" href="Prioritization.aspx">תעדופים</a>
                         </div>
                     </div>
                     <%} %>

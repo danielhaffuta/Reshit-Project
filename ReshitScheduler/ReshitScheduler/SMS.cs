@@ -107,7 +107,8 @@ namespace ReshitScheduler
         public bool Send()
         {
             int? nConfarmationNumber = 1;
-            DataTable dtConfatmationNumber = DBConnection.Instance.GetDataTableByQuery("select confarmation_number from students_schedule where student_id = " + this.StudentID + " order by confarmation_number desc limit 1");
+            DataTable dtConfatmationNumber = DBConnection.Instance.GetDataTableByQuery(@"select confarmation_number from students_schedule where student_id in
+                                             (select student_id from students where mother_cellphone='" + this.PhoneNumber+"' or father_cellphone='"+this.PhoneNumber+"') " + " order by confarmation_number desc limit 1");
             if(dtConfatmationNumber.Rows.Count== ALLOW_WAITING_SMS)
             {
                 // need to alert to the techer??
@@ -132,34 +133,20 @@ namespace ReshitScheduler
         }
         private bool GenereteSMS(string messege, string phoneNumber)
         {
-            string xml = @"<?xml version='1.0' encoding='UTF-8'?><sms><user><username>019sms</username><password>050618</password>
+            String url = DBConnection.Instance.GetSmsUrl();
+            string strSendXml = @"<?xml version='1.0' encoding='UTF-8'?><sms><user><username>resheet</username><password>batya123</password>
             </user><source>Reshit</source><destinations><phone>" + phoneNumber + "</phone></destinations><message>" + messege + "</message><response>1</response></sms>";
-            String url = "https://www.019sms.co.il:8090/api/test";
-          // url= "https://www.019sms.co.il/api";
-            WebRequest webRequest = WebRequest.Create(url);
-            webRequest.Method = "POST";
-            byte[] bytes = Encoding.UTF8.GetBytes(xml);
-            webRequest.ContentType = "application/xml";
-            webRequest.ContentLength = (long)bytes.Length;
-            Stream requestStream = webRequest.GetRequestStream();
-            requestStream.Write(bytes, 0, bytes.Length);
-            requestStream.Close();
-            WebResponse response = webRequest.GetResponse();
-            Stream responseStream = response.GetResponseStream();
-            StreamReader streamReader = new StreamReader(responseStream);
-            string result = streamReader.ReadToEnd();
-            streamReader.Close();
-            responseStream.Close();
-            response.Close();
-            return CheckResult(result);
+
+            string strResult = FormsUtilities.GetResultFromSmsServer(url, strSendXml);
+            return CheckResult(strResult);
 
 
         }
-        private static bool CheckResult(string result)
+        private static bool CheckResult(string strResult)
         {
-            result = result.Substring(result.IndexOf("<status>"));
-            result = result.Substring(0, result.IndexOf("</status>"));
-            if (result.Contains("0"))
+            strResult = strResult.Substring(strResult.IndexOf("<status>"));
+            strResult = strResult.Substring(0, strResult.IndexOf("</status>"));
+            if (strResult.Contains("0"))
             {
                 return true;
             }

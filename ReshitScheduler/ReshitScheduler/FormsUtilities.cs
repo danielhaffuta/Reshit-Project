@@ -306,18 +306,8 @@ namespace ReshitScheduler
             return gvScheduleView;
         }
 
-
-   
-        public static void GetResponseSMS()
+        public static string GetResultFromSmsServer(string url,string xml)
         {
-            String url = "https://019sms.co.il/api";
-            DataTable dtLastDateSent = DBConnection.Instance.GetDataTableByQuery("select value from preferences where name = 'last send date'");
-            string strLastDateSent = (string)dtLastDateSent.Rows[0]["value"];
-            DBConnection.Instance.ExecuteNonQuery("update preferences set value='" + DateTime.Now.ToString("dd/mm/yy hh:mm") + "' where name ='last send date'");
-            //String testUrl = "https://www.019sms.co.il:8090/api/test";
-            string xml = @"<?xml version='1.0' encoding='UTF-8'?><incoming><user><username>019sms</username><password>050618</password></user>
-                            <from>"+strLastDateSent+"</from><to>"+DateTime.Now.ToString("dd/mm/yy hh:mm")+"</to></incoming>";
-
             WebRequest webRequest = WebRequest.Create(url);
             webRequest.Method = "POST";
             byte[] bytes = Encoding.UTF8.GetBytes(xml);
@@ -333,29 +323,53 @@ namespace ReshitScheduler
             streamReader.Close();
             responseStream.Close();
             response.Close();
-            checkResult(result);
+            return result;
+        }
+   
+        public static void GetResponseSMS()
+        {
+            String url = DBConnection.Instance.GetSmsUrl();
+
+            DataTable dtLastDateSent = DBConnection.Instance.GetDataTableByQuery("select value from preferences where name = 'last send date'");
+            string strLastDateSent = (string)dtLastDateSent.Rows[0]["value"];
+            DBConnection.Instance.ExecuteNonQuery("update preferences set value='" + DateTime.Now.ToString("dd/MM/yy HH:mm") + "' where name ='last send date'");
+            string strSmsUserName = DBConnection.Instance.GetSmsUserName();
+            string strSmsPassword = DBConnection.Instance.GetSmsPassword();
+
+            string strResponseXml = @"<?xml version='1.0' encoding='UTF-8'?><incoming><user><username>"+strSmsUserName+@"</username><password>"+strSmsPassword+@"</password></user>
+                         <from>" + strLastDateSent+"</from><to>"+DateTime.Now.ToString("dd/MM/yy HH:mm")+"</to></incoming>";
+
+
+            string strResult = GetResultFromSmsServer(url, strResponseXml);
+            checkResult(strResult);
             
         }
-        private static void checkResult(string result)
+        private static void checkResult(string strResult)
         {
+            string NOT_APPROVE = "3";
+            string APPROVE = "2";
             XmlDocument xmlResponse = new XmlDocument();
-            xmlResponse.LoadXml(result);
+            xmlResponse.LoadXml(strResult);
             XmlNodeList allResponse = xmlResponse.GetElementsByTagName("transaction");
             foreach (XmlElement item in allResponse)
             {
                 string strPhoneNumber = item.ChildNodes.Item(0).InnerText.Replace("972", "0");
                 int confarmationNumber = Convert.ToInt32(item.ChildNodes.Item(2).InnerText);
                 string strSelectID = "select id from students where replace(father_cellphone,'-','')='" + strPhoneNumber + "' or replace(mother_cellphone,'','')='" + strPhoneNumber + "'";
-                string strCurrStudentId = DBConnection.Instance.GetDataTableByQuery(strSelectID).Rows[0]["id"].ToString();
+                DataTable dtStudentsId = DBConnection.Instance.GetDataTableByQuery(strSelectID);
+                foreach(DataRow currentStudentId in dtStudentsId.Rows)
+                {
+                    if (confarmationNumber % 2 == 0)//not approve
+                    {
+                        DBConnection.Instance.UpdateApprovalStatus(currentStudentId["id"].ToString(), NOT_APPROVE, (confarmationNumber - 1).ToString());
+                    }
+                    else//approve
+                    {
+                        DBConnection.Instance.UpdateApprovalStatus(currentStudentId["id"].ToString(), APPROVE, confarmationNumber.ToString());
+                    }
 
-                if(confarmationNumber%2 ==0 )//not approve
-                {
-                    DBConnection.Instance.ExecuteNonQuery("update students_schedule set approval_status_id=3 where approval_status_id=1 and confarmation_number =" +(confarmationNumber-1).ToString()+" and student_id="+ strCurrStudentId);
                 }
-                else//approve
-                {
-                    DBConnection.Instance.ExecuteNonQuery("update students_schedule set approval_status_id=2 where approval_status_id=1 and confarmation_number =" + confarmationNumber.ToString() + " and student_id=" + strCurrStudentId);
-                }
+
 
             }
         }

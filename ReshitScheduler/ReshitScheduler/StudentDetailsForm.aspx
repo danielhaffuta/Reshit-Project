@@ -15,7 +15,6 @@
             <a class="dropdown-item" href="PrintStudentEvaluations.aspx?StudentID=<%=nStudentID%>">הערכה</a>
         </div>
     </div>
-    <a class="nav-item nav-link" href="EditStudentEvaluations.aspx?StudentID=<%=nStudentID %>">צפה בהערכות</a>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainForm" runat="server">
     <img class="figure-img img-fluid" src="<%=drStudentDetails["picture_path"] %>" width="350"/><br />
