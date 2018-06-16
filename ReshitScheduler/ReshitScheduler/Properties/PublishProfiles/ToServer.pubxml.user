@@ -1,0 +1,362 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit http://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword />
+    <_PublishTargetUrl>D:\Google Drive\programming\github\reshit\publish</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="AddClassForm.aspx">
+      <publishTime>05/30/2018 14:52:17</publishTime>
+    </File>
+    <File Include="AddGroupToClass.aspx">
+      <publishTime>06/03/2018 11:46:55</publishTime>
+    </File>
+    <File Include="AddLessonForm.aspx">
+      <publishTime>06/08/2018 12:13:54</publishTime>
+    </File>
+    <File Include="AddStudentForm.aspx">
+      <publishTime>05/30/2018 15:36:10</publishTime>
+    </File>
+    <File Include="AddTeacherForm.aspx">
+      <publishTime>05/30/2018 14:52:17</publishTime>
+    </File>
+    <File Include="AdminForm.aspx">
+      <publishTime>05/23/2018 17:20:20</publishTime>
+    </File>
+    <File Include="ApplicationInsights.config">
+      <publishTime>05/23/2018 17:38:16</publishTime>
+    </File>
+    <File Include="BasePage.aspx">
+      <publishTime>05/11/2018 19:38:33</publishTime>
+    </File>
+    <File Include="bin/ApplicationInsights.config">
+      <publishTime>05/23/2018 17:38:16</publishTime>
+    </File>
+    <File Include="bin/MySql.Data.dll">
+      <publishTime>01/18/2018 07:57:24</publishTime>
+    </File>
+    <File Include="bin/MySql.Web.dll">
+      <publishTime>01/18/2018 07:57:24</publishTime>
+    </File>
+    <File Include="bin/ReshitScheduler.dll">
+      <publishTime>06/15/2018 12:02:33</publishTime>
+    </File>
+    <File Include="bin/Xceed.Words.NET.dll">
+      <publishTime>06/08/2018 12:13:56</publishTime>
+    </File>
+    <File Include="ClassPage.aspx">
+      <publishTime>06/13/2018 20:52:20</publishTime>
+    </File>
+    <File Include="ClassStudents.aspx">
+      <publishTime>05/23/2018 01:14:13</publishTime>
+    </File>
+    <File Include="CoordinatorForm.aspx">
+      <publishTime>05/30/2018 15:13:37</publishTime>
+    </File>
+    <File Include="css/AddGroupToClass.css">
+      <publishTime>06/03/2018 11:46:56</publishTime>
+    </File>
+    <File Include="css/AdminForm.css">
+      <publishTime>05/23/2018 17:20:20</publishTime>
+    </File>
+    <File Include="css/BellSystem.css">
+      <publishTime>05/05/2018 21:35:04</publishTime>
+    </File>
+    <File Include="css/bootstrap.min.css">
+      <publishTime>05/02/2018 14:23:37</publishTime>
+    </File>
+    <File Include="css/Class.css">
+      <publishTime>05/05/2018 21:35:04</publishTime>
+    </File>
+    <File Include="css/Course.css">
+      <publishTime>05/05/2018 21:35:04</publishTime>
+    </File>
+    <File Include="css/Evaluation.css">
+      <publishTime>05/05/2018 21:35:04</publishTime>
+    </File>
+    <File Include="css/GridView.css">
+      <publishTime>05/05/2018 21:35:04</publishTime>
+    </File>
+    <File Include="css/LessonForm.css">
+      <publishTime>05/30/2018 11:34:14</publishTime>
+    </File>
+    <File Include="css/login.css">
+      <publishTime>05/14/2018 23:29:02</publishTime>
+    </File>
+    <File Include="css/page.css">
+      <publishTime>05/14/2018 23:29:02</publishTime>
+    </File>
+    <File Include="css/Student.css">
+      <publishTime>05/05/2018 21:35:04</publishTime>
+    </File>
+    <File Include="css/Teacher.css">
+      <publishTime>05/05/2018 21:35:04</publishTime>
+    </File>
+    <File Include="EditClassDetails.aspx">
+      <publishTime>06/15/2018 11:34:53</publishTime>
+    </File>
+    <File Include="EditLessonDetails.aspx">
+      <publishTime>06/13/2018 20:01:56</publishTime>
+    </File>
+    <File Include="EditStudentDetailsForm.aspx">
+      <publishTime>06/13/2018 20:01:56</publishTime>
+    </File>
+    <File Include="EditStudentEvaluations.aspx">
+      <publishTime>06/13/2018 20:01:56</publishTime>
+    </File>
+    <File Include="EditTeacherDetails.aspx">
+      <publishTime>06/13/2018 20:01:56</publishTime>
+    </File>
+    <File Include="EducatorForm.aspx">
+      <publishTime>05/12/2018 13:36:33</publishTime>
+    </File>
+    <File Include="EvaluationForm.aspx">
+      <publishTime>06/03/2018 11:46:56</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>05/05/2018 21:35:04</publishTime>
+    </File>
+    <File Include="GroupsForm.aspx">
+      <publishTime>05/29/2018 16:40:14</publishTime>
+    </File>
+    <File Include="js/AdminForm.js">
+      <publishTime>05/23/2018 17:20:20</publishTime>
+    </File>
+    <File Include="js/bootstrap.min.js">
+      <publishTime>05/02/2018 14:23:30</publishTime>
+    </File>
+    <File Include="js/general.js">
+      <publishTime>04/30/2018 01:00:26</publishTime>
+    </File>
+    <File Include="js/jquery.min.js">
+      <publishTime>05/05/2018 21:35:04</publishTime>
+    </File>
+    <File Include="js/jquery.slim.min.js">
+      <publishTime>05/02/2018 14:23:30</publishTime>
+    </File>
+    <File Include="js/login.js">
+      <publishTime>05/05/2018 21:35:04</publishTime>
+    </File>
+    <File Include="js/popper.min.js">
+      <publishTime>05/02/2018 14:23:30</publishTime>
+    </File>
+    <File Include="LessonForm.aspx">
+      <publishTime>05/30/2018 14:53:22</publishTime>
+    </File>
+    <File Include="LoginForm.aspx">
+      <publishTime>05/14/2018 23:32:13</publishTime>
+    </File>
+    <File Include="MainForm.aspx">
+      <publishTime>05/25/2018 10:30:34</publishTime>
+    </File>
+    <File Include="MasterPage.Master">
+      <publishTime>06/15/2018 11:34:51</publishTime>
+    </File>
+    <File Include="media/1.jpg">
+      <publishTime>05/05/2018 21:35:04</publishTime>
+    </File>
+    <File Include="media/2.jpg">
+      <publishTime>05/05/2018 21:35:04</publishTime>
+    </File>
+    <File Include="media/3.jpg">
+      <publishTime>05/05/2018 21:35:04</publishTime>
+    </File>
+    <File Include="media/Arr_logo.png">
+      <publishTime>05/05/2018 21:35:04</publishTime>
+    </File>
+    <File Include="media/reshitLogo.gif">
+      <publishTime>05/05/2018 21:35:04</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>06/08/2018 12:13:55</publishTime>
+    </File>
+    <File Include="pictures/1.jpg">
+      <publishTime>05/10/2018 07:30:07</publishTime>
+    </File>
+    <File Include="pictures/10.jpg">
+      <publishTime>05/10/2018 07:31:41</publishTime>
+    </File>
+    <File Include="pictures/11.jpg">
+      <publishTime>05/10/2018 07:31:43</publishTime>
+    </File>
+    <File Include="pictures/12.jpg">
+      <publishTime>05/10/2018 07:31:44</publishTime>
+    </File>
+    <File Include="pictures/13.jpg">
+      <publishTime>05/10/2018 07:31:45</publishTime>
+    </File>
+    <File Include="pictures/14.jpg">
+      <publishTime>05/10/2018 07:31:53</publishTime>
+    </File>
+    <File Include="pictures/15.jpg">
+      <publishTime>05/10/2018 07:32:02</publishTime>
+    </File>
+    <File Include="pictures/16.jpg">
+      <publishTime>05/10/2018 07:32:12</publishTime>
+    </File>
+    <File Include="pictures/17.jpg">
+      <publishTime>05/10/2018 07:32:20</publishTime>
+    </File>
+    <File Include="pictures/18.jpg">
+      <publishTime>05/10/2018 07:32:21</publishTime>
+    </File>
+    <File Include="pictures/19.jpg">
+      <publishTime>05/10/2018 07:32:29</publishTime>
+    </File>
+    <File Include="pictures/2.jpg">
+      <publishTime>05/10/2018 07:30:52</publishTime>
+    </File>
+    <File Include="pictures/20.jpg">
+      <publishTime>05/16/2018 10:54:37</publishTime>
+    </File>
+    <File Include="pictures/21.jpg">
+      <publishTime>05/10/2018 07:32:48</publishTime>
+    </File>
+    <File Include="pictures/22.jpg">
+      <publishTime>05/16/2018 10:50:53</publishTime>
+    </File>
+    <File Include="pictures/23.jpg">
+      <publishTime>05/10/2018 07:33:50</publishTime>
+    </File>
+    <File Include="pictures/24.jpg">
+      <publishTime>05/10/2018 07:33:55</publishTime>
+    </File>
+    <File Include="pictures/3.jpg">
+      <publishTime>05/10/2018 07:30:59</publishTime>
+    </File>
+    <File Include="pictures/4.jpg">
+      <publishTime>05/10/2018 07:31:09</publishTime>
+    </File>
+    <File Include="pictures/5.jpg">
+      <publishTime>05/10/2018 07:31:15</publishTime>
+    </File>
+    <File Include="pictures/6.jpg">
+      <publishTime>05/10/2018 07:31:23</publishTime>
+    </File>
+    <File Include="pictures/7.jpg">
+      <publishTime>05/10/2018 07:31:25</publishTime>
+    </File>
+    <File Include="pictures/8.jpg">
+      <publishTime>05/10/2018 07:31:26</publishTime>
+    </File>
+    <File Include="pictures/9.jpg">
+      <publishTime>05/10/2018 07:31:34</publishTime>
+    </File>
+    <File Include="pictures/big/1.jpg">
+      <publishTime>06/04/2013 13:09:40</publishTime>
+    </File>
+    <File Include="pictures/big/10.jpg">
+      <publishTime>06/07/2013 13:36:04</publishTime>
+    </File>
+    <File Include="pictures/big/11.jpg">
+      <publishTime>06/07/2013 13:36:24</publishTime>
+    </File>
+    <File Include="pictures/big/12.jpg">
+      <publishTime>06/07/2013 13:37:22</publishTime>
+    </File>
+    <File Include="pictures/big/13.jpg">
+      <publishTime>06/07/2013 13:38:04</publishTime>
+    </File>
+    <File Include="pictures/big/14.jpg">
+      <publishTime>06/07/2013 13:39:22</publishTime>
+    </File>
+    <File Include="pictures/big/15.jpg">
+      <publishTime>06/07/2013 13:39:30</publishTime>
+    </File>
+    <File Include="pictures/big/16.jpg">
+      <publishTime>06/07/2013 13:39:44</publishTime>
+    </File>
+    <File Include="pictures/big/17.jpg">
+      <publishTime>06/07/2013 13:40:22</publishTime>
+    </File>
+    <File Include="pictures/big/18.jpg">
+      <publishTime>06/07/2013 13:36:24</publishTime>
+    </File>
+    <File Include="pictures/big/19.jpg">
+      <publishTime>06/07/2013 13:40:22</publishTime>
+    </File>
+    <File Include="pictures/big/2.jpg">
+      <publishTime>06/04/2013 13:10:40</publishTime>
+    </File>
+    <File Include="pictures/big/20.jpg">
+      <publishTime>06/07/2013 13:39:30</publishTime>
+    </File>
+    <File Include="pictures/big/21.jpg">
+      <publishTime>06/07/2013 13:39:44</publishTime>
+    </File>
+    <File Include="pictures/big/22.jpg">
+      <publishTime>06/07/2013 13:39:22</publishTime>
+    </File>
+    <File Include="pictures/big/23.jpg">
+      <publishTime>06/07/2013 13:37:22</publishTime>
+    </File>
+    <File Include="pictures/big/24.jpg">
+      <publishTime>06/07/2013 13:38:04</publishTime>
+    </File>
+    <File Include="pictures/big/3.jpg">
+      <publishTime>06/04/2013 13:10:44</publishTime>
+    </File>
+    <File Include="pictures/big/4.jpg">
+      <publishTime>06/05/2013 11:07:12</publishTime>
+    </File>
+    <File Include="pictures/big/5.jpg">
+      <publishTime>06/05/2013 11:07:20</publishTime>
+    </File>
+    <File Include="pictures/big/6.jpg">
+      <publishTime>06/07/2013 13:33:40</publishTime>
+    </File>
+    <File Include="pictures/big/7.jpg">
+      <publishTime>06/07/2013 13:34:02</publishTime>
+    </File>
+    <File Include="pictures/big/8.jpg">
+      <publishTime>06/07/2013 13:34:36</publishTime>
+    </File>
+    <File Include="pictures/big/9.jpg">
+      <publishTime>06/07/2013 13:35:10</publishTime>
+    </File>
+    <File Include="pictures/compressjpeg.zip">
+      <publishTime>05/10/2018 07:32:51</publishTime>
+    </File>
+    <File Include="PrincipalPage.aspx">
+      <publishTime>05/13/2018 00:38:50</publishTime>
+    </File>
+    <File Include="PrintScheduleForm.aspx">
+      <publishTime>05/21/2018 16:53:03</publishTime>
+    </File>
+    <File Include="PrintStudentEvaluations.aspx">
+      <publishTime>06/08/2018 12:13:55</publishTime>
+    </File>
+    <File Include="SelectParentsForSmsForm.aspx">
+      <publishTime>06/03/2018 11:46:56</publishTime>
+    </File>
+    <File Include="SetBellSystem.aspx">
+      <publishTime>06/13/2018 20:01:56</publishTime>
+    </File>
+    <File Include="SpecialFunctionsForm.aspx">
+      <publishTime>06/03/2018 11:46:56</publishTime>
+    </File>
+    <File Include="StudentDetailsForm.aspx">
+      <publishTime>05/30/2018 14:55:17</publishTime>
+    </File>
+    <File Include="TableEdit.aspx">
+      <publishTime>05/10/2018 02:36:45</publishTime>
+    </File>
+    <File Include="TeacherClassesForm.aspx">
+      <publishTime>05/23/2018 19:22:32</publishTime>
+    </File>
+    <File Include="TeacherCoursesAndGroupsForm.aspx">
+      <publishTime>06/08/2018 12:13:55</publishTime>
+    </File>
+    <File Include="TeacherForm.aspx">
+      <publishTime>05/23/2018 18:27:14</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>06/15/2018 12:09:30</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

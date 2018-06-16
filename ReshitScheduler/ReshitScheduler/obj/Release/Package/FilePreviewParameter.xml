@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" description="" value="localhost" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^D:\\Google\ Drive\\programming\\github\\reshit\\Reshit-Project\\ReshitScheduler\\ReshitScheduler\\obj\\Release\\Package\\PackageTmp$" />
+    <parameterEntry kind="ProviderPath" scope="setAcl" match="^D:\\Google\ Drive\\programming\\github\\reshit\\Reshit-Project\\ReshitScheduler\\ReshitScheduler\\obj\\Release\\Package\\PackageTmp$" />
+  </parameter>
+</parameters>

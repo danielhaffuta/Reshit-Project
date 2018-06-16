@@ -1,0 +1,49 @@
+﻿html{
+    width:100%;
+    height:95%;
+}
+body{
+     direction:rtl;
+     height:100%;
+     width:100%;
+     margin:0;
+     background-color:white;
+     font-family: "Roboto", sans-serif;
+     -webkit-font-smoothing: antialiased;
+}
+header{
+    margin-top:1%;
+    width:100%;
+    height:12.5%;
+}
+#logo{
+    width:5%;
+    margin-right: 29%;
+    float:left;
+    
+}
+footer p img{
+    width:0.7%;
+    height:0.7%;
+
+}
+footer p{
+    
+}
+footer{
+    position:fixed;
+   height:13%;
+   left: 0;
+   bottom: 0;
+   width:100%;
+   text-align:center;
+}
+#title{
+    text-align:center;
+    float:right;
+    font-size:30px;
+    width:30%;
+    margin-right:36%;
+    
+  
+}

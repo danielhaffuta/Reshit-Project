@@ -120,6 +120,7 @@
     <Content Include="MasterPage.Master" />
     <Content Include="pictures\compressjpeg.zip" />
     <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\ToServer.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
