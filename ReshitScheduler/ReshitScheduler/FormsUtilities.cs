@@ -247,22 +247,28 @@ namespace ReshitScheduler
         public static void FillTeacherSchedule(int nTeacherID, DataTable dtScheduleTable)
         {
             DataTable dtTeacherSchedule = DBConnection.Instance.GetDataTableByQuery(
-                " select * from classes_schedule "+
+                " select *,concat(grades.grade_name,classes.class_number) as class_name from classes_schedule " +
                 " inner join courses on courses.id = classes_schedule.course_id "+
+                " inner join classes on classes.id = classes_schedule.class_id " +
+                " inner join grades on grades.id = classes.grade_id " +
                 " where courses.teacher_id = " + nTeacherID);
             DataTable dtStudentsSchedule = DBConnection.Instance.GetDataTableByQuery(
-                " select distinct groups.id as group_id,day_id,hour_id,group_id from students_schedule " +
+                " select distinct groups.id as group_id,day_id,hour_id,group_id," +
+                " concat(grades.grade_name,classes.class_number) as class_name from students_schedule " +
                 " inner join groups on groups.id = students_schedule.group_id " +
+                " inner join students_classes on students_classes.student_id = students_schedule.student_id " +
+                " inner join classes on classes.id = students_classes.class_id " +
+                " inner join grades on grades.id = classes.grade_id " +
                 " where groups.teacher_id = " + nTeacherID);
             foreach (DataRow drCurrentHour in dtTeacherSchedule.Rows)
             {
                 dtScheduleTable.Select("hour_id = '" + drCurrentHour["hour_id"].ToString().Replace("*", "") + "'")[0][drCurrentHour["day_id"].ToString()] +=
-                    dtCourses.Select("course_id = " + drCurrentHour["course_id"].ToString())[0]["name"].ToString();
+                    dtCourses.Select("course_id = " + drCurrentHour["course_id"])[0]["name"] + "("+ drCurrentHour["class_name"] + ")";
             }
             foreach (DataRow drCurrentHour in dtStudentsSchedule.Rows)
             {
                 dtScheduleTable.Select("hour_id = '" + drCurrentHour["hour_id"].ToString().Replace("*", "") + "'")[0][drCurrentHour["day_id"].ToString()] +=
-                    dtGroups.Select("group_id = " + drCurrentHour["group_id"].ToString())[0]["name"].ToString();
+                    dtGroups.Select("group_id = " + drCurrentHour["group_id"])[0]["name"] + "(" + drCurrentHour["class_name"] + ")";
             }
         }
 
