@@ -1,11 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Prioritization.aspx.cs" Inherits="ReshitScheduler.prioritization" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    
+    <link href="./css/prioritization.css" rel="stylesheet" />
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="navbar" runat="server">
-</asp:Content>
-<asp:Content ID="Content3" ContentPlaceHolderID="navbar_extra" runat="server">
-</asp:Content>
+
 <asp:Content ID="Content4" ContentPlaceHolderID="MainForm" runat="server">
 
     <div>
