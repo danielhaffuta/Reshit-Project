@@ -212,6 +212,7 @@ namespace ReshitScheduler
         {
             TextBox txtChangedEvaluation = sender as TextBox;
             GridViewRow gvrChangedRow = txtChangedEvaluation.Parent.Parent as GridViewRow;
+            ((TextBox)gvrChangedRow.FindControl("txtEvaluation")).ReadOnly = true;
             int nEvaluationID;
             if (int.TryParse(gvrChangedRow.Cells[1].Text, out nEvaluationID))
             {
@@ -222,11 +223,13 @@ namespace ReshitScheduler
             }
             else
             {
+                string[] strFields = { IsGroup ? "group_id" : "course_id", "evaluation","student_id" };
+                string[] strValues = { Convert.ToString(nLessonID), (gvrChangedRow.Cells[4].Controls[1] as TextBox).Text, gvrChangedRow.Cells[0].Text };
                 DBConnection.Instance.InsertTableRow(IsGroup ? "groups_evaluations" : "courses_evaluations",
-                                      "evaluation,student_id," + (IsGroup ? "group_id" : "course_id"),
-                                      "'" + (gvrChangedRow.Cells[4].Controls[1] as TextBox).Text.Replace("'", "''") + "'," +
-                                      gvrChangedRow.Cells[0].Text + "," + nLessonID);
+                                                                    strFields, strValues);
+
             }
+            ((TextBox)gvrChangedRow.FindControl("txtEvaluation")).ReadOnly = false;
             return;
         }
 

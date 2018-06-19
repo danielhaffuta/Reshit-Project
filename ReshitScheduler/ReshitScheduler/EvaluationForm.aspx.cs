@@ -73,9 +73,9 @@ namespace ReshitScheduler
         {
             if (IsNew)
             {
-                DBConnection.Instance.InsertTableRow(IsGroup ? "groups_evaluations" : "courses_evaluations",
-                                                  "evaluation,student_id," + (IsGroup ? "group_id" : "course_id"),
-                                                  "'" + txtEvaluation.Text.Replace("'", "''") + "'," + strStudentID + "," + strLessonID);
+                string[] strFields = { IsGroup ? "group_id" : "course_id", "evaluation", "student_id" };
+                string[] strValues = { strLessonID, txtEvaluation.Text, strStudentID };
+                DBConnection.Instance.InsertTableRow(IsGroup ? "groups_evaluations" : "courses_evaluations", strFields, strValues);
             }
             else
             {

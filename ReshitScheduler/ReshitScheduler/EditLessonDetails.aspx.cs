@@ -145,46 +145,42 @@ namespace ReshitScheduler
         private void DeleteLesson()
         {
             string strDeleteQuery;
-            DataTable dtCheckTables;
+            DataTable dtTableCheck;
             int nCurrentYearID = DBConnection.Instance.GetCurrentYearID();
             if (IsGroup)
             {
-                dtCheckTables = DBConnection.Instance.GetDataTableByQuery("select group_id from students_schedule where group_id = " + nLessonID +
+                dtTableCheck = DBConnection.Instance.GetDataTableByQuery("select group_id from students_schedule where group_id = " + nLessonID +
                                                                         " and hour_id in(select id from hours_in_day where year_id = " + nCurrentYearID + ")");
-                if (dtCheckTables.Rows.Count != 0)
+                if (dtTableCheck.Rows.Count != 0)
                 {
                     Helper.ShowMessage(ClientScript, "לא ניתן למחוק קבוצה שמשובצים בה תלמידים");
                     ResetLessonDetails();
                     return;
                 }
-                dtCheckTables = DBConnection.Instance.GetDataTableByQuery("select group_id from groups_evaluations where group_id = " + nLessonID +
+                dtTableCheck = DBConnection.Instance.GetDataTableByQuery("select group_id from groups_evaluations where group_id = " + nLessonID +
                                                                         " and group_id in(select id from groups where teacher_id in(select id from teachers where year_id = " + nCurrentYearID + "))");
-                if (dtCheckTables.Rows.Count != 0)
+                if (dtTableCheck.Rows.Count != 0)
                 {
                     Helper.ShowMessage(ClientScript, "לא ניתן למחוק קבוצה שיש בה הערכות");
                     ResetLessonDetails();
                     return;
                 }
-                //strDeleteQuery = "delete from students_schedule where group_id = " + nLessonID +
-                //     " and hour_id in(select id from hours_in_day where year_id = " + nCurrentYearID + ");";
-                //strDeleteQuery += " delete from groups_evaluations where group_id = " + nLessonID +
-                //     " and group_id in(select id from groups where teacher_id in(select id from teachers where year_id = " + nCurrentYearID + "));";
                 strDeleteQuery = " delete from groups where id = " + nLessonID +
                      " and teacher_id in(select id from teachers where year_id = " + nCurrentYearID + ");";
             }
             else
             {
-                dtCheckTables = DBConnection.Instance.GetDataTableByQuery("select course_id from classes_schedule where course_id = " + nLessonID +
+                dtTableCheck = DBConnection.Instance.GetDataTableByQuery("select course_id from classes_schedule where course_id = " + nLessonID +
                                                                         " and hour_id in(select id from hours_in_day where year_id = " + nCurrentYearID + ")");
-                if (dtCheckTables.Rows.Count != 0)
+                if (dtTableCheck.Rows.Count != 0)
                 {
                     Helper.ShowMessage(ClientScript, "לא ניתן למחוק שיעור שמשובצים בו תלמידים");
                     ResetLessonDetails();
                     return;
                 }
-                dtCheckTables = DBConnection.Instance.GetDataTableByQuery("select course_id from courses_evaluations where course_id = " + nLessonID +
+                dtTableCheck = DBConnection.Instance.GetDataTableByQuery("select course_id from courses_evaluations where course_id = " + nLessonID +
                                                                         " and course_id in(select id from courses where teacher_id in(select id from teachers where year_id = " + nCurrentYearID + "))");
-                if (dtCheckTables.Rows.Count != 0)
+                if (dtTableCheck.Rows.Count != 0)
                 {
                     Helper.ShowMessage(ClientScript, "לא ניתן למחוק שיעור שיש בו הערכות");
                     ResetLessonDetails();
@@ -212,15 +208,15 @@ namespace ReshitScheduler
         {
             if (bLessonDeleted)
             {
-                dtCourses = DBConnection.Instance.GetThisYearCourses();
-                dtGroups = DBConnection.Instance.GetThisYearGroups();
                 if (IsGroup)
                 {
+                    dtGroups = DBConnection.Instance.GetThisYearGroups();
                     ddlLessons.DataSource = dtGroups;
                     ddlLessons.DataValueField = "group_id";
                 }
                 else
                 {
+                    dtCourses = DBConnection.Instance.GetThisYearCourses();
                     ddlLessons.DataSource = dtCourses;
                     ddlLessons.DataValueField = "course_id";
                 }

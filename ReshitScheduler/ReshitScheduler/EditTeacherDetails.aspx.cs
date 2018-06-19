@@ -113,6 +113,7 @@ namespace ReshitScheduler
 
         protected void BtnUpdateTeacher_Click(object sender, EventArgs e)
         {
+            ReplaceApostrophe();
             string strFields = "first_name:last_name:teacher_type_id:user_name:password:year_id";
             string strValues = "'" + txtTeacherFirstName.Text + "':'" +
                                txtTeacherLastName.Text + "':" +
@@ -147,10 +148,19 @@ namespace ReshitScheduler
                     DBConnection.Instance.ExecuteNonQuery(strInsertCommand);
                 }
             }
-
+            Helper.ShowMessage(ClientScript, "שינויים נשמרו");
             ResetTeacherDetails();
 
         }
+
+        private void ReplaceApostrophe()
+        {
+            txtTeacherFirstName.Text = txtTeacherFirstName.Text.Replace("'", "''");
+            txtTeacherLastName.Text = txtTeacherLastName.Text.Replace("'", "''");
+            txtUserName.Text = txtUserName.Text.Replace("'", "''");
+            txtPassword.Text = txtPassword.Text.Replace("'", "''");
+        }
+
         protected void BtnDeleteTeacher(object sender, EventArgs e)
         {
             string confirmValue = Request.Form["confirm_value"];

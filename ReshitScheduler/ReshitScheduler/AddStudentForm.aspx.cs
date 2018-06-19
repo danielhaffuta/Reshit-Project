@@ -84,17 +84,15 @@ namespace ReshitScheduler
                 fileName = Path.GetFileName(FileUpload1.PostedFile.FileName);
                 saveFile = true;
             }
+            string[] strFields = { "first_name","last_name","father_full_name",
+                            "mother_full_name","father_cellphone","mother_cellphone","home_phone",
+                            "parents_email","settlement","picture_path" };
+            string[] strValues = { txtStudentFirstName.Text, txtStudentLastName.Text, txtFather_full_name.Text,
+                                txtMother_full_name.Text, txtFather_cellphone.Text, txtMother_cellphone.Text,
+                                txtHome_phone.Text, txtParents_email.Text, txtSettlement.Text, "pictures/" + fileName};
 
-            string fields = "first_name,last_name,father_full_name,mother_full_name,father_cellphone,mother_cellphone,home_phone,parents_email,settlement,picture_path";
-
-            string values = "'" + txtStudentFirstName.Text + "','" + txtStudentLastName.Text + "','" + txtFather_full_name.Text + "'," +
-                            "'" + txtMother_full_name.Text + "','" + txtFather_cellphone.Text + "','" + txtMother_cellphone.Text + "'," +
-                            "'" + txtHome_phone.Text + "','" + txtParents_email.Text + "','" + txtSettlement.Text + "','" + "pictures/" + fileName + "'";
-
-            int nNewStudentIS;
-
-            bool bSuccess = DBConnection.Instance.InsertTableRow("students", fields, values,out nNewStudentIS);
-            if (!bSuccess)
+            int nNewStudentIS = DBConnection.Instance.InsertTableRow("students", strFields, strValues);
+            if(nNewStudentIS == 0)
             {
                 Helper.ShowMessage(ClientScript, "שגיאה בשמירת פרטי תלמיד");
                 Helper.ShowMessage(ClientScript, "תמונה לא הועלתה, נא לטעון תמונה מחדש");
@@ -102,8 +100,10 @@ namespace ReshitScheduler
             }
             else
             {
-                bSuccess = DBConnection.Instance.InsertTableRow("students_classes", "student_id,class_id", nNewStudentIS+","+ nSelectedClassID);
-                if (!bSuccess)
+                string[] strFieldsClass = { "student_id","class_id" };
+                string[] strValuesClass = { Convert.ToString(nNewStudentIS), Convert.ToString(nSelectedClassID) };
+                int nSuccess = DBConnection.Instance.InsertTableRow("students_classes", strFieldsClass, strValuesClass);
+                if (nSuccess == 0)
                 {
                     Helper.ShowMessage(ClientScript,  "שגיאה בצירוף סטודנט לכיתה, פרטים לא נשמרו");
                     string strDeleteQuery = "delete from students where id = " + nNewStudentIS;
@@ -121,6 +121,7 @@ namespace ReshitScheduler
 
 
         }
+        
 
         private void ResetFields()
         {

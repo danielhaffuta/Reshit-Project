@@ -42,6 +42,7 @@ namespace ReshitScheduler
 
         protected void BtnSave_Click(object sender, EventArgs e)
         {
+            ReplaceApostrophe();
             string strFields = "first_name: last_name: mother_full_name: father_full_name: " +
                                                  "mother_cellphone:father_cellphone:" +
                                                  "home_phone:parents_email:" +
@@ -63,6 +64,15 @@ namespace ReshitScheduler
 
             GoBack();
 
+        }
+
+        private void ReplaceApostrophe()
+        {
+            student_first_name.Value = student_first_name.Value.Replace("'", "''");
+            student_last_name.Value = student_last_name.Value.Replace("'", "''");
+            mother_full_name.Value = mother_full_name.Value.Replace("'", "''");
+            father_full_name.Value = father_full_name.Value.Replace("'", "''");
+            settlement.Value = settlement.Value.Replace("'", "''");
         }
 
         protected void BtnDeleteStudent(object sender, EventArgs e)

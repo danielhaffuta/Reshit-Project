@@ -73,8 +73,8 @@ namespace ReshitScheduler
 
         protected void BtnSave_Click(object sender, EventArgs e)
         {
-            string fields = "";
             string tableName = "";
+            string tableFirstField = "";
             string strPriorityGroup = DBConnection.Instance.GetPriority("groups");
             string strPriorityCourse = DBConnection.Instance.GetPriority("courses");
             int groupP = Convert.ToInt32(strPriorityGroup);
@@ -88,32 +88,35 @@ namespace ReshitScheduler
             {
                 priority = courseP+1;
             }
-            string values = "'" + CourseName.Text + "',"
-                            + ddlTeachers.SelectedValue + ","
-                            + priority + ",";
+            string[] strValues = new string[4];
+            strValues[0] = CourseName.Text;
+            strValues[1] = ddlTeachers.SelectedValue;
+            strValues[2] = Convert.ToString(priority);
             if (HasEvaluation.Checked)
             {
-                values += "0";
+                strValues[3] = "0";
             }
             else
             {
-                values += "1";
+                strValues[3] = "1";
             }
             if (IsGroup)
             {
                 tableName = "groups";
-                fields = "group_name,teacher_id,priority,has_evaluation";
+                tableFirstField = "group_name";
             }
             else
             {
                 tableName = "courses";
-                fields = "course_name,teacher_id,priority,has_evaluation";
+                tableFirstField = "course_name";
             }
-            bool bInsertSucceeded = DBConnection.Instance.InsertTableRow(tableName, fields, values);
-            if (!bInsertSucceeded)
+            string[] strFields = { tableFirstField, "teacher_id", "priority", "has_evaluation" };
+            int nInsertSucceeded = DBConnection.Instance.InsertTableRow(tableName, strFields, strValues);
+            if (nInsertSucceeded == 0)
             {
                 Helper.ShowMessage(ClientScript,  "error saving lesson information");
             }
+            Helper.ShowMessage(ClientScript, "נשמר");
             CourseName.Text = "";
             ddlTeachers.SelectedIndex = 0;
             FillLessons();

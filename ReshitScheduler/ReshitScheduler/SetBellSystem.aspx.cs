@@ -66,24 +66,25 @@ namespace ReshitScheduler
 
         protected void BtnSave_Click(object sender, EventArgs e)
         {
-            string fields = "hour_of_school_day,start_time,finish_time,is_break,year_id";
+            string[] strFields = { "hour_of_school_day","start_time","finish_time","is_break","year_id" };
             int hour_of_school_day = Convert.ToInt32(DBConnection.Instance.GetMaxHourOfSchoolDay()) + 1;
-            string values = hour_of_school_day + "," +
-                            "'" + StartTime.Text + "'," +
-                            "'" + EndTime.Text + "',";
+            string[] strValues = new String[5];
+            strValues[0] = Convert.ToString(hour_of_school_day);
+            strValues[1] = StartTime.Text;
+            strValues[2] = EndTime.Text;
             if(CheckIfBreakNewHour)
             {
-                values += "1,";
+                strValues[3] = "1";
                 IsBreak.Checked = false;
             }
             else
             {
-                values += "0,";
+                strValues[3] = "0";
                 NotBreak.Checked = false;
             }
-            values += "(select value from preferences where name = 'current_year_id')";
-            bool bInsertSucceeded = DBConnection.Instance.InsertTableRow("hours_in_day", fields, values);
-            if (!bInsertSucceeded)
+            strValues[4] = "(select value from preferences where name = 'current_year_id')";
+            int nInsertSucceeded = DBConnection.Instance.InsertTableRow("hours_in_day", strFields, strValues);
+            if (nInsertSucceeded == 0)
             {
                 Helper.ShowMessage(ClientScript, "error saving");
             }
@@ -159,7 +160,8 @@ namespace ReshitScheduler
             string strDeleteQuery = " delete from hours_in_day where id = " + nHourID +
                 " and year_id = " + nCurrentYearID + ";";
             DBConnection.Instance.ExecuteNonQuery(strDeleteQuery);
-    }
+            showHours();
+        }
 
         protected void BtnBack_Click(object sender, EventArgs e)
         {

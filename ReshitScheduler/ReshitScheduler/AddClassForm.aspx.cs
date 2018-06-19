@@ -52,22 +52,24 @@ namespace ReshitScheduler
         }
         protected void BtnAddClass_Click(object sender, EventArgs e)
         {
-            int nGradeID = Convert.ToInt32(ddlGrades.SelectedValue);
-            int nClassNumber = Convert.ToInt32(txtClassNumber.Text);
-            int nTeacherID = Convert.ToInt32(ddlTeachers.SelectedValue);
+            string nGradeID = ddlGrades.SelectedValue;
+            string nClassNumber = txtClassNumber.Text;
+            string nTeacherID = ddlTeachers.SelectedValue;
             DataTable dtClassCheck = DBConnection.Instance.GetThisYearClassesDetails();
             if (dtClassCheck.Select("grade_id = " + nGradeID + " AND class_number = " + nClassNumber).Count() > 0)
             {
                 Helper.ShowMessage(ClientScript, "כיתה כבר קיימת - לא ניתן להוסיף");
                 return;
             }
-            bool bInsertSucceeded = 
-                DBConnection.Instance.InsertTableRow("classes", "grade_id,class_number,teacher_id",
-                                                           nGradeID + "," + nClassNumber + "," + nTeacherID);
-            if(!bInsertSucceeded)
+            string[] strFields = { "grade_id","class_number","teacher_id" };
+            string[] strValues = { nGradeID, nClassNumber, nTeacherID };
+            int nInsertSucceeded = DBConnection.Instance.InsertTableRow("classes", strFields, strValues);
+            if(nInsertSucceeded == 0)
             {
                 Helper.ShowMessage(ClientScript, "error saving");
+                return;
             }
+            Helper.ShowMessage(ClientScript, "כיתה נשמרה");
             dtClasses = DBConnection.Instance.GetThisYearClasses();
             gvClasses.DataSource = dtClasses;
             gvClasses.DataBind();

@@ -94,11 +94,11 @@ namespace ReshitScheduler
             }
             else
             {
-                int nSemester = Convert.ToInt32(DBConnection.Instance.GetSemester());
+                string semesterNum = DBConnection.Instance.GetSemester();
+                string[] strFields = { IsGroup ? "group_id" : "course_id", "evaluation", "student_id", "semester_number" };
+                string[] strValues = { Convert.ToString(nLessonID), (gvrChangedRow.Cells[1].Controls[1] as TextBox).Text, Convert.ToString(nStudentID), semesterNum };
                 DBConnection.Instance.InsertTableRow(IsGroup ? "groups_evaluations" : "courses_evaluations",
-                                      "evaluation,student_id," + (IsGroup ? "group_id" : "course_id")+",semester_number",
-                                      "'" + (gvrChangedRow.Cells[1].Controls[1] as TextBox).Text.Replace("'", "''") + "'," +
-                                      nStudentID + "," + nLessonID + "," + nSemester);
+                                                                    strFields, strValues);
             }
             ((TextBox)gvrChangedRow.FindControl("txtEvaluation")).ReadOnly = false;
 

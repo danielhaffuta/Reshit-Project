@@ -286,34 +286,51 @@ namespace ReshitScheduler
             return true;
         }
 
-        public bool InsertTableRow(string tableName, string strFields, string strValues)
+        public int InsertTableRow(string tableName, string[] strFields, string[] strValues)
         {
             this.Connect();
-
+            int nInsertID = 0;
             if (this.IsConnected)
             {
-                string strQuery = "insert into " + tableName + " (" + strFields + ") values (" + strValues + ")";
-                try
+                if (strValues.Length != strFields.Length)
+                    return nInsertID;
+                string strQuery = "insert into " + tableName + "(";
+                for (int nCurrentFieldIndex = 0; nCurrentFieldIndex < strFields.Length; nCurrentFieldIndex++)
                 {
-                    MySqlCommand command = new MySqlCommand(strQuery, this.connection);
-                    command.ExecuteNonQuery();
+                    if(strValues[nCurrentFieldIndex].Equals(""))
+                    {
+                        continue;
+                    }
+                    strQuery += strFields[nCurrentFieldIndex] + ",";
                 }
-                catch (MySqlException e)
+                strQuery = strQuery.Remove(strQuery.Length - 1);
+                strQuery += ") values (";
+                for (int nCurrentValueIndex = 0; nCurrentValueIndex < strValues.Length; nCurrentValueIndex++)
                 {
-                    return false;
+                    if(strValues[nCurrentValueIndex].Equals(""))
+                    {
+                        continue;
+                    }
+                    int nTest;
+                    Int32.TryParse(strValues[nCurrentValueIndex], out nTest);
+                    if (nTest != 0 || strValues[nCurrentValueIndex].Equals("0"))
+                    {
+                        strQuery += strValues[nCurrentValueIndex] + ",";
+                    }
+                    else
+                    {
+                        if (strValues[nCurrentValueIndex][0] != '(')
+                        {
+                            strValues[nCurrentValueIndex] = strValues[nCurrentValueIndex].Replace("'", "''");
+                            strQuery += "'" + strValues[nCurrentValueIndex] + "',";
+                        }
+                        else
+                            strQuery += strValues[nCurrentValueIndex] + ",";
+
+                    }
                 }
-            }
-            return true;
-        }
-
-        public bool InsertTableRow(string tableName, string strFields, string strValues, out int nInsertID)
-        {
-            this.Connect();
-
-            nInsertID = -1;
-            if (this.IsConnected)
-            {
-                string strQuery = "insert into " + tableName + " (" + strFields + ") values (" + strValues + ")";
+                strQuery = strQuery.Remove(strQuery.Length - 1);
+                strQuery += ")";
                 try
                 {
                     MySqlCommand command = new MySqlCommand(strQuery, this.connection);
@@ -322,10 +339,10 @@ namespace ReshitScheduler
                 }
                 catch (MySqlException e)
                 {
-                    return false;
+                    return nInsertID;
                 }
             }
-            return true;
+            return nInsertID;
         }
 
         public DataTable GetDataTableByQuery(string strQuery)
