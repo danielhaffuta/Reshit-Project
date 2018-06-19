@@ -167,23 +167,31 @@ namespace ReshitScheduler
 
         }
 
-        public bool UpdateTableRow(string strTableName, int nID, string strFields, string strValues)
+        public bool UpdateTableRow(string tableName, int nID, string[] strFields, string[] strValues)
         {
             this.Connect();
-
             if (this.IsConnected)
             {
-                string strQuery = "update " + strTableName + " set ";
-                string[] straFields = strFields.Split(':');
-                string[] straValues = strValues.Split(':');
-                if (straFields.Length != straValues.Length)
-                {
+                if (strValues.Length != strFields.Length)
                     return false;
-                }
-                for (int nCurrentFieldIndex = 0; nCurrentFieldIndex < straFields.Length; nCurrentFieldIndex++)
+                string strQuery = "update " + tableName + " set ";
+                for (int nCurrentFieldIndex = 0; nCurrentFieldIndex < strFields.Length; nCurrentFieldIndex++)
                 {
-                    strQuery += straFields[nCurrentFieldIndex] + " = " + straValues[nCurrentFieldIndex] + ",";
-
+                    if (strValues[nCurrentFieldIndex].Equals(""))
+                    {
+                        continue;
+                    }
+                    int nTest;
+                    Int32.TryParse(strValues[nCurrentFieldIndex], out nTest);
+                    if (nTest != 0 || strValues[nCurrentFieldIndex].Equals("0"))
+                    {
+                        strQuery += strFields[nCurrentFieldIndex] + " = " + strValues[nCurrentFieldIndex] + ",";
+                    }
+                    else
+                    {
+                        strValues[nCurrentFieldIndex] = strValues[nCurrentFieldIndex].Replace("'", "''");
+                        strQuery += strFields[nCurrentFieldIndex] + " = '" + strValues[nCurrentFieldIndex] + "',";
+                    }
                 }
                 strQuery = strQuery.Remove(strQuery.Length - 1);
                 strQuery += " where id = " + nID;
@@ -196,48 +204,8 @@ namespace ReshitScheduler
                 {
                     return false;
                 }
-
             }
-
-            this.Close();
             return true;
-
-        }
-        public bool UpdateTableRow1(string strTableName, int nID, string strFields, string strValues)
-        {
-            this.Connect();
-
-            if (this.IsConnected)
-            {
-                string strQuery = "update " + strTableName + " set ";
-                string[] straFields = strFields.Split(',');
-                string[] straValues = strValues.Split(',');
-                if (straFields.Length != straValues.Length)
-                {
-                    return false;
-                }
-                for (int nCurrentFieldIndex = 0; nCurrentFieldIndex < straFields.Length; nCurrentFieldIndex++)
-                {
-                    strQuery += straFields[nCurrentFieldIndex] + " = " + straValues[nCurrentFieldIndex] + ",";
-
-                }
-                strQuery = strQuery.Remove(strQuery.Length - 1);
-                strQuery += " where id = " + nID;
-                try
-                {
-                    MySqlCommand command = new MySqlCommand(strQuery, this.connection);
-                    command.ExecuteNonQuery();
-                }
-                catch (MySqlException e)
-                {
-                    return false;
-                }
-
-            }
-
-            this.Close();
-            return true;
-
         }
 
         public bool InsertTableRow(DataTable dtTable, GridViewRow gvrRowData)

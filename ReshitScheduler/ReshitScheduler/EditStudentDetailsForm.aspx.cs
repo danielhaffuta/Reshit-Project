@@ -30,7 +30,7 @@ namespace ReshitScheduler
         {
             string[] name = drStudentDetails["name"].ToString().Split(' ');
             student_first_name.Value = name[0];
-            student_last_name.Value = name[1];
+            student_last_name.Value = name[2];
             mother_full_name.Value = drStudentDetails["mother_full_name"].ToString();
             father_full_name.Value = drStudentDetails["father_full_name"].ToString();
             mother_cellphone.Value = drStudentDetails["mother_cellphone"].ToString();
@@ -42,37 +42,38 @@ namespace ReshitScheduler
 
         protected void BtnSave_Click(object sender, EventArgs e)
         {
-            ReplaceApostrophe();
-            string strFields = "first_name: last_name: mother_full_name: father_full_name: " +
-                                                 "mother_cellphone:father_cellphone:" +
-                                                 "home_phone:parents_email:" +
-                                                 "settlement";
-            string strValues = "'" + student_first_name.Value + "':'" + student_last_name.Value + "':'" +
-                                                 mother_full_name.Value + "':'" + father_full_name.Value + "':'" +
-                                                 mother_cellphone.Value + "':'" + father_cellphone.Value + "':'" +
-                                                 home_phone.Value + "':'" + parents_email.Value + "':'" +
-                                                 settlement.Value + "'";
+            string[] strFields = new string[10];
+            strFields[0] = "first_name";
+            strFields[1] = "last_name";
+            strFields[2] = "father_full_name";
+            strFields[3] = "mother_full_name";
+            strFields[4] = "father_cellphone";
+            strFields[5] = "mother_cellphone";
+            strFields[6] = "home_phone";
+            strFields[7] = "parents_email";
+            strFields[8] = "settlement";
+            string[] strValues = new string[10];
+            strValues[0] = student_first_name.Value;
+            strValues[1] = student_last_name.Value;
+            strValues[2] = father_full_name.Value;
+            strValues[3] = mother_full_name.Value;
+            strValues[4] = father_cellphone.Value;
+            strValues[5] = mother_cellphone.Value;
+            strValues[6] = home_phone.Value;
+            strValues[7] = parents_email.Value;
+            strValues[8] = settlement.Value;
             string fileName = string.Empty;
             if (FileUpload1.HasFile)
             {
                 fileName = Path.GetFileName(FileUpload1.PostedFile.FileName);
                 FileUpload1.PostedFile.SaveAs(Server.MapPath("~/pictures/") + fileName);
-                strFields += ":picture_path";
-                strValues += ":'pictures/" + fileName + "'";
+                strFields[9] = "picture_path";
+                strValues[9] = "pictures/" + fileName;
             }
             DBConnection.Instance.UpdateTableRow("students", nStudentID,strFields,strValues);
 
             GoBack();
 
-        }
-
-        private void ReplaceApostrophe()
-        {
-            student_first_name.Value = student_first_name.Value.Replace("'", "''");
-            student_last_name.Value = student_last_name.Value.Replace("'", "''");
-            mother_full_name.Value = mother_full_name.Value.Replace("'", "''");
-            father_full_name.Value = father_full_name.Value.Replace("'", "''");
-            settlement.Value = settlement.Value.Replace("'", "''");
         }
 
         protected void BtnDeleteStudent(object sender, EventArgs e)

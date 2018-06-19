@@ -87,10 +87,10 @@ namespace ReshitScheduler
             int nEvaluationID;
             if (int.TryParse(gvrChangedRow.Cells[3].Text, out nEvaluationID))
             {
+                string[] strFields = { "evaluation" };
+                string[] strValues = { (gvrChangedRow.Cells[1].Controls[1] as TextBox).Text };
                 DBConnection.Instance.UpdateTableRow(IsGroup ? "groups_evaluations" : "courses_evaluations",
-                                           nEvaluationID,
-                                          "evaluation",
-                                          "'" + (gvrChangedRow.Cells[1].Controls[1] as TextBox).Text.Replace("'", "''") + "'");
+                                           nEvaluationID,strFields, strValues);
             }
             else
             {

@@ -14,8 +14,7 @@ namespace ReshitScheduler
         private DataTable dtTeachers;
         private DataTable dtClasses;
         private DataTable dtGrades;
-        private bool EducatorChanged = false;
-        private bool bClassDeleted = false;
+        private static bool EducatorChanged = false;
         private static int nCurrentEducatorID;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -101,7 +100,9 @@ namespace ReshitScheduler
                 if (newTecherType.Equals("מורה") || newTecherType.Equals("מורה לחינוך מיוחד"))
                 {
                     string educatorType = DBConnection.Instance.GetStringByQuery("select id from teacher_types where teacher_type_name = 'מחנך'");
-                    bool bUpdateTypeSucceeded = DBConnection.Instance.UpdateTableRow("teachers", nNewEducatorID, "teacher_type_id", educatorType);
+                    string[] strField = { "teacher_type_id" };
+                    string[] strValue = { educatorType };
+                    bool bUpdateTypeSucceeded = DBConnection.Instance.UpdateTableRow("teachers", nNewEducatorID, strField, strValue);
                     if (!bUpdateTypeSucceeded)
                     {
                         Helper.ShowMessage(ClientScript, "error saving");
@@ -114,11 +115,9 @@ namespace ReshitScheduler
                     DBConnection.Instance.UptadeTableCol("groups", "teacher_id", Convert.ToString(nCurrentEducatorID), Convert.ToString(nNewEducatorID));
                 }
             }
-            string strFields = "grade_id:class_number:teacher_id";
-            string strValues = ddlGrades.SelectedValue + ":'" +
-                               ClassNum.Text + "':" +
-                               ddlTeachers.SelectedValue;
-
+            string[] strFields = { "grade_id","class_number","teacher_id"};
+            string[] strValues = { ddlGrades.SelectedValue, ClassNum.Text, ddlTeachers.SelectedValue };
+            
             bool bUpdateSucceeded = DBConnection.Instance.UpdateTableRow("classes", nClassID, strFields, strValues);
             if (!bUpdateSucceeded)
             {
@@ -139,7 +138,6 @@ namespace ReshitScheduler
 
         private void DeleteClass()
         {
-            bClassDeleted = true;
             string strDeleteQuery = "delete from classes where id = " + nClassID +
                          " and teacher_id in(select id from teachers where year_id = " + DBConnection.Instance.GetCurrentYearID() + ");";
             DBConnection.Instance.ExecuteNonQuery(strDeleteQuery);
@@ -149,14 +147,11 @@ namespace ReshitScheduler
 
         private void ResetClassDetails()
         {
-            if (bClassDeleted)
-            {
-                dtClasses = DBConnection.Instance.GetThisYearClasses();
-                ddlClasses.DataSource = dtClasses;
-                ddlClasses.DataValueField = "class_id";
-                ddlClasses.DataTextField = "name";
-                ddlClasses.DataBind();
-            }
+            dtClasses = DBConnection.Instance.GetThisYearClasses();
+            ddlClasses.DataSource = dtClasses;
+            ddlClasses.DataValueField = "class_id";
+            ddlClasses.DataTextField = "name";
+            ddlClasses.DataBind();
             ddlClasses.SelectedIndex = 0;
             nClassID = Convert.ToInt32(ddlClasses.SelectedValue);
             FillClassDetails();

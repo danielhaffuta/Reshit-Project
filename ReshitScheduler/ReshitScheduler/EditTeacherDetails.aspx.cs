@@ -15,7 +15,6 @@ namespace ReshitScheduler
         private DataTable dtClasses;
         private DataTable dtTeachersAccesses;
         private int nTeacherID;
-        private bool bTeacherDeleted = false;
         protected void Page_Load(object sender, EventArgs e)
         {
             dtTeachers = DBConnection.Instance.GetAllThisYearTeachers();
@@ -113,14 +112,9 @@ namespace ReshitScheduler
 
         protected void BtnUpdateTeacher_Click(object sender, EventArgs e)
         {
-            ReplaceApostrophe();
-            string strFields = "first_name:last_name:teacher_type_id:user_name:password:year_id";
-            string strValues = "'" + txtTeacherFirstName.Text + "':'" +
-                               txtTeacherLastName.Text + "':" +
-                               ddlTeacherTypes.SelectedValue + ":'" +
-                               txtUserName.Text + "':'" +
-                               txtPassword.Text + "':" +
-                               "(select value from preferences where name = 'current_year_id')";
+            string[] strFields = { "first_name","last_name","teacher_type_id","user_name","password"};
+            string[] strValues = { txtTeacherFirstName.Text, txtTeacherLastName.Text, ddlTeacherTypes.SelectedValue, 
+                               txtUserName.Text, txtPassword.Text};
 
             bool bUpdateSucceeded = DBConnection.Instance.UpdateTableRow("teachers", nTeacherID, strFields, strValues);
             if (!bUpdateSucceeded)
@@ -152,14 +146,7 @@ namespace ReshitScheduler
             ResetTeacherDetails();
 
         }
-
-        private void ReplaceApostrophe()
-        {
-            txtTeacherFirstName.Text = txtTeacherFirstName.Text.Replace("'", "''");
-            txtTeacherLastName.Text = txtTeacherLastName.Text.Replace("'", "''");
-            txtUserName.Text = txtUserName.Text.Replace("'", "''");
-            txtPassword.Text = txtPassword.Text.Replace("'", "''");
-        }
+        
 
         protected void BtnDeleteTeacher(object sender, EventArgs e)
         {
@@ -187,7 +174,6 @@ namespace ReshitScheduler
             string strDeleteQuery = " delete from teachers where id = " + nTeacherID + " and year_id = " + nCurrentYearID + ";";
             DBConnection.Instance.ExecuteNonQuery(strDeleteQuery);
             Helper.ShowMessage(ClientScript, "מורה נמחק");
-            bTeacherDeleted = true;
             ResetTeacherDetails();
         }
 
@@ -210,14 +196,11 @@ namespace ReshitScheduler
 
         private void ResetTeacherDetails()
         {
-            if(bTeacherDeleted)
-            {
-                dtTeachers = DBConnection.Instance.GetAllThisYearTeachers();
-                ddlTeachers.DataSource = dtTeachers;
-                ddlTeachers.DataValueField = "id";
-                ddlTeachers.DataTextField = "name";
-                ddlTeachers.DataBind();
-            }
+            dtTeachers = DBConnection.Instance.GetAllThisYearTeachers();
+            ddlTeachers.DataSource = dtTeachers;
+            ddlTeachers.DataValueField = "id";
+            ddlTeachers.DataTextField = "name";
+            ddlTeachers.DataBind();
             ddlTeachers.SelectedIndex = 0;
             nTeacherID = Convert.ToInt32(ddlTeachers.SelectedValue);
             FillTeacherDetails();

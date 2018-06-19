@@ -96,23 +96,23 @@ namespace ReshitScheduler
 
         protected void BtnSaveBellSystem_Click(object sender, EventArgs e)
         {
-            string fields = "start_time,finish_time,is_break";
-            string values;
+            string[] strFields = { "start_time","finish_time","is_break" };
+            string[] strValues = new string[3];
             int nHourID;
             foreach (GridViewRow grCurrentRow in gvHours.Rows)
             {
                 int.TryParse(grCurrentRow.Cells[5].Text, out nHourID);
-                values = "'" + ((TextBox)grCurrentRow.Cells[1].FindControl("tblStartTime")).Text + "'," +
-                         "'" + ((TextBox)grCurrentRow.Cells[2].FindControl("tblFinishTime")).Text + "',";
+                strValues[0] = ((TextBox)grCurrentRow.Cells[1].FindControl("tblStartTime")).Text;
+                strValues[1] = ((TextBox)grCurrentRow.Cells[2].FindControl("tblFinishTime")).Text;
                 if (((CheckBox)grCurrentRow.FindControl("CheckIfBreak")).Checked)
                 {
-                    values += "1";
+                    strValues[2] = "1";
                 }
                 else
                 {
-                    values += "0";
+                    strValues[2] = "0";
                 }
-                bool bInsertSucceeded = DBConnection.Instance.UpdateTableRow1("hours_in_day", nHourID, fields, values);
+                bool bInsertSucceeded = DBConnection.Instance.UpdateTableRow("hours_in_day", nHourID, strFields, strValues);
                 if (!bInsertSucceeded)
                 {
                     Helper.ShowMessage(ClientScript, "error saving bell system");

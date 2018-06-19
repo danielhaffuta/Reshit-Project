@@ -79,10 +79,11 @@ namespace ReshitScheduler
             }
             else
             {
+                string[] strFields = { IsGroup ? "group_id" : "course_id", "evaluation", "student_id" };
+                string[] strValues = { strLessonID, txtEvaluation.Text, strStudentID };
                 DBConnection.Instance.UpdateTableRow(IsGroup ? "groups_evaluations" : "courses_evaluations",
                                                      Convert.ToInt32(dtEvaluationDetails.Rows[0]["id"]),
-                                                    "evaluation:student_id:" + (IsGroup ? "group_id" : "course_id"),
-                                                    "'" + txtEvaluation.Text.Replace("'", "''") + "':" + strStudentID + ":" + strLessonID);
+                                                    strFields, strValues);
             }
             GoBack();
         }

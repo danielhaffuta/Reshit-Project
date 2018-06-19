@@ -14,7 +14,6 @@ namespace ReshitScheduler
         private DataTable dtCourses;
         private DataTable dtGroups;
         protected bool IsGroup;
-        private bool bLessonDeleted = false;
         private int nLessonID;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -100,29 +99,31 @@ namespace ReshitScheduler
 
         protected void BtnUpdateLesson_Click(object sender, EventArgs e)
         {
-            string strFields = "";
-            string strValues = "'"+ CourseName.Text + "':" +
-                               ddlTeachers.SelectedValue;
             string tableName = "";
+            string fieldName = "";
+            string[] strValues = new string[3];
+            strValues[0] = CourseName.Text;
+            strValues[1] = ddlTeachers.SelectedValue;
+
             if (IsGroup)
             {
                 tableName = "groups";
-                strFields = "group_name:teacher_id:has_evaluation";
+                fieldName = "group_name";
             }
             else
             {
                 tableName = "courses";
-                strFields = "course_name:teacher_id:has_evaluation";
+                fieldName = "course_name";
             }
             if (HasEvaluation.Checked)
             {
-                strValues += ":0";
+                strValues[2] = "0";
             }
             if (NotHaveEvaluation.Checked)
             {
-                strValues += ":1";
+                strValues[2] = "1";
             }
-
+            string[] strFields = { fieldName, "teacher_id", "has_evaluation" };
 
             bool bUpdateSucceeded = DBConnection.Instance.UpdateTableRow(tableName, nLessonID, strFields, strValues);
             if (!bUpdateSucceeded)
@@ -192,7 +193,6 @@ namespace ReshitScheduler
             
             DBConnection.Instance.ExecuteNonQuery(strDeleteQuery);
             Helper.ShowMessage(ClientScript, "נמחק");
-            bLessonDeleted = true;
             ResetLessonDetails();
         }
         protected void BtnBack_Click(object sender, EventArgs e)
@@ -206,24 +206,21 @@ namespace ReshitScheduler
 
         private void ResetLessonDetails()
         {
-            if (bLessonDeleted)
+            if (IsGroup)
             {
-                if (IsGroup)
-                {
-                    dtGroups = DBConnection.Instance.GetThisYearGroups();
-                    ddlLessons.DataSource = dtGroups;
-                    ddlLessons.DataValueField = "group_id";
-                }
-                else
-                {
-                    dtCourses = DBConnection.Instance.GetThisYearCourses();
-                    ddlLessons.DataSource = dtCourses;
-                    ddlLessons.DataValueField = "course_id";
-                }
-                ddlLessons.DataTextField = "name";
-                ddlLessons.AutoPostBack = true;
-                ddlLessons.DataBind();
+                dtGroups = DBConnection.Instance.GetThisYearGroups();
+                ddlLessons.DataSource = dtGroups;
+                ddlLessons.DataValueField = "group_id";
             }
+            else
+            {
+                dtCourses = DBConnection.Instance.GetThisYearCourses();
+                ddlLessons.DataSource = dtCourses;
+                ddlLessons.DataValueField = "course_id";
+            }
+            ddlLessons.DataTextField = "name";
+            ddlLessons.AutoPostBack = true;
+            ddlLessons.DataBind();
             ddlLessons.SelectedIndex = 0;
             nLessonID = Convert.ToInt32(ddlLessons.SelectedValue);
             FillLessonDetails();
